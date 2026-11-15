@@ -143,7 +143,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
+  "clause_digest": "6b09a2a2e5bfc710eae0be77a952232cccb48a25b45a2b5b66fe48a85006dcb7",
   "clause_key": "E2-4_09",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染测量方法描述",
@@ -503,9 +503,10 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "读取空气、水体、土壤污染的测量、监测、计算或估算方法原文，包括土壤/地下水背景调查、自行监测、在线监测、排放因子或物料衡算等实际做法。无需出现数值或特定化学物质名称。",
+      "读取空气、水体、土壤污染的测量、监测、监察、计算或估算方法原文，包括土壤/地下水背景调查、自行监测、在线监测、排放因子或物料衡算等实际做法。无需出现数值或特定化学物质名称。",
       "选择完整而相关的句子或段落，保留原文；供应商质量测试系统分析、一般培训、仅标题不属于污染测量方法。缺少主体、期间等信息时留待确认，不编造。",
-      "供应商环境筛选清单不等于实际污染测量方法；只列出空气排放监测与管理等话题的条目不是方法说明。所选原句必须描述实际怎样监测、测量、计算或估算。"
+      "供应商环境筛选清单不等于实际污染测量方法；只列出空气排放监测与管理等话题的条目不是方法说明。所选原句必须描述实际怎样监测、测量、计算或估算。",
+      "只声明数据最准确、最有代表性、经过重述或更能反映实际排放，并未说明怎样监测、测量或计算的原句，不是测量方法。若同一完整原句实际给出方法、采样检测或仪器做法，则按该做法判断。"
     ],
     "operator": "statement",
     "rules": [
@@ -536,7 +537,9 @@
           "calculat",
           "emission factor",
           "mass balance",
-          "methodolog"
+          "methodolog",
+          "监察",
+          "监控"
         ],
         "unless_terms": []
       },
@@ -591,6 +594,21 @@
           "re:^\\s*供应商.{0,12}(?:筛选|准入|评估)(?:标准|准则|条件|清单)"
         ],
         "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "statement_only_rates_measurement_accuracy",
+        "rule": "forbid_any_unless",
+        "scope": "text",
+        "terms": [
+          "re:(?:most\\s+accurate|accurate\\s+and\\s+reflective)\\s+measurements?"
+        ],
+        "unless_terms": [
+          "re:(?:\\bmethods?\\b|\\bmonitor\\w*\\b|\\bcalculat\\w*\\b|\\bsampl\\w*\\b|\\btest\\w*\\b|\\busing\\b|\\bmeasur\\w*\\s+(?:by|with)\\b|监测|采样|检测|仪器|计算|因子)"
+        ]
       }
     ],
     "schema_version": "clause-reading-1.1",
@@ -620,7 +638,9 @@
         "calculat",
         "emission factor",
         "mass balance",
-        "methodolog"
+        "methodolog",
+        "监察",
+        "监控"
       ],
       "other_member": [
         "其他",
@@ -717,7 +737,9 @@
       "空气排放",
       "空气污染",
       "空气污染排放",
-      "计算方法"
+      "计算方法",
+      "污染监测",
+      "持续监察"
     ],
     "required_term_groups": [
       [
@@ -750,7 +772,8 @@
         "estimation",
         "calculation",
         "methodology",
-        "emission factor"
+        "emission factor",
+        "监察"
       ]
     ],
     "role_term_groups": [],
@@ -809,8 +832,12 @@
         "测量方法",
         "监测方法",
         "直接测量",
-        "计算方法"
+        "计算方法",
+        "持续监察"
       ]
+    ],
+    "vocabulary_refs": [
+      "method_terms"
     ]
   },
   "schema_version": "clause-contract-1.4",

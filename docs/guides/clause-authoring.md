@@ -29,7 +29,7 @@ Path("clause-draft.json").write_text(draft.model_dump_json(indent=2), encoding="
 | ID/名字/定义 | ID稳定唯一，labels短而清楚；definition写核心测量或陈述 |
 | 类型和值 | 只有quantitative/qualitative；量/比例/强度/区间均是定量，定性保留原文 |
 | 概念边界 | distinguish_from/exclusions明确总量/分项、实际/目标、消费/强度等区别 |
-| attributes | 每属性定义一次，含读取说明、分类词典、context_terms及local/report层级 |
+| attributes | 每属性定义一次，含读取说明、分类词典、context_terms及local/report层级。必要的value_pattern只约束本属性值，按结构化值的每个字符串叶子验证 |
 | retrieval | 报告实际可能出现的中英文别名/词组、表/文优先级；vocabulary_refs引用本条已有词表 |
 | reading | 说明选哪些实际行列/句子；规则和词典跟随单条，不要求模型生成量值 |
 | purposes | capture.period_policy为all_reported；enrichment尽量取属性；target_scope判断目标冲突；comparison表达后续可比性 |
@@ -39,7 +39,9 @@ Path("clause-draft.json").write_text(draft.model_dump_json(indent=2), encoding="
 
 阅读指令示例：“读取所有已披露期间的能源消费原值，分主体、场址和方法分别保留；没有单位或主体时留未知；不求和、不填零、不按报告主年份过滤。”
 
-补读词要指向该字段真正相关的说明。统计主体/业务/场址通常使用local；明确的报告统计边界可以允许report。空context_terms只使用直接证据；局部行列标题和脚注本来就是证据，不必补一组泛用词。缺属性不阻止原值保存。
+补读词要指向该字段真正相关的说明。统计主体/业务/场址通常使用local；明确的报告统计边界可以允许report。空context_terms只使用直接证据；局部行列标题和脚注本来就是证据，不必补一组泛用词。缺属性不阻止原值保存。用于目标关系判定的分类属性需有明确的代码及证据别名词表；需要补读的字段同时列入purposes.enrichment.identity_axes，避免只定义而未消费。实际/目标混合表逐列回读原文，未来年份本身不能充当目标证据。
+
+报告检索段落只向匹配其context_terms的属性开放。局部标号脚注需要本行、列或标题的引用。若目标声明位于报告其他位置，可为value_role明确允许report，其引文同时证明本事实原值及期间。范围词组这类有具体文本形状的属性可用value_pattern排除单独年份，其他未声明字段继续支持原有JSON类型。约束拒绝只使该属性保持未知，原始提议保留在诊断中。
 
 现行声明不使用reading.options驱动执行。新行为必须有明确消费者：条款语义在单条声明，通用执行能力在所属模块实现；不能添加一个没人读的JSON开关就算完成。
 

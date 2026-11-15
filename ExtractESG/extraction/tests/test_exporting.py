@@ -6,10 +6,9 @@ import pytest
 from esg_contracts.facts import RunRequest
 from esg_extraction.pipeline.state import RunStore
 from esg_extraction.pipeline.exporting import seal_export, export_archive, json_bytes
-from esg_extraction.pipeline.engine import ExtractionBackbone
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_database.ingestion import decode_archive
-from test_backbone import repository, documents, Model, quantitative
+from test_backbone import repository, documents, Model, quantitative, run_backbone
 
 
 def finished_export(tmp_path, documents, repository):
@@ -17,7 +16,7 @@ def finished_export(tmp_path, documents, repository):
     store=RunStore(tmp_path/'runs.sqlite');artifacts=FileArtifactPort(tmp_path/'artifacts')
     request=RunRequest(ir_run_id='ir-example',clause_keys=[clause.clause_key])
     run=store.create(request,repository.freeze({clause.clause_key:clause}),documents.document('ir-example').model_dump(mode='json'))
-    ExtractionBackbone(documents,Model(),artifacts).run(run['run_id'],request,{clause.clause_key:clause})
+    run_backbone(documents,Model(),artifacts,run['run_id'],request,{clause.clause_key:clause})
     store.update(run['run_id'],status='completed')
     manifest=seal_export(run['run_id'],store,artifacts)
     return run['run_id'],store,artifacts,manifest
@@ -30,7 +29,8 @@ def test_sealed_export_survives_producer_independent_reception(tmp_path,document
     assert payload['manifest']['export_id']==manifest.export_id
     assert len(payload['facts'])==3 and not payload['rejected']
     assert any(row['fact']['identity']['reporting_period']['value']=='2024' and row['fact']['value']['value_raw']=='1,100' for row in payload['facts'])
-    assert manifest.authority=='facts' and manifest.schema_version=='extraction-export-1.1'
+    from esg_contracts.exports import EXPORT_VERSION
+    assert manifest.authority=='facts' and manifest.schema_version==EXPORT_VERSION
     assert any(row['fact']['value']['value_raw']=='1,234.50' for row in payload['facts'])
     assert all(row['fact']['identity']['reporting_entity']['value'] is None for row in payload['facts'])
     assert payload['manifest']['publication_status']=='not_evaluated'

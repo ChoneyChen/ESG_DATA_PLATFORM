@@ -2,18 +2,19 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from .normalize import fold
 
 
 # Clause contracts declare the expected unit dimension. This catalogue is
 # deliberately clause-agnostic and only recognises units visible in evidence.
 CO2E_TOKEN = (
-    r"(?:CO\s*(?:2|₂|[_^]\s*\{*\s*(?:2|₂)\s*\}*)\s*(?:e|eq)|"
-    r"CO2[- ]?eq(?:uivalent)?)"
+    r"(?:CO\s*(?:2|₂|[_^]\s*\{*\s*(?:2|₂)\s*\}*)\s*(?:eq(?:uivalent)?|e)|"
+    r"CO2[- ]?eq(?:uivalent)?|carbon\s+dioxide\s+equivalent)"
 )
 GHG_FORMULA_RE = re.compile(CO2E_TOKEN, re.IGNORECASE)
 GHG_UNIT = (
     rf"(?:(?:Mt|kt|t|kg|g|吨|噸|千克|公斤|克)\s*\$?\s*{CO2E_TOKEN}\s*\$?|"
-    rf"(?:metric\s*)?(?:tonnes?|tons?|kilograms?)\s*{CO2E_TOKEN}|"
+    rf"(?:metric\s*)?(?:tonnes?|tons?|kilograms?|grams?)\s*(?:of\s+)?{CO2E_TOKEN}|"
     rf"(?:百万|百萬|千)\s*(?:吨|噸)?\s*\$?\s*t?\s*{CO2E_TOKEN}\s*\$?|"
     r"(?:百万吨|百萬噸|千吨|千噸|吨|噸|千克|公斤|克)\s*二氧化碳(?:当量|當量))"
 )
@@ -36,8 +37,9 @@ DENOMINATOR = (
     r"(?:收入|营收|營收|净收入|人民币|美元|欧元|英镑|日元|港元|元|"
     r"CNY|RMB|USD|EUR|GBP|JPY|HKD|monetary\s+unit|net\s+revenue)"
 )
-SCALE_PREFIX = r"(?:(?:ten\s*thousand|hundred|thousand|million|billion|十亿|百万|千万|十万|千|万|亿)\s*)?"
-VOLUME_UNIT = r"(?:litres?|liters?|gallons?|cubic\s*met(?:er|re)s?|m³|m3|立方米|升)"
+NUMERIC_SCALE = r"(?:10{3,9}|(?:1|10|100)(?:[,，]000)+)"
+SCALE_PREFIX = rf"(?:(?:{NUMERIC_SCALE}|ten\s*thousand|hundred|thousand|million|billion|十亿|百万|千万|十万|千|万|亿)\s*)?"
+VOLUME_UNIT = r"(?:megalitres?|megaliters?|litres?|liters?|gallons?|cubic\s*met(?:er|re)s?|m³|m3|立方米|升)"
 COUNT_UNIT = r"(?:headcounts?|persons?|people|employees?|units?|人|名|件|个|次|起)"
 TIME_UNIT = r"(?:hours?|hrs?|days?|minutes?|mins?|seconds?|secs?|小时|分钟|秒|天)"
 PRINTED_UNIT = rf"{SCALE_PREFIX}(?:{GHG_UNIT}|{ENERGY_UNIT}|{MASS_UNIT}|{VOLUME_UNIT}|{COUNT_UNIT}|{TIME_UNIT}|{CURRENCY_UNIT})"
@@ -57,7 +59,22 @@ UNIT_ONLY_RE = re.compile(rf"^(?:{UNIT_PATTERN})$", re.IGNORECASE)
 
 def is_unit_expression(raw: str | None) -> bool:
     """Recognise printed units without replacing their wording or scale."""
-    return bool(raw and (canonical_unit_id(raw) or UNIT_ONLY_RE.fullmatch(normalize_unit_text(raw))))
+    if not raw:
+        return False
+    printed = fold(unicodedata.normalize("NFKC", raw)).strip()
+    if (canonical_unit_id(raw) or UNIT_ONLY_RE.fullmatch(printed)
+        or UNIT_ONLY_RE.fullmatch(normalize_unit_text(raw))):
+        return True
+    # Some bilingual unit cells print both names without a separator. Both
+    # sides must independently name the same unit family and scale.
+    from .quantities import unit_scale
+    first = re.sub(r"[一-鿿]", "", printed).strip()
+    second = "".join(re.findall(r"[一-鿿]", printed))
+    if (first and second and UNIT_ONLY_RE.fullmatch(first) and UNIT_ONLY_RE.fullmatch(second)
+        and unit_scale(first) is not None and unit_scale(first) == unit_scale(second)):
+        return True
+    return False
+
 
 
 _EXACT_UNIT_IDS = {
@@ -177,7 +194,7 @@ UNIT_DIMENSION_TERMS = {
 def normalize_unit_text(raw: str | None) -> str:
     if not raw:
         return ""
-    normalized = unicodedata.normalize("NFKC", raw).casefold()
+    normalized = fold(unicodedata.normalize("NFKC", raw))
     normalized = (
         normalized.replace("噸", "吨")
         .replace("當", "当")

@@ -7,7 +7,8 @@ from esg_clauses.scope import make_scope
 from esg_data.hashing import digest
 from esg_contracts.facts import QuantitativePayload,QualitativePayload,RunRequest,PipelineBudget
 from esg_contracts.evidence import SearchIntent
-from esg_extraction.pipeline.engine import ExtractionBackbone
+from esg_extraction.pipeline.engine import ExtractionBackbone, ExecutionYield
+from esg_extraction.pipeline.result_store import ResultStore
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_document.document.evidence_service import DocumentEvidenceService
 ROOT=Path(__file__).resolve().parents[3]
@@ -37,13 +38,27 @@ class Model:
     def __init__(self):self.calls=[]
     def complete(self,**kwargs):
         self.calls.append(kwargs)
+        if 'facts' in kwargs['context']:
+            return {'assignments':[]},{}
         frame=kwargs['context']['frame'];target=kwargs['context']['target']
         if target['data_kind']=='qualitative':
             spans=[t for t in frame['texts'] if '管理制度' in t['text']]
-            return {'matches':[{'span_id':t['span_id'],'reason':'direct disclosure'} for t in spans]},{}
-        return {'matches':[{'selection':'measurement','row_id':r['row_id'],'columns':['c1'],'reason':'source cell','identity':[{'bad':'optional metadata'}]}
+            return {'matches':[{'span_id':t['span_id']} for t in spans]},{}
+        return {'matches':[{'row_id':r['row_id'],'columns':['c1']}
                            for r in frame['rows'] if any(c['column_id']=='c1' for c in r['cells'])]},{}
     def close(self):pass
+
+
+def run_backbone(documents, model, artifacts, run_id, request, clauses, **kwargs):
+    results = ResultStore(run_id, artifacts)
+    for _ in range(100):
+        try:
+            return ExtractionBackbone(documents, model, artifacts, results).run(
+                run_id, request, clauses, **kwargs
+            )
+        except ExecutionYield:
+            pass
+    raise AssertionError('Backbone did not finish within 100 saved execution slices')
 
 def quantitative(repository,key='E1-5_01'):
     clause=repository.get(key)
@@ -75,30 +90,45 @@ def test_both_kinds_share_one_backbone(documents,repository,tmp_path):
     assert a.data_kind=='qualitative'
     a=a.model_copy(update={'retrieval':a.retrieval.model_copy(update={'positive_terms':['管理制度']}),'reading':a.reading.model_copy(update={'rules':[]}),
         'output_scopes':[make_scope('陈述')]}).seal()
-    result=ExtractionBackbone(documents,model,artifacts).run('test-run',RunRequest(ir_run_id='ir-example',clause_keys=[q.clause_key,a.clause_key]),{q.clause_key:q,a.clause_key:a})
+    result=run_backbone(documents,model,artifacts,'test-run',RunRequest(ir_run_id='ir-example',clause_keys=[q.clause_key,a.clause_key]),{q.clause_key:q,a.clause_key:a})
     assert result['summary']['quantitative']>=2
     assert result['summary']['qualitative']==1
     values=[f['value'] for f in result['facts']]
     assert any(v.get('value_raw')=='1,234.50' and v['value_numeric']=='1234.50' for v in values)
     assert any(v.get('value_raw')=='约十三万吨' and v['parse_status']=='unparsed' for v in values)
-    assert result['facts'][0]['flags'] # Malformed optional identity does not discard the value.
+    # Optional malformed claims still cannot discard a referenced raw value;
+    # primary model reads now emit only the narrow row/column protocol.
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    candidate=documents.search('ir-example',SearchIntent(target_id=q.clause_key,contract_digest=q.clause_digest,data_kind='quantitative',positive_terms=['能源']))[0]
+    physical=documents.read('ir-example',candidate)
+    row=next(row for row in physical.rows if any(cell.raw_text=='1,234.50' for cell in row.cells))
+    cell=next(cell for cell in row.cells if cell.raw_text=='1,234.50')
+    malformed=NumericMatch(row_id=row.row_id,columns=[cell.column_id],identity=[{'bad':'optional metadata'}])
+    fact,_,_=numeric_fact(q,documents.document('ir-example'),physical,malformed,row,cell,'test-identity')
+    assert fact.value.value_raw=='1,234.50' and fact.flags
     assert artifacts.read('test-run','results/facts.json')==result
     for call in model.calls:
-        assert call['context']['target']['clause_digest']
-        assert call['context']['frame']
+        if 'frame' in call['context']:
+            assert call['context']['target']['clause_digest']
+        else:
+            assert call['context']['target']['clause_key'] in {q.clause_key,a.clause_key}
+        assert call['context'].get('frame') or call['context'].get('facts')
 
 def test_no_cross_clause_or_cross_run_model_cache(documents,repository,tmp_path):
-    model=Model();engine=ExtractionBackbone(documents,model,FileArtifactPort(tmp_path/'out'))
-    c=quantitative(repository);other=c.model_copy(update={'clause_key':'TEST_02'}).seal()
+    model=Model();artifacts=FileArtifactPort(tmp_path/'out')
+    c=quantitative(repository)
+    c=c.model_copy(update={'purposes':c.purposes.model_copy(update={'enrichment':c.purposes.enrichment.model_copy(update={'identity_axes':[]})})}).seal()
+    other=c.model_copy(update={'clause_key':'TEST_02'}).seal()
     req=RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key,other.clause_key])
-    engine.run('one',req,{c.clause_key:c,other.clause_key:other});n=len(model.calls)
+    run_backbone(documents,model,artifacts,'one',req,{c.clause_key:c,other.clause_key:other});n=len(model.calls)
     assert n==2
-    engine.run('two',req,{c.clause_key:c,other.clause_key:other})
+    run_backbone(documents,model,artifacts,'two',req,{c.clause_key:c,other.clause_key:other})
     assert len(model.calls)==2*n
 
 def test_budget_exhaustion_is_not_non_disclosure(documents,repository,tmp_path):
     c=quantitative(repository);other=c.model_copy(update={'clause_key':'TEST_02'}).seal()
-    result=ExtractionBackbone(documents,Model(),FileArtifactPort(tmp_path/'out')).run('limited',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key,other.clause_key],budget=PipelineBudget(max_model_calls=1)),{c.clause_key:c,other.clause_key:other})
+    result=run_backbone(documents,Model(),FileArtifactPort(tmp_path/'out'),'limited',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key,other.clause_key],budget=PipelineBudget(max_model_calls=1)),{c.clause_key:c,other.clause_key:other})
     assert result['coverage'][1]['state']=='not_covered'
     assert 'execution_budget_exhausted' in result['coverage'][1]['reasons']
 

@@ -41,6 +41,7 @@ class NumericMatch(DecisionModel):
     selection: Literal["measurement", "nonmeasurement", "unresolved"] = "measurement"
     identity: IdentityClaims = Field(default_factory=list)
     column_identity: dict[str, IdentityClaims] = Field(default_factory=dict)
+    unit_source_id: str | None = None
 
     @model_validator(mode="after")
     def coherent_measurement_relation(self):
@@ -87,7 +88,7 @@ def decision_schema(data_kind, frame):
     if data_kind == "quantitative":
         # Numerical reading selects physical cells. The shared context reader
         # supplies optional attributes afterwards, once for the captured facts.
-        return {
+        schema = {
             "type": "object", "additionalProperties": False,
             "properties": {"matches": {"type": "array", "items": {
                 "type": "object", "additionalProperties": False,
@@ -99,6 +100,12 @@ def decision_schema(data_kind, frame):
                 }, "required": ["row_id", "columns"],
             }}}, "required": ["matches"],
         }
+        from .reading_frame import printed_unit_sources
+        units = printed_unit_sources(frame)
+        if units:
+            schema["properties"]["matches"]["items"]["properties"]["unit_source_id"] = {
+                "type":"string","enum":list(units)}
+        return schema
     return {
         "type": "object", "additionalProperties": False,
         "properties": {"matches": {"type": "array", "items": {

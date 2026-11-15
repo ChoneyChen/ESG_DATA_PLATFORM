@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "0e3443afb40be3070b431e1350f4533a2863db341c7c1bd9861dbe95d0f368fe",
+  "clause_digest": "77e41fe0089dba50d0daef759a3a5dd78bbf23cff097b8ab36b41eda52b0209d",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",
@@ -649,7 +649,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "范围1温室气体排放总量"
+      "范围1温室气体排放总量",
+      "Direct emissions / Indirect emissions 等简短行名只有在实际 CO2 当量单位、温室气体表头或适用脚注明确支持时才按对应范围读取；保留全部披露期间。单有直接/间接排放字样不证明其为温室气体排放。"
     ],
     "operator": "ghg_scope",
     "rules": [
@@ -689,6 +690,20 @@
         "scope": "text",
         "terms": [
           "re:(?:gri\\s*\\d{1,3}|disclosure\\s*\\d{2,3}|指标\\s*\\d{3}|esrs\\s+[a-z]\\d|实质性议题|一般披露|关键绩效指标\\s*[a-z]?\\d|层面\\s*[a-z]\\d|(?:^|[\\s（(])\\d{1,3}[-–]\\d{1,2}(?![\\d.%])(?!\\s*(?:岁|年|月|日|吨|噸|人|小时|小時|万元|%|％)))"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "emissions_not_identified_as_ghg",
+        "rule": "require_any",
+        "scope": "all",
+        "terms": [
+          "re:(?:温室气体|溫室氣體|\\bghg\\b|greenhouse|碳排放|二氧化碳|\\bco\\s*[2₂]|carbon\\s+emission)",
+          "re:(?:范围|範圍|范畴|範疇)\\s*[一二三123]|\\bscope\\s*(?:[123]|i{1,3})\\b"
         ],
         "unless_terms": []
       },
@@ -787,10 +802,10 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "scope1": [
-        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"
+        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|\\bdirect\\s+(?:(?:ghg|greenhouse\\s+gas)\\s+)?emission)"
       ],
       "scope2": [
-        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:ghg\\s+)?emission)"
+        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:(?:ghg|greenhouse\\s+gas)\\s+)?emission)"
       ],
       "scope3": [
         "re:(?:范围\\s*[三3](?![0-9])|范畴\\s*[三3]|scope\\s*3(?![0-9])|scope\\s*iii\\b|其他间接|other\\s+indirect|价值链排放|value\\s+chain\\s+emission)"
@@ -909,7 +924,12 @@
       "范围一GHG排放",
       "范畴1",
       "范畴一",
-      "范畴一温室气体排放"
+      "范畴一温室气体排放",
+      "Direct emissions",
+      "direct greenhouse gas emissions",
+      "直接排放",
+      "直接排放量",
+      "直接溫室氣體排放量"
     ],
     "required_term_groups": [],
     "role_term_groups": [
@@ -928,7 +948,12 @@
         "范围1排放",
         "范围一",
         "范畴1",
-        "范畴一"
+        "范畴一",
+        "Direct emissions",
+        "direct greenhouse gas emissions",
+        "直接排放",
+        "直接排放量",
+        "直接溫室氣體排放量"
       ]
     ],
     "source_priority": [

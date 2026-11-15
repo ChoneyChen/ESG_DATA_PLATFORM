@@ -24,14 +24,16 @@ def test_new_clause_has_one_structure_and_stays_blocked_until_explicitly_complet
         body=response.json();clause=ClauseContract.model_validate(body).verify()
         assert clause.readiness=='blocked' and clause.organization
         assert repo.catalog()['clauses']==[] # Generating/validating never saves it.
-        valid=client.post('/api/clauses/validate',json=body)
-        assert valid.status_code==200 and valid.json()['scientific_acceptance'] is False
+        assert clause.blocking_reasons and clause.verify()==clause
         saved=client.put('/api/clauses/CUSTOM_01',json={'clause':body})
         assert saved.status_code==200
         assert repo.get('CUSTOM_01')==clause
         assert 'path' not in client.get('/api/clauses').json()['clauses'][0]
         assert client.get('/api/clause-groups').json()['groups'][0]['group_id']=='CUSTOM'
         with pytest.raises(ClauseRepositoryError):repo.select(['CUSTOM_01'])
+        eligibility=client.post('/api/clause-selection-options',json=['CUSTOM_01'])
+        assert eligibility.status_code==200 and eligibility.json()['eligible']==[]
+        assert eligibility.json()['excluded'][0]['status']=='blocked'
         assert client.put('/api/clauses/CUSTOM_01',json={'clause':body}).status_code==409
 
 

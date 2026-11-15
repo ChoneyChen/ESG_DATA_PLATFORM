@@ -11,7 +11,7 @@ from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_extraction.pipeline.decisions import NumericMatch,StatementMatch
 from esg_extraction.pipeline.binding import numeric_fact,qualitative_fact
 from esg_contracts.evidence import SearchIntent
-from test_backbone import documents,repository,quantitative,ROOT
+from test_backbone import documents,repository,quantitative,ROOT,run_backbone
 
 def test_only_one_worker_can_claim_a_run(tmp_path,repository):
     store=RunStore(tmp_path/'runs.db');request=RunRequest(ir_run_id='ir',selection='base16')
@@ -192,7 +192,7 @@ def test_model_failure_keeps_partial_diagnostic_and_never_invents_a_fact(documen
         def complete(self,**kwargs):
             raise ModelRunFailure('token budget',category='generation_incomplete',raw_output='{"matches":[',telemetry={'finish_reason':'length'})
     c=quantitative(repository);artifacts=FileArtifactPort(tmp_path/'out')
-    result=ExtractionBackbone(documents,Incomplete(),artifacts).run('failure',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),{c.clause_key:c})
+    result=run_backbone(documents,Incomplete(),artifacts,'failure',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),{c.clause_key:c})
     assert not result['facts'] and result['coverage'][0]['state']=='not_covered'
     diagnostic=artifacts.read('failure','diagnostics/model-calls.json')[0]
     assert diagnostic['failure_category']=='generation_incomplete'

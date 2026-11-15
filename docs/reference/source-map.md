@@ -162,6 +162,7 @@
 | [ExtractESG/document/src/esg_document/document/logical_table_builder.py](../../ExtractESG/document/src/esg_document/document/logical_table_builder.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/model_json_decoder.py](../../ExtractESG/document/src/esg_document/document/model_json_decoder.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/model_runner.py](../../ExtractESG/document/src/esg_document/document/model_runner.py) | 源码/配置；职责见模块设计 |
+| [ExtractESG/document/src/esg_document/document/native_figure_text.py](../../ExtractESG/document/src/esg_document/document/native_figure_text.py) | Preserve searchable PDF text printed inside physical figure regions. |
 | [ExtractESG/document/src/esg_document/document/native_text_comparison.py](../../ExtractESG/document/src/esg_document/document/native_text_comparison.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/operation_payloads.py](../../ExtractESG/document/src/esg_document/document/operation_payloads.py) | Current review-operation codecs and normalization of fresh provider responses. |
 | [ExtractESG/document/src/esg_document/document/operation_registry.py](../../ExtractESG/document/src/esg_document/document/operation_registry.py) | 源码/配置；职责见模块设计 |
@@ -236,7 +237,7 @@
 | [ExtractESG/document/src/esg_document/workflows/__init__.py](../../ExtractESG/document/src/esg_document/workflows/__init__.py) | Workflow services. |
 | [ExtractESG/document/src/esg_document/workflows/ir_workflow.py](../../ExtractESG/document/src/esg_document/workflows/ir_workflow.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/workflows/ocr_workflow.py](../../ExtractESG/document/src/esg_document/workflows/ocr_workflow.py) | 源码/配置；职责见模块设计 |
-| [ExtractESG/document/tests/conftest.py](../../ExtractESG/document/tests/conftest.py) | Every OCR regression test owns its PDF resource metadata store. |
+| [ExtractESG/document/tests/conftest.py](../../ExtractESG/document/tests/conftest.py) | Document regressions own their configuration and PDF resource metadata. |
 | [ExtractESG/document/tests/current_api_fixture.py](../../ExtractESG/document/tests/current_api_fixture.py) | Isolated current document API stores; no report producer or historical adapter. |
 | [ExtractESG/document/tests/test_api_error_contract_smoke.py](../../ExtractESG/document/tests/test_api_error_contract_smoke.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_asset_lifecycle.py](../../ExtractESG/document/tests/test_asset_lifecycle.py) | 测试/样例 |
@@ -259,6 +260,7 @@
 | [ExtractESG/document/tests/test_local_evidence_availability.py](../../ExtractESG/document/tests/test_local_evidence_availability.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_model_json_decoder.py](../../ExtractESG/document/tests/test_model_json_decoder.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_native_dispatch.py](../../ExtractESG/document/tests/test_native_dispatch.py) | Fault injection before durable queue commit; no OCR/model execution. |
+| [ExtractESG/document/tests/test_native_figure_text.py](../../ExtractESG/document/tests/test_native_figure_text.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_ocr_package.py](../../ExtractESG/document/tests/test_ocr_package.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_ocr_providers.py](../../ExtractESG/document/tests/test_ocr_providers.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_operation_payload_contracts.py](../../ExtractESG/document/tests/test_operation_payload_contracts.py) | Offline contract/evidence regression; no provider, model or live IR is mutated. |
@@ -329,6 +331,7 @@
 | [ExtractESG/extraction/tests/test_exporting.py](../../ExtractESG/extraction/tests/test_exporting.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_frame_budget.py](../../ExtractESG/extraction/tests/test_frame_budget.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_organization.py](../../ExtractESG/extraction/tests/test_organization.py) | 测试/样例 |
+| [ExtractESG/extraction/tests/test_primary_objects.py](../../ExtractESG/extraction/tests/test_primary_objects.py) | Capture independent entities within the existing bounded primary search. |
 | [ExtractESG/extraction/tests/test_report_resources.py](../../ExtractESG/extraction/tests/test_report_resources.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_result_contract.py](../../ExtractESG/extraction/tests/test_result_contract.py) | Delivery validation is independent of the report parser, clause repository and reader. |
 | [ExtractESG/extraction/tests/test_run_observation.py](../../ExtractESG/extraction/tests/test_run_observation.py) | 测试/样例 |

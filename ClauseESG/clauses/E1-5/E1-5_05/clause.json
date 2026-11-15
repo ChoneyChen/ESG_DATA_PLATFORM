@@ -162,13 +162,61 @@
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        }
+      ]
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "7770468c3bf1bbb520486944818723259f409f92af3d5d30bd9c61dc7fc9eb34",
+  "clause_digest": "f2ad887e298fae59e5aa27e2b502444be5663eb7936fa3f430a599dae31c8749",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",
@@ -176,7 +224,9 @@
     "可再生发电量",
     "可再生能源占比",
     "装机容量",
-    "能源节约量"
+    "能源节约量",
+    "包含天然气的清洁能源总量或占比",
+    "non-renewable energy consumption"
   ],
   "evidence": [
     {
@@ -740,7 +790,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "可再生能源消费总量"
+      "可再生能源消费总量",
+      "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -792,7 +843,7 @@
         "rule": "require_any",
         "scope": "subject",
         "terms": [
-          "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+          "re:(?:可再生|绿色电力|绿电|\\brenewable\\b|green\\s+(?:power|electricity)|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
         ],
         "unless_terms": []
       },
@@ -867,7 +918,7 @@
           "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:发电量|装机|产生|生产|出售|售出|上网|generat|capacity|installed|sold|produced|exported)",
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
-          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
         ],
         "unless_terms": []
       },
@@ -880,7 +931,7 @@
         "rule": "forbid_any",
         "scope": "text",
         "terms": [
-          "re:(?:(?<!非)化石|(?<!non-)(?<!non )fossil|电网|grid|灰电)"
+          "re:(?:非可再生|\\bnon[-\\s]*renewable\\b|(?<!非)化石|(?<!non-)(?<!non )fossil|天然气|天然氣|\\bnatural\\s+gas\\b|\\bcoal\\b|\\bdiesel\\b|\\bgasoline\\b|\\bfuel\\s+oil\\b|电网|grid|灰电)"
         ],
         "unless_terms": []
       },
@@ -930,7 +981,7 @@
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "clean": [
         "清洁",
@@ -951,7 +1002,7 @@
         "re:(?:电力|电量|用电|绿电|electricity|power)"
       ],
       "fossil": [
-        "re:(?:(?<!非)化石|(?<!non-)(?<!non )fossil|电网|grid|灰电)"
+        "re:(?:非可再生|\\bnon[-\\s]*renewable\\b|(?<!非)化石|(?<!non-)(?<!non )fossil|天然气|天然氣|\\bnatural\\s+gas\\b|\\bcoal\\b|\\bdiesel\\b|\\bgasoline\\b|\\bfuel\\s+oil\\b|电网|grid|灰电)"
       ],
       "generation": [
         "re:(?:发电量|装机|产生|生产|出售|售出|上网|generat|capacity|installed|sold|produced|exported)"
@@ -983,7 +1034,7 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "renewable": [
-        "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+        "re:(?:可再生|绿色电力|绿电|\\brenewable\\b|green\\s+(?:power|electricity)|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
       ],
       "renewable_component": [
         "re:(?:风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"

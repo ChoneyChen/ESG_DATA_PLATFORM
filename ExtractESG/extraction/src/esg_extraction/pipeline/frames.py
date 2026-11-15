@@ -2,6 +2,7 @@
 from esg_data.hashing import digest
 from esg_contracts.evidence import FrameFragment
 import re
+from esg_data.text_search import sentence_ranges
 
 
 def _child(frame, reason, **updates):
@@ -39,14 +40,14 @@ def split_frame(frame, reason="generation_incomplete", *, quantitative=False):
         return [_child(frame, reason, texts=texts) for texts in (frame.texts[:middle], frame.texts[middle:])]
     if frame.texts and len(frame.texts[0].text) > 256:
         source = frame.texts[0]
-        middle = len(source.text) // 2
-        boundaries = [match.end() for match in re.finditer(r"[。！？.!?](?:\s|$)|\n", source.text)
-                      if len(source.text)//4 < match.end() < len(source.text)*3//4]
-        if boundaries:
-            middle = min(boundaries, key=lambda point: abs(point-middle))
+        boundaries = [end for _, end in sentence_ranges(source.text) if end < len(source.text)]
+        if not boundaries:
+            return []
+        middle = min(boundaries, key=lambda point: abs(point-len(source.text)//2))
         return [_child(frame, reason, texts=[source.model_copy(update={"text": source.text[start:end],
             "char_start": source.char_start + start, "span_id": (source.span_id or source.object_id) + f"@{start}:{end}"})])
             for start, end in ((0, middle), (middle, len(source.text)))]
+
     return []
 
 

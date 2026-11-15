@@ -21,6 +21,18 @@ from test_page_targeted_ocr import GRID_TOP, OCR_RUN_ID, SubsetEchoRouter, _sett
 ZOOM = 2.0
 
 
+def test_period_header_and_first_value_row_inside_one_rule_band_stay_separate():
+    words = [Word(text,x,x+len(text)*5,base,10)
+        for base,items in [(20,[(0,'Metric'),(200,'2024'),(300,'2025')]),
+                           (45,[(0,'Total water'),(200,'992.11'),(300,'1139.01')]),
+                           (80,[(0,'Freshwater'),(200,'3564.45'),(300,'4029.45')])]
+        for x,text in items]
+    grid = table_grid(words,[(5,0,400),(60,0,400),(100,0,400)],[0,0,400,110])
+    assert [[text for text,_ in row] for row in grid] == [
+        ['Metric','2024','2025'],['Total water','992.11','1139.01'],
+        ['Freshwater','3564.45','4029.45']]
+
+
 def _foundation_pages() -> list[tuple[float, float, list[str], bool]]:
     pages: list[tuple[float, float, list[str], bool]] = []
     for index in range(30):
@@ -227,6 +239,34 @@ def test_table_grid_rebuilds_rows_from_word_geometry() -> None:
     ]
 
 
+def test_ruled_prose_table_keeps_sentences_with_incidental_percentage() -> None:
+    words = []
+
+    def line(text, x, base):
+        for token in text.split():
+            end = x + 4 * len(token)
+            words.append(Word(token, x, end, base, 10))
+            x = end + 3
+
+    line("Exhaust gas", 10, 30)
+    line("Control system", 100, 30)
+    line("Selecting equipment based on strict standards", 250, 20)
+    line("The treatment operates at just 10% of the", 250, 35)
+    line("current national standard and reduces emissions", 250, 50)
+    line("Wastewater", 10, 95)
+    line("Water system", 100, 95)
+    line("Treating wastewater separately and reusing water", 250, 80)
+    line("The process reduces wastewater discharge", 250, 95)
+    line("and promotes industrial water reuse", 250, 110)
+    grid = table_grid(words, [(y, 0, 470) for y in (0, 65, 125)], [0, 0, 470, 125])
+    assert [[text for text, _ in row] for row in grid] == [
+        ["Exhaust gas", "Control system",
+         "Selecting equipment based on strict standards The treatment operates at just 10% of the current national standard and reduces emissions"],
+        ["Wastewater", "Water system",
+         "Treating wastewater separately and reusing water The process reduces wastewater discharge and promotes industrial water reuse"],
+    ]
+
+
 def test_selector_scores_scans_from_prescan_text(tmp_path: Path) -> None:
     pdf_path = tmp_path / "scan.pdf"
     images = [Image.new("RGB", (300, 400), "white") for _ in range(30)]
@@ -324,3 +364,11 @@ def test_glyphs_outside_the_visible_page_are_left_out(tmp_path: Path) -> None:
     with pdfplumber.open(pdf_path) as pdf:
         words, _ = text_layer.page_words(VisibleLeftPart(pdf.pages[0]), 1.0)
     assert words and max(word.x1 for word in words) <= 82
+
+
+def test_nearly_body_size_unit_exponent_follows_its_geometric_base():
+    lines = build_lines(_words(("m",930.05,936.53,258.58,7),
+        ("3",936.53,939.53,255.23,6),("Measured",950,980,258.58,7)))
+    assert len(lines) == 1 and lines[0].words[0].text == "m3"
+    separate = build_lines(_words(("m",10,16,100,7),("3",25,29,100,6)))
+    assert all(word.text != "m3" for line in separate for word in line.words)

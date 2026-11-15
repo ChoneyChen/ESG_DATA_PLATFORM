@@ -157,3 +157,8 @@ def period_years(text: str) -> list[int]:
                 continue
         years.append(start)
     return years
+
+
+def strip_text_footnotes(text: str | None) -> str:
+    """Remove word-end superscript note marks for matching, preserving unit powers."""
+    return re.sub(r"([A-Za-z]{3,}|[一-鿿]{2,})[⁰¹²³⁴⁵⁶⁷⁸⁹]+(?=\W|$)", r"\1", text or "")

@@ -8,12 +8,11 @@ from esg_clauses.repository import ClauseRepository
 from esg_contracts.facts import SourceFact,QuantitativePayload,ReportedContext,ReportedField,EvidenceLocation,ClauseMapping,RunRequest
 from esg_contracts.facts import QualitativePayload
 from esg_extraction.pipeline.organization import build_organized_dataset
-from esg_extraction.pipeline.engine import ExtractionBackbone
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_extraction.pipeline.api import create_app
 from esg_contracts.evidence import SearchIntent
 from esg_extraction.pipeline.state import RunStore
-from test_backbone import repository,documents,Model,quantitative
+from test_backbone import repository,documents,Model,quantitative,run_backbone
 
 
 def reported(value,raw=None):
@@ -42,7 +41,7 @@ def test_every_clause_is_parallel_and_priority32_owns_local_fields(repository):
         else:
             c.organization.validate_kind(c.data_kind)
     chosen=repository.select(selection='priority32')
-    assert len(chosen)==32 and all(c.organization.curation=='sample' for c in chosen.values())
+    assert len(chosen)==32 and all(c.readiness=='ready' and c.organization.fields for c in chosen.values())
     assert len({c.schema_version for c in chosen.values()})==1
     assert any(f.binding.key=='pollutant' and f.binding.source=='dimension' for f in chosen['E2-4_02'].organization.fields)
     assert any(f.binding.key=='energy_carrier' for f in chosen['E1-5_01'].organization.fields)
@@ -91,17 +90,17 @@ def test_local_vocabulary_flags_wrong_species_without_discarding_raw(documents,r
     assert rows['novel'].cells['observed_pollutant'].value=='PFAS'
     assert rows['novel'].cells['raw_value'].value=='4'
     assert any('vocabulary_unlisted' in flag for flag in rows['novel'].flags)
-    assert c.organization.confirmation_flags(wrong.identity.model_dump(mode='json'))
+    assert c.classification_flags(wrong.identity.model_dump(mode='json'))
     assert not result.unorganized_fact_ids
 
 
 def test_local_classification_requires_a_literal_and_never_invents_a_category(repository):
-    field=next(f for f in repository.get('E2-4_02').organization.fields if f.binding.key=='pollutant')
+    field=repository.get('E2-4_02').attributes['pollutant']
     for value,raw in [('SO₂','SO₂ 排放量'),('二氧化硫','二氧化硫排放量'),('SO2','二氧化硫')]:
-        match=field.category_match(reported(value,raw).model_dump(mode='json'))
+        match=field.classify(reported(value,raw).model_dump(mode='json'))
         assert match.state=='recognized' and match.code=='SO2'
     for value,raw,state in [('NO2','二氧化氮','unlisted'),('PFAS','PFAS','unlisted'),('NOx','SO₂','conflict'),('SO2','污染物','unproven'),('SO2','SO2、NOx 合并报告','unproven')]:
-        match=field.category_match(reported(value,raw).model_dump(mode='json'))
+        match=field.classify(reported(value,raw).model_dump(mode='json'))
         assert match.state==state and match.code is None
 
 
@@ -161,7 +160,7 @@ def test_each_selected_clause_can_be_used_without_related_clause_files(tmp_path,
     assert list(selected)==[c.clause_key]
     card=c.reading_card();assert 'relationships' not in card and 'organization' not in card
     assert 'MISSING_PARENT' not in json.dumps(card)
-    result=ExtractionBackbone(documents,Model(),FileArtifactPort(tmp_path/'artifacts')).run('run',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),selected)
+    result=run_backbone(documents,Model(),FileArtifactPort(tmp_path/'artifacts'),'run',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),selected)
     assert result['summary']['selected_clauses']==1
 
 
@@ -175,14 +174,23 @@ def test_frozen_layout_is_not_replaced_by_a_later_edit(repository,documents):
 
 
 def test_organization_failure_does_not_erase_bound_source_facts(documents,repository,tmp_path,monkeypatch):
-    from esg_extraction.pipeline import engine
+    from esg_extraction.pipeline import organization
     def fail(*args):raise RuntimeError('synthetic layout failure')
-    monkeypatch.setattr(engine,'build_organized_dataset',fail)
+    monkeypatch.setattr(organization,'build_organized_dataset',fail)
     c=quantitative(repository);store=FileArtifactPort(tmp_path/'out')
-    result=ExtractionBackbone(documents,Model(),store).run('run',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),{c.clause_key:c})
-    assert result['facts'] and result['organization']['status']=='failed'
-    assert store.read('run','results/facts.json')['facts']==result['facts']
-    for f in result['facts']:assert store.read('run','facts/'+f['source_fact_id']+'.json')==f
+    request=RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key])
+    runs=RunStore(tmp_path/'state.db')
+    run=runs.create(request,repository.freeze({c.clause_key:c}),documents.document('ir-example').model_dump(mode='json'))
+    run_id=run['run_id']
+    result=run_backbone(documents,Model(),store,run_id,request,{c.clause_key:c})
+    app=create_app(lambda:(repository,runs,store,documents))
+    with TestClient(app,raise_server_exceptions=False) as client:
+        failed=client.get(f'/api/runs/{run_id}/organized/{c.clause_key}')
+        assert result['facts'] and failed.status_code==500
+        received=client.get(f'/api/runs/{run_id}/facts').json()['facts']
+        assert [SourceFact.model_validate(f) for f in received]==[SourceFact.model_validate(f) for f in result['facts']]
+    assert store.read(run_id,'results/facts.json')['facts']==result['facts']
+    for f in result['facts']:assert store.read(run_id,'facts/'+f['source_fact_id']+'.json')==f
 
 
 def test_current_organization_interfaces_are_schema_driven(repository,documents,tmp_path):
@@ -190,15 +198,17 @@ def test_current_organization_interfaces_are_schema_driven(repository,documents,
     with TestClient(app) as client:
         assert client.get('/api/organization-contract').status_code==200
         data=client.get('/api/clauses/E2-4_02/organization').json()
-        assert data['organization']['curation']=='sample'
+        assert data['organization']['schema_version']=='clause-organization-1.1'
+        assert data['organization']['fields'] and 'curation' not in data['organization']
         assert data['relationships_are_execution_dependencies'] is False
         assert client.get('/api/clauses/E2-4_02/reading-card').json()['requested_identity_fields']
         response=client.post('/api/runs',json={'request':{'ir_run_id':'ir-example','clause_keys':['E2-4_02']}})
         assert response.status_code==201,response.text
         snapshot=client.get('/api/runs/'+response.json()['run_id']+'/targets').json()
         assert snapshot['clauses']['E2-4_02']['organization']==data['organization']
-        pending=client.get('/api/runs/'+response.json()['run_id']+'/organized')
-        assert pending.status_code==202 and pending.json()['status']=='pending'
+        pending=client.get('/api/runs/'+response.json()['run_id']+'/organized/E2-4_02')
+        assert pending.status_code==200 and pending.json()['total']==0
+        assert pending.json()['table']['definition']==data['organization']
 
 
 def test_required_lexical_groups_apply_to_pages_objects_and_real_word_boundaries(documents):
@@ -215,8 +225,9 @@ def test_required_lexical_groups_apply_to_pages_objects_and_real_word_boundaries
     selector=ClausePageSelector(search_targets=[{'target_id':intent.target_id,'contract_digest':intent.contract_digest,'data_kind':intent.data_kind,'positive_terms':intent.positive_terms,'required_term_groups':groups}])
     assert selector.score_page(0,page['blocks'][0]['text']).score>0
     assert selector.score_page(1,page['blocks'][1]['text']).score==0
-    assert service._score(['PM'],'company development')==0
-    assert service._score(['NOx'],'No NOx emissions')>0
+    from esg_document.document.search_ranking import phrase_score
+    assert phrase_score(['PM'],'company development')==0
+    assert phrase_score(['NOx'],'No NOx emissions')>0
 
 
 def test_reading_port_uses_local_instructions_and_medium_specific_vocabulary(repository):

@@ -162,13 +162,61 @@
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        }
+      ]
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e588ddbab33cfa221ddf6829d8159066230ebb461780106b7b7b58e3210c50cf",
+  "clause_digest": "16d4e1655aebb940b5b76289401173385acb0161664c14b672314fea90ac3c5e",
   "clause_key": "E1-5_01",
   "data_kind": "quantitative",
   "definition": "自身运营的能源消费总量",
@@ -837,7 +885,7 @@
         "terms": [
           "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
-          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
         ],
         "unless_terms": []
       },
@@ -869,7 +917,7 @@
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"

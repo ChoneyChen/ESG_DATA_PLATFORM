@@ -76,3 +76,22 @@ def test_preparation_cancel_waits_for_queue_exit_and_projects_actual_child_state
     observed=coordinator.detail(coordinator.get('plan'))
     assert observed['status']=='cancelled'
     assert observed['preparation']['steps'][0]['status']=='cancelled'
+
+
+def test_terminal_child_requires_fresh_native_state_before_redispatch(coordinator):
+    current = state()
+    current['ir_run_id'] = 'ir'
+    coordinator.store.get = lambda key: SimpleNamespace(status=SimpleNamespace(value='failed'))
+    dispatched = []
+    coordinator.queue = lambda *args, **kwargs: dispatched.append(args)
+    reads = []
+    coordinator.remote = lambda method, path: (reads.append((method, path)) or {
+        'run_id': 'run', 'status': 'failed', 'error': 'Worker completed without a structured result event'
+    })
+    coordinator.save(current)
+
+    coordinator.tick(current, {'run_id': 'run', 'status': 'queued'})
+
+    assert reads == [('GET', '/api/runs/run')]
+    assert dispatched == []
+    assert coordinator.get('plan')['status'] == 'failed'

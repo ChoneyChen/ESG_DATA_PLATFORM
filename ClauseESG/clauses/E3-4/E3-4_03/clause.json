@@ -137,9 +137,57 @@
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        }
+      ]
     },
     "water_measure": {
       "context_levels": [
@@ -167,7 +215,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "9b836c299f95c1c23e93a6f96cb5bb138030b94d32cd07c70a0a0770d39d022a",
+  "clause_digest": "3e92fe5e889b9965b7e14335b8ececa43104609db39b78f05de67886fb178280",
   "clause_key": "E3-4_03",
   "data_kind": "quantitative",
   "definition": "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -209,7 +257,10 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Recycled Water",
+    "Total Water Recycled or Reused"
+  ],
   "exclusions": [
     "耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。"
@@ -720,7 +771,9 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+      "回用/循环利用必须由本行名称或直接章节明确水介质。Recycled Non-Hazardous、Recycled Hazardous等固废行不是水；同表另一行出现Water不能补足本行含义。主体边界中的Recycling不决定测量属于回用水。",
+      "减少、节约、避免或被替代的水量不等于本条实际原值。读取同一句各数值的实际角色；取水量、排水量、回用量和百分比必须逐个对应，不能借相邻数值或主体边界推断。"
     ],
     "operator": "water",
     "rules": [
@@ -767,6 +820,34 @@
         "allowed": [],
         "flag": null,
         "if_terms": [],
+        "params": {},
+        "reason": "local_measurement_not_about_water",
+        "rule": "require_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:水|\\b(?:water|wastewater|effluent|h2o)\\b)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "solid_waste_recycling_is_not_water",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:固废|固体废弃物|固体废物|\\b(?:non[-\\s]*)?hazardous\\b|\\bsolid\\s+waste\\b|废纸|废塑料|\\b(?:paper|plastic|metal|batter(?:y|ies))\\b)"
+        ],
+        "unless_terms": [
+          "re:(?:水|\\b(?:water|wastewater|effluent|h2o)\\b)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
         "params": {
           "concept": "recycled"
         },
@@ -799,7 +880,7 @@
         "alternative source"
       ],
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -813,7 +894,7 @@
         "use"
       ],
       "discharge": [
-        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|discharg|effluent)"
+        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|\\bdischarg\\w*\\b|\\beffluent\\b|\\bwaste\\s*water\\s+emissions?\\b)"
       ],
       "freshwater": [
         "re:(?:淡水|新水|新鲜水|取新水|fresh\\s*water|freshwater)"
@@ -868,7 +949,8 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "recycle": [
-        "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
+        "re:(?:循环水|循环利用|回用|重复利用|再利用|再生水|中水|(?:waste\\s*water|water|effluent)\\s+(?:recycl\\w*|reus\\w*|reclaim\\w*|recirculat\\w*)|(?:recycl\\w*|reus\\w*|reclaim\\w*|recirculat\\w*)\\s+(?:(?:and|or)\\s+(?:recycl\\w*|reus\\w*)\\s+)?(?:waste\\s*water|water|effluent)|cycl(?:ing|ed)\\s+(?:use|water))",
+        "re:^(?:total\\s+)?(?:recycled|reused|reclaimed|recirculated)(?:\\s+(?:amount|volume))?$"
       ],
       "recycled_water": [
         "循环水",
@@ -907,7 +989,7 @@
         "re:(?:用水|water\\s+use)"
       ],
       "water_word": [
-        "re:(?:水|water|h2o|effluent)"
+        "re:(?:水|\\b(?:water|wastewater|effluent|h2o)\\b)"
       ],
       "withdrawal": [
         "re:(?:取水|withdraw|abstract|新鲜水|新水|用水总量|总用水量|用水量|water\\s+(?:intake|use)|water\\s+withdrawn)"
@@ -1001,7 +1083,16 @@
       "recycled and reused water",
       "循环用水",
       "重复使用水",
-      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+      "Total water recycled and reused。循环利用和重复使用水量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+      "Recycled Water",
+      "Water Recycled",
+      "Water Reused",
+      "Reused Water",
+      "Total Water Recycled",
+      "Total Water Reused",
+      "Recycled or Reused Water",
+      "Recycled and Reused Water",
+      "Water Recycled or Reused"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1017,6 +1108,16 @@
         "循环利用和重复使用水量",
         "循环用水",
         "重复使用水"
+      ],
+      [
+        "Recycled Water",
+        "Water Recycled",
+        "Water Reused",
+        "Reused Water",
+        "Total Water Recycled",
+        "Total Water Reused",
+        "Recycled or Reused Water",
+        "Recycled and Reused Water"
       ]
     ],
     "vocabulary_refs": [

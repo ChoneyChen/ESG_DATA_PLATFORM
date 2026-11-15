@@ -35,12 +35,14 @@ def _box(row):
     return None
 
 
-def reference_columns(view):
+def reference_columns(columns):
     """Printed standard codes and page references are not measured quantities."""
-    if view is None:
-        return set()
-    return {col for col, parts in view.column_paths.items()
-        if re.fullmatch(r"\s*(?:GRI|ESRS|CSRD|SASB|ISSB|NSF|HKEX|页码|頁碼|参照|參照|references?|pages?(?:\s+(?:no\.?|number))?)\s*", " ".join(parts), re.I)}
+    return {column for column, parts in columns.items()
+        if re.fullmatch(
+            r"\s*(?:(?:GRI|ESRS|CSRD|SASB|ISSB|NSF|HKEX)"
+            r"(?:\s+(?:standards?|disclosures?|references?|codes?|[A-Z]?\d[\d.\-]*))*"
+            r"|页码|頁碼|参照|參照|references?|pages?(?:\s+(?:no\.?|number))?)\s*",
+            " ".join(parts), re.I)}
 
 
 class DocumentEvidenceService:
@@ -162,7 +164,7 @@ class DocumentEvidenceService:
         results = []
         for key, table in raw.items():
             view = tables.get(key)
-            if intent.data_kind == "quantitative" and view and view.value_cols and not set(view.value_cols) - reference_columns(view):
+            if intent.data_kind == "quantitative" and view and view.value_cols and not set(view.value_cols) - reference_columns(view.column_paths):
                 continue
             score = table_score(intent, terms, table, view)
             if score:
@@ -193,7 +195,7 @@ class DocumentEvidenceService:
                         kind="text",
                         page_index=item.page_index,
                         score=score,
-                        chunk_count=max(1, math.ceil(len(item.text) / 4000)),
+                        chunk_count=max(1, len(text_spans(item, size=4000, pack=True))),
                     )
                 )
         from esg_contracts.evidence import ObjectSearchPage
@@ -225,15 +227,11 @@ class DocumentEvidenceService:
             item = texts.get(reference.object_id)
             if item is None:
                 raise KeyError(reference.object_id)
-            count = max(1, math.ceil(len(item.text) / 4000))
+            chunks = text_spans(item, size=4000, pack=True)
+            count = len(chunks)
             if chunk_index < 0 or chunk_index >= count:
                 raise ValueError("Invalid text evidence cursor")
-            item = item.model_copy(
-                update={
-                    "text": item.text[chunk_index * 4000 : (chunk_index + 1) * 4000],
-                    "char_start": chunk_index * 4000,
-                }
-            )
+            item = chunks[chunk_index]
             body = dict(
                 chunk_index=chunk_index,
                 chunk_count=count,
@@ -248,7 +246,6 @@ class DocumentEvidenceService:
             if raw is None:
                 raise KeyError(reference.object_id)
             view = tables.get(reference.object_id)
-            references = reference_columns(view)
             count = max(
                 1, math.ceil(max(1, int(raw.get("row_count") or 1)) / CHUNK_ROWS)
             )
@@ -266,6 +263,7 @@ class DocumentEvidenceService:
                     for c in raw.get("cells", [])
                     if c.get("is_header")
                 }
+            references = reference_columns(columns)
             physical = {c.get("cell_id"): c for c in raw.get("cells", [])}
 
             def source(cell):
@@ -304,14 +302,16 @@ class DocumentEvidenceService:
                             label=line.label,
                             section=line.section,
                             unit_raw=line.unit,
-                            label_sources=[
+                            label_sources=[source(physical[cell_id]) for cell_id in line.label_cell_ids
+                                if cell_id in physical and physical[cell_id].get("text")] or [
                                 source(c)
                                 for c in physical.values()
                                 if c.get("text")
                                 and c.get("row_index") == line.row
                                 and c.get("col_index") in view.label_cols
                             ],
-                            unit_sources=[
+                            unit_sources=[source(physical[cell_id]) for cell_id in line.unit_cell_ids
+                                if cell_id in physical and physical[cell_id].get("text")] or [
                                 source(c)
                                 for c in physical.values()
                                 if c.get("text")

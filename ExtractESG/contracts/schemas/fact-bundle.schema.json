@@ -1077,6 +1077,18 @@
           "title": "Error",
           "type": "string"
         },
+        "frame_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Frame Key"
+        },
         "object_id": {
           "anyOf": [
             {

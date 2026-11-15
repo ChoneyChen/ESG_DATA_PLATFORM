@@ -2,9 +2,8 @@ import json
 import pytest
 from esg_contracts.evidence import SearchIntent
 from esg_contracts.facts import RunRequest, PipelineBudget
-from esg_extraction.pipeline.engine import ExtractionBackbone
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
-from test_backbone import documents, repository, quantitative, Model
+from test_backbone import documents, repository, quantitative, Model, run_backbone
 
 
 def add_sources(documents):
@@ -36,9 +35,12 @@ def test_explicit_object_budget_marks_search_incomplete(documents,repository,tmp
     add_sources(documents)
     clause=quantitative(repository)
     request=RunRequest(ir_run_id='ir-example',clause_keys=[clause.clause_key],budget=PipelineBudget(max_objects_per_clause=2))
-    result=ExtractionBackbone(documents,Model(),FileArtifactPort(tmp_path)).run('bounded',request,{clause.clause_key:clause})
+    result=run_backbone(documents,Model(),FileArtifactPort(tmp_path),'bounded',request,{clause.clause_key:clause})
     coverage=result['coverage'][0]
-    assert coverage['search']['total']>=5 and coverage['search']['truncated'] is True
+    # Each source query reports the full physical total. The stream's returned
+    # count measures only the bounded candidates actually consumed.
+    assert coverage['search']['queries'][0]['total']>=5
+    assert coverage['search']['returned']==2 and coverage['search']['truncated'] is True
     assert 'object_budget_exhausted' in coverage['reasons']
     assert result['summary']['assessment']['search_coverage']=='incomplete'
 
@@ -46,5 +48,13 @@ def test_explicit_object_budget_marks_search_incomplete(documents,repository,tmp
 def test_unversioned_object_list_cannot_bypass_search_coverage():
     from types import SimpleNamespace
     from esg_extraction.pipeline.retrieval import retrieve_candidates
-    with pytest.raises(ValueError, match="ObjectSearchPage"):
-        retrieve_candidates(SimpleNamespace(search=lambda *_: []), 'ir', None, 10)
+    from test_structure_contract import document
+    legacy_calls=[]
+    documents=SimpleNamespace(document=lambda _:document(),
+        search=lambda *_:legacy_calls.append(True),search_page=lambda *_:[])
+    intent=SearchIntent(target_id='TEST',contract_digest='a'*64,data_kind='quantitative',positive_terms=['energy'])
+    candidates,observation=retrieve_candidates(documents,'ir',intent,10)
+    assert observation['queries']==[]  # Search is lazy until consumed.
+    with pytest.raises(AttributeError,match='total'):
+        list(candidates)
+    assert observation['returned']==0 and not legacy_calls

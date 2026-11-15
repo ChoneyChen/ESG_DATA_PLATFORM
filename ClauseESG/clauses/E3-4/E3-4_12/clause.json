@@ -137,9 +137,57 @@
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        }
+      ]
     },
     "water_measure": {
       "context_levels": [
@@ -167,7 +215,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "96bb7a1cc3bff2de0e06712f0d470e0bfe778960bdfec7d5e6625b74fb54920e",
+  "clause_digest": "3be69236c1f38a1d6f2e73f1412528ad3aef6fd5344636388075accf5efc7761",
   "clause_key": "E3-4_12",
   "data_kind": "quantitative",
   "definition": "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
@@ -727,7 +775,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+      "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+      "减少、节约、避免或被替代的水量不等于本条实际原值。读取同一句各数值的实际角色；取水量、排水量、回用量和百分比必须逐个对应，不能借相邻数值或主体边界推断。"
     ],
     "operator": "water",
     "rules": [
@@ -806,7 +855,7 @@
         "alternative source"
       ],
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -820,7 +869,7 @@
         "use"
       ],
       "discharge": [
-        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|discharg|effluent)"
+        "re:(?:排水|废水排放|污水排放|排放(?:的)?废水|\\bdischarg\\w*\\b|\\beffluent\\b|\\bwaste\\s*water\\s+emissions?\\b)"
       ],
       "freshwater": [
         "re:(?:淡水|新水|新鲜水|取新水|fresh\\s*water|freshwater)"
@@ -875,7 +924,7 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "recycle": [
-        "re:(?:循环|回用|重复利用|再利用|再生水|中水|recycl|reus|reclaim|cycl(?:ing|ed)\\s+(?:use|water)|recirculat)"
+        "re:(?:循环水|循环利用|回用|重复利用|再利用|再生水|中水|(?:water|effluent)\\s+(?:recycl\\w*|reus\\w*|reclaim\\w*|recirculat\\w*)|(?:recycl\\w*|reus\\w*|reclaim\\w*|recirculat\\w*)\\s+(?:(?:and|or)\\s+(?:recycl\\w*|reus\\w*)\\s+)?(?:water|effluent)|cycl(?:ing|ed)\\s+(?:use|water))"
       ],
       "recycled_water": [
         "循环水",
@@ -914,7 +963,7 @@
         "re:(?:用水|water\\s+use)"
       ],
       "water_word": [
-        "re:(?:水|water|h2o|effluent)"
+        "re:(?:水|\\b(?:water|wastewater|effluent|h2o)\\b)"
       ],
       "withdrawal": [
         "re:(?:取水|withdraw|abstract|新鲜水|新水|用水总量|总用水量|用水量|water\\s+(?:intake|use)|water\\s+withdrawn)"
@@ -1008,7 +1057,14 @@
       "water discharge",
       "排水量",
       "水排放量",
-      "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。"
+      "Total water discharges。排水总量。耗水是进入边界后未排回水环境或第三方的水量，不等于取水或用水；循环利用量可包含多次利用，不能用其与取水直接相加。储水是存量，储水变化允许负数。水风险区域及定义、测量方法、运营边界必须保留。",
+      "Total wastewater discharge",
+      "Industrial waste water emissions",
+      "industrial wastewater emissions",
+      "wastewater discharge",
+      "waste water discharge",
+      "废水排放量",
+      "工业废水排放量"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1024,6 +1080,15 @@
         "排水总量",
         "排水量",
         "水排放量"
+      ],
+      [
+        "Total wastewater discharge",
+        "Industrial waste water emissions",
+        "industrial wastewater emissions",
+        "wastewater discharge",
+        "waste water discharge",
+        "废水排放量",
+        "工业废水排放量"
       ]
     ],
     "vocabulary_refs": [

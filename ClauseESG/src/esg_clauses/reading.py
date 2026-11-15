@@ -7,6 +7,7 @@ import re
 from dataclasses import dataclass
 
 from esg_data.normalize import fold
+from esg_data.literals import strip_text_footnotes
 
 
 @dataclass
@@ -28,7 +29,7 @@ def normalize(text: str | None) -> str:
 
     Ambiguous OCR symbols are not repaired into a different pollutant.
     """
-    folded = fold(text)
+    folded = fold(strip_text_footnotes(text))
     folded = re.sub(
         r"\$\s*([^$]{1,40}?)\s*\$",
         lambda m: MARKUP_RE.sub("", m.group(1)).replace(" ", ""),

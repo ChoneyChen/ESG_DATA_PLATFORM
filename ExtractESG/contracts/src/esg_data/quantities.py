@@ -35,6 +35,7 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
         (r"tj|太焦", "energy", "277.777778"),
         (r"gj|吉焦|十亿焦", "energy", "0.277777778"),
         (r"mj|兆焦", "energy", "0.000277777778"),
+        (r"kj|千焦", "energy", "0.000000277777778"),
         (r"万吨标准煤|万tce", "energy_tce", "1e4"),
         (r"吨标准煤|tce|标煤", "energy_tce", "1"),
         (r"百万立方米|百万m3|millionm3|mm3|百萬立方米", "volume", "1e6"),
@@ -59,6 +60,7 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
 
 def _normalize(raw: str) -> str:
     text = fold(unicodedata.normalize("NFKC", raw))
+    text = re.sub(r"carbon\s+dioxide\s+equivalent", "co2e", text)
     text = re.sub(r"\\(?:mathrm|text|operatorname)", "", text)
     text = (
         text.replace("₂", "2")
@@ -68,22 +70,26 @@ def _normalize(raw: str) -> str:
     )
     text = re.sub(r"[\s$\\{}_^]+", "", text)
     text = (
-        text.replace("co2eq", "co2e")
-        .replace("co2equivalent", "co2e")
+        text.replace("co2equivalent", "co2e")
+        .replace("co2eq", "co2e")
         .replace("co2-e", "co2e")
     )
+    text = re.sub(r"((?:metric)?(?:tonnes?|tons?|kilograms?|grams?))of(?=co2e)", r"\1", text)
     return text
 
 
 def unit_scale(raw: str | None) -> tuple[str, Decimal] | None:
     if not raw:
         return None
-    text = _normalize(raw)
+    printed = unicodedata.normalize("NFKC", raw).strip()
+    explicit_scale = re.match(r"^(10{3,9}|(?:1|10|100)(?:[,，]000)+)\s*(?=[A-Za-z一-鿿])", printed)
+    multiplier = Decimal(explicit_scale[1].replace(",", "").replace("，", "")) if explicit_scale else Decimal(1)
+    text = _normalize(printed[explicit_scale.end():] if explicit_scale else printed)
     if "/" in text or "每" in text or "per" in text:
         return None
     for pattern, family, scale in _UNIT_RULES:
         if pattern.search(text):
-            return family, scale
+            return family, scale * multiplier
     return None
 
 

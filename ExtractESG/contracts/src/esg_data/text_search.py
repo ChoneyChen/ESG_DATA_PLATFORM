@@ -35,3 +35,26 @@ def lexical_score(terms, text):
             if words <= observed:
                 score += len(hits) / len(words)
     return score
+
+
+_SENTENCE_END = re.compile(r'[。！？!?][”’"\)）】]*\s*|\.[”’"\)）】]*(?=\s|$)\s*|\n[ \t]*\n')
+_ABBREVIATIONS = frozenset({"mr", "mrs", "ms", "dr", "prof", "sr", "jr", "vs", "fig", "no", "inc", "ltd", "co"})
+
+
+def sentence_ranges(text):
+    """Keep source offsets while avoiding decimal and abbreviation fragments."""
+    ranges = []
+    start = 0
+    for match in _SENTENCE_END.finditer(text):
+        if text[match.start()] == ".":
+            prefix = text[:match.start()]
+            token = re.search(r"[A-Za-z]+$", prefix)
+            if (token and token[0].casefold() in _ABBREVIATIONS
+                or re.search(r"\b(?:[A-Za-z]\.)+[A-Za-z]$", prefix)
+                or re.search(r"\b[A-Z]$", prefix)):
+                continue
+        ranges.append((start, match.end()))
+        start = match.end()
+    if start < len(text):
+        ranges.append((start, len(text)))
+    return ranges

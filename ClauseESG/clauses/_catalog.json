@@ -821,7 +821,7 @@
       "title": "脱碳杠杆识别中的多情景考虑"
     },
     {
-      "clause_digest": "e588ddbab33cfa221ddf6829d8159066230ebb461780106b7b7b58e3210c50cf",
+      "clause_digest": "16d4e1655aebb940b5b76289401173385acb0161664c14b672314fea90ac3c5e",
       "clause_key": "E1-5_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -861,7 +861,7 @@
       "title": "核能占能源消费总量的比例"
     },
     {
-      "clause_digest": "7770468c3bf1bbb520486944818723259f409f92af3d5d30bd9c61dc7fc9eb34",
+      "clause_digest": "f2ad887e298fae59e5aa27e2b502444be5663eb7936fa3f430a599dae31c8749",
       "clause_key": "E1-5_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -901,7 +901,7 @@
       "title": "自产非燃料可再生能源"
     },
     {
-      "clause_digest": "c02a6d2e47314bef94d062dcca50c0588b4b01f9627ca65757499efd111b8d4e",
+      "clause_digest": "db1199b0e9e1614610edd5c0ed10d6f8b6e14e56a8691f88c9010731b5579ff8",
       "clause_key": "E1-5_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1111,7 +1111,7 @@
       "title": "范围3价值链分解结构"
     },
     {
-      "clause_digest": "0e3443afb40be3070b431e1350f4533a2863db341c7c1bd9861dbe95d0f368fe",
+      "clause_digest": "77e41fe0089dba50d0daef759a3a5dd78bbf23cff097b8ab36b41eda52b0209d",
       "clause_key": "E1-6_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1131,7 +1131,7 @@
       "title": "受监管排放交易体系覆盖的范围1排放比例"
     },
     {
-      "clause_digest": "4fcfe26b6083791a704964e23ec03d8ad6487115ab9c1b6f7b04ee4f6a76229b",
+      "clause_digest": "f3883f407ffb0d4e2fef16a44f6ec01e2e70aa9d98617bbef24b464c635116af",
       "clause_key": "E1-6_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1141,7 +1141,7 @@
       "title": "范围2地点法排放 Scope 2 location-based"
     },
     {
-      "clause_digest": "a19995f3787f08c9fa3f99b7bb4550ae109ffbc450ff05f28a54efabc877abf0",
+      "clause_digest": "8a5ea0566b24b4fb125a9251554a9cfcd2e3ad6f819ba33e1729fbfc69cabd6a",
       "clause_key": "E1-6_10",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2641,7 +2641,7 @@
       "title": "空气、水和土壤污染披露维度结构"
     },
     {
-      "clause_digest": "1fac26929544a55288120cbc92843421d185217d3ac107c751baf46b9c84baf2",
+      "clause_digest": "2885513ade99c4fce4ac71f87897511158fb7482cfc1aa03495ae62d7f714f9e",
       "clause_key": "E2-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2651,7 +2651,7 @@
       "title": "向空气排放污染物 Pollutants emitted to air"
     },
     {
-      "clause_digest": "02e02c26169f27843ba4d61ad01e8d648eff278ed040054121ecd6ecbcffc817",
+      "clause_digest": "79633a7fce89294affb98c633b54e5a1724dc54f7afa5cf5907666a6d7122753",
       "clause_key": "E2-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2711,7 +2711,7 @@
       "title": "空气、水和土壤污染随时间变化描述"
     },
     {
-      "clause_digest": "4b8a295430cf371b07c751d5e39ef7d90a721783c7d8f6876d8bc217a17a6463",
+      "clause_digest": "6b09a2a2e5bfc710eae0be77a952232cccb48a25b45a2b5b66fe48a85006dcb7",
       "clause_key": "E2-4_09",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -3351,7 +3351,7 @@
       "title": "目标与排水减少关系"
     },
     {
-      "clause_digest": "f4cd064af3eb4755ecfa7185309161a6221c5ce75466a87ca4140eb43479d222",
+      "clause_digest": "6a578b221a26f6b595eddab0aa2e0354a3be593bfc575cb928fcaa1b7926bc07",
       "clause_key": "E3-4_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3371,7 +3371,7 @@
       "title": "水风险地区耗水量 Water consumption in areas at water risk"
     },
     {
-      "clause_digest": "9b836c299f95c1c23e93a6f96cb5bb138030b94d32cd07c70a0a0770d39d022a",
+      "clause_digest": "3e92fe5e889b9965b7e14335b8ececa43104609db39b78f05de67886fb178280",
       "clause_key": "E3-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3451,7 +3451,7 @@
       "title": "其他口径的水强度"
     },
     {
-      "clause_digest": "22f9140b006fed9a002c140fda341550aa95b6377a04c29275a27eceaeab5031",
+      "clause_digest": "d992d8cb1f8f8bcfe9a27435d1be967f4d462d55f1872d0bbebba28fcf4c8330",
       "clause_key": "E3-4_11",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3461,7 +3461,7 @@
       "title": "取水总量 Total water withdrawal"
     },
     {
-      "clause_digest": "96bb7a1cc3bff2de0e06712f0d470e0bfe778960bdfec7d5e6625b74fb54920e",
+      "clause_digest": "3be69236c1f38a1d6f2e73f1412528ad3aef6fd5344636388075accf5efc7761",
       "clause_key": "E3-4_12",
       "data_kind": "quantitative",
       "entry_kind": "value",

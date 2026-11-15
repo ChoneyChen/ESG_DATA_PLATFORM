@@ -57,6 +57,20 @@
           "title": "Source",
           "type": "string"
         },
+        "value_pattern": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value Pattern"
+        },
         "vocabulary": {
           "items": {
             "$ref": "#/$defs/VocabularyEntry"

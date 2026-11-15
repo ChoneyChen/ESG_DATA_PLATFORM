@@ -20,6 +20,29 @@ from esg_pipeline.progress import progress_from_event, classify_error
 from esg_contracts.worker import EVENT_PREFIX
 
 
+def worker_output_lines(process, path: Path, offset: int):
+    """Drain the durable log after exit, including writes racing with EOF."""
+    with path.open(encoding="utf-8", errors="replace") as output:
+        output.seek(offset)
+        pending = ""
+        while True:
+            line = output.readline()
+            if line:
+                pending += line
+                if pending.endswith("\n"):
+                    yield pending
+                    pending = ""
+            elif process.poll() is not None:
+                # The worker can write and exit between readline() observing
+                # EOF and poll() observing exit. Its final bytes are durable
+                # now, so read again before declaring the output complete.
+                pending += output.read()
+                yield from pending.splitlines(keepends=True)
+                return
+            else:
+                time.sleep(0.05)
+
+
 def snapshot_fingerprint(snapshot: dict[str, Any]) -> str:
     """Liveness polling is distinct from durable stage progress.
 
@@ -276,22 +299,8 @@ class PipelineScheduler:
         def read_stdout() -> None:
             # The worker owns a durable file descriptor, not a PIPE reader in
             # this API process. API disappearance cannot break its stdout.
-            with worker_log.open(encoding="utf-8", errors="replace") as output:
-                output.seek(offset)
-                pending = ""
-                while True:
-                    line = output.readline()
-                    if line:
-                        pending += line
-                        if pending.endswith("\n"):
-                            lines.put(pending)
-                            pending = ""
-                    elif process.poll() is not None:
-                        if pending:
-                            lines.put(pending)
-                        break
-                    else:
-                        time.sleep(0.05)
+            for line in worker_output_lines(process, worker_log, offset):
+                lines.put(line)
             lines.put(None)
 
         threading.Thread(target=read_stdout, daemon=True).start()

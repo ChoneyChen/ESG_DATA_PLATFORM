@@ -18,6 +18,8 @@ pnpm --dir database install --frozen-lockfile
 
 install_local.sh离线、无第三方依赖下载地安装本仓库SDK/应用，并调用install_worker.py更新所配置MLX及Paddle环境中的本仓库包。它不安装模型权重或替换第三方模型依赖。worker实际运行安装包，不拼接兄弟源码路径。
 
+OCR/IR准备版本从实际导入模块计算，不要求部署根保有源码目录。ESG_PROJECT_ROOT及ESG_DATA_ROOT分别指定组合部署根和数据根，条款根单独配置。隔离验证使用独立控制库、报告库和任务目录，同时沿用本机共享模型执行锁。
+
 ## 配置与五服务
 
 | 配置 | 含义/默认 |

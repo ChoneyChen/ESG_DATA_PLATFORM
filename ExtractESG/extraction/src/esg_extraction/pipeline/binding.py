@@ -18,7 +18,7 @@ from esg_clauses.evidence import check_evidence
 from esg_data.literals import parse_measure
 from .decisions import IdentityProposal
 from .period_binding import bind_period
-from .reading_frame import statement_scope
+from .reading_frame import statement_scope, printed_unit_sources
 from esg_data.periods import normalize_period
 
 CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
@@ -214,7 +214,8 @@ def _number(raw):
         if parsed is None or not is_unit_expression(suffix):
             raise ValueError("Unbound quantitative unit suffix")
     else:
-        suffix = None
+        mark = re.search(r"[%％‰‱](?=\s*[*#¹²³⁴⁵⁶⁷⁸⁹⁰]*\s*$)", raw)
+        suffix = mark[0] if mark else None
     comparator = parsed["comparator"]
     return parsed, comparator, suffix
 
@@ -241,14 +242,15 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         parse_status = "unparsed"
     column_unit = None
     for header in frame.columns.get(cell.column_id, []):
-        for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", header):
+        for candidate in re.findall(r"[（(]([^（）()]+)[）)]", header):
             if is_unit_expression(candidate):
                 column_unit = candidate
                 break
     # The actual cell and column outrank a shared row-unit label.
-    unit = suffix or column_unit or row.unit_raw
+    selected_unit = printed_unit_sources(frame).get(match.unit_source_id)
+    unit = suffix or column_unit or row.unit_raw or (selected_unit.text if selected_unit else None)
     if not unit:
-        for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", row.label):
+        for candidate in re.findall(r"[（(]([^（）()]+)[）)]", row.label):
             if is_unit_expression(candidate):
                 unit = candidate
                 break
@@ -258,7 +260,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                 unit = source.text
                 break
     if not unit and frame.title:
-        for candidate in re.findall(r"[（(]([^（）()]{1,30})[）)]", frame.title):
+        for candidate in re.findall(r"[（(]([^（）()]+)[）)]", frame.title):
             if is_unit_expression(candidate):
                 unit = candidate
                 break
@@ -315,6 +317,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
             column_id=cell.column_id))
     if unit:
         sources = [
+            *([selected_unit] if selected_unit else []),
             *row.unit_sources,
             *row.label_sources,
             *frame.column_sources.get(cell.column_id, []),
@@ -331,9 +334,17 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                     excerpt=unit,
                     role="unit",
                     bbox=support.bbox,
+                    char_start=support.char_start if support is selected_unit else None,
+                    char_end=support.char_start+len(support.text) if support is selected_unit else None,
                     row_id=row.row_id if support in row.unit_sources else None,
                 )
             )
+        elif (row.unit_sources and normalize_unit_text(unit) ==
+              normalize_unit_text(" ".join(source.text for source in row.unit_sources))):
+            evidence.extend(EvidenceLocation(source_snapshot=frame.source_snapshot,
+                object_id=source.object_id, object_type=source.object_type,
+                page_index=source.page_index, excerpt=source.text, role="unit",
+                bbox=source.bbox, row_id=row.row_id) for source in row.unit_sources)
         elif unit in cell.raw_text:
             evidence.append(
                 evidence[0].model_copy(
@@ -398,19 +409,31 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     return fact, mapping, None
 
 
+def source_quote(text, quote):
+    """Resolve a unique quote to source bytes; only whitespace may differ."""
+    if quote in text and text.count(quote) == 1:
+        start = text.index(quote)
+        return start, start + len(quote)
+    positions = [index for index, char in enumerate(text) if not char.isspace()]
+    compact = "".join(text[index] for index in positions)
+    needle = "".join(char for char in quote if not char.isspace())
+    start = compact.find(needle)
+    if not needle or start < 0 or compact.find(needle, start + 1) >= 0:
+        raise ValueError("Statement quote is missing or ambiguous within its source span")
+    return positions[start], positions[start + len(needle) - 1] + 1
+
+
 def qualitative_fact(clause, document, frame, match, interpretation_id):
     text = next(
         (t for t in frame.texts if (t.span_id or t.object_id) == match.span_id), None
     )
     if text is None:
         raise ValueError("Statement does not name a visible evidence span")
-    raw = match.quote or text.text
-    if raw not in text.text or text.text.count(raw) != 1:
-        raise ValueError(
-            "Statement quote is missing or ambiguous within its source span"
-        )
-    start = text.char_start + text.text.index(raw)
-    end = start + len(raw)
+    proposed = match.quote or text.text
+    local_start, local_end = source_quote(text.text, proposed)
+    raw = text.text[local_start:local_end]
+    start = text.char_start + local_start
+    end = text.char_start + local_end
     value = QualitativePayload(
         statement_raw=raw,
         extensions={"source_text_raw": text.text}

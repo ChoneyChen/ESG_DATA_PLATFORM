@@ -10,7 +10,7 @@ from esg_extraction.pipeline.binding import numeric_fact, context_from_claims
 from esg_extraction.pipeline.decisions import NumericMatch
 from esg_extraction.pipeline.engine import ExtractionBackbone
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
-from test_backbone import repository, quantitative
+from test_backbone import repository, quantitative, run_backbone
 
 
 def frame(headers, values=None):
@@ -37,9 +37,11 @@ def test_all_years_are_retained_even_if_model_only_names_one(primary_year, repos
     class Reader:
         def complete(self, **kwargs):
             assert kwargs["context"]["physical_structure"]["period_policy"] == "all_reported"
-            return {"matches":[{"row_id":"r","columns":["c"],"selection":"measurement","match":"match","reason":"real row"}]}, {}
+            return {"matches":[{"row_id":"r","columns":["c"],"match":"match"}]}, {}
     clause=quantitative(repository)
-    result=ExtractionBackbone(Docs(),Reader(),FileArtifactPort(tmp_path)).run("run",RunRequest(ir_run_id="ir",clause_keys=[clause.clause_key]),{clause.clause_key:clause})
+    clause=clause.model_copy(update={'purposes':clause.purposes.model_copy(update={
+        'enrichment':clause.purposes.enrichment.model_copy(update={'identity_axes':[]})})}).seal()
+    result=run_backbone(Docs(),Reader(),FileArtifactPort(tmp_path),"run",RunRequest(ir_run_id="ir",clause_keys=[clause.clause_key]),{clause.clause_key:clause})
     assert {(f['identity']['reporting_period']['value'],f['value']['value_raw']) for f in result['facts']} == {('2023','1'),('2024','2'),('2025','3')}
     assert len(result['facts'])==3 and result['summary']['model_calls']==1
     assert all(mapping['match']=='match' for mapping in result['clause_mappings'])

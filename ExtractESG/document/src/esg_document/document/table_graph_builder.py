@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 from difflib import SequenceMatcher
 
 from esg_document.document.contracts import DocumentIR, StructureEdge, TableGraphEdge
+from esg_document.document.physical import build_table_view
 
 
 class TableGraphBuilder:
@@ -17,7 +19,9 @@ class TableGraphBuilder:
             table.page_indices = sorted(set(table.page_indices or [table.page_index]))
             table.graph_edges = self._cell_edges(table)
             self._propagate_headers_and_units(table)
-        self._link_cross_page_tables(document.tables)
+        self._link_cross_page_tables(
+            document.tables, pages=document.pages, blocks=document.blocks
+        )
         self._write_continuation_edges(document)
         self._normalize_structure_edge_ids(document)
         return document
@@ -105,8 +109,9 @@ class TableGraphBuilder:
                     cell.unit_hint = match.group(1)
                     break
 
-    def _link_cross_page_tables(self, tables):
+    def _link_cross_page_tables(self, tables, *, pages=(), blocks=()):
         ordered = sorted(tables, key=lambda item: (item.page_index, item.order))
+        page_counts = Counter(table.page_index for table in ordered)
         group_counter = 0
         for first, second in zip(ordered, ordered[1:]):
             if second.page_index != first.page_index + 1:
@@ -115,10 +120,17 @@ class TableGraphBuilder:
                 continue
             similarity = self._header_similarity(first, second)
             repeated_title = self._leading_row_similarity(first, second)
+            headerless_continuation = (
+                page_counts[first.page_index] == page_counts[second.page_index] == 1
+                and self._headerless_vertical_continuation(
+                    first, second, pages=pages, blocks=blocks
+                )
+            )
             if (
                 first.column_count <= 1
                 or first.column_count != second.column_count
-                or max(similarity, repeated_title) < 0.62
+                or (max(similarity, repeated_title) < 0.62
+                    and not headerless_continuation)
             ):
                 if self._horizontal_continuation(first, second):
                     group_counter += 1
@@ -150,6 +162,55 @@ class TableGraphBuilder:
             second.continues_from_table_id = first.table_id
             self._add_flag(first.quality_flags, "cross_page_table_linked")
             self._add_flag(second.quality_flags, "cross_page_table_linked")
+
+    @staticmethod
+    def _headerless_vertical_continuation(first, second, *, pages, blocks):
+        """A page-break continuation with the same measured column layout.
+
+        Headerless tables need geometric and structural evidence together.
+        A nearby table with its own title or a different column layout must
+        remain independent even when its outer width happens to match.
+        """
+        if first.column_count < 3 or first.column_count != second.column_count:
+            return False
+        if first.bbox is None or second.bbox is None:
+            return False
+        page_by_index = {page.page_index: page for page in pages}
+        before = page_by_index.get(first.page_index)
+        after = page_by_index.get(second.page_index)
+        if not before or not after or not before.height or not after.height:
+            return False
+        if abs(before.height - after.height) > 0.02 * before.height:
+            return False
+        if before.width and after.width and abs(before.width - after.width) > 0.02 * before.width:
+            return False
+        if first.bbox.y1 < 0.85 * before.height or second.bbox.y0 > 0.15 * after.height:
+            return False
+        tolerance = max(2.0, 0.01 * (first.bbox.x1 - first.bbox.x0))
+        if max(abs(first.bbox.x0 - second.bbox.x0),
+               abs(first.bbox.x1 - second.bbox.x1)) > tolerance:
+            return False
+        if second.caption:
+            return False
+        if any(
+            block.page_index == second.page_index
+            and block.block_type in {"heading", "title", "caption"}
+            and block.text.strip() and block.bbox
+            and block.bbox.y1 <= second.bbox.y0
+            for block in blocks
+        ):
+            return False
+        first_view = build_table_view(first.model_dump(mode="json"), None)
+        second_view = build_table_view(second.model_dump(mode="json"), None)
+        return bool(
+            first_view and second_view
+            and len(set(first_view.header_years())) >= 2
+            and not second_view.header_years()
+            and len(first_view.value_cols) >= 2
+            and first_view.value_cols == second_view.value_cols
+            and first_view.label_cols == second_view.label_cols
+            and first_view.unit_col == second_view.unit_col
+        )
 
     @classmethod
     def _horizontal_continuation(cls, first, second) -> bool:

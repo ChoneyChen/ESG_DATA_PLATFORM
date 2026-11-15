@@ -3,7 +3,7 @@ import re
 import unicodedata
 from esg_data.normalize import fold
 from esg_data.text_search import lexical_score
-from esg_data.literals import parse_measure
+from esg_data.literals import parse_measure, strip_text_footnotes
 from esg_data.units import unit_dimension
 
 
@@ -14,7 +14,7 @@ def query_terms(values):
 
 
 def phrase_score(terms, text):
-    spaced = unicodedata.normalize("NFKC", fold(text or ""))
+    spaced = unicodedata.normalize("NFKC", fold(strip_text_footnotes(text)))
     compact = re.sub(r"\s+", "", spaced)
     score = 0
     for term in terms:

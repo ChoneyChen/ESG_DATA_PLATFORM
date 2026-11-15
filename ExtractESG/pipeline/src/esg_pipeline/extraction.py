@@ -567,10 +567,15 @@ class ExtractionCoordinator:
             state.update(run_id=run["run_id"], stage="extracting")
             self.save(state)
         run = run_record if run_record is not None else self.remote("GET", f"/api/runs/{state['run_id']}")
+        previous = self.store.get(state["queue_task_id"]) if state.get("queue_task_id") else None
+        if run_record is not None and run["status"] == "queued" and previous is not None and previous.status.value not in {"queued", "running"}:
+            # Bulk observations can precede a child's terminal transition.
+            # Confirm the native run still requests another slice before
+            # dispatching it from a snapshot taken before that child exited.
+            run = self.remote("GET", f"/api/runs/{state['run_id']}")
         if run.get("evidence_request"):
             self._prepare_more(state, run, request)
             return
-        previous = self.store.get(state["queue_task_id"]) if state.get("queue_task_id") else None
         if run["status"] == "queued" and (previous is None or previous.status.value not in {"queued", "running"}):
             if previous is not None:
                 state['execution_index'] = state.get('execution_index',0)+1

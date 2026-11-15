@@ -1,6 +1,34 @@
 """Compact model input; full physical frames remain immutable binding evidence."""
 
+import re
 from esg_data.literals import parse_measure
+from esg_data.units import is_unit_expression
+
+
+def printed_unit_sources(frame):
+    """Explicit unit declarations remain selectable source spans in text figures."""
+    if frame.kind != "text":
+        return {}
+    sources, seen = {}, set()
+    for item in [*frame.title_sources, *frame.texts]:
+        spans = [(match.start(),match.end()) for match in re.finditer(r"[^\n]+",item.text)]
+        spans.extend((match.start(1),match.end(1)) for match in re.finditer(
+            r"(?:\bunits?\s*[:：]|[單单]位\s*[:：])\s*([^\n()（）]+)",item.text,re.I))
+        spans.extend((match.start(1),match.end(1)) for match in re.finditer(
+            r"[（(]([^\n()（）]+)[）)]",item.text))
+        for start,end in spans:
+            raw = item.text[start:end]
+            literal = raw.strip()
+            if not is_unit_expression(literal):
+                continue
+            start += len(raw) - len(raw.lstrip())
+            key = (item.object_id,item.char_start+start,literal)
+            if key in seen:
+                continue
+            seen.add(key)
+            sources[f"u{len(sources)+1}"] = item.model_copy(update={
+                "text":literal,"char_start":item.char_start+start})
+    return sources
 
 
 def qualitative_spans(frame):
@@ -71,6 +99,12 @@ def reading_frame(frame, *, data_kind=None):
 
     if frame.fragment is not None:
         body["fragment"] = frame.fragment.model_dump(mode="json")
+    if data_kind == "quantitative":
+        units = printed_unit_sources(frame)
+        if units:
+            body["unit_sources"] = [
+                {"source_id":key,"text":item.text,"object_id":item.object_id,
+                 "char_start":item.char_start} for key,item in units.items()]
     return body
 
 

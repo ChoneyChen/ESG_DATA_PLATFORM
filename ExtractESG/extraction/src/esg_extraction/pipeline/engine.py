@@ -6,7 +6,7 @@ import re
 import time
 from dataclasses import asdict
 from esg_data.hashing import digest
-from esg_contracts.evidence import SearchIntent, EvidencePreparationRequest, EvidenceFrame, ObjectReference
+from esg_contracts.evidence import SearchIntent, EvidencePreparationRequest, EvidenceFrame
 from esg_contracts.search import PageSearchIntent
 from esg_contracts.facts import ClauseCoverage, SourceFact, ClauseMapping
 from esg_contracts.results import FactBundle
@@ -24,12 +24,13 @@ from .statistics import RunStatistics
 from .selection import quantitative_candidates, qualitative_candidates
 from .reading_policy import POLICY, ReadingProgress
 
-ENGINE_VERSION = "clause-backbone-2.7"
+ENGINE_VERSION = "clause-backbone-2.9"
 QUANTITATIVE_INSTRUCTIONS = """Select physical measurements for ONE independent clause from the bounded evidence frame.
 Use the clause definition, exclusions, scopes and reading.instructions to decide relevance.
-Return only matches with row_id and columns. A matching row defaults to match=match; use uncertain only when measurement meaning or target relevance is ambiguous. Explicit contrasting measurements may use different. Do not enumerate unrelated rows.
+Return matches with row_id and columns. A matching row defaults to match=match; use uncertain only when measurement meaning or target relevance is ambiguous. Explicit contrasting measurements may use different. Do not enumerate unrelated rows.
 Select every relevant row and ALL its reported periods, including historical years. Distinct entities, methods and roles remain separate columns. physical_structure describes observed headers; it is never a selected-year filter.
-Never return values, units, reasons or identity fields. The receiver binds the actual cells and headers, and a separate context step reads optional attributes. Missing metadata does not invalidate a measurement.
+When unit_sources is supplied, an optional unit_source_id selects the exact printed unit declaration applying to the selected measurement. Distinct plots in one figure can have different units. Omit this selection when its applicability is unclear. Existing cell, column and row units keep their physical priority.
+Never return values, unit strings, reasons or identity fields. The receiver binds the actual cells, headers and selected unit spans, and a separate context step reads optional attributes. Missing metadata does not invalidate a measurement.
 Formula digits, dates, identifiers, standard numbers, page references, headers and footnotes are not measurements. Omit them. No relevant measurements means matches=[]."""
 QUALITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent qualitative clause.
 Select directly reported statements answering the clause definition and reading.rules. A shared topic, heading, index entry, numerical result or action in a different domain is not an answer.
@@ -127,7 +128,7 @@ class ExtractionBackbone:
             run_id, "input/request.json", request.model_dump(mode="json")
         )
         self.artifacts.write(run_id, "input/engine.json", self.engine_identity)
-        self.artifacts.write(run_id, "input/reading-policy.json", {"schema_version":"reading-policy-1.0", **asdict(POLICY)})
+        self.artifacts.write(run_id, "input/reading-policy.json", {"schema_version":"reading-policy-1.1", **asdict(POLICY)})
         budget = request.budget
         for index, (key, clause) in enumerate(clauses.items(), 1):
             if key in self.completed:
@@ -152,15 +153,11 @@ class ExtractionBackbone:
             intent = SearchIntent.model_validate(plan["objects"])
             reading_progress = self.reading_progress.for_clause(key)
             try:
-                if reading_progress.selected_object is not None:
-                    candidates = [] if reading_progress.object_complete else [ObjectReference.model_validate(reading_progress.selected_object)]
-                    search_observation = reading_progress.search
-                else:
-                    candidates, search_observation = retrieve_candidates(self.documents, request.ir_run_id, intent,
-                        budget.max_objects_per_clause, sources=self.sources.values(),
-                        broaden=lambda: calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds
-                            and reading_progress.selected_object is None)
-                    reading_progress.search = search_observation
+                candidates, search_observation = retrieve_candidates(self.documents, request.ir_run_id, intent,
+                    budget.max_objects_per_clause, sources=self.sources.values(),
+                    broaden=lambda: calls < budget.max_model_calls and time.monotonic()-started < budget.timeout_seconds
+                        and not reading_progress.target_found)
+                reading_progress.search = search_observation
             except DocumentUnavailable:
                 raise
             except Exception as exc:
@@ -207,9 +204,6 @@ class ExtractionBackbone:
             inspected = len(inspected_ids)
             complete = not search_observation["truncated"]
             for candidate in candidates:
-                selected = reading_progress.selected_object
-                if selected and (selected['source_snapshot'],selected['object_id']) != (candidate.source_snapshot,candidate.object_id):
-                    continue
                 source_document = self.sources[candidate.source_snapshot]
                 for chunk in range(candidate.chunk_count):
                     frame_key = f"{key}/{candidate.source_snapshot}/{candidate.object_id}/{chunk}"
@@ -476,7 +470,7 @@ class ExtractionBackbone:
                                         local_mappings[fact.source_fact_id] = mapping
                                         self._record(fact, mapping)
                                         if mapping.match == "match":
-                                            reading_progress.select(candidate)
+                                            reading_progress.target_found = True
                                         if clause.data_kind == "quantitative":
                                             row_relations.setdefault(match.row_id,set()).add(mapping.match)
                                 except (ValueError, TypeError, KeyError) as exc:
@@ -559,11 +553,6 @@ class ExtractionBackbone:
                         self.visited.add(frame_key)
                         completed_frames.add(physical_digest)
                         errors = [error for error in errors if error.get("frame_key") != frame_key]
-                if reading_progress.selected_object and all(
-                    f"{key}/{candidate.source_snapshot}/{candidate.object_id}/{part}" in self.visited
-                    for part in range(candidate.chunk_count)):
-                    reading_progress.object_complete = True
-                    break
                 if not complete and (
                     calls >= budget.max_model_calls
                     or time.monotonic() - started >= budget.timeout_seconds
@@ -609,6 +598,7 @@ class ExtractionBackbone:
                         batch,parent_call,attempt = pending_context.pop(0)
                         aliases = {f"f{i}":fact.source_fact_id for i,fact in enumerate(batch,1)}
                         inputs = [{"id":alias,"label":local_facts[fid].source_row_label,
+                            "reported_value":local_facts[fid].value.model_dump(mode="json",exclude_none=True),
                             "local_source_ids":context_search["fact_sources"][fid],
                             "missing_attributes":pending_attributes[fid],
                             "identity":{axis:field.model_dump(mode="json",exclude={"evidence"}) for axis,field in
@@ -645,8 +635,11 @@ class ExtractionBackbone:
                             if telemetry.get("execution"):
                                 telemetry["execution"]["output_validation"] = "passed"
                             requested_by_fact = {fid:pending_attributes[fid] for fid in aliases.values()}
-                            count, changed_ids = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search,requested_by_fact)
-                            call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count)
+                            rejected_attributes = []
+                            count, changed_ids = apply_context(clause,self.sources,context_evidence,decision,local_facts,local_mappings,aliases,context_search,requested_by_fact,
+                                rejected_claims=rejected_attributes)
+                            call.update(status="ok",telemetry=telemetry,decision=decision.model_dump(mode="json"),attributes_added=count,
+                                rejected_attribute_claims=rejected_attributes)
                             for fid in changed_ids:
                                 self._record(local_facts[fid],local_mappings[fid])
                             reading_progress.finish_attributes(requested_by_fact)

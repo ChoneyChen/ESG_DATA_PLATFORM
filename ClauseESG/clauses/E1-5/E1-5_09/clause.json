@@ -122,8 +122,9 @@
       ],
       "description": null,
       "label": "实际统计边界",
-      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。",
+      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。 统计边界必须保留实际覆盖的主体或范围词组，不能将单独年份作为边界。Quote the actual coverage or subject phrase. A year alone cannot name the reporting boundary.",
       "source": "identity",
+      "value_pattern": "(?s).*[^\\W\\d_].*",
       "vocabulary": []
     },
     "reporting_entity": {
@@ -162,7 +163,8 @@
     },
     "value_role": {
       "context_levels": [
-        "local"
+        "local",
+        "report"
       ],
       "context_terms": [
         "实际",
@@ -170,24 +172,64 @@
         "基期",
         "actual",
         "target",
-        "baseline"
+        "baseline",
+        "goal",
+        "interim target",
+        "committed",
+        "commitment",
+        "planned",
+        "承诺",
+        "计划"
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "按每个数值所在列分别识别实际、目标或基期；同表可能混合历史实绩和目标，不得给整表统一赋值。只根据明确对应本事实期间、比例或数值的目标/承诺原句及本列证据确认target；保留全部历史列。报告主年份或未来年份本身不能证明数值角色，未知不得代填actual。 For each fact, cite the exact local target or commitment passage that applies to its period and value. A table may mix historical results and targets; assign target only to the supported facts, and preserve every raw period.",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "实绩",
+            "实际值"
+          ],
+          "code": "actual",
+          "label": "实际"
+        },
+        {
+          "aliases": [
+            "target",
+            "goal",
+            "commitment",
+            "committed",
+            "planned",
+            "承诺",
+            "计划"
+          ],
+          "code": "target",
+          "label": "目标"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准期"
+          ],
+          "code": "baseline",
+          "label": "基期"
+        }
+      ]
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "c02a6d2e47314bef94d062dcca50c0588b4b01f9627ca65757499efd111b8d4e",
+  "clause_digest": "db1199b0e9e1614610edd5c0ed10d6f8b6e14e56a8691f88c9010731b5579ff8",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
   "distinguish_from": [
     "可再生能源绝对消费量",
     "能源消费降幅",
-    "可再生发电占比"
+    "可再生发电占比",
+    "包含天然气的清洁能源总量或占比",
+    "non-renewable energy consumption"
   ],
   "evidence": [
     {
@@ -734,7 +776,8 @@
         "energy_flow",
         "denominator_scope",
         "energy_carrier",
-        "business_segment"
+        "business_segment",
+        "value_role"
       ],
       "missing_action": "annotate"
     },
@@ -754,7 +797,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "可再生能源占能源消费总量的比例"
+      "可再生能源占能源消费总量的比例",
+      "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -806,7 +850,7 @@
         "rule": "require_any",
         "scope": "subject",
         "terms": [
-          "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+          "re:(?:可再生|绿色电力|绿电|\\brenewable\\b|green\\s+(?:power|electricity)|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
         ],
         "unless_terms": []
       },
@@ -819,7 +863,7 @@
         "rule": "forbid_any",
         "scope": "text",
         "terms": [
-          "re:(?:(?<!非)化石|(?<!non-)(?<!non )fossil|电网|grid|灰电)"
+          "re:(?:非可再生|\\bnon[-\\s]*renewable\\b|(?<!非)化石|(?<!non-)(?<!non )fossil|天然气|天然氣|\\bnatural\\s+gas\\b|\\bcoal\\b|\\bdiesel\\b|\\bgasoline\\b|\\bfuel\\s+oil\\b|电网|grid|灰电)"
         ],
         "unless_terms": []
       },
@@ -918,7 +962,7 @@
         "re:(?:电力|电量|用电|绿电|electricity|power)"
       ],
       "fossil": [
-        "re:(?:(?<!非)化石|(?<!non-)(?<!non )fossil|电网|grid|灰电)"
+        "re:(?:非可再生|\\bnon[-\\s]*renewable\\b|(?<!非)化石|(?<!non-)(?<!non )fossil|天然气|天然氣|\\bnatural\\s+gas\\b|\\bcoal\\b|\\bdiesel\\b|\\bgasoline\\b|\\bfuel\\s+oil\\b|电网|grid|灰电)"
       ],
       "generation": [
         "re:(?:发电量|装机|产生|生产|出售|售出|上网|generat|capacity|installed|sold|produced|exported)"
@@ -933,7 +977,7 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "renewable": [
-        "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+        "re:(?:可再生|绿色电力|绿电|\\brenewable\\b|green\\s+(?:power|electricity)|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

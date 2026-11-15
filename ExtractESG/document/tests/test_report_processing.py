@@ -7,6 +7,17 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 import pytest
 
+
+def test_processing_fingerprint_uses_imported_modules_outside_a_checkout(tmp_path,monkeypatch):
+    from esg_pipeline.report_processing import ReportProcessingCoordinator
+    from esg_runtime import layout
+    expected=ReportProcessingCoordinator._engine_versions()
+    monkeypatch.setattr(layout,'DOCUMENT_API_SOURCE',tmp_path/'absent/document/src/esg_document')
+    monkeypatch.setattr(layout,'EXTRACT_ROOT',tmp_path/'absent/ExtractESG')
+    actual=ReportProcessingCoordinator._engine_versions()
+    assert actual==expected and set(actual)=={'ocr','ir'}
+    assert all(len(value)==64 for value in actual.values())
+
 from esg_document.api.report_processing import processing_router
 from esg_document.assets.report_catalog import ReportAssetCatalog
 from esg_pipeline.contracts import PipelineTaskStatus, PipelineTaskType

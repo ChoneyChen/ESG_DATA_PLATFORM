@@ -277,11 +277,17 @@ def build_lines(words: list[Word]) -> list[Line]:
         return []
     words = [Word(w.text, w.x0, w.x1, w.base, w.size, w.mark) for w in words]
     body = statistics.median(w.size for w in words)
+    formula_anchors = [word for word in words if FORMULA_END_RE.search(word.text)]
+    raised_glyphs = {id(word) for word in words if re.fullmatch(r"[23]", word.text)
+        and any(word is not anchor and word.size < 0.95 * anchor.size
+            and -0.1 * anchor.size <= word.x0 - anchor.x1 <= 0.3 * anchor.size
+            and 0.15 * anchor.size < anchor.base - word.base < 0.8 * anchor.size
+            for anchor in formula_anchors)}
     normal = sorted(
-        (w for w in words if w.size >= 0.72 * body), key=lambda w: (w.base, w.x0)
+        (w for w in words if w.size >= 0.72 * body and id(w) not in raised_glyphs), key=lambda w: (w.base, w.x0)
     )
     small = sorted(
-        (w for w in words if w.size < 0.72 * body), key=lambda w: (w.base, w.x0)
+        (w for w in words if w.size < 0.72 * body or id(w) in raised_glyphs), key=lambda w: (w.base, w.x0)
     )
     lines: list[Line] = []
     for word in normal:
@@ -502,6 +508,22 @@ def _column_of(columns: list[Column], word: Word) -> int:
     if columns[best].overlap(word) > 0:
         return best
     return min(range(len(columns)), key=lambda i: columns[i].gap(word))
+
+
+def _value_columns(columns: list[Column], lines: list[Line]) -> bool:
+    """Mark columns dominated by printed values, rather than incidental numbers
+    in prose. Return whether one also contains a non-year numeric value."""
+    measured = False
+    for index, column in enumerate(columns):
+        inside = [
+            w for line in lines for w in line.words
+            if not is_mark(w) and _column_of(columns, w) == index
+        ]
+        column.values = bool(inside) and sum(
+            is_value(w.text) for w in inside
+        ) >= 0.5 * len(inside)
+        measured |= column.values and any(is_number(w.text) for w in inside)
+    return measured
 
 
 def _bands(
@@ -727,10 +749,18 @@ def table_grid(
     data = [
         l for l in lines if any(is_number(w.text) for w in l.words) and not prose(l)
     ]
-    basis = data or [l for l in lines if not prose(l)] or lines
+    text_basis = [l for l in lines if not prose(l)] or lines
+    text_columns = _split_repeated_periods(
+        _columns(text_basis, size, 0.6 * size), text_basis
+    )
+    # A percentage inside a policy paragraph is not a measurement column.
+    # Inferring the entire grid from that one line splits the paragraph at
+    # ordinary word spaces and scrambles its reading order across columns.
+    measured = bool(text_columns) and _value_columns(text_columns, data or text_basis)
+    basis = data if data and measured else text_basis
     # A category printed once beside its rows ("水资源", left of the row
     # labels) stands in a column of its own.
-    if data:
+    if data and measured:
         left_edge = min(w.x0 for l in data for w in l.words)
         basis = basis + [
             l
@@ -740,11 +770,17 @@ def table_grid(
     columns = _split_repeated_periods(_columns(basis, size, 0.6 * size), basis)
     if not columns:
         return [[(line.text, 1)] for line in lines]
-    for index, column in enumerate(columns):
-        inside = [w for l in basis for w in l.words if _column_of(columns, w) == index]
-        column.values = bool(inside) and sum(
-            is_value(w.text) for w in inside
-        ) >= 0.5 * len(inside)
+    _value_columns(columns, basis)
+    if not measured:
+        # In a ruled prose table the printed separators own row membership;
+        # each wrapped baseline must not become a separate policy row.
+        bands = [
+            [line for line in lines if low <= line.mid < high]
+            for low, high in _bands(rules, box)
+        ]
+        bands = [members for members in bands if members]
+        if len(bands) > 1:
+            return [[(text, 1) for text in _cells(row, columns)] for row in bands]
     if all(c.values for c in columns) and len(columns) > 1:
         columns[0].values = False  # the label column holds e.g. "范围1"
     label_right = next((c.x0 for c in columns if c.values), columns[-1].x1)
@@ -767,12 +803,15 @@ def table_grid(
         ] or lines
     anchor_ids = {id(a) for a in anchors}
     first_mid = min(a.mid for a in anchors)
+    period_headers = [line for line in lines if line.mid < first_mid and sum(
+        bool(YEAR_RE.fullmatch(word.text)) and columns[_column_of(columns, word)].values
+        for word in line.words) >= 2]
     rows: list[list[Line]] = []
     for low, high in _bands(rules, box):
         members = [l for l in lines if low <= l.mid < high]
         if not members:
             continue
-        band_anchors = [l for l in members if id(l) in anchor_ids]
+        band_anchors = [l for l in members if id(l) in anchor_ids or l in period_headers]
         if len(band_anchors) == 1 or (
             not band_anchors and min(l.mid for l in members) > first_mid
         ):

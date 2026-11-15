@@ -54,12 +54,59 @@
         "local",
         "report"
       ],
-      "context_terms": [],
+      "context_terms": [
+        "Indirect emissions",
+        "Scope 2",
+        "emission factors",
+        "grid emission factor",
+        "location-based",
+        "market-based",
+        "location-based methodology",
+        "market-based methodology",
+        "national grid emission factor",
+        "the source of Scope 2",
+        "geographical basis",
+        "geographic basis"
+      ],
       "description": null,
       "label": "测量方法",
-      "reading_instruction": "只读取实际适用于该数值的方法说明和脚注；不能从条款规定反推实际采用的方法。",
+      "reading_instruction": "只按该行或明确适用于此原值的表头、脚注识别地点法/市场法。引用中必须含相应方法或实际排放因子声明。仅Scope 2标签、tCO2e单位、另一行的方法不能证明本值方法。没有方法证据时保持未知。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "位置法",
+            "基于位置法",
+            "基于地点法",
+            "location-based",
+            "location based",
+            "Locationbased",
+            "National Grid Emission Factor",
+            "average grid emission factor",
+            "geographical basis",
+            "geographic basis",
+            "地区法",
+            "地區法",
+            "地理法",
+            "geographical › basis",
+            "geographic › basis"
+          ],
+          "code": "location_based",
+          "label": "地点法"
+        },
+        {
+          "aliases": [
+            "基于市场法",
+            "market-based",
+            "market based",
+            "Marketbased",
+            "supplier-specific",
+            "contractual instruments"
+          ],
+          "code": "market_based",
+          "label": "市场法"
+        }
+      ]
     },
     "reporting_boundary": {
       "context_levels": [
@@ -151,13 +198,61 @@
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        }
+      ]
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "a19995f3787f08c9fa3f99b7bb4550ae109ffbc450ff05f28a54efabc877abf0",
+  "clause_digest": "8a5ea0566b24b4fb125a9251554a9cfcd2e3ad6f819ba33e1729fbfc69cabd6a",
   "clause_key": "E1-6_10",
   "data_kind": "quantitative",
   "definition": "基于市场法的范围2温室气体排放总量",
@@ -682,7 +777,9 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "基于市场法的范围2温室气体排放总量"
+      "基于市场法的范围2温室气体排放总量",
+      "Direct emissions / Indirect emissions 等简短行名只有在实际 CO2 当量单位、温室气体表头或适用脚注明确支持时才按对应范围读取；保留全部披露期间。单有直接/间接排放字样不证明其为温室气体排放。",
+      "间接温室气体原值可以保留，地点法/市场法只从适用的实际方法说明识别；未声明方法时保持未知，不能用本条目标或另一行的方法补齐。"
     ],
     "operator": "ghg_scope",
     "rules": [
@@ -729,8 +826,23 @@
         "allowed": [],
         "flag": null,
         "if_terms": [],
+        "params": {},
+        "reason": "emissions_not_identified_as_ghg",
+        "rule": "require_any",
+        "scope": "all",
+        "terms": [
+          "re:(?:温室气体|溫室氣體|\\bghg\\b|greenhouse|碳排放|二氧化碳|\\bco\\s*[2₂]|carbon\\s+emission)",
+          "re:(?:范围|範圍|范畴|範疇)\\s*[一二三123]|\\bscope\\s*(?:[123]|i{1,3})\\b"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
         "params": {
           "method": "market_based",
+          "method_check": true,
           "scope": "scope_2"
         },
         "reason": null,
@@ -750,7 +862,7 @@
         "terms": [
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
           "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)",
-          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
         ],
         "unless_terms": []
       },
@@ -782,7 +894,7 @@
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "combined_scope": [
         "re:(?:(?:范围|范畴|scope)\\s*[一1]\\s*(?:\\+|＋|和|与|及|&|and|,|、)\\s*(?:范围|范畴|scope)?\\s*[二2]|1\\s*\\+\\s*2|1\\s*&\\s*2)"
@@ -803,7 +915,8 @@
         "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
       ],
       "location_method": [
-        "re:(?:位置法|地点法|基于位置|基于地点|location[\\s-]*based|average\\s+grid\\s+emission\\s+factor)"
+        "re:(?:位置法|地点法|基于位置|基于地点|location[\\s-]*based|average\\s+grid\\s+emission\\s+factor)",
+        "re:(?:geograph(?:ic|ical)[\\s›]+basis|地区法|地區法|地理法)"
       ],
       "market_method": [
         "re:(?:市场法|基于市场|market[\\s-]*based|supplier[\\s-]*specific|contractual\\s+instruments)"
@@ -821,10 +934,10 @@
         "re:(?:%|％|率|占比|比例|比率|比重|\\b(?:percentages?|proportions?|shares?|ratios?|rates?)\\b)"
       ],
       "scope1": [
-        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|direct\\s+(?:ghg\\s+)?emission)"
+        "re:(?:范围\\s*[一1](?![0-9])|范畴\\s*[一1]|scope\\s*1(?![0-9])|scope\\s*i\\b|直接(?:温室气体|GHG|碳)?排放|\\bdirect\\s+(?:(?:ghg|greenhouse\\s+gas)\\s+)?emission)"
       ],
       "scope2": [
-        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:ghg\\s+)?emission)"
+        "re:(?:范围\\s*[二2](?![0-9])|范畴\\s*[二2]|scope\\s*2(?![0-9])|scope\\s*ii\\b|(?<!其他)间接(?:温室气体|GHG|碳)?排放|energy\\s+indirect|(?<!other\\s)indirect\\s+(?:(?:ghg|greenhouse\\s+gas)\\s+)?emission)"
       ],
       "scope3": [
         "re:(?:范围\\s*[三3](?![0-9])|范畴\\s*[三3]|scope\\s*3(?![0-9])|scope\\s*iii\\b|其他间接|other\\s+indirect|价值链排放|value\\s+chain\\s+emission)"
@@ -956,7 +1069,11 @@
       "范围二",
       "范畴2",
       "范畴二",
-      "购入能源间接排放"
+      "购入能源间接排放",
+      "Indirect emissions",
+      "indirect greenhouse gas emissions",
+      "間接排放",
+      "間接溫室氣體排放量"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -984,7 +1101,11 @@
         "范围二",
         "范畴2",
         "范畴二",
-        "购入能源间接排放"
+        "购入能源间接排放",
+        "Indirect emissions",
+        "indirect greenhouse gas emissions",
+        "間接排放",
+        "間接溫室氣體排放量"
       ],
       [
         "Market-based",

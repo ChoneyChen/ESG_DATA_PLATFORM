@@ -27,7 +27,7 @@
 | clause_key、group_id、labels、definition | 稳定条款身份、导航组、短名字与核心定义；UI及阅读器消费 |
 | distinguish_from、exclusions、exact_labels | 概念边界、排除与精确别名；归单条所有 |
 | data_kind、value | quantitative/qualitative及目标值语义；定性没有数值规范单位 |
-| attributes | 属性ID→定义、读取指令、分类词典、补读词和local/report来源范围；不在展示层重复定义 |
+| attributes | 属性ID→定义、读取指令、分类词典、补读词、local/report来源范围及可选value_pattern。分类代码用于目标冲突时须声明有证据别名的词表。value_pattern按本条语义约束已引用属性的字符串叶子，未声明时保留既有JSON值类型 |
 | retrieval | 正负词、词组、来源优先级、锚点、候选类型和vocabulary_refs；检索从这里取得要求 |
 | reading | 通用算子、自然语言指令、规则和词典；解释器消费声明，不维护另一份指标分支 |
 | purposes | capture保留all_reported；enrichment指定可选字段；target_scope表达目标关系；comparison表达后续比较要求 |
@@ -49,7 +49,13 @@
 
 区间、比例、强度、分项不是新增值种类，使用定量字段、单位、分母和身份安放。结构化数值解析失败时保留原文及未解析说明，不编零；不把Decimal转为浮点。缺单位也不能直接丢掉实际计数。
 
-ReportedContext包含期间、主体、主体聚合角色、边界、方法、值角色、聚合角色、分母及开放dimensions。每个ReportedField独立表达stated/inherited/not_stated/not_read/conflict；已声称取得的值附raw_text及证据。未知不意味着冲突，目标固定分类不冒充实际分类。
+ReportedContext包含期间、主体、主体聚合角色、边界、方法、值角色、聚合角色、分母及开放dimensions。每个ReportedField独立表达stated/inherited/not_stated/not_read/conflict；已声称取得的值附raw_text及证据。未知不意味着冲突，目标固定分类不冒充实际分类。可选属性是否实际补读由purposes.enrichment.identity_axes选择，声明了属性不等于已执行读取；需区分实际与目标值的条款应同时声明value_role读取及其分类证据。混合实际/目标表必须按具体列和局部句子绑定，不能整表套同一角色或依据报告主年推断。
+
+开放属性值逐叶回绑引文中的实际字串，分类值取得本条词表证明后保存代码。属性允许的来源按事实与属性分别计算。报告检索段落需匹配该属性自身的context_terms，页码相邻不产生local授权。标号脚注需有本事实行、列或标题的同号引用。报告级value_role还需引句同时证明该事实原值和期间。属性约束失败保留原值并记录拒绝原因。可选value_pattern未声明时不进入旧合同的序列化内容，旧冻结摘要维持原含义。
+
+组合单位的每个印刷片段分别保存其原始对象和摘录，跨行父标签及续表表头同样回到实际来源，不能给合并字符串伪造一个来源单元格。
+
+文字图形中的独立单位行、Unit声明及括号单位可以作为实际来源片段，定量阅读用unit_source_id选择其引用。绑定器保留原印刷字串和字符范围。同一图形含多个单位时逐测量选择，不能统一套用整个图的首个单位。
 
 EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、可选bbox/行列/字符范围和source_snapshot。界面显示页码时加1，不重排稀疏准备页。条款关系ClauseMapping独立保存clause_key/digest、source_fact_id、match、reason、scope_ids和flags。
 

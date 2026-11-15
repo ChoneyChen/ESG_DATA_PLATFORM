@@ -207,35 +207,37 @@ class ReportProcessingCoordinator:
 
     @staticmethod
     def _engine_versions():
-        from esg_runtime.layout import DOCUMENT_API_SOURCE, EXTRACT_ROOT
+        from importlib.util import find_spec
+        from esg_runtime.release import package_files
 
-        base = DOCUMENT_API_SOURCE
-
-        def fingerprint(paths):
+        def fingerprint(packages, modules):
+            paths = dict(package_files(packages))
+            for module in modules:
+                spec = find_spec(module)
+                if spec is None or not spec.origin:
+                    raise RuntimeError("Installed processing module is missing: " + module)
+                paths[module.replace(".", "/") + ".py"] = Path(spec.origin)
             return digest(
                 {
-                    str(path.relative_to(EXTRACT_ROOT)): sha256(
-                        path.read_bytes()
-                    ).hexdigest()
-                    for path in sorted(paths)
+                    key: sha256(path.read_bytes()).hexdigest()
+                    for key, path in sorted(paths.items())
                 }
             )
 
         return {
             "ocr": fingerprint(
+                ("esg_document.ocr",),
                 [
-                    *base.joinpath("ocr").glob("*.py"),
-                    base / "workflows/ocr_workflow.py",
-                    EXTRACT_ROOT / "contracts/src/esg_contracts/document.py",
-                    base / "config.py",
+                    "esg_document.workflows.ocr_workflow",
+                    "esg_contracts.document",
+                    "esg_document.config",
                 ]
             ),
             "ir": fingerprint(
+                ("esg_document.document", "esg_document.models"),
                 [
-                    *base.joinpath("document").glob("*.py"),
-                    *base.joinpath("models").glob("*.py"),
-                    base / "workflows/ir_workflow.py",
-                    base / "config.py",
+                    "esg_document.workflows.ir_workflow",
+                    "esg_document.config",
                 ]
             ),
         }

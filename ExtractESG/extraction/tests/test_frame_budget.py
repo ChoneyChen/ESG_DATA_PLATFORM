@@ -7,7 +7,7 @@ from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_extraction.models.errors import ModelRunFailure
 from esg_extraction.models.mlx_runtime import PromptBudgetExceeded
 from test_structure_contract import frame, document
-from test_backbone import repository, quantitative
+from test_backbone import repository, quantitative, run_backbone
 
 
 @pytest.mark.parametrize('failure',['generation_incomplete','input_budget'])
@@ -30,11 +30,13 @@ def test_output_or_input_limit_splits_rows_and_retains_all_cells(repository,tmp_
             assert bounded['fragment']['completeness']=='fragment'
             assert kwargs['context']['execution']['attempt']==1
             assert kwargs['context']['execution']['parent_task_id'].endswith('/calls/1')
-            return {'matches':[{'row_id':row['row_id'],'columns':[cell['column_id'] for cell in row['cells']],
-                'selection':'measurement','reason':'reported cells'} for row in bounded['rows']]},{}
+            return {'matches':[{'row_id':row['row_id'],'columns':[cell['column_id'] for cell in row['cells']]}
+                for row in bounded['rows']]},{}
     clause=quantitative(repository);artifacts=FileArtifactPort(tmp_path)
+    clause=clause.model_copy(update={'purposes':clause.purposes.model_copy(update={
+        'enrichment':clause.purposes.enrichment.model_copy(update={'identity_axes':[]})})}).seal()
     events=[]
-    result=ExtractionBackbone(Docs(),Reader(),artifacts).run('split',RunRequest(ir_run_id='ir',clause_keys=[clause.clause_key]),{clause.clause_key:clause},on_progress=events.append)
+    result=run_backbone(Docs(),Reader(),artifacts,'split',RunRequest(ir_run_id='ir',clause_keys=[clause.clause_key]),{clause.clause_key:clause},on_progress=events.append)
     assert any(e.get('fact_count')==2 and e.get('current')==0 for e in events)
     assert [e['model_calls'] for e in events if e['stage']=='reading']==[1,2,3]
     assert len(result['facts'])==4
@@ -60,4 +62,35 @@ def test_fragmentation_preserves_text_characters_and_parent_identity():
         text=piece.texts[0]
         offset=text.char_start-10
         assert source[offset:offset+len(text.text)]==text.text
+        assert piece.fragment.parent_digest=='original'
+
+
+def test_single_sentence_without_boundary_is_not_split_mid_statement():
+    from esg_contracts.evidence import EvidenceFrame,TextEvidence
+    from esg_extraction.pipeline.frames import split_frame
+    source='公司通过连续在线监测及定期委托检测落实污染物排放管理并保存监测记录'*20
+    original=EvidenceFrame(object_id='p',kind='text',page_index=3,digest='whole-statement',
+        texts=[TextEvidence(object_id='p',span_id='span',text=source,page_index=3,char_start=73)])
+    assert split_frame(original)==[]
+    assert original.texts[0].text==source and original.texts[0].char_start==73
+
+
+@pytest.mark.parametrize('boundary',['。','！','？','. ','! ','? ','\n\n'])
+def test_sentence_boundary_fragments_keep_exact_source_offsets(boundary):
+    from esg_contracts.evidence import EvidenceFrame,TextEvidence
+    from esg_extraction.pipeline.frames import split_frame
+    first='排放监测流程及实际检测记录'*14+boundary
+    second='所有检测结果均按要求记录并保持可追溯'*14
+    source=first+second
+    original=EvidenceFrame(object_id='original-paragraph',kind='text',page_index=7,digest='original',
+        texts=[TextEvidence(object_id='original-paragraph',span_id='span',text=source,page_index=7,char_start=137)])
+    pieces=split_frame(original)
+    assert len(pieces)==2
+    assert [piece.texts[0].text for piece in pieces]==[first,second]
+    assert [piece.texts[0].char_start for piece in pieces]==[137,137+len(first)]
+    for piece in pieces:
+        text=piece.texts[0]
+        start=text.char_start-137
+        assert source[start:start+len(text.text)]==text.text
+        assert text.object_id=='original-paragraph' and text.page_index==7
         assert piece.fragment.parent_digest=='original'

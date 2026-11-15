@@ -15,7 +15,12 @@ from esg_pipeline.contracts import (
     PipelineTaskStatus,
     PipelineTaskType,
 )
-from esg_pipeline.scheduler import PipelineScheduler, PipelineTaskHooks, WorkerCommand
+from esg_pipeline.scheduler import (
+    PipelineScheduler,
+    PipelineTaskHooks,
+    WorkerCommand,
+    worker_output_lines,
+)
 from esg_pipeline.hooks import PlatformTaskHooks
 from esg_pipeline.secrets import RuntimeSecretVault
 from esg_pipeline.store import PipelineQueueStore
@@ -171,6 +176,25 @@ def _wait_for_status(
             return task
         time.sleep(0.02)
     raise AssertionError(f"Task {task_id} did not enter {statuses}")
+
+
+@pytest.mark.parametrize("partial", ["", "ESG_PIPELINE_EVENT "])
+def test_worker_exit_drains_result_written_after_observed_eof(tmp_path, partial):
+    log = tmp_path / "worker.log"
+    previous_attempt = "ESG_PIPELINE_EVENT {\"kind\":\"result\",\"payload\":{\"old\":true}}\n"
+    log.write_text(previous_attempt + partial, encoding="utf-8")
+    result = 'ESG_PIPELINE_EVENT {"kind":"result","payload":{"status":"completed","execution_continues":true}}\n'
+    final_log = 'ESG_PIPELINE_EVENT {"kind":"log","message":"released"}\n'
+
+    class ExitingWorker:
+        def poll(self):
+            # Model the observed First Solar failure: the final write lands
+            # after the reader sees EOF but before it notices process exit.
+            with log.open("a", encoding="utf-8") as output:
+                output.write(result[len(partial):] + final_log)
+            return 0
+
+    assert list(worker_output_lines(ExitingWorker(), log, len(previous_attempt))) == [result, final_log]
 
 
 def test_scheduler_runs_one_isolated_worker_and_terminates_process_group(tmp_path: Path) -> None:

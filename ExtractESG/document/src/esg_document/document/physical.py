@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal, InvalidOperation
 
 from esg_data.normalize import fold
-from esg_data.units import is_unit_expression
+from esg_data.units import NUMERIC_SCALE, is_unit_expression
 from esg_data.literals import (
     CN_DIGITS,
     CN_YEAR_RE,
@@ -59,7 +59,7 @@ LABEL_HEADER_RE = re.compile(
     re.I,
 )
 UNIT_HEADER_RE = re.compile(
-    r"^(?:单位|單位|计量单位|unit|units|unit of measurement)$", re.I
+    r"^(?:(?:单位|單位|计量单位|unit of measurement|units?)\s*)+$", re.I
 )
 UNIT_TOKEN_RE = re.compile(
     r"(吨|噸|立方米|升|千瓦时|兆瓦时|吉瓦时|瓦时|焦|标准煤|标煤|二氧化碳|co2|co_|%|％|元|人|次|小时|"
@@ -106,11 +106,7 @@ def is_null_text(text: str) -> bool:
 
 def is_number_text(text: str) -> bool:
     text = number_text(text)
-    return (
-        bool(text)
-        and bool(NUMBER_RE.match(text))
-        and not YEAR_HEADER_RE.match(text.replace(",", ""))
-    )
+    return bool(text) and bool(NUMBER_RE.match(text))
 
 
 @dataclass
@@ -134,6 +130,8 @@ class DataLine:
     ocr_label: str | None = (
         None  # set when the label was corrected from the PDF text layer
     )
+    label_cell_ids: list[str] = field(default_factory=list)
+    unit_cell_ids: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -230,6 +228,10 @@ TOTAL_LABEL_RE = re.compile(
     re.I,
 )
 REMARK_HEADER_RE = re.compile(r"(?:备注|備註|说明|說明|remark|note|comment)", re.I)
+DATE_HEADER_RE = re.compile(
+    r"^(?:(?:reporting|fiscal|disclosure|publication)\s+)?(?:years?|dates?|period)$|"
+    r"^(?:报告|報告|财|財)?(?:年|年度|年份|日期|期间|期間)$", re.I
+)
 
 
 def _sibling_run_straddles_parents(header_rows, origin, covered, value_cols) -> bool:
@@ -334,12 +336,16 @@ LABEL_WORD_RE = re.compile(
 )
 
 
-INLINE_UNIT_RE = re.compile(r"[（(]\s*([^（）()]{1,16})\s*[)）]\s*$")
+INLINE_UNIT_RE = re.compile(r"[（(]\s*([^（）()]+?)\s*[)）]\s*$")
 
 
 def _is_unit_like(text: str | None) -> bool:
     if not text:
         return False
+    # Shared unit semantics can identify complete multi-word units whose
+    # printed names exceed the short-token heuristic below.
+    if is_unit_expression(text):
+        return True
     compact = re.sub(r"[\s$\\{}_^]+", "", text)
     if (
         not compact
@@ -389,7 +395,33 @@ def composed_tables(tables: list[dict], logical_tables: list[dict]) -> list[dict
             "header_row_indices": sorted({cell["row_index"] for cell in cells if cell.get("is_header")}),
             "quality_flags": list(dict.fromkeys([*root.get("quality_flags", []), "canonical_horizontal_composition"]))}
         dropped.update(ids[1:])
-    return [merged.get(table["table_id"], table) for table in tables if table["table_id"] not in dropped]
+    projected = [merged.get(table["table_id"], table)
+        for table in tables if table["table_id"] not in dropped]
+    resolved = {}
+    for table in sorted(projected, key=lambda item: (item.get("page_index", 0), item.get("order", 0))):
+        parent = resolved.get(table.get("continues_from_table_id"))
+        view = build_table_view(table, None)
+        if (parent and table.get("continuation_axis") == "vertical"
+            and parent.get("column_count") == table.get("column_count")
+            and view and not view.header_years()):
+            parent_view = build_table_view(parent, None)
+            if (parent_view and len(set(parent_view.header_years())) >= 2
+                and parent_view.value_cols == view.value_cols
+                and parent_view.label_cols == view.label_cols):
+                # Negative rows belong only to this read projection. Canonical
+                # IR cells retain their original nonnegative row positions.
+                header_rows = parent_view.header_rows
+                positions = {row: index - len(header_rows)
+                    for index, row in enumerate(header_rows)}
+                inherited = [{**cell, "row_index": positions[cell["row_index"]],
+                    "row_span": min(cell.get("row_span", 1), -positions[cell["row_index"]]),
+                    "is_header": True}
+                    for cell in parent.get("cells", []) if cell["row_index"] in positions]
+                table = {**table, "cells": [*table.get("cells", []), *inherited],
+                    "inherited_header_rows": sorted(positions.values()),
+                    "quality_flags": [*table.get("quality_flags", []), "vertical_headers_inherited"]}
+        resolved[table["table_id"]] = table
+    return [resolved[table["table_id"]] for table in projected]
 
 
 def build_table_view(table: dict, page_payload: dict | None) -> TableView | None:
@@ -400,26 +432,65 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     origin, covered = _grid(table)
 
     def text_at(r: int, c: int) -> str:
-        ref = origin.get((r, c))
+        ref = covered.get((r, c))
         return ref.text if ref else ""
 
-    header_rows: list[int] = []
+    header_rows: list[int] = list(table.get("inherited_header_rows") or [])
+    period_header_seen = bool(header_rows)
     for r in range(n_rows):
         texts = [text_at(r, c) for c in range(n_cols)]
         # A bare "(3)" over a heading is a footnote mark, not a parenthesised
         # negative; counting it as a value would end the header band before
         # the period row and leave every column header empty.
-        has_value = any(
-            is_number_text(t) and not FOOTNOTE_MARK_RE.match(t) for t in texts[1:]
+        numbers = [t for t in texts[1:]
+            if is_number_text(t) and not FOOTNOTE_MARK_RE.match(t)]
+        printed_unit = any(is_unit_expression(text) and not UNIT_HEADER_RE.fullmatch(text)
+            for text in texts)
+        if period_header_seen:
+            printed_unit = printed_unit or any(is_unit_expression(part)
+                for text in texts[:1] for part in re.findall(r"[（(]([^（）()]+)[）)]", text))
+        row_label = texts[0] and not LABEL_HEADER_RE.fullmatch(texts[0]) and not YEAR_HEADER_RE.fullmatch(texts[0])
+        date_header_seen = any(DATE_HEADER_RE.fullmatch(text_at(header, col))
+            for header in header_rows for col in range(n_cols))
+        has_value = bool(numbers) and (
+            any(not YEAR_HEADER_RE.fullmatch(text) for text in numbers)
+            or printed_unit or (period_header_seen and row_label) or date_header_seen
         )
         if has_value:
             break
         header_rows.append(r)
+        period_header_seen |= any(YEAR_HEADER_RE.fullmatch(text) for text in texts)
         if len(header_rows) >= 4:
             break
     data_rows = [r for r in range(n_rows) if r not in header_rows]
     if not data_rows:
         return None
+
+    header_text = {
+        c: " ".join(text_at(r, c) for r in header_rows).strip() for c in range(n_cols)
+    }
+    date_cols = {c for c in range(n_cols) if any(
+        DATE_HEADER_RE.fullmatch(text_at(r, c)) for r in header_rows)}
+    period_cols = {c for c in range(n_cols) if any(
+        YEAR_HEADER_RE.fullmatch(text_at(r, c)) for r in header_rows)}
+
+    def measurement_number(text, row, col):
+        if not is_number_text(text) or col in date_cols:
+            return False
+        if not YEAR_HEADER_RE.fullmatch(text):
+            return True
+        row_label = text_at(row, 0)
+        labeled_measurement = row_label and not (
+            is_number_text(row_label) or YEAR_HEADER_RE.fullmatch(row_label))
+        if (col in period_cols and labeled_measurement) or any(
+            YEAR_HEADER_RE.fullmatch(text_at(row, date_col)) for date_col in date_cols):
+            return True
+        # A bare four-digit number needs local quantity context. This leaves
+        # report dates and regulation years available as text, while a real
+        # count such as 2000 persons remains a measurement.
+        return any(is_unit_expression(text_at(row, other))
+            and not UNIT_HEADER_RE.fullmatch(text_at(row, other))
+            for other in range(1, n_cols) if other != col)
 
     numeric = [0] * n_cols
     textual = [0] * n_cols
@@ -431,15 +502,12 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
             filled[c] += bool(t)
             if not t or is_null_text(t):
                 continue
-            if is_number_text(t):
+            if measurement_number(t, r, c):
                 numeric[c] += 1
             else:
                 textual[c] += 1
                 if _is_unit_like(t):
                     unitish[c] += 1
-    header_text = {
-        c: " ".join(text_at(r, c) for r in header_rows).strip() for c in range(n_cols)
-    }
     unit_col = None
     by_data = [
         c
@@ -453,11 +521,13 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     ]
     # A "Unit" header over an empty column is an OCR shift; the unit-like data column wins.
     if by_data or by_header:
-        unit_col = (by_data or by_header)[0]
+        confirmed_header = [c for c in by_header if unitish[c]]
+        unit_col = (confirmed_header or by_data or by_header)[0]
     value_cols = [
         c
         for c in range(n_cols)
-        if c != unit_col and numeric[c] >= 1 and numeric[c] >= textual[c]
+        if c != unit_col and c not in date_cols
+        and numeric[c] >= 1 and numeric[c] >= textual[c]
     ]
     if (
         value_cols
@@ -475,7 +545,7 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     value_cols = [
         c
         for c in range(first_value, n_cols)
-        if c != unit_col
+        if c != unit_col and c not in date_cols
         and (
             c in value_cols
             or (textual[c] == 0 and header_text_at(header_rows, origin, covered, c))
@@ -551,37 +621,85 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
     sections: dict[int, str] = {}
     lines: list[DataLine] = []
     current_section: str | None = None
+    pending_unit_prefix = None
     for r in data_rows:
         label_parts = []
+        label_refs = []
         for c in label_cols:
             ref = covered.get((r, c))
             if ref is None or is_null_text(ref.text):
                 continue
+            if ref.cell_id not in {item.cell_id for item in label_refs}:
+                label_refs.append(ref)
             if ref.text and (not label_parts or label_parts[-1] != ref.text):
                 label_parts.append(ref.text)
         values = {}
         for c in value_cols:
             ref = origin.get((r, c))
-            if ref is not None and ref.text:
+            if ref is not None and ref.text and not (
+                YEAR_HEADER_RE.fullmatch(ref.text) and not measurement_number(ref.text, r, c)
+            ):
                 values[c] = ref
-        has_numeric = any(is_number_text(v.text) for v in values.values())
-        unit = clean_unit(text_at(r, unit_col)) if unit_col is not None else None
+        has_numeric = any(measurement_number(v.text, r, c) for c, v in values.items())
+        unit_ref = covered.get((r, unit_col)) if unit_col is not None else None
+        unit_refs = [unit_ref] if unit_ref and unit_ref.text else []
+        unit = clean_unit(unit_ref.text) if unit_refs else None
+        if unit_col is not None and unit_col < first_value:
+            # OCR can split one printed unit across adjacent columns. Its
+            # complete expression must still be recognized by shared semantics.
+            for first in range(unit_col + 1):
+                for last in range(unit_col + 1, first_value + 1):
+                    refs = []
+                    for col in range(first, last):
+                        ref = covered.get((r, col))
+                        if ref and ref.text and ref.cell_id not in {item.cell_id for item in refs}:
+                            refs.append(ref)
+                    combined = " ".join(ref.text for ref in refs)
+                    if len(refs) > len(unit_refs) and is_unit_expression(combined):
+                        unit, unit_refs = combined, refs
+            unit_ids = {ref.cell_id for ref in unit_refs}
+            label_refs = [ref for ref in label_refs if ref.cell_id not in unit_ids]
+            label_parts = list(dict.fromkeys(ref.text for ref in label_refs))
         if not has_numeric:
             text = " ".join(part for part in label_parts if part)
             if text and not values:
                 sections[r] = text
                 current_section = text
+            pending_unit_prefix = (
+                (r, label_refs, unit_refs)
+                if text and unit and re.fullmatch(NUMERIC_SCALE, unit)
+                and not values else None
+            )
             continue
+        if pending_unit_prefix and pending_unit_prefix[0] == r - 1 and unit:
+            _, prefix_labels, prefix_units = pending_unit_prefix
+            combined_unit = " ".join([*[ref.text for ref in prefix_units], unit])
+            if is_unit_expression(combined_unit):
+                prefix = " ".join(ref.text for ref in prefix_labels)
+                suffix = " › ".join(label_parts)
+                label_parts = [
+                    prefix[:-1] + suffix if prefix.endswith("-")
+                    else prefix + " " + suffix
+                ]
+                label_refs = [*prefix_labels, *label_refs]
+                unit = combined_unit
+                unit_refs = [*prefix_units, *unit_refs]
+        pending_unit_prefix = None
         label = " › ".join(part for part in label_parts if part)
         if not unit:
             unit = next((part for text in label_parts
-                for part in re.findall(r"[（(]([^（）()]{1,30})[）)]", text)
+                for part in re.findall(r"[（(]([^（）()]+)[）)]", text)
                 if is_unit_expression(part)), None)
+            unit_refs = [ref for ref in label_refs if unit and unit in ref.text]
         # A two-panel table can land the unit cell in the label column; when the
         # roles are visibly reversed, trust the cell contents.
         if unit and _is_unit_like(label) and not _is_unit_like(unit):
             label, unit = unit, label
-        lines.append(DataLine(r, f"r{r}", label, unit or None, current_section, values))
+        lines.append(DataLine(
+            r, f"r{r}", label, unit or None, current_section, values,
+            label_cell_ids=[ref.cell_id for ref in label_refs],
+            unit_cell_ids=[ref.cell_id for ref in unit_refs],
+        ))
 
     page = (page_payload or {}).get("page") or {}
     blocks = (page_payload or {}).get("blocks") or []

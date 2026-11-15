@@ -208,6 +208,7 @@
         "reason": {
           "enum": [
             "input_budget",
+            "output_budget",
             "generation_incomplete",
             "selection_remainder",
             "timeout"

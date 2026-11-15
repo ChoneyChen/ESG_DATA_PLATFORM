@@ -103,15 +103,60 @@
     },
     "pollution_medium": {
       "context_levels": [
-        "local",
-        "report"
+        "local"
       ],
-      "context_terms": [],
+      "context_terms": [
+        "air emissions",
+        "gas emissions",
+        "emissions to air",
+        "wastewater",
+        "effluent",
+        "discharge to water",
+        "废气",
+        "空气排放",
+        "废水",
+        "水体排放"
+      ],
       "description": null,
       "label": "实际排放介质",
-      "reading_instruction": null,
+      "reading_instruction": "只读该原值本行或直接物理父标题实际介质。Ammonia/Fluoride等物质名本身不证明水介质；同表另一行或全报告其他段落不能补足。没有明确介质时保留未知。",
       "source": "dimension",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "air emissions",
+            "gas emissions",
+            "gaseous emissions",
+            "atmospheric emissions",
+            "emissions to air",
+            "空气排放",
+            "空氣排放",
+            "大气排放",
+            "大氣排放",
+            "废气",
+            "廢氣"
+          ],
+          "code": "air",
+          "label": "空气"
+        },
+        {
+          "aliases": [
+            "wastewater",
+            "waste water",
+            "effluent",
+            "discharge to water",
+            "emissions to water",
+            "water pollution",
+            "废水",
+            "廢水",
+            "污水",
+            "水体排放",
+            "水體排放"
+          ],
+          "code": "water",
+          "label": "水体"
+        }
+      ]
     },
     "reporting_boundary": {
       "context_levels": [
@@ -186,17 +231,91 @@
         "基期",
         "actual",
         "target",
-        "baseline"
+        "baseline",
+        "reduced",
+        "reduction",
+        "avoided",
+        "saved",
+        "减排",
+        "削减",
+        "减少量"
       ],
       "description": null,
       "label": "数值角色",
-      "reading_instruction": "从实际、目标、基期等明确表述识别；不得因条款希望取得实际值而填入actual。",
+      "reading_instruction": "逐个原值识别实际、目标、基期、预测或重述。只有明确适用于本值/本年列的原句、表头或脚注才能证明角色；报告年份和条款要求不证明actual，单纯年份不证明target。多年度混合表逐列区分。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "actual",
+            "actual value",
+            "实际"
+          ],
+          "code": "actual",
+          "label": "实际值"
+        },
+        {
+          "aliases": [
+            "target",
+            "interim target",
+            "目标",
+            "承诺",
+            "commitment"
+          ],
+          "code": "target",
+          "label": "目标值"
+        },
+        {
+          "aliases": [
+            "forecast",
+            "projected",
+            "预计",
+            "预测"
+          ],
+          "code": "forecast",
+          "label": "预测值"
+        },
+        {
+          "aliases": [
+            "baseline",
+            "基准",
+            "基期"
+          ],
+          "code": "baseline",
+          "label": "基准值"
+        },
+        {
+          "aliases": [
+            "restated",
+            "重述"
+          ],
+          "code": "restated",
+          "label": "重述值"
+        },
+        {
+          "aliases": [
+            "reduced",
+            "reduction",
+            "saved",
+            "savings",
+            "avoided",
+            "displaced",
+            "offset",
+            "减排",
+            "削减",
+            "减少量",
+            "節省",
+            "节省",
+            "避免"
+          ],
+          "code": "reduction",
+          "label": "削减或避免量"
+        }
+      ]
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "1fac26929544a55288120cbc92843421d185217d3ac107c751baf46b9c84baf2",
+  "clause_digest": "2885513ade99c4fce4ac71f87897511158fb7482cfc1aa03495ae62d7f714f9e",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -723,7 +842,8 @@
         "pollution_medium",
         "pollutant",
         "site",
-        "geography"
+        "geography",
+        "value_role"
       ],
       "missing_action": "annotate"
     },
@@ -743,7 +863,9 @@
     "instructions": [
       "读取空气污染物排放量，选择表内所有符合的污染物行，不只举一个例子。常见项目为氮氧化物 NOx、二氧化硫 SO2、颗粒物 PM、挥发性有机物 VOCs、非甲烷总烃 NMHC。其他实际空气污染物也可保留原词。",
       "化学需氧量 COD、氨氮 NH3-N、总氮 TN、总磷 TP 是水体污染物，不能选为本条空气排放。温室气体、浓度、固废数量、限额和削减量也不属于本条。",
-      "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。"
+      "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。",
+      "介质由本行与其直接物理父标题判断。空气/废气段落中的Ammonia、Fluoride不能借同表Water或Effluents行归入水；水体排放同样不能归入空气。短行名且介质不明确时保留原值和未决关系，不能用条款目标补齐。",
+      "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。"
     ],
     "operator": "pollutant",
     "rules": [
@@ -790,6 +912,35 @@
         "allowed": [],
         "flag": null,
         "if_terms": [],
+        "params": {},
+        "reason": "local_pollution_medium_conflicts_with_target",
+        "rule": "forbid_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:水体(?:污染|排放)|水體(?:污染|排放)|水污染|废水|廢水|污水|\\bwaste\\s*water\\b|\\beffluents?\\s+(?:discharges?|emissions?|pollutants?)\\b|\\bwater\\s+(?:pollutants?|pollution|emissions?|discharges?)\\b|\\b(?:discharges?|emissions?)\\s+(?:to|into)\\s+(?:the\\s+)?water\\b)"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": "pollution_medium_not_established_locally",
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "flag_review",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|氨气|氨氣|氟化物|\\bfluorides?\\b|重金属|重金屬|\\bheavy\\s+metals?\\b|汞|铅|鉛|砷|镉|鎘|铬|鉻|镍|鎳|\\b(?:mercury|lead|arsenic|cadmium|chromium|nickel)\\b)"
+        ],
+        "unless_terms": [
+          "re:(?:空气(?:污染物|排放)|空氣(?:污染物|排放)|大气(?:污染物|排放)|大氣(?:污染物|排放)|废气|廢氣|\\b(?:air|gas|gaseous|atmospheric)\\s+(?:pollutants?|emissions?|discharges?)\\b|\\bemissions?\\s+(?:to|into)\\s+(?:the\\s+)?(?:air|atmosphere)\\b)",
+          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
         "params": {
           "medium": "air"
         },
@@ -810,7 +961,7 @@
         "terms": [
           "re:(?:浓度|concentration|mg\\s*/|达标|compliance|去除|removal|减排|reduction|温室|ghg|二氧化碳(?!硫)|\\bco\\s*2\\b|co₂|废水量|废水排放量|wastewater\\s+(?:volume|discharge))",
           "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))",
-          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+          "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|減排|節約|節省|減少量|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
         ],
         "unless_terms": []
       },
@@ -832,14 +983,22 @@
     ],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
+      "air_context": [
+        "re:(?:空气(?:污染物|排放)|空氣(?:污染物|排放)|大气(?:污染物|排放)|大氣(?:污染物|排放)|废气|廢氣|\\b(?:air|gas|gaseous|atmospheric)\\s+(?:pollutants?|emissions?|discharges?)\\b|\\bemissions?\\s+(?:to|into)\\s+(?:the\\s+)?(?:air|atmosphere)\\b)"
+      ],
       "air_only": [
-        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
+        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)",
+        "re:(?:\\bnitrogen\\s+oxides?\\b|\\bsulph?ur\\s+(?:di)?oxides?\\b)"
       ],
       "air_pollutant": [
-        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))"
+        "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))",
+        "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|\\bfluorides?\\b)"
+      ],
+      "ambiguous_medium_pollutant": [
+        "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|氨气|氨氣|氟化物|\\bfluorides?\\b|重金属|重金屬|\\bheavy\\s+metals?\\b|汞|铅|鉛|砷|镉|鎘|铬|鉻|镍|鎳|\\b(?:mercury|lead|arsenic|cadmium|chromium|nickel)\\b)"
       ],
       "change": [
-        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
+        "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|減排|節約|節省|減少量|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
@@ -863,8 +1022,12 @@
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",
         "re:^\\s*(?:[-–—•·]\\s*)?(?:基于市场|基于位置|基于地点|市场法|位置法|地点法|market[\\s-]*based|location[\\s-]*based)(?:\\s*(?:法|方法|method|approach))?\\s*(?:\\d{1,2})?\\s*$"
       ],
+      "water_context": [
+        "re:(?:水体(?:污染|排放)|水體(?:污染|排放)|水污染|废水|廢水|污水|\\bwaste\\s*water\\b|\\beffluents?\\s+(?:discharges?|emissions?|pollutants?)\\b|\\bwater\\s+(?:pollutants?|pollution|emissions?|discharges?)\\b|\\b(?:discharges?|emissions?)\\s+(?:to|into)\\s+(?:the\\s+)?water\\b)"
+      ],
       "water_only": [
-        "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|总磷|总氮|悬浮物|石油类)"
+        "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|总磷|总氮|悬浮物|石油类)",
+        "re:(?:\\bammonia(?:cal)?\\s+nitrogen\\b|\\btotal\\s+(?:nitrogen|phosphorus)\\b|nh\\s*3\\s*[-–]\\s*n)"
       ],
       "water_pollutant": [
         "re:(?:化学需氧量|(?<![a-z0-9])cod(?![a-z0-9])|生化需氧量|(?<![a-z0-9])bod(?![a-z0-9])|氨氮|nh\\s*3\\s*-?\\s*n|总氮|总磷|石油类|悬浮物|(?<![a-z0-9])ss(?![a-z0-9])|氰化物|氟化物|硫化物|挥发酚|重金属|铜|锌|铅|镉|汞|砷|铬|镍|ammonia|chemical\\s+oxygen|nitrogen|phosph|heavy\\s+metal|水污染物|废水污染物)"
@@ -1045,7 +1208,9 @@
       "顆粒物排放",
       "颗粒排放物",
       "颗粒物",
-      "颗粒物排放"
+      "颗粒物排放",
+      "Ammonia emissions",
+      "Fluoride emissions"
     ],
     "required_term_groups": [
       [

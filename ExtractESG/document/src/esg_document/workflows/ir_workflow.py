@@ -13,6 +13,7 @@ from esg_document.document.deduplicator import DeterministicEntityDeduplicator
 from esg_document.document.identifier_normalizer import CanonicalIdentifierNormalizer
 from esg_document.document.identity import resolve_document_identity
 from esg_document.document.local_forensics import LocalPdfProcessor
+from esg_document.document.native_figure_text import NativeFigureTextBuilder
 from esg_document.document.logical_table_builder import LogicalTableBuilder
 from esg_document.document.page_renderer import PageRenderer
 from esg_document.document.paddleocr_converter import PaddleOcrDocumentConverter
@@ -159,6 +160,7 @@ class DocumentIrWorkflow:
         document = CanonicalIdentifierNormalizer().normalize(document)
         document = TableGeometryResolver().resolve(document, local_forensics)
         document = VisualSemanticGrouper().group(document)
+        document = NativeFigureTextBuilder().build(document)
         document = StructureReconstructor().reconstruct(document)
 
         self._stage(
