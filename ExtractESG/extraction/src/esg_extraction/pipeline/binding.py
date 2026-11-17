@@ -12,7 +12,7 @@ from esg_contracts.facts import (
     QualitativePayload,
     ClauseMapping,
 )
-from esg_data.units import is_unit_expression, unit_dimension, normalize_unit_text
+from esg_data.units import is_unit_expression, unit_dimension, normalize_unit_text, REVERSED_GHG_UNIT
 from esg_clauses.reading import check_reading
 from esg_clauses.evidence import check_evidence
 from esg_data.literals import parse_measure
@@ -20,6 +20,7 @@ from .decisions import IdentityProposal
 from .period_binding import bind_period
 from .reading_frame import statement_scope, printed_unit_sources
 from esg_data.periods import normalize_period
+from .numeric_context import select_context
 
 CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
 
@@ -223,6 +224,9 @@ def _number(raw):
 def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     if match.selection != "measurement" or cell.candidate_kind not in {"measurement", "unresolved"}:
         return None, None, "not_a_reported_measurement"
+    selected_context = select_context(frame,match,row,cell,printed_unit_sources(frame))
+    if selected_context is not None:
+        frame,row,match = selected_context.frame,selected_context.row,selected_context.match
     if re.fullmatch(r"\s*(?:[-—–－]+|N/?A|不适用|未披露|未提供|无数据|not\s+(?:disclosed|available))\s*", cell.raw_text, re.I):
         return None, None, "not_a_reported_measurement"
     raw = cell.raw_text.strip()
@@ -264,6 +268,19 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
             if is_unit_expression(candidate):
                 unit = candidate
                 break
+    if not unit:
+        declarations = list(dict.fromkeys(match[0].strip()
+            for source in frame.title_sources
+            for match in re.finditer(REVERSED_GHG_UNIT,source.text,re.I)))
+        if len(declarations)==1:
+            unit = declarations[0]
+    if not unit:
+        printed = list(dict.fromkeys(candidate
+            for source in frame.title_sources
+            for candidate in re.findall(r"[（(]([^（）()]+)[）)]",source.text)
+            if is_unit_expression(candidate)))
+        if len(printed)==1:
+            unit = printed[0]
     number = format(parsed["value"], "f") if parsed["value"] is not None else None
     value = QuantitativePayload(
         value_raw=cell.raw_text,
@@ -283,6 +300,8 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         frame, [*match.identity, *match.column_identity.get(cell.column_id, [])], row=row, column_id=cell.column_id, document=document, attempts=attempts
     )
     context = literal_categories(clause, context, attempts)
+    if selected_context is not None:
+        flags.extend(["local_context_selected",*selected_context.flags])
     evidence = [
         EvidenceLocation(source_snapshot=frame.source_snapshot, 
             object_id=cell.source_object_id or cell.cell_id,
@@ -309,12 +328,20 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                 role="row",
                 bbox=source.bbox,
                 row_id=row.row_id,
+                char_start=source.char_start,
+                char_end=source.char_start+len(source.text),
             )
         )
     for source in frame.column_sources.get(cell.column_id, []):
         evidence.append(EvidenceLocation(source_snapshot=frame.source_snapshot, object_id=source.object_id, object_type=source.object_type,
             page_index=source.page_index, excerpt=source.text, role="column_header", bbox=source.bbox,
             column_id=cell.column_id))
+    if selected_context is not None:
+        evidence.extend(EvidenceLocation(source_snapshot=frame.source_snapshot,
+            object_id=source.object_id,object_type=source.object_type,page_index=source.page_index,
+            excerpt=source.text,role="table",bbox=source.bbox,
+            char_start=source.char_start,char_end=source.char_start+len(source.text))
+            for source in frame.title_sources)
     if unit:
         sources = [
             *([selected_unit] if selected_unit else []),
@@ -334,8 +361,8 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
                     excerpt=unit,
                     role="unit",
                     bbox=support.bbox,
-                    char_start=support.char_start if support is selected_unit else None,
-                    char_end=support.char_start+len(support.text) if support is selected_unit else None,
+                    char_start=support.char_start if support.text==unit else None,
+                    char_end=support.char_start+len(support.text) if support.text==unit else None,
                     row_id=row.row_id if support in row.unit_sources else None,
                 )
             )
@@ -360,7 +387,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
             flags.append("unit_source_unconfirmed")
     reading = check_reading(
         clause,
-        row.label,
+        selected_context.label if selected_context is not None else row.label,
         row.section,
         unit,
         unit_dimension(unit),
@@ -405,7 +432,12 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
         extensions={"identity_attempts": attempts} if attempts else {},
     )
     mapping = mapping_for(clause, document, fact, match.match, match.reason)
-    mapping = apply_reading(mapping, reading)
+    if selected_context is not None and not selected_context.proven:
+        mapping = mapping.model_copy(update={"match":"uncertain",
+            "reason":"The selected local sources lack a proven physical application to this literal",
+            "flags":list(dict.fromkeys([*mapping.flags,*selected_context.flags]))})
+    else:
+        mapping = apply_reading(mapping, reading)
     return fact, mapping, None
 
 

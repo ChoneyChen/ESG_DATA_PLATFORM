@@ -901,7 +901,7 @@
       "title": "自产非燃料可再生能源"
     },
     {
-      "clause_digest": "db1199b0e9e1614610edd5c0ed10d6f8b6e14e56a8691f88c9010731b5579ff8",
+      "clause_digest": "bbf88b51b28ecd47b1a0e131b4090691ec81fc9aa0fdfc8458624420ec1abd29",
       "clause_key": "E1-5_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1111,7 +1111,7 @@
       "title": "范围3价值链分解结构"
     },
     {
-      "clause_digest": "77e41fe0089dba50d0daef759a3a5dd78bbf23cff097b8ab36b41eda52b0209d",
+      "clause_digest": "48e134dea6a3cfea084a63982affec640ac47a77950a20fcbbeae74e3c3a226c",
       "clause_key": "E1-6_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1131,7 +1131,7 @@
       "title": "受监管排放交易体系覆盖的范围1排放比例"
     },
     {
-      "clause_digest": "f3883f407ffb0d4e2fef16a44f6ec01e2e70aa9d98617bbef24b464c635116af",
+      "clause_digest": "152505b8392c26558a049149df2d10b3e2616d6320f315d62c9c08f5aee2644a",
       "clause_key": "E1-6_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1141,7 +1141,7 @@
       "title": "范围2地点法排放 Scope 2 location-based"
     },
     {
-      "clause_digest": "8a5ea0566b24b4fb125a9251554a9cfcd2e3ad6f819ba33e1729fbfc69cabd6a",
+      "clause_digest": "95d8de8a45d7ee4c24b87b7fea7c54a1c5da12f767d25fe09b6162ae42358e77",
       "clause_key": "E1-6_10",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1151,7 +1151,7 @@
       "title": "范围2市场法排放 Scope 2 market-based"
     },
     {
-      "clause_digest": "b0a9fc53c708a1945f2eb7025b5ac1dd90774cac7ff2c05fa1c01f60f89f8c24",
+      "clause_digest": "422b96453371f1c6c842c084fa8cd401a092369e38bbca199c933342aca29323",
       "clause_key": "E1-6_11",
       "data_kind": "quantitative",
       "entry_kind": "value",

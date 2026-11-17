@@ -8,6 +8,22 @@ from decimal import Decimal
 
 from .normalize import fold
 
+_SCALE_WORDS = {
+    "tenthousand": Decimal("1e4"),
+    "hundred": Decimal("1e2"),
+    "thousand": Decimal("1e3"),
+    "million": Decimal("1e6"),
+    "billion": Decimal("1e9"),
+    "十亿": Decimal("1e9"),
+    "亿": Decimal("1e8"),
+    "千万": Decimal("1e7"),
+    "百万": Decimal("1e6"),
+    "十万": Decimal("1e5"),
+    "万": Decimal("1e4"),
+    "千": Decimal("1e3"),
+}
+_SCALE_WORD = re.compile("^(" + "|".join(sorted(_SCALE_WORDS,key=len,reverse=True)) + ")")
+
 _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
     (re.compile(pattern), family, Decimal(scale))
     for pattern, family, scale in (
@@ -20,7 +36,7 @@ _UNIT_RULES: tuple[tuple[re.Pattern, str, Decimal], ...] = tuple(
         (r"(?:千|kt|thousand)t?(?:onnes?)?co2e|千吨二氧化碳当量|ktco2", "ghg", "1e3"),
         (r"kgco2e|千克二氧化碳当量|公斤二氧化碳当量", "ghg", "1e-3"),
         (
-            r"(?:^|[^a-z])(?:metric)?t(?:onnes?|ons?)?co2e|吨二氧化碳当量|^tco2|tonnesco2",
+            r"(?:^|[^a-z])(?:metric)?t(?:onnes?|ons?)?co2e?|吨(?:二氧化碳当量|co2e?)|^tco2|tonnesco2",
             "ghg",
             "1",
         ),
@@ -75,21 +91,38 @@ def _normalize(raw: str) -> str:
         .replace("co2-e", "co2e")
     )
     text = re.sub(r"((?:metric)?(?:tonnes?|tons?|kilograms?|grams?))of(?=co2e)", r"\1", text)
+    text = re.sub(r"^(co2e?)\(([^()]+)\)$",r"\2\1",text)
     return text
+
+
+def bilingual_unit_parts(text: str) -> tuple[str, str] | None:
+    first = re.sub(r"[一-鿿]", "", text).strip()
+    second = "".join(re.findall(r"[一-鿿]", text))
+    return (first,second) if first and second else None
 
 
 def unit_scale(raw: str | None) -> tuple[str, Decimal] | None:
     if not raw:
         return None
     printed = unicodedata.normalize("NFKC", raw).strip()
+    parts = bilingual_unit_parts(printed)
+    if parts:
+        first,second = (unit_scale(part) for part in parts)
+        if first is not None and second is not None:
+            return first if first == second else None
     explicit_scale = re.match(r"^(10{3,9}|(?:1|10|100)(?:[,，]000)+)\s*(?=[A-Za-z一-鿿])", printed)
     multiplier = Decimal(explicit_scale[1].replace(",", "").replace("，", "")) if explicit_scale else Decimal(1)
     text = _normalize(printed[explicit_scale.end():] if explicit_scale else printed)
     if "/" in text or "每" in text or "per" in text:
         return None
-    for pattern, family, scale in _UNIT_RULES:
-        if pattern.search(text):
-            return family, scale * multiplier
+    candidates = [(text,multiplier)]
+    word_scale = _SCALE_WORD.match(text)
+    if word_scale:
+        candidates.insert(0,(text[word_scale.end():],multiplier*_SCALE_WORDS[word_scale[1]]))
+    for candidate,factor in candidates:
+        for pattern, family, scale in _UNIT_RULES:
+            if pattern.search(candidate):
+                return family, scale * factor
     return None
 
 

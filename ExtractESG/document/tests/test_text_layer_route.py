@@ -21,6 +21,30 @@ from test_page_targeted_ocr import GRID_TOP, OCR_RUN_ID, SubsetEchoRouter, _sett
 ZOOM = 2.0
 
 
+def test_partial_rules_preserve_lower_centred_descriptor_as_rowspan():
+    words = [Word(text, x, x + len(text) * 4, base, 10)
+        for base, items in [
+            (15, [(0, 'Metric'), (220, 'Unit'), (350, '2023'), (450, '2024')]),
+            (40, [(220, 'MWh'), (350, '123,456'), (450, '234,567')]),
+            (52, [(0, 'Total energy consumption')]),
+            (65, [(220, 'tce'), (350, '12,345'), (450, '23,456')]),
+            (90, [(0, 'Water withdrawal'), (220, 'm3'), (350, '456'), (450, '567')]),
+        ] for x, text in items]
+    rules = [(25, 0, 520), (48, 210, 520), (75, 0, 520), (100, 0, 520)]
+    grid = table_grid(words, rules, [0, 0, 520, 105])
+    assert grid[1] == [('Total energy consumption', 1, 2), ('MWh', 1),
+        ('123,456', 1), ('234,567', 1)]
+    assert grid[2] == [('tce', 1), ('12,345', 1), ('23,456', 1)]
+    assert grid[3][0] == ('Water withdrawal', 1)
+    # A blank neighbouring row alone does not establish a shared descriptor.
+    unruled = table_grid(words, [], [0, 0, 520, 105])
+    assert not any(len(cell) > 2 for row in unruled for cell in row)
+    cut_descriptor = table_grid(words,
+        [(25, 0, 520), (48, 80, 520), (75, 0, 520), (100, 0, 520)],
+        [0, 0, 520, 105])
+    assert not any(len(cell) > 2 for row in cut_descriptor for cell in row)
+
+
 def test_period_header_and_first_value_row_inside_one_rule_band_stay_separate():
     words = [Word(text,x,x+len(text)*5,base,10)
         for base,items in [(20,[(0,'Metric'),(200,'2024'),(300,'2025')]),
@@ -31,6 +55,19 @@ def test_period_header_and_first_value_row_inside_one_rule_band_stay_separate():
     assert [[text for text,_ in row] for row in grid] == [
         ['Metric','2024','2025'],['Total water','992.11','1139.01'],
         ['Freshwater','3564.45','4029.45']]
+
+
+def test_header_words_keep_their_actual_line_when_font_baselines_differ():
+    words = [Word(text, x, x + len(text) * 4, base, 10)
+        for text, x, base in [('Metric', 0, 20), ('Unit', 120, 20),
+            ('2024', 200, 20), ('2023', 280, 20.7), ('2022', 360, 20.7),
+            ('Total emissions', 0, 45), ('tCO2e', 120, 45),
+            ('123', 200, 45), ('124', 280, 45), ('125', 360, 45),
+            ('Direct emissions', 0, 70), ('tCO2e', 120, 70),
+            ('23', 200, 70), ('24', 280, 70), ('25', 360, 70)]]
+    grid = table_grid(words, [(30, 0, 420), (55, 0, 420), (80, 0, 420)],
+        [0, 0, 420, 90])
+    assert [cell[0] for cell in grid[0]] == ['Metric', 'Unit', '2024', '2023', '2022']
 
 
 def _foundation_pages() -> list[tuple[float, float, list[str], bool]]:

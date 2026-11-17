@@ -3,11 +3,17 @@
 from esg_clauses.reading import check_reading
 from esg_data.units import unit_dimension
 from .reading_frame import statement_scope
+from .numeric_context import uses_local_context
 
 
 def quantitative_candidates(clause, frame):
     rows, excluded = [], []
     for row in frame.rows:
+        if uses_local_context(frame,row):
+            # The mixed parent text is reading context. Its negative terms
+            # cannot serve as every literal's measurement label.
+            rows.append(row)
+            continue
         decision = check_reading(clause, row.label, row.section, row.unit_raw,
             unit_dimension(row.unit_raw), evidence=" ".join([
                 frame.title or "", *[part for parts in frame.columns.values() for part in parts],

@@ -145,7 +145,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "77e41fe0089dba50d0daef759a3a5dd78bbf23cff097b8ab36b41eda52b0209d",
+  "clause_digest": "48e134dea6a3cfea084a63982affec640ac47a77950a20fcbbeae74e3c3a226c",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",
@@ -929,7 +929,8 @@
       "direct greenhouse gas emissions",
       "直接排放",
       "直接排放量",
-      "直接溫室氣體排放量"
+      "直接溫室氣體排放量",
+      "Scope 1"
     ],
     "required_term_groups": [],
     "role_term_groups": [
@@ -953,7 +954,8 @@
         "direct greenhouse gas emissions",
         "直接排放",
         "直接排放量",
-        "直接溫室氣體排放量"
+        "直接溫室氣體排放量",
+        "Scope 1"
       ]
     ],
     "source_priority": [
@@ -973,7 +975,8 @@
         "范围1温室气体排放",
         "范围一GHG排放",
         "范围一温室气体排放",
-        "范畴一温室气体排放"
+        "范畴一温室气体排放",
+        "Scope 1"
       ]
     ]
   },

@@ -190,6 +190,7 @@
 | [ExtractESG/document/src/esg_document/document/structure_reconstruction.py](../../ExtractESG/document/src/esg_document/document/structure_reconstruction.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/table_geometry_resolver.py](../../ExtractESG/document/src/esg_document/document/table_geometry_resolver.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/table_graph_builder.py](../../ExtractESG/document/src/esg_document/document/table_graph_builder.py) | 源码/配置；职责见模块设计 |
+| [ExtractESG/document/src/esg_document/document/text_geometry.py](../../ExtractESG/document/src/esg_document/document/text_geometry.py) | Exact text slices and conservative relationships from native PDF geometry. |
 | [ExtractESG/document/src/esg_document/document/text_normalization.py](../../ExtractESG/document/src/esg_document/document/text_normalization.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/transaction_coordinator.py](../../ExtractESG/document/src/esg_document/document/transaction_coordinator.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/document/validator.py](../../ExtractESG/document/src/esg_document/document/validator.py) | 源码/配置；职责见模块设计 |
@@ -245,6 +246,7 @@
 | [ExtractESG/document/tests/test_budget_error_progress.py](../../ExtractESG/document/tests/test_budget_error_progress.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_business_progress.py](../../ExtractESG/document/tests/test_business_progress.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_chart_spec_normalizer.py](../../ExtractESG/document/tests/test_chart_spec_normalizer.py) | 测试/样例 |
+| [ExtractESG/document/tests/test_compound_cell_evidence.py](../../ExtractESG/document/tests/test_compound_cell_evidence.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_copy_on_write.py](../../ExtractESG/document/tests/test_copy_on_write.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_desktop_launcher.py](../../ExtractESG/document/tests/test_desktop_launcher.py) | The desktop controller must not stop unrelated or active work. |
 | [ExtractESG/document/tests/test_document_identity.py](../../ExtractESG/document/tests/test_document_identity.py) | 测试/样例 |
@@ -272,6 +274,7 @@
 | [ExtractESG/document/tests/test_queue_reference_lifecycle.py](../../ExtractESG/document/tests/test_queue_reference_lifecycle.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_report_asset_file_headers.py](../../ExtractESG/document/tests/test_report_asset_file_headers.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_report_library.py](../../ExtractESG/document/tests/test_report_library.py) | Generic source lineage and deletion checks using temporary synthetic bytes. |
+| [ExtractESG/document/tests/test_report_period.py](../../ExtractESG/document/tests/test_report_period.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_report_processing.py](../../ExtractESG/document/tests/test_report_processing.py) | Contract, dependency and recovery tests with isolated fake stage workers. |
 | [ExtractESG/document/tests/test_report_resource_api.py](../../ExtractESG/document/tests/test_report_resource_api.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_review_kernel_regressions.py](../../ExtractESG/document/tests/test_review_kernel_regressions.py) | 测试/样例 |
@@ -282,8 +285,10 @@
 | [ExtractESG/document/tests/test_revision_service.py](../../ExtractESG/document/tests/test_revision_service.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_runtime_outcomes.py](../../ExtractESG/document/tests/test_runtime_outcomes.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_runtime_telemetry.py](../../ExtractESG/document/tests/test_runtime_telemetry.py) | 测试/样例 |
+| [ExtractESG/document/tests/test_search_ranking.py](../../ExtractESG/document/tests/test_search_ranking.py) | A shared topic heading must not outrank an actual labelled measurement. |
 | [ExtractESG/document/tests/test_simple_library_smoke.py](../../ExtractESG/document/tests/test_simple_library_smoke.py) | Synthetic owned files only; no live report, model or production deletion. |
 | [ExtractESG/document/tests/test_storage_inventory.py](../../ExtractESG/document/tests/test_storage_inventory.py) | 测试/样例 |
+| [ExtractESG/document/tests/test_text_geometry.py](../../ExtractESG/document/tests/test_text_geometry.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_text_layer_route.py](../../ExtractESG/document/tests/test_text_layer_route.py) | Text-layer route of page-targeted OCR and the scan prescan of the page selector. |
 
 ## ExtractESG/extraction
@@ -310,6 +315,7 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py) | Read clause-declared attributes after capturing values; never regenerate values. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py) | Immutable, self-contained export. Views and filesystem layout are not APIs. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/frames.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/frames.py) | Subdivide bounded evidence without recomputing values or changing locations. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/numeric_context.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/numeric_context.py) | Bind quantitative labels only through frozen physical source relationships. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/organization.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/organization.py) | Project clause-owned result layouts over referenced source facts. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py) | Bind local time evidence; a report's main year is never a default identity. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/ports.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py) | Backbone dependencies are value interfaces; implementations own I/O. |

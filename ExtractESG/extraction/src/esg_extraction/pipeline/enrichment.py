@@ -6,7 +6,7 @@ from esg_data.hashing import digest
 from esg_data.literals import arabic_years
 from esg_data.periods import normalize_period
 from esg_data.normalize import fold
-from esg_contracts.evidence import SearchIntent
+from esg_contracts.evidence import SearchIntent, TextEvidence
 from .decisions import DecisionModel, IdentityClaims, evidence_identity_schema
 from .period_binding import references_report_period
 from .binding import context_from_claims, literal_categories, mapping_for
@@ -136,10 +136,29 @@ def context_frame(documents, sources, clause, facts, profile, frames):
         characters += size
         return alias
 
+    for fact in facts:
+        if "local_context_selected" not in fact.flags:
+            continue
+        for evidence in fact.evidence:
+            if evidence.role not in {"row","column_header","unit","table","footnote"}:
+                continue
+            if evidence.char_start is None:
+                continue
+            text = TextEvidence(object_id=evidence.object_id,object_type=evidence.object_type,
+                page_index=evidence.page_index,text=evidence.excerpt,char_start=evidence.char_start,
+                source_snapshot=evidence.source_snapshot,bbox=evidence.bbox)
+            alias = add(text,evidence.source_snapshot,evidence.role if evidence.role=="footnote" else "table",7000)
+            if alias and alias not in fact_sources[fact.source_fact_id]:
+                fact_sources[fact.source_fact_id].append(alias)
+        if frames:
+            template = frames[0]
+
     # Only the frames containing this fact's value/statement supply local context.
     # Headers and notes remain physical references, never previous model answers.
     for frame in frames:
         for fact in facts:
+            if "local_context_selected" in fact.flags:
+                continue
             anchors = {e.object_id for e in fact.evidence if e.role in {"value","statement"}}
             rows = [(row,[cell for cell in row.cells
                 if (cell.source_object_id or cell.cell_id) in anchors

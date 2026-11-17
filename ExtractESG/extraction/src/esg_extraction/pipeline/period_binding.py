@@ -1,11 +1,12 @@
 """Bind local time evidence; a report's main year is never a default identity."""
 import re
 from esg_data.periods import parse_period, period_payload
+from esg_data.normalize import fold
 from esg_contracts.facts import ReportedField, EvidenceLocation
 
 
 def references_report_period(text):
-    return bool(re.search(r"本报告期|本年度|报告期内|during\s+(?:the\s+)?reporting\s+period",text,re.I))
+    return bool(re.search(r"本报告期|本年度|报告期内|during\s+(?:the\s+)?reporting\s+period",fold(text),re.I))
 
 
 def _field(raw, sources, role, state="stated"):
@@ -14,7 +15,8 @@ def _field(raw, sources, role, state="stated"):
         return None
     return ReportedField(state=state, raw_text=raw, value=period_payload(period), evidence=[
         EvidenceLocation(source_snapshot=source.source_snapshot, object_id=source.object_id, object_type=source.object_type,
-            page_index=source.page_index, excerpt=source.text, role=role, bbox=source.bbox)
+            page_index=source.page_index, excerpt=source.text, role=role, bbox=source.bbox,
+            char_start=source.char_start,char_end=source.char_start+len(source.text))
         for source in sources
     ])
 

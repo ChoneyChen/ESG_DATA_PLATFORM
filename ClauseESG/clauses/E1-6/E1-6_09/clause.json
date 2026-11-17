@@ -252,7 +252,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f3883f407ffb0d4e2fef16a44f6ec01e2e70aa9d98617bbef24b464c635116af",
+  "clause_digest": "152505b8392c26558a049149df2d10b3e2616d6320f315d62c9c08f5aee2644a",
   "clause_key": "E1-6_09",
   "data_kind": "quantitative",
   "definition": "基于位置法的范围2温室气体排放总量",
@@ -1073,7 +1073,12 @@
       "Indirect emissions",
       "indirect greenhouse gas emissions",
       "間接排放",
-      "間接溫室氣體排放量"
+      "間接溫室氣體排放量",
+      "Scope 2",
+      "geographical basis",
+      "geographic basis",
+      "geographical › basis",
+      "geographic › basis"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1105,13 +1110,18 @@
         "Indirect emissions",
         "indirect greenhouse gas emissions",
         "間接排放",
-        "間接溫室氣體排放量"
+        "間接溫室氣體排放量",
+        "Scope 2"
       ],
       [
         "Location-based",
         "location based method",
         "位置法",
-        "基于位置法"
+        "基于位置法",
+        "geographical basis",
+        "geographic basis",
+        "geographical › basis",
+        "geographic › basis"
       ]
     ]
   },

@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b0a9fc53c708a1945f2eb7025b5ac1dd90774cac7ff2c05fa1c01f60f89f8c24",
+  "clause_digest": "422b96453371f1c6c842c084fa8cd401a092369e38bbca199c933342aca29323",
   "clause_key": "E1-6_11",
   "data_kind": "quantitative",
   "definition": "按重大类别划分的范围3温室气体排放总量",
@@ -1021,7 +1021,10 @@
       "范围三",
       "范围三类别",
       "范畴3",
-      "范畴三"
+      "范畴三",
+      "Scope 3 GHG emissions",
+      "Scope 3 greenhouse gas emissions",
+      "Scope 3"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1049,7 +1052,8 @@
         "范围3排放",
         "范围三",
         "范畴3",
-        "范畴三"
+        "范畴三",
+        "Scope 3"
       ],
       [
         "Excluded Scope 3 category",

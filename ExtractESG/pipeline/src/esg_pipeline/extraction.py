@@ -631,10 +631,14 @@ class ExtractionCoordinator:
                 except ExtractionServiceUnavailable:
                     self._stop.wait(1)
                     continue
-                for state in states:
+                for snapshot in states:
                     with self._lock:
+                        state = self.get(snapshot["session_id"])
+                        if state["status"] not in {"queued", "running", "cancelling"}:
+                            continue
                         try:
-                            self.tick(state,runs.get(state.get('run_id')))
+                            observed = runs.get(state.get("run_id")) if state.get("run_id") == snapshot.get("run_id") else None
+                            self.tick(state, observed)
                         except ExtractionServiceUnavailable as exc:
                             state["observation_error"] = str(exc)
                             self.save(state)

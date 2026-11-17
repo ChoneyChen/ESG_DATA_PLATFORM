@@ -6,7 +6,7 @@ from esg_data.units import UNIT_PATTERN, is_unit_expression, NUMERIC_SCALE
 from esg_data.text_search import sentence_ranges
 from esg_data.normalize import fold
 
-NUMBER = r"[-+−]?\d(?:[\d,，]*\d)?(?:\.\d+)?(?:[eE][-+]?\d+|\s*[×xX*]\s*10\s*(?:\^\s*[-+]?\d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+))?"
+NUMBER = r"[-+−]?\d(?:(?:\d|[,，]\s*)*\d)?(?:\.\d+)?(?:[eE][-+]?\d+|\s*[×xX*]\s*10\s*(?:\^\s*[-+]?\d+|[⁰¹²³⁴⁵⁶⁷⁸⁹]+))?"
 LITERAL = re.compile(
     r"(?:不少于|不低于|不超过|不高于|至少|至多|大于|小于|低于|高于|多于|少于|≥|≤|>=|<=|>|<|≈|约|約|~)?\s*"
     + NUMBER
@@ -84,7 +84,7 @@ def numeric_rows(text):
                         column_id="value",
                         raw_text=literal,
                         source_object_id=text.object_id,
-                        source_object_type="text_block",
+                        source_object_type="cell" if text.object_type == "cell" else "text_block",
                         char_start=text.char_start + literal_start,
                         char_end=text.char_start + literal_end,
                         bbox=text.bbox,
@@ -111,6 +111,12 @@ def literal_kind(text, start, end, unit):
         if opening >= 0 and closing and is_unit_expression(literal + " " + unit):
             return "identifier"
     if not unit:
+        if re.search(r"(?:\b(?:notes?|footnotes?)|附[註注]|[脚腳][註注]|註|注)\s*(?:[（(\[]\s*)?\Z",before,re.I):
+            return "footnote"
+        closing_marker = re.match(r"\s*[)）\]]\s+", after)
+        if (re.fullmatch(r"\s*[(（\[]\s*",before) and closing_marker
+            and not UNIT.match(fold(after[closing_marker.end():]))):
+            return "footnote"
         if ((not before.strip() or re.search(r"[\n。；]\s*$", before))
             and re.match(r"\s*[.)、]\s*\S", after)):
             return "identifier"

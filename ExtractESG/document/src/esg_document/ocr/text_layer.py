@@ -75,6 +75,7 @@ class Word:
     base: float  # baseline, measured from the top of the page
     size: float
     mark: bool = False  # a footnote mark
+    source_indices: tuple[int, ...] = ()
 
     @property
     def top(self) -> float:
@@ -155,7 +156,7 @@ def page_words(page: Any, scale: float) -> tuple[list[Word], int]:
             angled += len(text)
             continue
         first = glyphs[0]
-        base = float(first["top"]) + float(first["y1"]) - float(first["matrix"][5])
+        base = glyph_baseline(first)
         words.append(
             Word(
                 text,
@@ -166,6 +167,10 @@ def page_words(page: Any, scale: float) -> tuple[list[Word], int]:
             )
         )
     return words, angled
+
+
+def glyph_baseline(glyph: dict[str, Any]) -> float:
+    return float(glyph["top"]) + float(glyph["y1"]) - float(glyph["matrix"][5])
 
 
 def _upright(char: dict[str, Any]) -> bool:
@@ -275,7 +280,7 @@ def build_lines(words: list[Word]) -> list[Line]:
     small figures are footnote marks, kept as superscripts ("中水使用量³⁸")."""
     if not words:
         return []
-    words = [Word(w.text, w.x0, w.x1, w.base, w.size, w.mark) for w in words]
+    words = [Word(w.text, w.x0, w.x1, w.base, w.size, w.mark, w.source_indices) for w in words]
     body = statistics.median(w.size for w in words)
     formula_anchors = [word for word in words if FORMULA_END_RE.search(word.text)]
     raised_glyphs = {id(word) for word in words if re.fullmatch(r"[23]", word.text)
@@ -330,6 +335,7 @@ def build_lines(words: list[Word]) -> list[Line]:
         if attached and (FORMULA_END_RE.search(anchor.text) or not mark and not raised):
             anchor.text += word.text
             anchor.x1 = max(anchor.x1, word.x1)
+            anchor.source_indices += word.source_indices
         elif mark:
             host.words.append(
                 Word(
@@ -339,10 +345,12 @@ def build_lines(words: list[Word]) -> list[Line]:
                     host.base,
                     host.size,
                     True,
+                    word.source_indices,
                 )
             )
         else:
-            host.words.append(Word(word.text, word.x0, word.x1, host.base, host.size))
+            host.words.append(Word(word.text, word.x0, word.x1, host.base, host.size,
+                source_indices=word.source_indices))
     for line in lines:
         line.words.sort(key=lambda w: w.x0)
         merged: list[Word] = []
@@ -362,6 +370,7 @@ def build_lines(words: list[Word]) -> list[Line]:
                 )
                 merged[-1].text += joiner + word.text
                 merged[-1].x1 = word.x1
+                merged[-1].source_indices += word.source_indices
             else:
                 merged.append(word)
         line.words = merged
@@ -659,7 +668,7 @@ def _header_spans(
         if not covered:
             covered = [_column_of(columns, probe)]
         text = join_lines(
-            join_words([w for w in segment if abs(w.base - line.base) < 1e-6])
+            join_words([w for w in segment if w in line.words])
             for line in line_group
         )
         if spans and covered[0] <= spans[-1][1]:
@@ -971,6 +980,62 @@ def _category_groups(
             spans = _centred_groups(labels, rows, [cells[r][k] for r, _ in labels])
         if spans:
             groups[k] = spans
+    # A centred descriptor can be lower than the first measurement in its
+    # merged cell. Only actual partial ruling lines establish an upward span.
+    # Existing category groups already have their own complete partition.
+    for k in range(min(value_start, len(columns) - 1)):
+        if k in groups:
+            continue
+        column = columns[k]
+
+        def crosses(rule, candidate):
+            _, left, right = rule
+            return min(right, candidate.x1) - max(left, candidate.x0) >= (
+                0.8 * (candidate.x1 - candidate.x0)
+            )
+
+        boundaries = sorted({y for y, left, right in rules
+            if crosses((y, left, right), column)})
+        row_mids = []
+        for row in body:
+            values = [word.base - 0.3 * word.size for line in row for word in line.words
+                if columns[_column_of(columns, word)].values and is_value(word.text)]
+            row_mids.append(statistics.median(values) if values else None)
+        spans = []
+        for above, below in zip(boundaries, boundaries[1:]):
+            members = [r for r, mid in enumerate(row_mids)
+                if mid is not None and above < mid < below]
+            if (len(members) < 2 or not all(figures[r] for r in members)
+                or members != list(range(members[0], members[-1] + 1))):
+                continue
+            descriptor_right = max([column.x1, *[word.x1 for r in members
+                for line in body[r] for word in line.words if _column_of(columns, word) == k]])
+            separators = [rule for rule in rules
+                if row_mids[members[0]] < rule[0] < row_mids[members[-1]]
+                and rule[1] >= descriptor_right - 0.1 * size
+                and not crosses(rule, column)
+                and crosses(rule, columns[k + 1])
+                and crosses(rule, columns[value_start])]
+            labels = [cells[r][k] for r in members if cells[r][k]]
+            if len(labels) > 1:
+                label_lines = [sorted((word for word in line.words
+                    if _column_of(columns, word) == k), key=lambda word: word.x0)
+                    for r in members for line in body[r]]
+                label_lines = sorted((line for line in label_lines if line),
+                    key=lambda line: line[0].base)
+                if (max(line[0].x0 for line in label_lines)
+                    - min(line[0].x0 for line in label_lines) > 0.3 * size
+                    or any(right[0].base - left[0].base > 1.5 * size
+                        for left, right in zip(label_lines, label_lines[1:]))
+                    or any(right.x0 - left.x1 > 1.5 * size
+                        for line in label_lines for left, right in zip(line, line[1:]))):
+                    continue
+            if separators and labels:
+                spans.append((members[0], len(members), join_lines(labels)))
+        if spans:
+            covered = {r for first, count, _ in spans for r in range(first, first + count)}
+            groups[k] = sorted(spans + [(r, 1, cells[r][k]) for r in range(n)
+                if cells[r][k] and r not in covered])
     return groups
 
 

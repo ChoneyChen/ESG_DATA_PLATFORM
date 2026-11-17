@@ -5,7 +5,7 @@ from esg_console.sessions import extraction_router
 
 def test_stale_document_service_cannot_create_or_preview_extraction():
     class Coordinator:
-        def list(self):return []
+        def list(self, status=None, archived=False):return []
         def preview(self,request):raise AssertionError('stale code cannot freeze a task')
         def create(self,request):raise AssertionError('stale code cannot create a task')
     def stale():raise HTTPException(503,'restart required')

@@ -11,10 +11,11 @@ CO2E_TOKEN = (
     r"(?:CO\s*(?:2|₂|[_^]\s*\{*\s*(?:2|₂)\s*\}*)\s*(?:eq(?:uivalent)?|e)|"
     r"CO2[- ]?eq(?:uivalent)?|carbon\s+dioxide\s+equivalent)"
 )
+CO2_TOKEN = rf"(?:{CO2E_TOKEN}|CO\s*(?:2|₂|[_^]\s*\{{*\s*(?:2|₂)\s*\}}*)|carbon\s+dioxide)"
 GHG_FORMULA_RE = re.compile(CO2E_TOKEN, re.IGNORECASE)
 GHG_UNIT = (
-    rf"(?:(?:Mt|kt|t|kg|g|吨|噸|千克|公斤|克)\s*\$?\s*{CO2E_TOKEN}\s*\$?|"
-    rf"(?:metric\s*)?(?:tonnes?|tons?|kilograms?|grams?)\s*(?:of\s+)?{CO2E_TOKEN}|"
+    rf"(?:(?:Mt|kt|t|kg|g|吨|噸|千克|公斤|克)\s*\$?\s*{CO2_TOKEN}\s*\$?|"
+    rf"(?:metric\s*)?(?:tonnes?|tons?|kilograms?|grams?)\s*(?:of\s+)?{CO2_TOKEN}|"
     rf"(?:百万|百萬|千)\s*(?:吨|噸)?\s*\$?\s*t?\s*{CO2E_TOKEN}\s*\$?|"
     r"(?:百万吨|百萬噸|千吨|千噸|吨|噸|千克|公斤|克)\s*二氧化碳(?:当量|當量))"
 )
@@ -52,7 +53,8 @@ MEASUREMENT_UNIT_PATTERN = (
     rf"(?:{PRINTED_UNIT})"
     rf"(?:\s*(?:/|／|per|每)\s*(?:{CURRENCY_UNIT}|{DENOMINATOR}|{PHYSICAL_DENOMINATOR}))?"
 )
-UNIT_PATTERN = rf"(?:{MEASUREMENT_UNIT_PATTERN}|%|％|百分比)"
+REVERSED_GHG_UNIT = rf"\$?\s*{CO2_TOKEN}\s*\$?\s*[（(]\s*{SCALE_PREFIX}{MASS_UNIT}\s*[)）]"
+UNIT_PATTERN = rf"(?:{REVERSED_GHG_UNIT}|{MEASUREMENT_UNIT_PATTERN}|%|％|百分比)"
 UNIT_RE = re.compile(UNIT_PATTERN, re.IGNORECASE)
 UNIT_ONLY_RE = re.compile(rf"^(?:{UNIT_PATTERN})$", re.IGNORECASE)
 
@@ -67,11 +69,10 @@ def is_unit_expression(raw: str | None) -> bool:
         return True
     # Some bilingual unit cells print both names without a separator. Both
     # sides must independently name the same unit family and scale.
-    from .quantities import unit_scale
-    first = re.sub(r"[一-鿿]", "", printed).strip()
-    second = "".join(re.findall(r"[一-鿿]", printed))
-    if (first and second and UNIT_ONLY_RE.fullmatch(first) and UNIT_ONLY_RE.fullmatch(second)
-        and unit_scale(first) is not None and unit_scale(first) == unit_scale(second)):
+    from .quantities import unit_scale, bilingual_unit_parts
+    parts = bilingual_unit_parts(printed)
+    if (parts and all(UNIT_ONLY_RE.fullmatch(part) for part in parts)
+        and unit_scale(parts[0]) is not None and unit_scale(parts[0]) == unit_scale(parts[1])):
         return True
     return False
 

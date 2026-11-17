@@ -1036,6 +1036,13 @@ class RetiredEntityIR(BaseModel):
 class LocalTextBlock(BaseModel):
     text: str
     bbox: BoundingBox
+    baseline_points: float | None = None
+    font_size_points: float | None = None
+
+
+class LocalPathObservation(BaseModel):
+    bbox: BoundingBox
+    commands: list[list[Any]]
 
 
 class NativeTextExclusionIR(BaseModel):
@@ -1072,6 +1079,8 @@ class LocalPageForensics(BaseModel):
     native_text_excluded_block_count: int = 0
     native_text_exclusions: list[NativeTextExclusionIR] = Field(default_factory=list)
     native_text_blocks: list[LocalTextBlock] = Field(default_factory=list)
+    native_filled_rectangles: list[BoundingBox] = Field(default_factory=list)
+    native_filled_paths: list[LocalPathObservation] = Field(default_factory=list)
     table_candidates: list[LocalTableCandidate] = Field(default_factory=list)
     page_image_path: str | None = None
     quality_flags: list[str] = Field(default_factory=list)

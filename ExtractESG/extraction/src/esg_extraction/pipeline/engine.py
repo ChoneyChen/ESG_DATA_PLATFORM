@@ -24,12 +24,13 @@ from .statistics import RunStatistics
 from .selection import quantitative_candidates, qualitative_candidates
 from .reading_policy import POLICY, ReadingProgress
 
-ENGINE_VERSION = "clause-backbone-2.9"
+ENGINE_VERSION = "clause-backbone-2.11"
 QUANTITATIVE_INSTRUCTIONS = """Select physical measurements for ONE independent clause from the bounded evidence frame.
 Use the clause definition, exclusions, scopes and reading.instructions to decide relevance.
 Return matches with row_id and columns. A matching row defaults to match=match; use uncertain only when measurement meaning or target relevance is ambiguous. Explicit contrasting measurements may use different. Do not enumerate unrelated rows.
 Select every relevant row and ALL its reported periods, including historical years. Distinct entities, methods and roles remain separate columns. physical_structure describes observed headers; it is never a selected-year filter.
 When unit_sources is supplied, an optional unit_source_id selects the exact printed unit declaration applying to the selected measurement. Distinct plots in one figure can have different units. Omit this selection when its applicability is unclear. Existing cell, column and row units keep their physical priority.
+Rows marked requires_local_context choose label_source_id from that cell's label_source_options. Optional context_source_ids choose supporting titles or statements from that cell's context_source_options. Select only the sources needed to identify the measurement, period and scope. An empty label_source_options means the literal has no proven label association and can only be retained as uncertain. context_links keeps every required part of a wrapped label. Read the complete label with its qualifiers and select existing IDs only.
 Never return values, unit strings, reasons or identity fields. The receiver binds the actual cells, headers and selected unit spans, and a separate context step reads optional attributes. Missing metadata does not invalidate a measurement.
 Formula digits, dates, identifiers, standard numbers, page references, headers and footnotes are not measurements. Omit them. No relevant measurements means matches=[]."""
 QUALITATIVE_INSTRUCTIONS = """Read ONE bounded evidence frame for ONE independent qualitative clause.

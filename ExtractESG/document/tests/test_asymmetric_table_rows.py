@@ -1,5 +1,55 @@
 """One canonical row mapping for physical continuations and extraction evidence."""
 import pytest
+
+
+def test_printed_thousands_spacing_preserves_quantities_and_unit_columns():
+    from decimal import Decimal
+    from esg_data.literals import parse_number
+    from esg_document.document.physical import build_table_view
+    physical=table('spaced-numbers',0,[['Metric','Unit','2022','2021','2020'],
+        ['Scope 1','tCO2 e','158, 202','94, 750','92, 665'],
+        ['Scope 2','tCO2 e','2, 930, 501','3, 057, 224','2, 480, 349']])
+    view=build_table_view(physical.model_dump(mode='json'),None)
+    assert view.unit_col==1 and view.value_cols==[2,3,4]
+    assert view.lines[0].label=='Scope 1' and view.lines[0].unit=='tCO2 e'
+    assert view.lines[0].values[2].text=='158, 202'
+    assert parse_number('158, 202')==Decimal('158202')
+    assert parse_number('2, 930, 501')==Decimal('2930501')
+    assert parse_number('2023 2024') is None
+
+
+def test_literal_inventory_preserves_spaced_digits_and_explicit_note_roles():
+    from esg_document.document.literals import numeric_rows
+    from esg_contracts.evidence import TextEvidence
+    quantity=TextEvidence(object_id='actual-cell',object_type='cell',page_index=1,
+        text='Emissions were 158, 202 tCO2e.')
+    row=numeric_rows(quantity)[0]
+    assert row.cells[0].raw_text=='158, 202'
+    assert row.cells[0].source_object_type=='cell'
+    assert quantity.text[row.cells[0].char_start:row.cells[0].char_end]=='158, 202'
+    for text in ['Note 1 Direct emissions','Footnote (2) Indirect emissions','附註3 排放方法',
+                 '(2) Direct emissions (Scope 1) are calculated according to the protocol.']:
+        assert numeric_rows(TextEvidence(object_id='note',page_index=1,text=text))[0].cells[0].candidate_kind=='footnote'
+    actual=TextEvidence(object_id='actual',page_index=1,text='Note: 1 tonne was emitted.')
+    assert numeric_rows(actual)[0].cells[0].candidate_kind=='measurement'
+    unknown=TextEvidence(object_id='count',page_index=1,text='工厂数量1')
+    assert numeric_rows(unknown)[0].cells[0].candidate_kind=='unresolved'
+
+
+def test_printed_word_multipliers_agree_across_language_and_unit_spellings():
+    from decimal import Decimal
+    from esg_data.quantities import unit_scale
+    assert unit_scale('million cubic metres')==('volume',Decimal('1e6'))
+    assert unit_scale('百萬立方米')==unit_scale('million cubic metres')
+    assert unit_scale('million liters')==('volume',Decimal('1e3'))
+    assert unit_scale('billion kWh')==('energy',Decimal('1e6'))
+    assert unit_scale('thousand metric tonnes')==('mass',Decimal('1e3'))
+    assert unit_scale('千克')==('mass',Decimal('1e-3'))
+    assert unit_scale('千瓦时')==('energy',Decimal('1e-3'))
+    assert unit_scale('百万千瓦时')==('energy',Decimal('1e3'))
+    assert unit_scale('million cubic metres 百萬立方米')==('volume',Decimal('1e6'))
+    assert unit_scale('10,000 tce 万吨标准煤')==('energy_tce',Decimal('1e4'))
+    assert unit_scale('MWh噸') is None
 from esg_document.document.contracts import TableIR,CellIR,SourceTrace,DocumentIR
 from esg_document.document.logical_table_builder import LogicalTableBuilder
 from esg_document.document.physical import composed_tables
@@ -198,6 +248,38 @@ def test_headerless_vertical_continuation_preserves_first_data_row_and_source_he
     assert sources[1][0]['cell_id']=='before-0-1' and sources[1][0]['page_index']==0
     assert {(c.cell_id,c.row_index,c.col_index,c.text) for t in document.tables for c in t.cells}==original_cells
     assert all(c.row_index>=0 for t in document.tables for c in t.cells)
+
+
+def test_same_page_continuation_inherits_printed_headers_in_the_same_column():
+    from esg_document.document.contracts import BoundingBox
+    from esg_document.document.table_graph_builder import TableGraphBuilder
+    from esg_document.document.physical import build_table_view
+    document=continuation_document()
+    first,second=document.tables
+    second.page_index=0
+    for cell in second.cells:
+        cell.page_index=0
+    first.bbox=BoundingBox(x0=50,y0=100,x1=550,y1=350,unit='points')
+    second.bbox=BoundingBox(x0=50,y0=360,x1=550,y1=700,unit='points')
+    TableGraphBuilder().build(document)
+    assert second.continues_from_table_id==first.table_id
+    projected=composed_tables([t.model_dump(mode='json') for t in document.tables],[])
+    view=build_table_view(projected[1],None)
+    assert view.column_paths[1]==['2022'] and view.column_paths[2]==['2023']
+    assert view.lines[0].values[1].text=='500'
+    assert all(cell.row_index>=0 for cell in second.cells)
+
+
+def test_same_page_distinct_columns_cannot_share_a_header():
+    from esg_document.document.contracts import BoundingBox
+    from esg_document.document.table_graph_builder import TableGraphBuilder
+    document=continuation_document()
+    first,second=document.tables
+    second.page_index=0
+    first.bbox=BoundingBox(x0=20,y0=100,x1=270,y1=350,unit='points')
+    second.bbox=BoundingBox(x0=320,y0=360,x1=570,y1=700,unit='points')
+    TableGraphBuilder().build(document)
+    assert second.continues_from_table_id is None
 
 
 @pytest.mark.parametrize('difference',['title','geometry','columns','multiple_tables'])

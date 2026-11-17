@@ -94,7 +94,41 @@
       "label": "主体范围类型",
       "reading_instruction": "只按明确的集团、子公司、业务分部、场址等文字识别主体类型，未知保留为空。",
       "source": "identity",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "group",
+            "集团",
+            "集團"
+          ],
+          "code": "group",
+          "label": "集团合并"
+        },
+        {
+          "aliases": [
+            "manufacturing base",
+            "site",
+            "plant",
+            "基地",
+            "工厂",
+            "工廠"
+          ],
+          "code": "site",
+          "label": "基地"
+        },
+        {
+          "aliases": [
+            "region",
+            "regional",
+            "province",
+            "地区",
+            "地區",
+            "全省"
+          ],
+          "code": "region",
+          "label": "地区"
+        }
+      ]
     },
     "measurement_method": {
       "context_levels": [
@@ -220,7 +254,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "db1199b0e9e1614610edd5c0ed10d6f8b6e14e56a8691f88c9010731b5579ff8",
+  "clause_digest": "bbf88b51b28ecd47b1a0e131b4090691ec81fc9aa0fdfc8458624420ec1abd29",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -788,7 +822,8 @@
         "aggregation_role",
         "denominator_scope",
         "energy_flow",
-        "energy_source"
+        "energy_source",
+        "entity_aggregation_role"
       ],
       "missing_action": "retain"
     }
@@ -798,7 +833,8 @@
     "allow_regulatory_limit": false,
     "instructions": [
       "可再生能源占能源消费总量的比例",
-      "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。"
+      "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。",
+      "分子须为可再生能源，分母须为同一主体的全能源消费。清洁与可再生合计、直接能源分母或电力结构均属其他口径。地区能源利用率及单个基地水电比例不能标为本集团全能源可再生比例。读取完整局部原句，按实际不同口径选择different，原值和期间保留。 Read the entire linked statement. A regional renewable utilization rate or a factory hydropower share describes another boundary. Clean plus renewable, direct-energy-only and electricity-only denominators differ from total energy consumption."
     ],
     "operator": "numeric_label",
     "rules": [
@@ -938,6 +974,35 @@
         ],
         "unless_terms": [
           "re:(?:可再生|清洁能源|绿色电力|绿电|非化石|renewable|clean\\s+energy|green\\s+(?:power|electricity|energy)|non[-\\s]?fossil|风能|风电|太阳能|光伏|水能|水电|wind\\s+power|solar|hydro|photovoltaic)"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "combined_energy_source_or_direct_only_denominator",
+        "rule": "forbid_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:\\bclean\\s+energy\\s+and\\s+renewable\\s+energy\\b|清洁能源[与和及]可再生能源|清潔能源[與和及]可再生能源",
+          "re:\\btotal\\s+direct\\s+energy\\s+consumption\\b|直接能源(?:消费|消耗)总量|直接能源(?:消費|消耗)總量"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "electricity_only_denominator",
+        "rule": "forbid_any",
+        "scope": "scope_text",
+        "terms": [
+          "re:\\b(?:total\\s+)?(?:electricity|power)\\s+(?:consumption|use|mix|structure)\\b|电力消费结构|電力消費結構|用电结构|用電結構"
+        ],
+        "unless_terms": [
+          "re:\\btotal\\s+energy\\s+consumption\\b|能源消费总量|能源消耗总量|能源消費總量"
         ]
       }
     ],

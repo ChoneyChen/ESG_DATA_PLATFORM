@@ -8,6 +8,8 @@ import re
 from functools import lru_cache
 from pathlib import Path
 from esg_data.hashing import digest
+from esg_data.literals import parse_measure
+from esg_data.units import is_unit_expression
 from .search_ranking import query_terms, table_score, text_score
 from esg_contracts.evidence import (
     DocumentReference,
@@ -17,11 +19,13 @@ from esg_contracts.evidence import (
     EvidenceRow,
     EvidenceCell,
     TextEvidence,
+    EvidenceContextLink,
 )
 from .source import DocumentIrLoader
-from .physical import build_table_view, composed_tables, clean_text, column_header_sources
+from .physical import build_table_view, composed_tables, clean_text, column_header_sources, UNIT_HEADER_RE
 from .report_period import detect_reporting_period
 from .literals import text_spans, numeric_rows
+from .text_geometry import native_text_geometry, NativeTextGeometry, context_links
 
 CHUNK_ROWS = 32
 
@@ -73,6 +77,12 @@ class DocumentEvidenceService:
             if view:
                 tables[view.table_id] = view
         texts = {}
+        geometries = {}
+        forensics_path = Path(path) / "observations/local-pdf/forensics.json"
+        local_pages = {}
+        if forensics_path.is_file():
+            local_pages = {page["page_index"]: page for page in
+                json.loads(forensics_path.read_text()).get("forensics", {}).get("pages", [])}
         for page in ir.pages:
             index = page["page"]["page_index"]
             for block in page.get("blocks") or []:
@@ -93,6 +103,8 @@ class DocumentEvidenceService:
                         page_index=index,
                         bbox=_box(block),
                     )
+                    geometries[block["block_id"]] = native_text_geometry(
+                        texts[block["block_id"]], block, local_pages.get(index, {}))
         fingerprint = hashlib.sha256()
         # Source identity covers saved IR evidence, independent of its directory name.
         for source in sorted(Path(path).rglob("*.json")):
@@ -142,7 +154,7 @@ class DocumentEvidenceService:
                  "lines":[(line.row,line.label,line.unit,line.section) for line in view.lines]} if view else raw.get("title")])
         object_digests.update({key:digest([document.source_sha256 or document.document_id,
             key,text.text,text.page_index,text.bbox,text.char_start]) for key,text in texts.items()})
-        return document, tables, raw_tables, texts, object_digests
+        return document, tables, raw_tables, texts, object_digests, geometries, local_pages
 
     def document(self, ir_run_id):
         reference = self._document(ir_run_id)[0]
@@ -157,7 +169,7 @@ class DocumentEvidenceService:
 
     def search_page(self, ir_run_id, intent):
         intent = SearchIntent.model_validate(intent)
-        document, tables, raw, texts, object_digests = self._document(ir_run_id)
+        document, tables, raw, texts, object_digests, _, _ = self._document(ir_run_id)
         if intent.source_snapshot and intent.source_snapshot != document.snapshot_id:
             raise ValueError("Document snapshot changed; prepare a new extraction")
         terms = query_terms(intent.positive_terms)
@@ -220,26 +232,41 @@ class DocumentEvidenceService:
 
     def read(self, ir_run_id, reference, chunk_index=0):
         reference = ObjectReference.model_validate(reference)
-        document, tables, raw_tables, texts, _ = self._document(ir_run_id)
+        document, tables, raw_tables, texts, _, geometries, local_pages = self._document(ir_run_id)
         if reference.source_snapshot and reference.source_snapshot != document.snapshot_id:
             raise ValueError("Document snapshot changed; prepare a new extraction")
         if reference.kind == "text":
             item = texts.get(reference.object_id)
             if item is None:
                 raise KeyError(reference.object_id)
+            geometry = geometries.get(item.object_id, NativeTextGeometry())
+            clauses = text_spans(item)
+            inventory = [row.model_copy(update={"cells": [cell.model_copy(update={
+                "bbox": geometry.literal_bbox(cell)}) for cell in row.cells]})
+                for row in numeric_rows(item)]
+            links = context_links(inventory, clauses, geometry)
             chunks = text_spans(item, size=4000, pack=True)
             count = len(chunks)
             if chunk_index < 0 or chunk_index >= count:
                 raise ValueError("Invalid text evidence cursor")
             item = chunks[chunk_index]
+            spans = {span.span_id: span for span in [*text_spans(item), *geometry.fragments]
+                if item.char_start <= span.char_start
+                and span.char_start + len(span.text) <= item.char_start + len(item.text)}
+            rows = [row for row in inventory if all(cell.char_start is not None
+                and item.char_start <= cell.char_start
+                and cell.char_end <= item.char_start + len(item.text) for cell in row.cells)]
+            cell_ids = {cell.cell_id for row in rows for cell in row.cells}
             body = dict(
                 chunk_index=chunk_index,
                 chunk_count=count,
                 object_id=item.object_id,
                 kind="text",
                 page_index=item.page_index,
-                texts=[span.model_dump(mode="json") for span in text_spans(item)],
-                rows=[row.model_dump(mode="json") for row in numeric_rows(item)],
+                texts=[span.model_dump(mode="json") for span in spans.values()],
+                rows=[row.model_dump(mode="json") for row in rows],
+                context_links=[link.model_dump(mode="json") for link in links
+                    if link.cell_id in cell_ids and set(link.source_ids) <= spans.keys()],
             )
         else:
             raw = raw_tables.get(reference.object_id)
@@ -264,6 +291,10 @@ class DocumentEvidenceService:
                     if c.get("is_header")
                 }
             references = reference_columns(columns)
+            unit_columns = {column for column,parts in columns.items()
+                if any(UNIT_HEADER_RE.fullmatch(part.strip()) for part in parts)}
+            if view and view.unit_col is not None:
+                unit_columns = {f"c{view.unit_col}"}
             physical = {c.get("cell_id"): c for c in raw.get("cells", [])}
 
             def source(cell):
@@ -322,7 +353,7 @@ class DocumentEvidenceService:
                             ],
                             cells=[
                                 EvidenceCell(
-                                    candidate_kind="identifier" if col in references else "measurement",
+                                    candidate_kind="identifier" if f"c{col}" in references else "measurement",
                                     cell_id=cell.cell_id,
                                     column_id=f"c{col}",
                                     raw_text=physical.get(cell.cell_id, {}).get(
@@ -354,7 +385,7 @@ class DocumentEvidenceService:
                 label = clean_text(cells[0].get("text"))
                 values = [
                     EvidenceCell(
-                        candidate_kind="identifier" if c.get("col_index", 0) in references else "measurement",
+                        candidate_kind="identifier" if f"c{c.get('col_index', 0)}" in references | unit_columns else "measurement",
                         cell_id=c["cell_id"],
                         column_id=f"c{c.get('col_index', 0)}",
                         raw_text=c.get("text") or "",
@@ -376,6 +407,59 @@ class DocumentEvidenceService:
                             cells=values,
                         )
                     )
+            compound_rows, compound_links, converted = [], [], set()
+            unit_cells = {identity for line in view.lines for identity in line.unit_cell_ids} if view else set()
+            for cell in physical.values():
+                column = f"c{cell.get('col_index', 0)}"
+                text = cell.get("text") or ""
+                if (not start <= cell.get("row_index", 0) < end or cell.get("is_header")
+                    or view and cell.get("row_index") in view.header_rows
+                    or view and cell.get("col_index") == view.unit_col
+                    or cell.get("cell_id") in unit_cells
+                    or column in unit_columns
+                    or column in references or parse_measure(text) is not None
+                    or is_unit_expression(text)):
+                    continue
+                item = source(cell)
+                inventory = numeric_rows(item)
+                eligible = [value for row in inventory for value in row.cells
+                    if value.candidate_kind in {"measurement", "unresolved"}]
+                if not eligible:
+                    continue
+                first = eligible[0]
+                if (not text[:first.char_start].strip()
+                    and (not text[first.char_end:].strip()
+                        or is_unit_expression(text[first.char_end:]))):
+                    continue
+                residue = text
+                for row in reversed(inventory):
+                    value = row.cells[0]
+                    residue = residue[:value.char_start] + residue[value.char_end:]
+                if (not any(char.isalpha() for char in residue)
+                    or is_unit_expression(re.sub(r"[\W_]+", "", residue))):
+                    continue
+                geometry = native_text_geometry(item.model_copy(update={
+                    "bbox": item.bbox or _box(raw)}), cell,
+                    local_pages.get(item.page_index, {}))
+                local = [row.model_copy(update={"row_role": "data", "cells": [
+                    value.model_copy(update={"column_id": column, "source_object_type": "cell",
+                        "bbox": geometry.literal_bbox(value)}) for value in row.cells]})
+                    for row in inventory if any(value.candidate_kind in {"measurement", "unresolved"}
+                        for value in row.cells)]
+                if not local:
+                    continue
+                converted.add(cell["cell_id"])
+                compound_rows.extend(local)
+                compound_links.extend(context_links(inventory, text_spans(item), geometry))
+                if view and cell.get("col_index") in view.value_cols:
+                    for row in local:
+                        for value in row.cells:
+                            compound_links.extend(EvidenceContextLink(cell_id=value.cell_id,
+                                source_ids=[header.span_id or f"{header.object_id}@{header.char_start}:{header.char_start + len(header.text)}"],
+                                relation="region") for header in column_sources.get(column, []))
+            rows = [row.model_copy(update={"cells": [cell for cell in row.cells
+                if cell.cell_id not in converted]}) for row in rows]
+            rows = [row for row in rows if row.cells] + compound_rows
             notes = (
                 [texts[n.block_id] for n in view.notes if n.block_id in texts]
                 if view
@@ -408,6 +492,9 @@ class DocumentEvidenceService:
                     for k, v in column_sources.items()
                 },
                 title_sources=[
+                    source(cell).model_dump(mode="json") for cell in header_cells
+                    if view and cell.get("col_index") in view.label_cols
+                ] + [
                     t.model_dump(mode="json")
                     for t in texts.values()
                     if t.page_index == reference.page_index
@@ -416,6 +503,7 @@ class DocumentEvidenceService:
                     and (view.title or view.caption or view.heading_above) in t.text
                 ],
                 rows=[r.model_dump(mode="json") for r in rows],
+                context_links=[link.model_dump(mode="json") for link in compound_links],
                 texts=[
                     span.model_dump(mode="json")
                     for n in notes
@@ -424,4 +512,6 @@ class DocumentEvidenceService:
                 chunk_index=chunk_index,
                 chunk_count=count,
             )
+        if not body.get("context_links"):
+            body.pop("context_links", None)
         return EvidenceFrame.model_validate({**body, "digest": digest(body)})

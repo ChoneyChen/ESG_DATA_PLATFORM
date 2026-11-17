@@ -252,7 +252,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "8a5ea0566b24b4fb125a9251554a9cfcd2e3ad6f819ba33e1729fbfc69cabd6a",
+  "clause_digest": "95d8de8a45d7ee4c24b87b7fea7c54a1c5da12f767d25fe09b6162ae42358e77",
   "clause_key": "E1-6_10",
   "data_kind": "quantitative",
   "definition": "基于市场法的范围2温室气体排放总量",
@@ -1073,7 +1073,8 @@
       "Indirect emissions",
       "indirect greenhouse gas emissions",
       "間接排放",
-      "間接溫室氣體排放量"
+      "間接溫室氣體排放量",
+      "Scope 2"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1105,7 +1106,8 @@
         "Indirect emissions",
         "indirect greenhouse gas emissions",
         "間接排放",
-        "間接溫室氣體排放量"
+        "間接溫室氣體排放量",
+        "Scope 2"
       ],
       [
         "Market-based",

@@ -93,3 +93,55 @@ def test_all_primary_entities_and_years_survive_yield_and_checkpoint_resume(
     assert progress["target_found"] and progress["page_rounds"] == 0
     assert "selected_object" not in progress and "object_complete" not in progress
     assert all(query.matching != "lexical" for query in documents.queries)
+
+
+def test_local_numeric_sources_survive_execution_yield_without_reopening_the_whole_figure(
+    repository,tmp_path
+):
+    from esg_contracts.evidence import EvidenceFrame,TextEvidence,EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    objects={}
+    for index in range(3):
+        name=f'figure-{index}'
+        local=f'In {2021+index} Direct GHG emissions were {10+index}tCO2e.'
+        source=TextEvidence(object_id=name,span_id=name+'-whole',page_index=index,
+            text=local+'\nOther entity applies an unrelated method.')
+        label=source.model_copy(update={'span_id':name+'-local','text':local})
+        rows=[row for row in numeric_rows(source) if row.cells[0].raw_text==str(10+index)]
+        objects[name]=EvidenceFrame(object_id=name,kind='text',page_index=index,digest=name,rows=rows,
+            texts=[source,label],context_links=[EvidenceContextLink(cell_id=rows[0].cells[0].cell_id,
+                source_ids=[label.span_id],relation='same_clause')])
+    references=[ObjectReference(object_id=name,kind='text',page_index=index,score=10-index)
+        for index,name in enumerate(objects)]
+    class Docs:
+        def document(self,_):return document()
+        def search_page(self,_,intent):
+            return ObjectSearchPage(objects=references,total=3,returned=3,query_digest='local',scope={})
+        def read(self,_,reference,chunk=0):return objects[reference.object_id]
+    class Reader:
+        def __init__(self):self.frames=[];self.contexts=[]
+        def complete(self,**kwargs):
+            body=kwargs['context']
+            if 'facts' in body:
+                self.contexts.append(body)
+                return {'assignments':[]},{}
+            self.frames.append(body['frame']['object_id'])
+            evidence=body['frame']
+            return {'matches':[{'row_id':row['row_id'],'columns':['value'],
+                'label_source_id':evidence['object_id']+'-local'}
+                for row in evidence['rows']]},{}
+    clause=repository.get('E1-6_07')
+    clause=clause.model_copy(update={'purposes':clause.purposes.model_copy(update={
+        'enrichment':clause.purposes.enrichment.model_copy(update={'identity_axes':['measurement_method','reporting_entity']})})}).seal()
+    artifacts=FileArtifactPort(tmp_path);results=ResultStore('local-resume',artifacts)
+    request=RunRequest(ir_run_id='ir',clause_keys=[clause.clause_key]);reader=Reader();docs=Docs()
+    with pytest.raises(ExecutionYield):
+        ExtractionBackbone(docs,reader,artifacts,results).run('local-resume',request,{clause.clause_key:clause})
+    prior={fact['source_fact_id'] for fact in results.collection()['facts']}
+    result=run_backbone(docs,reader,artifacts,'local-resume',request,{clause.clause_key:clause})
+    assert len(prior)==2 and prior<={fact['source_fact_id'] for fact in result['facts']}
+    assert reader.frames==list(objects) and len(result['facts'])==3
+    assert result['summary']['assessment']['periods']=={'2021':1,'2022':1,'2023':1}
+    assert all(mapping['match']=='match' for mapping in result['clause_mappings'])
+    assert reader.contexts
+    assert all('Other entity' not in text['text'] for body in reader.contexts for text in body['context']['texts'])

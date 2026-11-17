@@ -10,9 +10,11 @@ from esg_document.document.contracts import (
     TableCellObservation,
     LocalTableCandidate,
     LocalTextBlock,
+    LocalPathObservation,
 )
 from esg_document.document.page_renderer import RenderedDocument
 from esg_document.document.geometry import normalize_bbox_to_page
+from esg_document.ocr.text_layer import glyph_baseline
 
 
 class LocalPdfProcessor:
@@ -73,6 +75,8 @@ class LocalPdfProcessor:
                             y_tolerance=2,
                             keep_blank_chars=False,
                             use_text_flow=True,
+                            extra_attrs=["size"],
+                            return_chars=True,
                         )
                         # Only glyphs inside the visible page box belong to this
                         # page. A PDF that lays a spread out in one content
@@ -107,11 +111,45 @@ class LocalPdfProcessor:
                                 page_height=float(page.height),
                             )
                             if bbox is not None:
+                                first = (word.get("chars") or [None])[0]
+                                upright = first is not None and first.get("upright", True)
                                 native_blocks.append(
                                     LocalTextBlock(
-                                        text=str(word.get("text") or ""), bbox=bbox
+                                        text=str(word.get("text") or ""), bbox=bbox,
+                                        baseline_points=glyph_baseline(first) if upright else None,
+                                        font_size_points=float(first["size"]) if upright else None,
                                     )
                                 )
+                        rectangles = []
+                        for rectangle in page.rects:
+                            if not rectangle.get("fill"):
+                                continue
+                            rectangle_bbox, _ = normalize_bbox_to_page(
+                                BoundingBox(x0=float(rectangle["x0"]), y0=float(rectangle["top"]),
+                                    x1=float(rectangle["x1"]), y1=float(rectangle["bottom"]),
+                                    unit="points", origin="top_left",
+                                    coordinate_system_id=coordinate_system_id),
+                                page_width=float(page.width), page_height=float(page.height))
+                            if rectangle_bbox is not None:
+                                rectangles.append(rectangle_bbox)
+                        paths = []
+                        for curve in page.curves:
+                            commands = curve.get("path") or []
+                            points = curve.get("pts") or []
+                            closed = commands and (commands[-1][0] == "h" or points and
+                                abs(points[0][0] - points[-1][0]) < .1 and
+                                abs(points[0][1] - points[-1][1]) < .1)
+                            if not curve.get("fill") or not closed:
+                                continue
+                            curve_bbox, _ = normalize_bbox_to_page(
+                                BoundingBox(x0=float(curve["x0"]), y0=float(curve["top"]),
+                                    x1=float(curve["x1"]), y1=float(curve["bottom"]),
+                                    unit="points", origin="top_left",
+                                    coordinate_system_id=coordinate_system_id),
+                                page_width=float(page.width), page_height=float(page.height))
+                            if curve_bbox is not None:
+                                paths.append(LocalPathObservation(bbox=curve_bbox,
+                                    commands=[list(command) for command in commands]))
                         table_candidates = self._table_candidates(
                             page,
                             coordinate_system_id,
@@ -131,6 +169,8 @@ class LocalPdfProcessor:
                                 native_text=text.strip() or None,
                                 native_text_preview=text.strip()[:500] or None,
                                 native_text_blocks=native_blocks,
+                                native_filled_rectangles=rectangles,
+                                native_filled_paths=paths,
                                 table_candidates=table_candidates,
                                 page_image_path=str(rendered_page.image_path)
                                 if rendered_page

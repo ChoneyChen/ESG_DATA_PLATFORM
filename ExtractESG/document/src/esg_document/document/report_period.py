@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from collections import Counter
 from dataclasses import dataclass
+from esg_data.text_search import sentence_ranges
 
 
 RANGE_PATTERNS = (
@@ -12,11 +13,11 @@ RANGE_PATTERNS = (
         r"((?:19|20)\d{2})\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日\s*(?:至|到|－|—|-|~|～)\s*((?:19|20)\d{2})\s*年\s*\d{1,2}\s*月\s*\d{1,2}\s*日"
     ),
     re.compile(
-        r"\b\d{1,2}\s+[A-Z][a-z]+\s+((?:19|20)\d{2})\s*(?:to|until|through|-|–)\s*\d{1,2}\s+[A-Z][a-z]+\s+((?:19|20)\d{2})",
+        r"\b\d{1,2}\s+[A-Z][a-z]+\s+(?:((?:19|20)\d{2})\s*)?(?:to|until|through|-|–)\s*\d{1,2}\s+[A-Z][a-z]+\s+((?:19|20)\d{2})",
         re.I,
     ),
     re.compile(
-        r"\b[A-Z][a-z]+\s+\d{1,2},?\s+((?:19|20)\d{2})\s*(?:to|until|through|-|–)\s*[A-Z][a-z]+\s+\d{1,2},?\s+((?:19|20)\d{2})",
+        r"\b[A-Z][a-z]+\s+\d{1,2},?\s+(?:((?:19|20)\d{2})\s*)?(?:to|until|through|-|–)\s*[A-Z][a-z]+\s+\d{1,2},?\s+((?:19|20)\d{2})",
         re.I,
     ),
 )
@@ -24,6 +25,14 @@ PERIOD_STATEMENT_RE = re.compile(
     r"(?:报告(?:时间)?(?:期|范围|周期|期间)|本报告(?:涵盖|覆盖)|时间范围|reporting\s+period|report(?:ing)?\s+covers|"
     r"covers\s+the\s+period|financial\s+year|fiscal\s+year)[^。.;；]{0,60}?((?:19|20)\d{2})",
     re.I,
+)
+PERIOD_LABEL_RE = re.compile(
+    r"报告(?:期|时间|范围|周期)|本报告(?:涵盖|覆盖)|时间范围|reporting\s+period|"
+    r"report\s+cover(?:s|ing)\b|fiscal\s+year|financial\s+year", re.I,
+)
+OTHER_PERIOD_RE = re.compile(
+    r"\b(?:compar(?:ison|ative|ed|ing)|against|targets?|goals?|objectives?)\b|"
+    r"同比|对比|對比|比较|比較|目标|目標", re.I,
 )
 LABEL_YEAR_RE = re.compile(r"(?<!\d)((?:19|20)\d{2})(?!\d)")
 TITLE_YEAR_RES = (
@@ -60,6 +69,31 @@ def _year_is_standard_code(text: str, start: int) -> bool:
     return bool(STANDARD_CODE_PREFIX_RE.search(prefix))
 
 
+def _range_is_reporting_statement(text: str, match: re.Match) -> bool:
+    """A report-period label cannot authorize a comparison in another clause."""
+    for start, end in sentence_ranges(text):
+        if not start <= match.start() < match.end() <= end:
+            continue
+        labels = list(PERIOD_LABEL_RE.finditer(text, start, end))
+        preceding = [label for label in labels if label.end() <= match.start()]
+        if preceding:
+            return not OTHER_PERIOD_RE.search(text, preceding[-1].end(), match.start())
+        following = [label for label in labels if label.start() >= match.end()]
+        if following:
+            # A following parenthetical can explicitly name this date range.
+            label = following[0]
+            clause_start = max(start, text.rfind(",", start, match.start()) + 1,
+                text.rfind(";", start, match.start()) + 1)
+            return (label.start() - match.end() <= 80
+                and not OTHER_PERIOD_RE.search(text, clause_start, label.end()))
+        subject = re.search(r"\b(?:the|this)\s+report\b", text[start:match.start()], re.I)
+        period = re.search(r"\b(?:in|for|during)\s+(?:the\s+)?period\s+of\s*$",
+            text[start:match.start()], re.I)
+        if subject and period:
+            return not OTHER_PERIOD_RE.search(text, start + subject.end(), match.start())
+    return False
+
+
 def detect_reporting_period(
     manifest: dict,
     pages: list[dict],
@@ -72,12 +106,12 @@ def detect_reporting_period(
             text = str(block.get("text") or "")
             if not text:
                 continue
-            if not re.search(r"报告(?:期|时间|范围|周期)|本报告(?:涵盖|覆盖)|时间范围|reporting\s+period|report\s+covers|fiscal\s+year|financial\s+year", text, re.I):
-                continue
             for pattern in RANGE_PATTERNS:
-                match = pattern.search(text)
-                if match:
-                    start, end = int(match.group(1)), int(match.group(2))
+                for match in pattern.finditer(text):
+                    if not _range_is_reporting_statement(text, match):
+                        continue
+                    end = int(match.group(2))
+                    start = int(match.group(1)) if match.group(1) else end
                     if 0 <= end - start <= 1:
                         return ReportingPeriod(
                             end,
@@ -90,6 +124,9 @@ def detect_reporting_period(
             text = str(block.get("text") or "")
             for match in PERIOD_STATEMENT_RE.finditer(text or ""):
                 if _year_is_standard_code(text or "", match.start(1)):
+                    continue
+                if re.search(r"\b(?:compar(?:ison|ative|ed|ing)|against)\b|同比|对比|對比|比较|比較",
+                    text[match.start():match.start(1)], re.I):
                     continue
                 return ReportingPeriod(
                     int(match.group(1)),

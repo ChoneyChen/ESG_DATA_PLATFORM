@@ -114,14 +114,15 @@ class TableGraphBuilder:
         page_counts = Counter(table.page_index for table in ordered)
         group_counter = 0
         for first, second in zip(ordered, ordered[1:]):
-            if second.page_index != first.page_index + 1:
+            same_page = second.page_index == first.page_index
+            if not same_page and second.page_index != first.page_index + 1:
                 continue
             if first.continues_to_table_id or second.continues_from_table_id:
                 continue
             similarity = self._header_similarity(first, second)
             repeated_title = self._leading_row_similarity(first, second)
             headerless_continuation = (
-                page_counts[first.page_index] == page_counts[second.page_index] == 1
+                (same_page or page_counts[first.page_index] == page_counts[second.page_index] == 1)
                 and self._headerless_vertical_continuation(
                     first, second, pages=pages, blocks=blocks
                 )
@@ -129,10 +130,11 @@ class TableGraphBuilder:
             if (
                 first.column_count <= 1
                 or first.column_count != second.column_count
+                or (same_page and not headerless_continuation)
                 or (max(similarity, repeated_title) < 0.62
                     and not headerless_continuation)
             ):
-                if self._horizontal_continuation(first, second):
+                if not same_page and self._horizontal_continuation(first, second):
                     group_counter += 1
                     group_id = (
                         first.continuation_group_id
@@ -160,8 +162,9 @@ class TableGraphBuilder:
             second.continuation_axis = "vertical"
             first.continues_to_table_id = second.table_id
             second.continues_from_table_id = first.table_id
-            self._add_flag(first.quality_flags, "cross_page_table_linked")
-            self._add_flag(second.quality_flags, "cross_page_table_linked")
+            flag = "same_page_table_linked" if same_page else "cross_page_table_linked"
+            self._add_flag(first.quality_flags, flag)
+            self._add_flag(second.quality_flags, flag)
 
     @staticmethod
     def _headerless_vertical_continuation(first, second, *, pages, blocks):
@@ -184,7 +187,10 @@ class TableGraphBuilder:
             return False
         if before.width and after.width and abs(before.width - after.width) > 0.02 * before.width:
             return False
-        if first.bbox.y1 < 0.85 * before.height or second.bbox.y0 > 0.15 * after.height:
+        if first.page_index == second.page_index:
+            if not 0 <= second.bbox.y0-first.bbox.y1 <= 0.15*before.height:
+                return False
+        elif first.bbox.y1 < 0.85 * before.height or second.bbox.y0 > 0.15 * after.height:
             return False
         tolerance = max(2.0, 0.01 * (first.bbox.x1 - first.bbox.x0))
         if max(abs(first.bbox.x0 - second.bbox.x0),
@@ -197,6 +203,8 @@ class TableGraphBuilder:
             and block.block_type in {"heading", "title", "caption"}
             and block.text.strip() and block.bbox
             and block.bbox.y1 <= second.bbox.y0
+            and (first.page_index != second.page_index or block.bbox.y0 >= first.bbox.y1)
+            and min(block.bbox.x1,second.bbox.x1)>max(block.bbox.x0,second.bbox.x0)
             for block in blocks
         ):
             return False

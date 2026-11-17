@@ -48,6 +48,19 @@ def parse_period(raw: str | None) -> ReportedPeriod | None:
             return ReportedPeriod(kind="fiscal_year",raw=raw)
         return None
     positions = []
+    # A shared trailing year applies to both printed dates. Keep raw unchanged
+    # while supplying the omitted year to the start date for typed binding.
+    short_ranges = [
+        (rf"\b(\d{{1,2}})\s+({MONTH_PATTERN})\s*(?:to|until|through|[-–—~～])\s*\d{{1,2}}\s+(?:{MONTH_PATTERN})\s+((?:19|20|21)\d{{2}})\b", False),
+        (rf"\b({MONTH_PATTERN})\s+(\d{{1,2}}),?\s*(?:to|until|through|[-–—~～])\s*(?:{MONTH_PATTERN})\s+\d{{1,2}},?\s+((?:19|20|21)\d{{2}})\b", True),
+    ]
+    for pattern, month_first in short_ranges:
+        for match in re.finditer(pattern, text, re.I):
+            a, b, year = match.groups()
+            try:
+                positions.append((match.start(), date(int(year), MONTHS[(a if month_first else b).casefold()], int(b if month_first else a))))
+            except ValueError:
+                return ReportedPeriod(kind="unknown", raw=raw)
     for match in re.finditer(r"((?:19|20|21)\d{2})\s*[-/年.]\s*(\d{1,2})\s*[-/月.]\s*(\d{1,2})\s*日?", text):
         try:
             positions.append((match.start(), date(*(int(x) for x in match.groups()))))

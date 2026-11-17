@@ -3,6 +3,7 @@ from esg_document.document.contracts import (
     LocalPageForensics, LocalPdfForensics, LocalTextBlock, PageIR, SourceTrace,
 )
 from esg_document.document.native_figure_text import NativeFigureTextBuilder
+from esg_document.document.local_forensics import LocalPdfProcessor
 
 
 def box(x0, y0, x1, y1):
@@ -113,3 +114,31 @@ def test_numerical_transcription_difference_is_not_retired_as_a_duplicate():
     assert contradictory in source.blocks
     assert not source.retired_entities
     assert any("4.477 million cubic metres" in block.text for block in source.blocks)
+
+
+def test_native_glyph_metrics_keep_a_raised_year_footnote_separate(tmp_path):
+    from pypdf import PdfWriter
+    from pypdf.generic import NameObject, DictionaryObject, DecodedStreamObject
+
+    pdf = tmp_path / "year-footnote.pdf"
+    output = PdfWriter()
+    page = output.add_blank_page(width=300, height=300)
+    font = DictionaryObject({NameObject("/Type"): NameObject("/Font"),
+        NameObject("/Subtype"): NameObject("/Type1"), NameObject("/BaseFont"): NameObject("/Helvetica")})
+    page[NameObject("/Resources")] = DictionaryObject({NameObject("/Font"):
+        DictionaryObject({NameObject("/F1"): output._add_object(font)})})
+    stream = DecodedStreamObject()
+    stream.set_data(b"BT /F1 7 Tf 10 50 Td (Reporting year) Tj ET\n"
+        b"BT /F1 7 Tf 100 50 Td (2022) Tj ET\n"
+        b"BT /F1 4.081 Tf 115.568 53.4694 Td (3) Tj ET")
+    page[NameObject("/Contents")] = output._add_object(stream)
+    output.write(pdf)
+    source = document()
+    source.metadata.local_forensics = LocalPdfProcessor().analyze(str(pdf))
+    source.figures[0].bbox = box(0, 0, 200, 300)
+    NativeFigureTextBuilder().build(source)
+    assert "2022³" in source.blocks[0].text
+    assert "20223" not in source.blocks[0].text
+    words = source.metadata.local_forensics.pages[0].native_text_blocks
+    assert next(word for word in words if word.text == "3").font_size_points < 5
+    assert next(word for word in words if word.text == "2022").font_size_points == 7

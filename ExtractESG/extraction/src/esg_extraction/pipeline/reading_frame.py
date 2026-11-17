@@ -3,6 +3,7 @@
 import re
 from esg_data.literals import parse_measure
 from esg_data.units import is_unit_expression
+from .numeric_context import context_sources, uses_local_context
 
 
 def printed_unit_sources(frame):
@@ -100,6 +101,26 @@ def reading_frame(frame, *, data_kind=None):
     if frame.fragment is not None:
         body["fragment"] = frame.fragment.model_dump(mode="json")
     if data_kind == "quantitative":
+        for row,physical in zip(body["rows"],frame.rows):
+            if uses_local_context(frame,physical):
+                row.pop("label",None)
+                row.pop("label_source_id",None)
+                row.pop("section",None)
+                row["requires_local_context"] = True
+                for cell,source in zip(row["cells"],physical.cells):
+                    cell["source_cell_id"] = source.cell_id
+                    links = [link for link in frame.context_links if link.cell_id==source.cell_id]
+                    cell["label_source_options"] = list(dict.fromkeys(key
+                        for link in links if link.relation in {"same_clause","row","column"}
+                        for key in link.source_ids))
+                    cell["context_source_options"] = list(dict.fromkeys(key
+                        for link in links if link.relation=="region" for key in link.source_ids))
+        if any(uses_local_context(frame,row) for row in frame.rows):
+            allowed = {key for link in frame.context_links for key in link.source_ids}
+            body["context_sources"] = [{"source_id":key,"text":source.text,
+                "object_id":source.object_id,"char_start":source.char_start,"bbox":source.bbox}
+                for key,source in context_sources(frame).items() if key in allowed]
+            body["context_links"] = [link.model_dump(mode="json") for link in (getattr(frame,"context_links",None) or [])]
         units = printed_unit_sources(frame)
         if units:
             body["unit_sources"] = [

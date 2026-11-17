@@ -518,7 +518,7 @@ def test_printed_percentage_suffix_is_bound_as_the_original_unit():
 
 
 def test_figure_reader_selects_an_actual_unit_span_without_overriding_row_units(documents,repository):
-    from esg_contracts.evidence import TextEvidence
+    from esg_contracts.evidence import TextEvidence,EvidenceContextLink
     from esg_document.document.literals import numeric_rows
     from esg_extraction.pipeline.reading_frame import printed_unit_sources,reading_frame
     from esg_extraction.pipeline.decisions import NumericMatch,decision_schema
@@ -534,6 +534,11 @@ def test_figure_reader_selects_an_actual_unit_span_without_overriding_row_units(
     schema=decision_schema('quantitative',frame)
     assert schema['properties']['matches']['items']['properties']['unit_source_id']['enum']==['u1','u2']
     row=next(row for row in frame.rows if row.cells[0].raw_text=='5,011,000.40')
+    unit_start=source.text.index('(Unit: tonnes')
+    unit_text='(Unit: tonnes of CO2 equivalent)'
+    fragment=source.model_copy(update={'span_id':'ghg-unit','char_start':unit_start,'text':unit_text})
+    frame=frame.model_copy(update={'texts':[source,fragment],'context_links':[
+        EvidenceContextLink(cell_id=row.cells[0].cell_id,source_ids=['ghg-unit'],relation='region')]})
     match=NumericMatch(row_id=row.row_id,columns=['value'],unit_source_id='u1')
     clause=repository.get('E1-6_07')
     bound,_,_=numeric_fact(clause,document,frame,match,row,row.cells[0],'source-unit')
@@ -545,3 +550,119 @@ def test_figure_reader_selects_an_actual_unit_span_without_overriding_row_units(
         source.model_copy(update={'text':'metric tonnes'})]})
     retained,_,_=numeric_fact(clause,document,frame,match,printed,printed.cells[0],'row-unit')
     assert retained.value.unit_raw=='metric tonnes'
+
+
+@pytest.mark.parametrize('relation,label_id,expected',[
+    ('column','direct','match'),('region','direct','uncertain'),('column','indirect','uncertain'),
+])
+def test_numeric_label_requires_a_strong_relationship_to_the_exact_literal(documents,repository,relation,label_id,expected):
+    from esg_contracts.evidence import EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    from esg_extraction.pipeline.decisions import NumericMatch
+    from esg_extraction.pipeline.binding import numeric_fact
+    source=TextEvidence(object_id='figure',span_id='whole',page_index=2,
+        text='Direct GHG emissions\nIndirect GHG emissions\n100tCO2e\nUnrelated entity method')
+    direct=source.model_copy(update={'span_id':'direct','text':'Direct GHG emissions'})
+    indirect=source.model_copy(update={'span_id':'indirect','char_start':21,'text':'Indirect GHG emissions'})
+    row=next(row for row in numeric_rows(source) if row.cells[0].raw_text=='100')
+    frame=EvidenceFrame(object_id='figure',kind='text',page_index=2,digest='linked',
+        source_snapshot=documents.document('ir-example').snapshot_id,rows=[row],texts=[source,direct,indirect],
+        context_links=[EvidenceContextLink(cell_id=row.cells[0].cell_id,source_ids=['direct'],relation=relation)])
+    raw,link,error=numeric_fact(repository.get('E1-6_07'),documents.document('ir-example'),frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id=label_id),row,row.cells[0],'linked')
+    assert error is None and raw.value.value_raw=='100' and link.match==expected
+    assert 'Unrelated entity' not in ' '.join(location.excerpt for location in raw.evidence if location.role!='value')
+    if expected=='uncertain':
+        assert 'numeric_context_application_unproven' in raw.flags
+
+
+def test_closed_local_label_preserves_a_wrapped_nonrenewable_qualifier(documents,repository):
+    from esg_contracts.evidence import EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    source=TextEvidence(object_id='wrapped',span_id='whole',page_index=2,
+        text='Non-\nrenewable energy consumption\n100 MWh')
+    prefix=source.model_copy(update={'span_id':'prefix','text':'Non-'})
+    label=source.model_copy(update={'span_id':'label','text':'renewable energy consumption','char_start':5})
+    row=next(row for row in numeric_rows(source) if row.cells[0].raw_text=='100')
+    frame=EvidenceFrame(object_id='wrapped',kind='text',page_index=2,digest='closed',rows=[row],
+        source_snapshot=documents.document('ir-example').snapshot_id,texts=[source,prefix,label],
+        context_links=[EvidenceContextLink(cell_id=row.cells[0].cell_id,source_ids=['prefix','label'],relation='row')])
+    raw,link,error=numeric_fact(repository.get('E1-5_05'),documents.document('ir-example'),frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id='label'),row,row.cells[0],'closed')
+    assert error is None and raw.value.value_raw=='100' and link.match=='different'
+    assert raw.source_row_label=='Non-\nrenewable energy consumption'
+    assert any(location.excerpt==raw.source_row_label for location in raw.evidence if location.role=='row')
+
+
+def test_unparsed_text_quantity_survives_local_source_selection(documents,repository,monkeypatch):
+    from esg_contracts.evidence import EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    from esg_extraction.pipeline import binding
+    from esg_extraction.pipeline.decisions import NumericMatch
+    from esg_extraction.pipeline.selection import quantitative_candidates
+    source=TextEvidence(object_id='scientific',span_id='clause',page_index=2,
+        text='Direct GHG emissions were 1.2e5tCO2e.')
+    row=next(row for row in numeric_rows(source) if row.cells[0].raw_text=='1.2e5')
+    frame=EvidenceFrame(object_id='scientific',kind='text',page_index=2,digest='scientific',rows=[row],texts=[source],
+        source_snapshot=documents.document('ir-example').snapshot_id,
+        context_links=[EvidenceContextLink(cell_id=row.cells[0].cell_id,source_ids=['clause'],relation='same_clause')])
+    clause=repository.get('E1-6_07')
+    candidates,rejected=quantitative_candidates(clause,frame)
+    assert len(candidates.rows)==1 and not rejected
+    def unsupported(_):raise ValueError('Parser cannot interpret the printed literal')
+    monkeypatch.setattr(binding,'_number',unsupported)
+    raw,link,error=binding.numeric_fact(clause,documents.document('ir-example'),frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id='clause'),row,row.cells[0],'unparsed')
+    assert error is None and raw.value.value_raw=='1.2e5' and raw.value.parse_status=='unparsed'
+    assert link.match=='match'
+
+
+@pytest.mark.parametrize('unit', ['万吨CO2e', '万 吨 CO2e'])
+def test_word_scale_keeps_the_printed_ghg_family_in_candidate_selection(repository, unit):
+    from decimal import Decimal
+    from esg_data.quantities import unit_scale
+    from esg_extraction.pipeline.selection import quantitative_candidates
+    row = EvidenceRow(row_id='total', label='温室气体排放总量（范围1、市场法范围2、范围3）',
+        unit_raw=unit, cells=[EvidenceCell(cell_id='amount', column_id='2021', raw_text='1')])
+    frame = EvidenceFrame(object_id='table', kind='table', page_index=1, digest='ghg', rows=[row])
+    selected, rejected = quantitative_candidates(repository.get('E1-6_13'), frame)
+    assert unit_scale(unit) == ('ghg', Decimal('1e4'))
+    assert selected.rows == [row] and not rejected
+    assert selected.rows[0].unit_raw == unit
+
+
+@pytest.mark.parametrize('printed,expected', [
+    ('1 January to 31 December 2021', '2021'),
+    ('January 1 to December 31, 2021', '2021'),
+    ('1 April to 30 September 2021', ('range', '2021-04-01', '2021-09-30')),
+    ('April 1 to September 30, 2021', ('range', '2021-04-01', '2021-09-30')),
+    ('1 April to 31 March 2021', ('unknown', None, None)),
+    ('1 April 2020 to 31 March 2021', ('range', '2020-04-01', '2021-03-31')),
+])
+def test_report_reference_binds_shared_trailing_year_as_the_full_printed_period(printed, expected):
+    from esg_contracts.evidence import DocumentReference
+    from esg_extraction.pipeline.period_binding import bind_period
+    document = DocumentReference(document_id='report', ir_run_id='ir', ir_revision=1,
+        content_digest='report', reporting_year=2021, reporting_period_raw=printed,
+        period_context={'basis':'reporting_period_statement', 'source_id':'about-report',
+            'evidence':printed, 'page_index':1, 'inheritance':'explicit_reference_only'})
+    row = EvidenceRow(row_id='actual', label='During the reporting period emissions were 100 tonnes.', cells=[])
+    frame = EvidenceFrame(object_id='statement', kind='text', page_index=9, digest='period', rows=[row])
+    field, flags = bind_period(frame, row=row, document=document)
+    assert field.state == 'inherited' and field.raw_text == printed and not flags
+    assert field.evidence[0].excerpt == printed
+    if isinstance(expected, str):
+        assert field.value == expected
+    else:
+        kind, start, end = expected
+        assert field.value['kind'] == kind
+        assert field.value.get('start') == start and field.value.get('end') == end
+
+
+def test_report_period_reference_matches_both_written_chinese_forms():
+    from esg_extraction.pipeline.period_binding import references_report_period
+    for text in ["报告期内的用量","報告期內的用量","本報告期的用量","During the reporting period"]:
+        assert references_report_period(text)
+    assert not references_report_period("The comparison year is 2020")

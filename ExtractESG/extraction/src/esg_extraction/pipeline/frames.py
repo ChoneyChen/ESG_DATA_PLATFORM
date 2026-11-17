@@ -3,21 +3,28 @@ from esg_data.hashing import digest
 from esg_contracts.evidence import FrameFragment
 import re
 from esg_data.text_search import sentence_ranges
+from .numeric_context import uses_local_context
 
 
 def _child(frame, reason, **updates):
     if frame.kind == 'text' and 'rows' in updates:
-        # The numerical reader has each row's exact local quotation already.
-        updates['texts'] = []
+        # Literal selection needs the complete physical context and the same
+        # source IDs after a retry; a smaller row set creates no new links.
+        updates['texts'] = frame.texts
+    if 'rows' in updates and hasattr(frame,'context_links'):
+        cells = {cell.cell_id for row in updates['rows'] for cell in row.cells}
+        updates['context_links'] = [link for link in (frame.context_links or []) if link.cell_id in cells]
     if frame.kind == "table" and "rows" in updates:
         rows = updates["rows"]
         sources = updates.get("column_sources", frame.column_sources)
         allowed = {source.object_id for items in sources.values() for source in items}
         allowed.update(source.object_id for row in rows for source in [*row.label_sources, *row.unit_sources])
         allowed.update(cell.cell_id for row in rows for cell in row.cells)
-        updates["texts"] = [item for item in frame.texts if item.object_type != "cell" or item.object_id in allowed]
+        linked = {key for link in updates.get("context_links",[]) for key in link.source_ids}
+        updates["texts"] = [item for item in frame.texts if item.object_type != "cell" or item.object_id in allowed
+            or item.span_id in linked]
     identity = {"parent": frame.digest, **{key: [item.model_dump(mode="json") for item in value]
-        for key, value in updates.items() if key in {"rows", "texts"}}}
+        for key, value in updates.items() if key in {"rows", "texts", "context_links"}}}
     return frame.model_copy(update={**updates, "digest": digest(identity),
         "fragment": FrameFragment(parent_digest=frame.digest, reason=reason)})
 
@@ -58,9 +65,16 @@ def budget_frames(frame, max_tokens):
         item = pending.pop(0)
         # The reader emits row/column references, not values and attribute
         # objects per cell. Budget that wire contract instead of the retired one.
-        estimated = 8 + sum(48 + 8 * len([cell for cell in row.cells
-            if cell.candidate_kind in {"measurement", "unresolved"}])
-            for row in item.rows if row.row_role != "header")
+        estimated = 8
+        for row in item.rows:
+            if row.row_role == "header":
+                continue
+            cells = [cell for cell in row.cells if cell.candidate_kind in {"measurement","unresolved"}]
+            estimated += 48+8*len(cells)
+            if uses_local_context(item,row):
+                cell_ids = {cell.cell_id for cell in cells}
+                references = {key for link in item.context_links if link.cell_id in cell_ids for key in link.source_ids}
+                estimated += 16+sum(4+(len(key)+2)//3 for key in references)
         if estimated > max_tokens:
             pieces = split_frame(item,'output_budget',quantitative=True)
             if pieces:

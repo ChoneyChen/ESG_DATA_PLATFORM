@@ -165,6 +165,12 @@ class FrameFragment(ProtocolModel):
     completeness: Literal["fragment"] = "fragment"
 
 
+class EvidenceContextLink(ProtocolModel):
+    cell_id: str
+    source_ids: list[str] = Field(min_length=1)
+    relation: Literal["same_clause", "row", "column", "region"]
+
+
 class EvidenceFrame(ProtocolModel):
     object_id: str
     kind: Literal["table", "text"]
@@ -175,6 +181,7 @@ class EvidenceFrame(ProtocolModel):
     title_sources: list[TextEvidence] = Field(default_factory=list)
     rows: list[EvidenceRow] = Field(default_factory=list)
     texts: list[TextEvidence] = Field(default_factory=list)
+    context_links: list[EvidenceContextLink] = Field(default_factory=list)
     chunk_index: int = 0
     chunk_count: int = 1
     digest: str
@@ -186,6 +193,8 @@ class EvidenceFrame(ProtocolModel):
         body = serializer(self)
         if self.fragment is None:
             body.pop("fragment", None)
+        if not self.context_links:
+            body.pop("context_links", None)
         return body
 
 

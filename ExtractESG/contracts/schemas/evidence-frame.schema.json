@@ -117,6 +117,40 @@
       "title": "EvidenceCell",
       "type": "object"
     },
+    "EvidenceContextLink": {
+      "additionalProperties": false,
+      "properties": {
+        "cell_id": {
+          "title": "Cell Id",
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "same_clause",
+            "row",
+            "column",
+            "region"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cell_id",
+        "source_ids",
+        "relation"
+      ],
+      "title": "EvidenceContextLink",
+      "type": "object"
+    },
     "EvidenceRow": {
       "additionalProperties": false,
       "properties": {
@@ -341,6 +375,13 @@
       },
       "title": "Columns",
       "type": "object"
+    },
+    "context_links": {
+      "items": {
+        "$ref": "#/$defs/EvidenceContextLink"
+      },
+      "title": "Context Links",
+      "type": "array"
     },
     "digest": {
       "title": "Digest",

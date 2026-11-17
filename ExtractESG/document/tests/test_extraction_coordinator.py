@@ -95,3 +95,27 @@ def test_terminal_child_requires_fresh_native_state_before_redispatch(coordinato
     assert reads == [('GET', '/api/runs/run')]
     assert dispatched == []
     assert coordinator.get('plan')['status'] == 'failed'
+
+
+def test_batch_observation_cannot_overwrite_a_confirmed_preparation_cancellation(coordinator):
+    current=state()
+    current.update(run_id=None,ir_run_id=None,processing_id="prep",stage="preparing")
+    coordinator.save(current)
+    prepared={"processing_id":"prep","status":"running",
+        "steps":{"ocr":{"status":"running"}}}
+    coordinator.processing.get=lambda key:prepared
+    def cancel_preparation(*args):
+        prepared.update(status="cancelled",steps={"ocr":{"status":"cancelled"}})
+    coordinator.processing.action=cancel_preparation
+    def observed_before_cancel(states):
+        assert states[0]["status"] == "running"
+        assert coordinator.cancel("plan")["status"] == "cancelled"
+        coordinator._stop.set()
+        return {}
+    coordinator.run_statuses=observed_before_cancel
+    coordinator.start()
+    coordinator._thread.join(timeout=5)
+    assert not coordinator._thread.is_alive()
+    persisted=coordinator.get("plan")
+    assert persisted["status"] == "cancelled" and persisted["cancel_requested"]
+    assert not persisted.get("error")

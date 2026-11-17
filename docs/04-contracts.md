@@ -57,6 +57,8 @@ ReportedContext包含期间、主体、主体聚合角色、边界、方法、�
 
 文字图形中的独立单位行、Unit声明及括号单位可以作为实际来源片段，定量阅读用unit_source_id选择其引用。绑定器保留原印刷字串和字符范围。同一图形含多个单位时逐测量选择，不能统一套用整个图的首个单位。
 
+EvidenceFrame的可选context_links携带cell_id、实际source_ids及same_clause/row/column/region关系。空关系字段在旧帧序列化时省略，保持原快照摘要。文档服务产生关联，提取器按被选量值核对关联和完整来源组。混合文字单元格的子量值保持原cell_id来源及精确字符范围，身份随原量值位置区分。
+
 EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、可选bbox/行列/字符范围和source_snapshot。界面显示页码时加1，不重排稀疏准备页。条款关系ClauseMapping独立保存clause_key/digest、source_fact_id、match、reason、scope_ids和flags。
 
 ## 端口及HTTP分工

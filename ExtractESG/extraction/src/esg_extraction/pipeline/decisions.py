@@ -42,6 +42,8 @@ class NumericMatch(DecisionModel):
     identity: IdentityClaims = Field(default_factory=list)
     column_identity: dict[str, IdentityClaims] = Field(default_factory=dict)
     unit_source_id: str | None = None
+    label_source_id: str | None = None
+    context_source_ids: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def coherent_measurement_relation(self):
@@ -90,11 +92,15 @@ def decision_schema(data_kind, frame):
         # supplies optional attributes afterwards, once for the captured facts.
         schema = {
             "type": "object", "additionalProperties": False,
-            "properties": {"matches": {"type": "array", "items": {
+            "properties": {"matches": {"type": "array",
+                "maxItems": sum(len(row.cells) for row in frame.rows),
+                "uniqueItems": True, "items": {
                 "type": "object", "additionalProperties": False,
                 "properties": {
                     "row_id": {"type": "string", "enum": [row.row_id for row in frame.rows]},
-                    "columns": {"type": "array", "minItems": 1, "items": {
+                    "columns": {"type": "array", "minItems": 1,
+                        "maxItems": len({cell.column_id for row in frame.rows for cell in row.cells}),
+                        "uniqueItems": True, "items": {
                         "type": "string", "enum": sorted({cell.column_id for row in frame.rows for cell in row.cells})}},
                     "match": {"type": "string", "enum": ["match", "different", "uncertain"]},
                 }, "required": ["row_id", "columns"],
@@ -105,10 +111,32 @@ def decision_schema(data_kind, frame):
         if units:
             schema["properties"]["matches"]["items"]["properties"]["unit_source_id"] = {
                 "type":"string","enum":list(units)}
+        from .numeric_context import context_sources, uses_local_context
+        local_rows = [row for row in frame.rows if uses_local_context(frame,row)]
+        if local_rows:
+            sources = context_sources(frame)
+            labels = list(dict.fromkeys(key for link in frame.context_links
+                if link.relation in {"same_clause","row","column"}
+                for key in link.source_ids if key in sources))
+            linked = list(dict.fromkeys(key for link in frame.context_links
+                for key in link.source_ids if key in sources))
+            properties = schema["properties"]["matches"]["items"]["properties"]
+            if labels:
+                properties["label_source_id"] = {"type":"string","enum":labels}
+            if linked:
+                properties["context_source_ids"] = {"type":"array","uniqueItems":True,
+                    "maxItems":len(linked),
+                    "items":{"type":"string","enum":linked}}
+            if labels and len(local_rows)==len(frame.rows) and all(any(
+                link.cell_id==cell.cell_id and link.relation in {"same_clause","row","column"}
+                for link in frame.context_links) for row in local_rows for cell in row.cells
+                if cell.candidate_kind in {"measurement","unresolved"}):
+                schema["properties"]["matches"]["items"]["required"].append("label_source_id")
         return schema
     return {
         "type": "object", "additionalProperties": False,
-        "properties": {"matches": {"type": "array", "items": {
+        "properties": {"matches": {"type": "array", "maxItems":len(frame.texts),
+            "uniqueItems":True, "items": {
             "type": "object", "additionalProperties": False,
             "properties": {
                 "span_id": {"type":"string", "enum":[item.span_id or item.object_id for item in frame.texts]},

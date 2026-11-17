@@ -94,3 +94,40 @@ def test_sentence_boundary_fragments_keep_exact_source_offsets(boundary):
         assert source[start:start+len(text.text)]==text.text
         assert text.object_id=='original-paragraph' and text.page_index==7
         assert piece.fragment.parent_digest=='original'
+
+
+def test_numeric_split_and_json_checkpoint_preserve_full_context_and_original_links():
+    from esg_contracts.evidence import EvidenceFrame,TextEvidence,EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    from esg_extraction.pipeline.frames import split_frame
+    text=TextEvidence(object_id='figure',span_id='whole',page_index=0,
+        text='Direct GHG emissions 100tCO2e\nIndirect GHG emissions 200tCO2e\nOther entity information')
+    rows=[row for row in numeric_rows(text) if row.cells[0].candidate_kind in {'measurement','unresolved'}]
+    first=text.model_copy(update={'span_id':'first','text':'Direct GHG emissions'})
+    second=text.model_copy(update={'span_id':'second','char_start':text.text.index('Indirect'),'text':'Indirect GHG emissions'})
+    links=[EvidenceContextLink(cell_id=row.cells[0].cell_id,source_ids=[source],relation='column')
+        for row,source in zip(rows,['first','second'])]
+    frame=EvidenceFrame(object_id='figure',kind='text',page_index=0,digest='physical',
+        rows=rows,texts=[text,first,second],context_links=links)
+    pieces=split_frame(frame,quantitative=True)
+    assert len(pieces)==2
+    for piece in pieces:
+        restored=EvidenceFrame.model_validate_json(piece.model_dump_json())
+        assert restored.texts==frame.texts
+        assert len(restored.rows)==1 and len(restored.context_links)==1
+        assert restored.context_links[0] in frame.context_links
+        assert restored.context_links[0].cell_id==restored.rows[0].cells[0].cell_id
+        assert restored.fragment.parent_digest==frame.digest
+
+
+def test_decision_arrays_are_bounded_by_actual_source_choices():
+    from esg_contracts.evidence import EvidenceFrame, EvidenceRow, EvidenceCell, TextEvidence
+    from esg_extraction.pipeline.decisions import decision_schema
+    frame=EvidenceFrame(object_id="source",kind="text",page_index=0,digest="d"*64,rows=[
+        EvidenceRow(row_id="r1",label="Water",cells=[
+            EvidenceCell(cell_id="c1",column_id="value",raw_text="4.477")])],
+        texts=[TextEvidence(object_id="source",object_type="text_block",page_index=0,text="Water 4.477")])
+    matches=decision_schema("quantitative",frame)["properties"]["matches"]
+    assert matches["maxItems"] == 1 and matches["uniqueItems"]
+    assert matches["items"]["properties"]["columns"]["maxItems"] == 1
+    assert decision_schema("qualitative",frame)["properties"]["matches"]["maxItems"] == 1

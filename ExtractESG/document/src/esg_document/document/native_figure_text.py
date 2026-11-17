@@ -46,8 +46,10 @@ class NativeFigureTextBuilder:
             if not native:
                 continue
             words = [Word(item.text, item.bbox.x0, item.bbox.x1,
-                item.bbox.y1 - 0.2 * (item.bbox.y1 - item.bbox.y0),
-                item.bbox.y1 - item.bbox.y0) for _, item in native]
+                item.baseline_points if item.baseline_points is not None else
+                    item.bbox.y1 - 0.2 * (item.bbox.y1 - item.bbox.y0),
+                item.font_size_points if item.font_size_points is not None else
+                    item.bbox.y1 - item.bbox.y0) for _, item in native]
             readable, reason = text_layer_quality(words)
             native_text = "".join(word.text for word in words)
             if (not readable and reason != "too_little_text") or CID_RE.search(native_text) or any(
