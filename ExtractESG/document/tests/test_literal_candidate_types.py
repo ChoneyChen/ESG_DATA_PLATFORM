@@ -67,3 +67,14 @@ def test_year_shaped_quantities_without_temporal_context_remain_candidates(text)
 @pytest.mark.parametrize("text", ["The amount was 2021 MWh.", "The amount was compared with 2021 MWh.", "The observed range was 302-1 MWh.", "The observed range was 2020–2022 MWh."])
 def test_real_unit_bearing_year_shaped_values_and_ranges_remain_measurements(text):
     assert all(kind == "measurement" for _, kind in inventory(text))
+
+
+def test_classification_and_numbered_web_references_supply_no_quantities():
+    text = ('Categories 1 & 2 correspond to Scope 1, 2, and 3. '
+            '4 https://example.org/2018 5 https://example.org/documents/1101')
+    assert all(kind in {'identifier', 'footnote'} for _, kind in inventory(text))
+
+
+def test_unknown_measurement_range_survives_beside_a_web_reference():
+    text = 'Category 1 recorded an observed range of 3-6 widgets https://example.org/1101.'
+    assert [(raw, kind) for raw, kind in inventory(text) if kind == 'unresolved'] == [('3-6', 'unresolved')]

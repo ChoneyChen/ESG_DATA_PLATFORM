@@ -264,11 +264,14 @@ def test_attribute_literals_reject_invention_and_ambiguous_normalization(value,q
         bind_attribute_literal(value,quote)
 
 
-@pytest.mark.parametrize('value,quote,expected',[
-    ('2022','Goal of powering all operations by 2030.',None),
-    ('all operations','Goal of powering All Operations by 2030.','All Operations'),
+@pytest.mark.parametrize('value,quote,expected,reason',[
+    ('2022','Goal of powering all operations by 2030.',None,'attribute_value_missing_or_ambiguous_in_quote'),
+    ('During the Reporting Period','During the Reporting Period',None,'attribute_axis_only_period_or_aggregation'),
+    ('2022 Total','2022 Total',None,'attribute_axis_only_period_or_aggregation'),
+    ('2022 New factories','2022 New factories','2022 New factories',None),
+    ('all operations','Goal of powering All Operations by 2030.','All Operations',None),
 ])
-def test_open_attribute_enrichment_keeps_unsupported_value_unknown_and_diagnostic(documents,repository,value,quote,expected):
+def test_open_attribute_enrichment_keeps_unsupported_value_unknown_and_diagnostic(documents,repository,value,quote,expected,reason):
     from esg_extraction.pipeline.enrichment import apply_context,ContextDecision
     document=documents.document('ir-example');clause=repository.get('E1-5_09')
     source=fact(document,'literal','29%','2022')
@@ -288,7 +291,7 @@ def test_open_attribute_enrichment_keeps_unsupported_value_unknown_and_diagnosti
     assert facts[source.source_fact_id].identity.reporting_period==source.identity.reporting_period
     assert bool(rejected)==(expected is None)
     if rejected:
-        assert rejected[0]['reason']=='attribute_value_missing_or_ambiguous_in_quote'
+        assert rejected[0]['reason']==reason
 
 
 def test_declared_vocabulary_binds_a_proven_code_without_requiring_its_literal_spelling(documents,repository):

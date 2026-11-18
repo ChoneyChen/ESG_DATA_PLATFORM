@@ -24,7 +24,7 @@ from .statistics import RunStatistics
 from .selection import quantitative_candidates, qualitative_candidates
 from .reading_policy import POLICY, ReadingProgress
 
-ENGINE_VERSION = "clause-backbone-2.14"
+ENGINE_VERSION = "clause-backbone-2.15"
 QUANTITATIVE_INSTRUCTIONS = """Select physical measurements for ONE independent clause from the bounded evidence frame.
 Use the clause definition, exclusions, scopes and reading.instructions to decide relevance.
 Return matches with row_id and columns. A matching row defaults to match=match; use uncertain only when measurement meaning or target relevance is ambiguous. Explicit contrasting measurements may use different. Do not enumerate unrelated rows.

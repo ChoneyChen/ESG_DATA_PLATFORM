@@ -6,6 +6,12 @@ from esg_data.literals import arabic_years
 from esg_contracts.evidence import ColumnSemantics, EvidenceStructure
 
 
+def period_only(text, period):
+    """A period without any printed subject, method, or value-role qualifier."""
+    remainder = re.sub(r"fiscal\s+year|year\s+ended|as\s+of|cumulative|annual|through|until|to|FY|Q[1-4]|第?[一二三四1-4]季度|上半年|下半年|半年度|季度|财年|財年|年度|截至|累计|累計|期末|年|月|日|至|到", "", arabic_years(text), flags=re.I)
+    return bool(period and period.kind != "unknown" and not re.sub(r"[\d\W_]+", "", remainder))
+
+
 def column_structure(frame):
     columns = []
     data_columns = {cell.column_id for row in frame.rows for cell in row.cells}
@@ -13,10 +19,7 @@ def column_structure(frame):
         path = frame.columns.get(key, [])
         text = " › ".join(path)
         period = parse_period(text)
-        # Extra labels may describe another entity, method or value role.
-        remainder = re.sub(r"fiscal\s+year|year\s+ended|as\s+of|cumulative|annual|through|until|to|FY|Q[1-4]|第?[一二三四1-4]季度|上半年|下半年|半年度|季度|财年|財年|年度|截至|累计|累計|期末|年|月|日|至|到", "", arabic_years(text), flags=re.I)
-        remainder = re.sub(r"[\d\W_]+", "", remainder)
-        plain = bool(period and period.kind != "unknown" and not remainder)
+        plain = period_only(text, period)
         columns.append(ColumnSemantics(column_id=key, header_path=path, period=period,
             period_only=plain, requires_identity_reading=bool(period and not plain)))
     return EvidenceStructure(columns=columns,

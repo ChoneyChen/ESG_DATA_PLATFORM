@@ -27,6 +27,13 @@ TEMPORAL_PREFIX = re.compile(
     r"(?:compared|comparison)\s+(?:with|to)(?:\s+(?:our|the))?)\s*$",
     re.I,
 )
+URL = re.compile(r"\bhttps?://[^\s<>\"']+", re.I)
+NUMBERED_URL_REFERENCES = re.compile(
+    r"(?:^|(?<=[\n\r.。:：]))\s*\d{1,3}\s+https?://[^\s<>\"']+"
+    r"(?:\s+\d{1,3}\s+https?://[^\s<>\"']+)+", re.I)
+CLASSIFICATION_REFERENCE = re.compile(
+    r"\b(?:categor(?:y|ies)|scopes?)\s*\d+(?:\s*[-–—]\s*\d+)?"
+    r"(?:\s*(?:,|&|and)\s*(?:and\s+)?\d+(?:\s*[-–—]\s*\d+)?)*", re.I)
 
 
 def text_spans(text, *, size=500, pack=False):
@@ -115,6 +122,8 @@ def literal_kind(text, start, end, unit):
     """
     before, after = text[:start], text[end:]
     literal = text[start:end].strip()
+    if any(url.start() <= start and end <= url.end() for url in URL.finditer(text)):
+        return "identifier"
     if re.fullmatch(NUMERIC_SCALE, literal) and unit:
         # A parenthesized scale in a heading describes the unit. The actual
         # quantity remains in the table or chart beside that heading.
@@ -123,6 +132,13 @@ def literal_kind(text, start, end, unit):
         if opening >= 0 and closing and is_unit_expression(literal + " " + unit):
             return "identifier"
     if not unit:
+        if (re.fullmatch(r"\d{1,3}", literal) and re.match(r"\s+https?://", after, re.I)
+            and any(ref.start() <= start and end <= ref.end()
+                    for ref in NUMBERED_URL_REFERENCES.finditer(text))):
+            return "footnote"
+        if any(ref.start() <= start and end <= ref.end()
+               for ref in CLASSIFICATION_REFERENCE.finditer(text)):
+            return "identifier"
         # A version after a colon is part of the same printed standard code,
         # even when OCR spaces its preceding hyphen (ISO14064- 1:2018).
         if any(code.start() <= start and end <= code.end()

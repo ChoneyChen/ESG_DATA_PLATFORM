@@ -4,11 +4,12 @@ import re
 import unicodedata
 from esg_data.hashing import digest
 from esg_data.literals import arabic_years
-from esg_data.periods import normalize_period
+from esg_data.periods import leading_period_prefix, normalize_period, parse_period
 from esg_data.normalize import fold
 from esg_contracts.evidence import SearchIntent, TextEvidence
 from .decisions import DecisionModel, IdentityClaims, evidence_identity_schema
 from .period_binding import references_report_period
+from .structure import period_only
 from .binding import context_from_claims, literal_categories, mapping_for
 
 INSTRUCTIONS = """Enrich existing raw facts from the attached report context. Never output or alter numerical values.
@@ -275,6 +276,24 @@ def bind_attribute_literal(value, quote):
     return quote[start:end] if isinstance(value,str) else value
 
 
+def lacks_coverage_description(value, aggregation_terms):
+    """Test exact time and summary labels without inferring the covered entity."""
+    if isinstance(value, (dict, list)):
+        leaves = value.values() if isinstance(value, dict) else value
+        return bool(value) and all(lacks_coverage_description(leaf, aggregation_terms) for leaf in leaves)
+    if isinstance(value, bool) or not isinstance(value, (str, int)):
+        return False
+    text = fold(str(value)).strip()
+    for term in aggregation_terms:
+        pattern = re.escape(term)
+        if term.isascii():
+            pattern = r"(?<![a-z0-9])" + pattern + r"(?![a-z0-9])"
+        text = re.sub(pattern, " ", text)
+    text = text.strip(" \t\r\n›,，;；:：.。()（）[]")
+    return (not text or leading_period_prefix(text + ",") == text + ","
+        or period_only(text, parse_period(text)))
+
+
 def apply_context(clause, sources, frame, decision, facts, mappings, aliases, observation, requested_by_fact=None, rejected_claims=None):
     updates = 0
     changed_ids = []
@@ -286,6 +305,9 @@ def apply_context(clause, sources, frame, decision, facts, mappings, aliases, ob
         for text in frame.texts}
     source_levels.update({(p.source_snapshot,p.object_id):"column_header"
         for parts in frame.column_sources.values() for p in parts})
+    aggregation = clause.attributes.get("aggregation_role")
+    aggregation_terms = sorted({fold(term).strip() for term in aggregation.context_terms
+        if term.strip() and not term.startswith("re:")}, key=len, reverse=True) if aggregation else []
     proposals = {}
     for assignment in decision.assignments:
         claims = [claim for claim in assignment.identity
@@ -354,6 +376,11 @@ def apply_context(clause, sources, frame, decision, facts, mappings, aliases, ob
                     rejected_claims.append({"source_fact_id":fid,"axis":claim.axis,"source_id":claim.source_id,
                         "reason":str(exc)})
                     continue
+            if (claim.axis in {"reporting_boundary", "reporting_entity"}
+                and lacks_coverage_description(claim.value, aggregation_terms)):
+                rejected_claims.append({"source_fact_id":fid,"axis":claim.axis,"source_id":claim.source_id,
+                    "reason":"attribute_axis_only_period_or_aggregation"})
+                continue
             if not clause.attributes[claim.axis].accepts_value(claim.value):
                 rejected_claims.append({"source_fact_id":fid,"axis":claim.axis,"source_id":claim.source_id,
                     "reason":"attribute_value_outside_declared_pattern"})
