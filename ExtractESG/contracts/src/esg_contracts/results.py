@@ -19,9 +19,10 @@ class CandidateRejection(FrozenModel):
     object_id: str
     row_id: str | None = None
     cell_id: str | None = None
+    span_id: str | None = None
     value_raw: str | None = None
     page_index: int | None = None
-    candidate_kind: str
+    candidate_kind: str | None = None
     selection: str
     reason: str
 

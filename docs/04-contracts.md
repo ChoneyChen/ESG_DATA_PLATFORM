@@ -63,6 +63,8 @@ EvidenceFrame的可选context_links携带cell_id、实际source_ids及same_claus
 
 EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、可选bbox/行列/字符范围和source_snapshot。界面显示页码时加1，不重排稀疏准备页。条款关系ClauseMapping独立保存clause_key/digest、source_fact_id、match、reason、scope_ids和flags。
 
+候选诊断的CandidateRejection保存筛选原因与实际作用范围。单个字面量有物理类型时，candidate_kind保持原值。整行或文本片段的筛选可仅携带row_id或span_id，candidate_kind缺失表示本次判断没有给单个字面量分类。已有冻结诊断按原字段读取。
+
 ## 端口及HTTP分工
 
 | 连接 | 请求与响应 | 主要入口 |

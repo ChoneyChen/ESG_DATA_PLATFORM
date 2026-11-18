@@ -44,6 +44,21 @@ const identityNames: Record<string, string> = {
   aggregation_role: "汇总角色",
   denominator: "分母",
 };
+const candidateTypes: Record<string, string> = {
+  formula: "化学式",
+  identifier: "编号",
+  footnote: "脚注",
+  date: "日期",
+  unresolved: "未证实为测量",
+};
+
+function candidateType(candidate: CandidateRejection) {
+  const kind = candidate.candidate_kind;
+  if (kind) return candidateTypes[kind] || kind;
+  if (candidate.row_id) return "整行";
+  return candidate.span_id ? "文本片段" : "对象";
+}
+
 const terminal = ["completed", "partial", "cancelled", "failed", "interrupted"];
 export function ExtractionPage({
   sessionId,
@@ -467,17 +482,7 @@ export function ExtractionPage({
                                     ? "—"
                                     : c.page_index + 1}
                                 </td>
-                                <td>
-                                  {(
-                                    {
-                                      formula: "化学式",
-                                      identifier: "编号",
-                                      footnote: "脚注",
-                                      date: "日期",
-                                      unresolved: "未证实为测量",
-                                    } as Record<string, string>
-                                  )[c.candidate_kind] || c.candidate_kind}
-                                </td>
+                                <td>{candidateType(c)}</td>
                                 <td>{c.reason}</td>
                               </tr>
                             ))}

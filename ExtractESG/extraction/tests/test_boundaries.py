@@ -42,6 +42,36 @@ def test_no_path_crosses_the_evidence_http_interface(documents,repository,tmp_pa
         rejected=client.post('/api/runs',json={'request':{'ir_run_id':'ir-example','clause_keys':['E1-5_01'],'api_key':'never-echo-this-secret'}})
         assert rejected.status_code==422 and 'never-echo-this-secret' not in rejected.text
 
+def test_candidate_diagnostics_keep_existing_row_span_and_literal_records(tmp_path, repository, documents):
+    store = RunStore(tmp_path / 'runs.db')
+    artifacts = FileArtifactPort(tmp_path / 'out')
+    keys = ['E1-5_01', 'E2-4_09']
+    run = store.create(RunRequest(ir_run_id='ir-example', clause_keys=keys),
+                       repository.freeze(repository.select(keys)),
+                       documents.document('ir-example').model_dump(mode='json'))
+    run_id = run['run_id']
+    path = 'diagnostics/candidates.json'
+    rows = [
+        {'clause_key': keys[0], 'object_id': 'table', 'row_id': 'r1',
+         'selection': 'different_target', 'reason': 'clause_reading_rule'},
+        {'clause_key': keys[1], 'object_id': 'block', 'span_id': 'span-1',
+         'selection': 'different_target', 'reason': 'clause_reading_rule'},
+        {'clause_key': keys[0], 'object_id': 'table', 'cell_id': 'r2-c2',
+         'value_raw': '305-7', 'candidate_kind': 'identifier',
+         'selection': 'nonmeasurement', 'reason': 'physical_literal_type'},
+    ]
+    artifacts.write(run_id, path, rows)
+    app = create_app(lambda: (repository, store, artifacts, documents))
+    response = TestClient(app).get(f'/api/runs/{run_id}/candidates')
+    assert response.status_code == 200
+    payload = response.json()
+    assert len(payload) == len(rows)
+    for actual, written in zip(payload, rows):
+        assert all(actual[key] == value for key, value in written.items())
+    assert [row['candidate_kind'] for row in payload] == [None, None, 'identifier']
+    assert artifacts.read(run_id, path) == rows
+
+
 def test_reading_rejection_preserves_raw_value_as_a_different_mapping(documents,repository):
     c=repository.get('E3-4_01') # Water clause deliberately applied to an energy row.
     intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
