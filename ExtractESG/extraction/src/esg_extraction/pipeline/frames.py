@@ -75,9 +75,6 @@ def budget_frames(frame, max_tokens):
                 cell_ids = {cell.cell_id for cell in cells}
                 references = {key for link in item.context_links if link.cell_id in cell_ids for key in link.source_ids}
                 estimated += 16+sum(4+(len(key)+2)//3 for key in references)
-                if any(link.cell_id in cell_ids and link.relation == "same_clause"
-                    for link in item.context_links):
-                    estimated += (len(row.label) + 2) // 3
         if estimated > max_tokens:
             pieces = split_frame(item,'output_budget',quantitative=True)
             if pieces:

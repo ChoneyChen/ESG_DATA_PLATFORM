@@ -89,3 +89,12 @@ def test_numeric_range_without_a_standard_disclosure_context_is_unchanged():
     frame=read_rows([['Metric','Value'],['Energy range','302-1 MWh']])
     value=next(cell for row in frame.rows for cell in row.cells if cell.cell_id=='cell-1-1')
     assert value.candidate_kind=='measurement' and value.raw_text=='302-1 MWh'
+
+
+def test_numbered_index_description_cannot_return_as_a_whole_quantity():
+    description = '(1) Total energy consumed, (2) percentage grid electricity and (3) percentage renewable'
+    frame = read_rows([['Indicator', 'Disclosure'], ['Index', description]])
+    cells = [cell for row in frame.rows for cell in row.cells if cell.raw_text == description
+        or cell.source_object_id == 'cell-1-1']
+    assert len(cells) == 1 and cells[0].raw_text == description
+    assert cells[0].candidate_kind == 'identifier'

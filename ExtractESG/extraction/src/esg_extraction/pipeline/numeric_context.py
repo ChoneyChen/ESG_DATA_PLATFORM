@@ -93,8 +93,12 @@ def select_context(frame, match, row, cell, units):
     bank = context_sources(frame)
     links = [link for link in (getattr(frame,"context_links",None) or []) if link.cell_id==cell.cell_id]
     primary = getattr(match,"label_source_id",None)
-    strong = next((link for link in links if link.relation in {"same_clause","row","column"}
-        and primary in link.source_ids and all(key in bank for key in link.source_ids)),None)
+    strong_links = [link for link in links if link.relation in {"same_clause", "row", "column"}
+        and all(key in bank for key in link.source_ids)]
+    strong = next((link for link in strong_links if primary in link.source_ids), None)
+    if primary is None and len(strong_links) == 1 and strong_links[0].relation == "same_clause":
+        # Selecting the measurement also selects its sole admissible prose label.
+        strong = strong_links[0]
     labels = closed_sources(frame,[bank[key] for key in strong.source_ids]) if strong else []
     quote = getattr(match, "label_quote", None)
     quote_valid = True
@@ -114,12 +118,20 @@ def select_context(frame, match, row, cell, units):
                     labels = [source.model_copy(update={
                         "text":source.text[start:end],"char_start":absolute_start,
                         "span_id":f"{source.object_id}@{absolute_start}:{absolute_end}"})]
-                    period_source = leading_period_source(source)
-                    if (period_source and start >= len(period_source.text)
-                        and not parse_period(labels[0].text)
-                        and not references_report_period(labels[0].text)):
-                        labels.insert(0,period_source)
                     quote_valid = True
+    if (quote_valid and strong is not None and strong.relation == "same_clause"
+        and len(labels) == 1 and not parse_period(labels[0].text)
+        and not references_report_period(labels[0].text)):
+        selected = labels[0]
+        # A short source and its parent share offsets in the same physical
+        # object. Only the explicit common time prefix is inherited.
+        enclosing = [source for source in frame.texts if source.object_id == selected.object_id
+            and source.char_start < selected.char_start
+            and selected.char_start + len(selected.text) <= source.char_start + len(source.text)]
+        if enclosing:
+            period_source = leading_period_source(min(enclosing, key=lambda source: len(source.text)))
+            if period_source and period_source.char_start + len(period_source.text) <= selected.char_start:
+                labels.insert(0, period_source)
     allowed = {key for link in links for key in link.source_ids}
     requested = set(getattr(match,"context_source_ids",[]))
     auxiliary = []

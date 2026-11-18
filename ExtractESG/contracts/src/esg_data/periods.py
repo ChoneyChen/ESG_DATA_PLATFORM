@@ -11,6 +11,15 @@ from .literals import arabic_years
 YEAR = r"(?<!\d)((?:19|20|21)\d{2})(?!\d)"
 MONTHS = {name.casefold(): number for number in range(1, 13) for name in (month_name[number], month_abbr[number])}
 MONTH_PATTERN = "|".join(sorted(MONTHS, key=len, reverse=True))
+_LEADING_PERIOD = re.compile(
+    r"\s*(?:in\s+(?:19|20|21)\d{2}|(?:19|20|21)\d{2}\s*年|"
+    r"during\s+(?:the\s+)?reporting\s+period|本[报報]告期|本年度|[报報]告期[内內])\s*[,，:：]", re.I)
+
+
+def leading_period_prefix(text: str) -> str:
+    """Literal time phrase followed by punctuation, without measurement text."""
+    match = _LEADING_PERIOD.match(text)
+    return match.group() if match else ""
 
 
 class ReportedPeriod(BaseModel):

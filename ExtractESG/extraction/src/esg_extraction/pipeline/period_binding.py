@@ -1,6 +1,6 @@
 """Bind local time evidence; a report's main year is never a default identity."""
 import re
-from esg_data.periods import parse_period, period_payload
+from esg_data.periods import leading_period_prefix, parse_period, period_payload
 from esg_data.normalize import fold
 from esg_contracts.facts import ReportedField, EvidenceLocation
 
@@ -11,12 +11,9 @@ def references_report_period(text):
 
 def leading_period_source(source):
     """Retain an explicit sentence-wide time prefix when selecting a subclause."""
-    match = re.match(r"\s*(?:in\s+(?:19|20|21)\d{2}|(?:19|20|21)\d{2}\s*年|"
-        r"during\s+(?:the\s+)?reporting\s+period|本报告期|本年度|报告期内)\s*[,，:：]",
-        source.text, re.I)
-    if not match:
+    text = leading_period_prefix(source.text)
+    if not text:
         return None
-    text = match[0]
     return source.model_copy(update={"text":text,
         "span_id":f"{source.object_id}@{source.char_start}:{source.char_start+len(text)}"})
 

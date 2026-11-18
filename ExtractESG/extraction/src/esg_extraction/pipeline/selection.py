@@ -52,7 +52,9 @@ def quantitative_candidates(clause, frame):
             excluded.append({"clause_key":clause.clause_key, "object_id":frame.object_id,
                 "row_id":row.row_id, "selection":"different_target",
                 "reason":decision.flags[0] if decision.flags else "clause_reading_rule"})
-    return frame.model_copy(update={"rows":rows}), excluded
+    cell_ids = {cell.cell_id for row in rows for cell in row.cells}
+    return frame.model_copy(update={"rows": rows, "context_links": [
+        link for link in frame.context_links if link.cell_id in cell_ids]}), excluded
 
 
 def qualitative_candidates(clause, frame):

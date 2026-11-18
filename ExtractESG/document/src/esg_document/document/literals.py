@@ -15,6 +15,18 @@ LITERAL = re.compile(
     + r")?\s*[%％‰‱]?"
 )
 UNIT = re.compile(rf"^\s*({UNIT_PATTERN})(?![A-Za-z])", re.I)
+STANDARD_DESIGNATION = re.compile(
+    r"\b(?:ISO(?:\s*/\s*IEC)?|IEC|GRI|ESRS|SASB|NSF|IFRS)\s*[A-Z]?\s*\d+"
+    r"(?:\s*[-–:./]\s*\d+)*",
+    re.I,
+)
+PARENTHESIZED_ITEM = re.compile(r"[（(]\s*\d{1,3}\s*[）)](?=\s+\S)")
+YEAR_LITERAL = re.compile(r"(?:19|20|21)\d{2}(?:\s*[-~～—–]\s*(?:19|20|21)\d{2})?")
+TEMPORAL_PREFIX = re.compile(
+    r"\b(?:in|since|during|year|FY|as\s+of|end\s+of|relative\s+to|"
+    r"(?:compared|comparison)\s+(?:with|to)(?:\s+(?:our|the))?)\s*$",
+    re.I,
+)
 
 
 def text_spans(text, *, size=500, pack=False):
@@ -111,12 +123,22 @@ def literal_kind(text, start, end, unit):
         if opening >= 0 and closing and is_unit_expression(literal + " " + unit):
             return "identifier"
     if not unit:
+        # A version after a colon is part of the same printed standard code,
+        # even when OCR spaces its preceding hyphen (ISO14064- 1:2018).
+        if any(code.start() <= start and end <= code.end()
+               for code in STANDARD_DESIGNATION.finditer(text)):
+            return "identifier"
         if re.search(r"(?:\b(?:notes?|footnotes?)|附[註注]|[脚腳][註注]|註|注)\s*(?:[（(\[]\s*)?\Z",before,re.I):
             return "footnote"
         closing_marker = re.match(r"\s*[)）\]]\s+", after)
         if (re.fullmatch(r"\s*[(（\[]\s*",before) and closing_marker
             and not UNIT.match(fold(after[closing_marker.end():]))):
             return "footnote"
+        opening_marker = re.search(r"[（(]\s*$", before)
+        if (opening_marker and closing_marker and re.fullmatch(r"\d{1,3}", literal)
+            and not UNIT.match(fold(after[closing_marker.end():]))
+            and PARENTHESIZED_ITEM.search(before[:opening_marker.start()])):
+            return "identifier"
         if ((not before.strip() or re.search(r"[\n。；]\s*$", before))
             and re.match(r"\s*[.)、]\s*\S", after)):
             return "identifier"
@@ -124,7 +146,7 @@ def literal_kind(text, start, end, unit):
             return "identifier"
         if after.lstrip().startswith("号") and re.search(r"地址|街|路|大道|巷", before):
             return "identifier"
-        if re.fullmatch(r"(?:19|20|21)\d{2}", text[start:end].strip()) and re.search(r"\b(?:in|since|during|year|FY|as\s+of|end\s+of)\s*$", before, re.I):
+        if YEAR_LITERAL.fullmatch(literal) and TEMPORAL_PREFIX.search(before):
             return "date"
         if re.search(r"\b(?:series|model|version|scope|section|page|ISO|IEC|GRI|ESRS|SASB|NSF|IFRS)\s*$", before, re.I):
             return "identifier"

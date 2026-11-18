@@ -7,6 +7,7 @@ import statistics
 import math
 
 from esg_contracts.evidence import EvidenceContextLink, TextEvidence
+from esg_data.periods import leading_period_prefix
 from esg_document.ocr.text_layer import Word, build_lines
 
 
@@ -260,19 +261,87 @@ def native_text_geometry(source, block, local_page):
     return result
 
 
-def context_links(rows, clauses, geometry):
+_COORDINATION = re.compile(r"[,;]\s*(?:and|while|whereas|but)\s+", re.I)
+_MEASUREMENT_PREDICATE = re.compile(
+    r"\b(?:was|were|is|are|reached|totalled|totaled|stood\s+at|amounted\s+to)"
+    r"\s+(?:(?:about|approximately|roughly)\s+)?$", re.I)
+_TIME_ONLY_SUBJECT = re.compile(
+    r"(?:in|during|from|for|by|since|as\s+of)\s+(?:the\s+)?"
+    r"(?:(?:FY\s*)?(?:19|20|21)\d{2}|the\s+reporting\s+period|reporting\s+period)", re.I)
+
+
+def _independent_measurement_spans(sentence, measurements):
+    """Recognize explicit coordination with a subject and measured predicate on each side."""
+    text = sentence.text
+    if re.search(r"\brespectively\b", text, re.I) or re.match(r"\s*(?:if|assuming|unless)\b", text, re.I):
+        return []
+    # More complex coordination can share qualifiers. Preserve it whole until
+    # we can establish exactly which phrases apply to each measurement.
+    boundaries = list(_COORDINATION.finditer(text))
+    if len(boundaries) != 1:
+        return []
+    boundary = boundaries[0]
+    if (text[:boundary.start()].count('(') != text[:boundary.start()].count(')')
+        or text[:boundary.start()].count('（') != text[:boundary.start()].count('）')):
+        return []
+    spans = []
+    for start, end in ((0, boundary.start()), (boundary.end(), len(text))):
+        predicates = []
+        for row, cell in measurements:
+            offset = cell.char_start - sentence.char_start
+            if not row.unit_raw or not start < offset < end:
+                continue
+            predicate = _MEASUREMENT_PREDICATE.search(text[start:offset])
+            if predicate:
+                predicates.append((predicate, row, cell))
+        # In each fragment the predicate has a printed subject. A coordinated
+        # continuation such as "and was 20 MWh" does not meet this condition.
+        if not predicates:
+            return []
+        predicate, row, cell = predicates[0]
+        subject = text[start:start + predicate.start()]
+        subject = subject.removeprefix(leading_period_prefix(subject)).strip()
+        if (not any(char.isalpha() for char in subject)
+            or _TIME_ONLY_SUBJECT.fullmatch(subject)
+            or re.search(r"[,;:，；：]", subject)
+            or re.match(r"(?:it|this|that|these|those|which|they|there)\b", subject, re.I)):
+            return []
+        if start:
+            # A trailing shared method, target or scope cannot be assigned by
+            # the coordinator alone. Require a plain measured end of sentence.
+            tail = text[cell.char_end - sentence.char_start:end]
+            unit = "" if cell.raw_text.endswith(row.unit_raw) else row.unit_raw
+            if not re.fullmatch(r"\s*" + re.escape(unit) + r"\s*[.!?。！？]?\s*", tail):
+                return []
+        fragment = text[start:end]
+        begin = sentence.char_start + start
+        spans.append(sentence.model_copy(update={"text": fragment, "char_start": begin,
+            "span_id": f"{sentence.object_id}@{begin}:{begin+len(fragment)}"}))
+    return spans
+
+
+def measurement_context(rows, clauses, geometry):
     # The provider uses the complete literal inventory before extraction applies
     # clause guards, input budgets, retries, or value filtering.
-    cells = [cell for row in rows for cell in row.cells
+    measurements = [(row, cell) for row in rows for cell in row.cells
         if cell.candidate_kind in {'measurement', 'unresolved'}]
     links = []
+    labels = {}
     for clause in ([] if geometry.is_native_figure else clauses):
-        inside = [cell for cell in cells if cell.char_start is not None and cell.char_end is not None
-            and clause.char_start <= cell.char_start
-            and cell.char_end <= clause.char_start + len(clause.text)]
-        for cell in inside:
+        inside = [(row, cell) for row, cell in measurements
+            if cell.char_start is not None and cell.char_end is not None
+            and clause.char_start <= cell.char_start <= cell.char_end <= clause.char_start + len(clause.text)]
+        fragments = _independent_measurement_spans(clause, inside) if len(inside) > 1 else []
+        for row, cell in inside:
+            label = next((span for span in fragments if span.char_start <= cell.char_start
+                and cell.char_end <= span.char_start + len(span.text)), clause)
+            if label is not clause:
+                labels[row.row_id] = label
             links.append(EvidenceContextLink(cell_id=cell.cell_id,
-                source_ids=[clause.span_id], relation='same_clause'))
+                source_ids=[label.span_id], relation='same_clause'))
+    cells = [cell for _, cell in measurements]
     links.extend(geometry.bar_links(cells))
     links.extend(geometry.enclosure_links(cells))
-    return links
+    rows = [row.model_copy(update={"label": labels[row.row_id].text,
+        "label_sources": [labels[row.row_id]]}) if row.row_id in labels else row for row in rows]
+    return rows, links

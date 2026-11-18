@@ -2,8 +2,9 @@ from esg_contracts.evidence import TextEvidence, EvidenceFrame, EvidenceContextL
 from esg_document.document.contracts import LocalTextBlock
 from esg_document.document.literals import numeric_rows, text_spans
 from esg_document.document.native_figure_text import NativeFigureTextBuilder
-from esg_document.document.text_geometry import context_links, native_text_geometry, NativeTextGeometry
+from esg_document.document.text_geometry import measurement_context, native_text_geometry, NativeTextGeometry
 from test_native_figure_text import document, box
+import pytest
 
 
 def test_empty_context_links_preserve_existing_frame_serialization():
@@ -44,7 +45,7 @@ def figure_context(*, wrapped=False):
 def test_bar_columns_supply_only_their_actual_descriptors_and_literal_boxes():
     text, geometry, rows = figure_context()
     sources = {source.span_id: source for source in geometry.fragments}
-    links = context_links(rows, text_spans(text), geometry)
+    _, links = measurement_context(rows, text_spans(text), geometry)
     cells = {cell.raw_text: cell for row in rows for cell in row.cells}
     direct = [sources[source].text for link in links if link.cell_id == cells['100'].cell_id
         and link.relation == 'column' for source in link.source_ids]
@@ -64,7 +65,7 @@ def test_wrapped_qualifier_remains_in_the_required_descriptor_group():
     text, geometry, rows = figure_context(wrapped=True)
     sources = {source.span_id: source for source in geometry.fragments}
     cell = next(cell for row in rows for cell in row.cells if cell.raw_text == '100')
-    links = [link for link in context_links(rows, text_spans(text), geometry)
+    links = [link for link in measurement_context(rows, text_spans(text), geometry)[1]
         if link.cell_id == cell.cell_id and link.relation == 'column']
     assert len(links) == 1
     assert [sources[source].text for source in links[0].source_ids] == ['Non-', 'renewable']
@@ -74,12 +75,12 @@ def test_complete_literal_inventory_controls_sentence_links_and_figures_do_not_g
     source = TextEvidence(object_id='block-1', page_index=0,
         text='Energy consumption was 100 or 200 MWh.')
     rows = numeric_rows(source)
-    links = context_links(rows, text_spans(source), NativeTextGeometry())
+    _, links = measurement_context(rows, text_spans(source), NativeTextGeometry())
     assert len(links) == 2 and links[0].source_ids == links[1].source_ids
     source = source.model_copy(update={'text': 'Energy consumption was 100 MWh.'})
     rows = numeric_rows(source)
-    assert len(context_links(rows, text_spans(source), NativeTextGeometry())) == 1
-    assert not context_links(rows, text_spans(source), NativeTextGeometry(is_native_figure=True))
+    assert len(measurement_context(rows, text_spans(source), NativeTextGeometry())[1]) == 1
+    assert not measurement_context(rows, text_spans(source), NativeTextGeometry(is_native_figure=True))[1]
 
 
 def test_raised_footnote_cannot_supply_the_numeric_prefix_box_of_a_measurement():
@@ -142,10 +143,24 @@ def test_every_literal_keeps_its_original_sentence_link_before_filtering():
     source=TextEvidence(object_id='multi',page_index=0,
         text='Renewable energy use was 100 tce, accounting for 12.62% of total energy consumption. Other output was 250 GW.')
     inventory=numeric_rows(source)
-    links=context_links(inventory,text_spans(source),NativeTextGeometry())
+    _, links=measurement_context(inventory,text_spans(source),NativeTextGeometry())
     cells=[cell for row in inventory for cell in row.cells
         if cell.candidate_kind in {'measurement','unresolved'}]
     assert all(any(link.cell_id==cell.cell_id for link in links) for cell in cells)
     first=[link for link in links if link.cell_id in {cells[0].cell_id,cells[1].cell_id}]
     assert len(first)==2 and first[0].source_ids==first[1].source_ids
     assert next(link for link in links if link.cell_id==cells[-1].cell_id).source_ids!=first[0].source_ids
+
+
+@pytest.mark.parametrize('text', [
+    'Total energy consumption in 2023 was 100 MWh, and in 2024 was 200 MWh.',
+    'Scope 1 emissions were 100 tCO2e, and Scope 2 emissions were 200 tCO2e; both figures are targets for 2030.',
+    'For the 2030 targets, Scope 1 emissions were 100 tCO2e, and Scope 2 emissions were 200 tCO2e.',
+    'Location-based emissions were 100 tCO2e, and market-based emissions were 200 tCO2e, respectively.',
+])
+def test_coordination_preserves_shared_subject_and_qualifiers(text):
+    source = TextEvidence(object_id='shared-measurement', page_index=0, text=text)
+    spans = text_spans(source)
+    rows, links = measurement_context(numeric_rows(source), spans, NativeTextGeometry())
+    quantity_ids = {cell.cell_id for row in rows for cell in row.cells if cell.raw_text in {'100', '200'}}
+    assert [link.source_ids for link in links if link.cell_id in quantity_ids] == [[spans[0].span_id]] * 2

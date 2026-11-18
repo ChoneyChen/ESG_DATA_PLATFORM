@@ -25,7 +25,7 @@ from .source import DocumentIrLoader
 from .physical import build_table_view, composed_tables, clean_text, column_header_sources, UNIT_HEADER_RE
 from .report_period import detect_reporting_period
 from .literals import text_spans, numeric_rows
-from .text_geometry import native_text_geometry, NativeTextGeometry, context_links
+from .text_geometry import native_text_geometry, NativeTextGeometry, measurement_context
 
 CHUNK_ROWS = 32
 
@@ -265,7 +265,7 @@ class DocumentEvidenceService:
             inventory = [row.model_copy(update={"cells": [cell.model_copy(update={
                 "bbox": geometry.literal_bbox(cell)}) for cell in row.cells]})
                 for row in numeric_rows(item)]
-            links = context_links(inventory, clauses, geometry)
+            inventory, links = measurement_context(inventory, clauses, geometry)
             chunks = text_spans(item, size=4000, pack=True)
             count = len(chunks)
             if chunk_index < 0 or chunk_index >= count:
@@ -278,6 +278,7 @@ class DocumentEvidenceService:
                 and item.char_start <= cell.char_start
                 and cell.char_end <= item.char_start + len(item.text) for cell in row.cells)]
             cell_ids = {cell.cell_id for row in rows for cell in row.cells}
+            source_ids = spans.keys() | {source.span_id for row in rows for source in row.label_sources}
             body = dict(
                 chunk_index=chunk_index,
                 chunk_count=count,
@@ -287,7 +288,7 @@ class DocumentEvidenceService:
                 texts=[span.model_dump(mode="json") for span in spans.values()],
                 rows=[row.model_dump(mode="json") for row in rows],
                 context_links=[link.model_dump(mode="json") for link in links
-                    if link.cell_id in cell_ids and set(link.source_ids) <= spans.keys()],
+                    if link.cell_id in cell_ids and set(link.source_ids) <= source_ids],
             )
         else:
             raw = raw_tables.get(reference.object_id)
@@ -439,6 +440,7 @@ class DocumentEvidenceService:
                         )
                     )
             compound_rows, compound_links, converted = [], [], set()
+            context_only_cells = set()
             unit_cells = {identity for line in view.lines for identity in line.unit_cell_ids} if view else set()
             for cell in physical.values():
                 column = f"c{cell.get('col_index', 0)}"
@@ -458,6 +460,8 @@ class DocumentEvidenceService:
                 eligible = [value for row in inventory for value in row.cells
                     if value.candidate_kind in {"measurement", "unresolved"}]
                 if not eligible:
+                    if inventory:
+                        context_only_cells.add(cell["cell_id"])
                     continue
                 first = eligible[0]
                 if (not text[:first.char_start].strip()
@@ -474,6 +478,7 @@ class DocumentEvidenceService:
                 geometry = native_text_geometry(item.model_copy(update={
                     "bbox": item.bbox or _box(raw)}), cell,
                     local_pages.get(item.page_index, {}))
+                inventory, links = measurement_context(inventory, text_spans(item), geometry)
                 local = [row.model_copy(update={"row_role": "data", "cells": [
                     value.model_copy(update={"column_id": column, "source_object_type": "cell",
                         "bbox": geometry.literal_bbox(value)}) for value in row.cells]})
@@ -483,14 +488,16 @@ class DocumentEvidenceService:
                     continue
                 converted.add(cell["cell_id"])
                 compound_rows.extend(local)
-                compound_links.extend(context_links(inventory, text_spans(item), geometry))
+                compound_links.extend(links)
                 if view and cell.get("col_index") in view.value_cols:
                     for row in local:
                         for value in row.cells:
                             compound_links.extend(EvidenceContextLink(cell_id=value.cell_id,
                                 source_ids=[header.span_id or f"{header.object_id}@{header.char_start}:{header.char_start + len(header.text)}"],
                                 relation="region") for header in column_sources.get(column, []))
-            rows = [row.model_copy(update={"cells": [cell for cell in row.cells
+            rows = [row.model_copy(update={"cells": [
+                cell.model_copy(update={"candidate_kind": "identifier"})
+                if cell.cell_id in context_only_cells else cell for cell in row.cells
                 if cell.cell_id not in converted]}) for row in rows]
             rows = [row for row in rows if row.cells] + compound_rows
             notes = (

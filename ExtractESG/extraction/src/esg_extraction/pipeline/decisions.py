@@ -124,11 +124,6 @@ def decision_schema(data_kind, frame):
             properties = schema["properties"]["matches"]["items"]["properties"]
             if labels:
                 properties["label_source_id"] = {"type":"string","enum":labels}
-            if any(link.relation == "same_clause" for link in frame.context_links):
-                quotes = [sources[key].text for link in frame.context_links
-                    if link.relation == "same_clause" for key in link.source_ids if key in sources]
-                properties["label_quote"] = {"type":"string","minLength":1,
-                    "maxLength":max(map(len, quotes),default=1)}
             if linked:
                 properties["context_source_ids"] = {"type":"array","uniqueItems":True,
                     "maxItems":len(linked),

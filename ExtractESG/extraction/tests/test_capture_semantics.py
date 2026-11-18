@@ -679,13 +679,13 @@ def test_report_period_reference_matches_both_written_chinese_forms():
 def test_measurement_quote_keeps_the_selected_value_and_its_complete_clause(documents,repository,quote,expected,literal,clause,repeat_primary):
     from esg_contracts.evidence import EvidenceContextLink
     from esg_document.document.literals import numeric_rows,text_spans
-    from esg_document.document.text_geometry import context_links,NativeTextGeometry
     from esg_extraction.pipeline.decisions import NumericMatch
     from esg_extraction.pipeline.binding import numeric_fact
     source=TextEvidence(object_id='multi-scope',page_index=2,text=
         'In 2022, our total scope 1 direct GHG emissions were 75,647 tCO2e, and scope 2 indirect GHG emissions were 1,213,638 tCO2e.')
     rows=numeric_rows(source);spans=text_spans(source)
-    links=context_links(rows,spans,NativeTextGeometry())
+    links=[EvidenceContextLink(cell_id=row.cells[0].cell_id, source_ids=[spans[0].span_id],
+        relation='same_clause') for row in rows]
     frame=EvidenceFrame(object_id=source.object_id,kind='text',page_index=2,digest='multi',
         rows=rows,texts=[source,*spans],context_links=links,
         source_snapshot=documents.document('ir-example').snapshot_id)
@@ -709,10 +709,51 @@ def test_measurement_quote_cannot_drop_a_nonrenewable_word_prefix():
             measurement_quote('Non-renewable energy consumption was 100 MWh.',quote)
 
 
-def test_explicit_report_period_in_a_subclause_keeps_its_own_period(repository):
-    from esg_contracts.evidence import DocumentReference
+def test_reported_clause_sources_keep_scope_and_dependent_shares(documents, repository):
     from esg_document.document.literals import text_spans
-    from esg_document.document.text_geometry import context_links,NativeTextGeometry
+    from esg_document.document.text_geometry import measurement_context, NativeTextGeometry
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch, decision_schema
+    from esg_extraction.pipeline.reading_frame import reading_frame
+
+    cases = [
+        ('In 2022, our total scope 1 direct GHG emissions were 75,647 tCO2e, or tons of CO2 equivalent, '
+         'and scope 2 indirect GHG emissions were 1,213,638 tCO2e.',
+         '75,647', 'E1-6_07', '2022', 'scope 1', 'scope 2'),
+        ('In 2022, fuel use was 100 MWh, and water consumption was 200 m3.',
+         '200', 'E3-4_01', '2022', 'water consumption', 'fuel use'),
+        ('Renewable energy usage reached 100,164.84 tce, accounting for 12.62% of total energy consumption.',
+         '12.62%', 'E1-5_09', None, 'Renewable energy usage', None),
+    ]
+    document = documents.document('ir-example')
+    for text, literal, clause, year, included, excluded in cases:
+        source = TextEvidence(object_id='source-measurement', page_index=0, text=text)
+        spans = text_spans(source)
+        rows, links = measurement_context(numeric_rows(source), spans, NativeTextGeometry())
+        frame = EvidenceFrame(object_id=source.object_id, kind='text', page_index=0,
+            digest='source-measurement', rows=rows, texts=spans, context_links=links,
+            source_snapshot=document.snapshot_id)
+        row = next(row for row in rows if row.cells[0].raw_text == literal)
+        rendered = reading_frame(frame, data_kind='quantitative')
+        options = next(item['cells'][0]['label_source_options'] for item in rendered['rows']
+            if item['row_id'] == row.row_id)
+        assert len(options) == 1
+        assert 'label_quote' not in decision_schema('quantitative', frame)['properties']['matches']['items']['properties']
+        decision = NumericMatch(row_id=row.row_id, columns=['value'], label_source_id=options[0])
+        fact, mapping, error = numeric_fact(repository.get(clause), document, frame, decision,
+            row, row.cells[0], 'selected-source')
+        assert error is None and mapping.match == 'match' and fact.value.value_raw == literal, (text, mapping.flags)
+        assert included in fact.source_row_label
+        assert not excluded or excluded not in fact.source_row_label
+        assert fact.identity.reporting_period.value == year
+        for evidence in fact.evidence:
+            if evidence.object_id == source.object_id and evidence.char_start is not None:
+                assert text[evidence.char_start:evidence.char_end] == evidence.excerpt
+
+
+def test_explicit_report_period_in_a_subclause_keeps_its_own_period(repository):
+    from esg_contracts.evidence import DocumentReference, EvidenceContextLink
+    from esg_document.document.literals import text_spans
     from esg_extraction.pipeline.binding import numeric_fact
     from esg_extraction.pipeline.decisions import NumericMatch
     source=TextEvidence(object_id='period-source',page_index=2,text=
@@ -724,7 +765,9 @@ def test_explicit_report_period_in_a_subclause_keeps_its_own_period(repository):
             'basis':'reporting_period_statement','source_id':'coverage',
             'evidence':'1 January 2024 to 31 December 2024','page_index':1})
     frame=EvidenceFrame(object_id=source.object_id,kind='text',page_index=2,digest='period',
-        rows=rows,texts=[source,*spans],context_links=context_links(rows,spans,NativeTextGeometry()),
+        rows=rows,texts=[source,*spans],context_links=[EvidenceContextLink(
+            cell_id=row.cells[0].cell_id, source_ids=[spans[0].span_id], relation='same_clause')
+            for row in rows],
         source_snapshot=document.snapshot_id)
     row=next(row for row in rows if row.cells[0].raw_text=='200')
     primary=next(link.source_ids[0] for link in frame.context_links if link.cell_id==row.cells[0].cell_id)

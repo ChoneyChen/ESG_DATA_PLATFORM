@@ -262,6 +262,7 @@
 | [ExtractESG/document/tests/test_horizontal_spreads.py](../../ExtractESG/document/tests/test_horizontal_spreads.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_html_table_parser.py](../../ExtractESG/document/tests/test_html_table_parser.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_ir_retention.py](../../ExtractESG/document/tests/test_ir_retention.py) | 测试/样例 |
+| [ExtractESG/document/tests/test_literal_candidate_types.py](../../ExtractESG/document/tests/test_literal_candidate_types.py) | Physical identifiers and dates do not become reported quantity candidates. |
 | [ExtractESG/document/tests/test_local_evidence_availability.py](../../ExtractESG/document/tests/test_local_evidence_availability.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_model_json_decoder.py](../../ExtractESG/document/tests/test_model_json_decoder.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_native_dispatch.py](../../ExtractESG/document/tests/test_native_dispatch.py) | Fault injection before durable queue commit; no OCR/model execution. |
