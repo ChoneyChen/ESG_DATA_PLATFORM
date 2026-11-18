@@ -28,6 +28,10 @@ from .literals import text_spans, numeric_rows
 from .text_geometry import native_text_geometry, NativeTextGeometry, measurement_context
 
 CHUNK_ROWS = 32
+STANDARD_FAMILY = r"(?:GRI|ESRS|CSRD|SASB|ISSB|NSF|HKEX)"
+STANDARD_COLUMN = re.compile(rf"{STANDARD_FAMILY}\s+standards?", re.I)
+STANDARD_ANCHOR = re.compile(rf"\s*{STANDARD_FAMILY}\s+([A-Z]?\d[\d.]*)\b", re.I)
+LEADING_DISCLOSURE = re.compile(r"\s*([A-Z]?\d[\d.]*)-\d+(?:[.-]\d+)*(?=\s|$)", re.I)
 
 
 def _box(row):
@@ -43,23 +47,27 @@ def reference_columns(columns):
     """Printed standard codes and page references are not measured quantities."""
     return {column for column, parts in columns.items()
         if re.fullmatch(
-            r"\s*(?:(?:GRI|ESRS|CSRD|SASB|ISSB|NSF|HKEX)"
+            rf"\s*(?:{STANDARD_FAMILY}"
             r"(?:\s+(?:standards?|disclosures?|references?|codes?|[A-Z]?\d[\d.\-]*))*"
             r"|页码|頁碼|参照|參照|references?|pages?(?:\s+(?:no\.?|number))?)\s*",
             " ".join(parts), re.I)}
 
 
-def disclosure_inventory(source, cell, columns):
-    """Type codes only under the actual disclosure column and standard row."""
+def disclosure_prefixes(labels):
+    return {match[1] for label in labels if (match := STANDARD_ANCHOR.match(label))}
+
+
+def disclosure_inventory(source, cell, columns, table_prefixes):
+    """Interpret only codes whose standard is printed in this index table."""
     header = " ".join(cell.get("column_header_path") or
         columns.get(f"c{cell.get('col_index', 0)}", []))
     if not re.fullmatch(r"\s*disclosures?\s*", header, re.I):
         return None
-    prefixes = set()
-    for parent in cell.get("row_header_path", []):
-        match = re.match(r"\s*([A-Za-z]+)\s+([A-Z]?\d[\d.]*)\b", parent)
-        if match and reference_columns({"standard": [f"{match[1]} {match[2]}"]}):
-            prefixes.add(match[2])
+    prefixes = disclosure_prefixes(cell.get("row_header_path", []))
+    if not prefixes and table_prefixes:
+        leading = LEADING_DISCLOSURE.match(source.text)
+        if leading and leading[1] in table_prefixes:
+            prefixes.add(leading[1])
     if not prefixes:
         return None
     inventory = numeric_rows(source)
@@ -318,6 +326,10 @@ class DocumentEvidenceService:
             if view and view.unit_col is not None:
                 unit_columns = {f"c{view.unit_col}"}
             physical = {c.get("cell_id"): c for c in raw.get("cells", [])}
+            standard_columns = {column for column, parts in columns.items()
+                if STANDARD_COLUMN.fullmatch(" ".join(parts).strip())}
+            table_prefixes = disclosure_prefixes(cell.get("text") or "" for cell in physical.values()
+                if f"c{cell.get('col_index', 0)}" in standard_columns)
 
             def source(cell):
                 return TextEvidence(
@@ -330,7 +342,7 @@ class DocumentEvidenceService:
 
             reference_inventories = {}
             for cell in physical.values():
-                inventory = disclosure_inventory(source(cell), cell, columns)
+                inventory = disclosure_inventory(source(cell), cell, columns, table_prefixes)
                 if inventory is not None:
                     reference_inventories[cell["cell_id"]] = inventory
             reference_only_cells = {identity for identity, inventory in reference_inventories.items()

@@ -85,6 +85,24 @@ def test_real_quantities_in_disclosure_text_survive_the_index_codes():
     assert values==['100','-20–30','125']
 
 
+def test_disclosures_keep_the_printed_table_anchor_when_the_left_cell_is_empty():
+    frame = read_rows([
+        ['GRI Standard', 'Disclosures', 'Location'],
+        ['', '305-1 Direct emissions 305-2 Indirect emissions', '64'],
+        ['GRI 305: Emissions 2016', '305-5 Reduction of emissions', '64'],
+        ['', '305-7 Air emissions; 100 tons measured', '64'],
+        ['', 'Measured range 305-7 widgets', '64'],
+        ['', '701-1 Unknown prefix', '64'],
+    ], row_headers={2: ['GRI 305: Emissions 2016']})
+    cells = [cell for row in frame.rows for cell in row.cells]
+    candidates = [(cell.source_object_id, cell.raw_text) for cell in cells
+                  if cell.candidate_kind in {'measurement', 'unresolved'}]
+    assert not any(identity == 'cell-1-1' for identity, _ in candidates)
+    assert [(identity, raw) for identity, raw in candidates
+            if identity in {'cell-3-1', 'cell-4-1', 'cell-5-1'}] == [
+        ('cell-3-1', '100'), ('cell-4-1', '305-7'), ('cell-5-1', '701-1')]
+
+
 def test_numeric_range_without_a_standard_disclosure_context_is_unchanged():
     frame=read_rows([['Metric','Value'],['Energy range','302-1 MWh']])
     value=next(cell for row in frame.rows for cell in row.cells if cell.cell_id=='cell-1-1')
