@@ -189,7 +189,7 @@
 
 2.14普通批的晶科2023已通过原PDF入口完成16条款及补读，`extract-3e0560f473db7435a99fe17677f854f4`的56次模型调用保存145条事实。接收145条、拒绝0，145个投影观测及CSV原值逐项一致。原会话使用正式排序接口累计33次优先续片，无排序冲突；调度证据见`.local/dev/delivery-index29-priority.json`，回执、封存与投影见`delivery-observation.json`。这是完整批的首份全链路验证，后续各报告仍按相同验收范围执行。
 
-平台当前只有上述2.9完整数据集可公开下载。五个隔离库中已核验完成的17个旧专项投影按实际export ID归档，归档目录、活动目录及旧样例撤下状态已复核。重新下载的六张CSV、定义和清单与已核验文件逐字一致。明细见`superseded-intermediate-projections.json`与`baseline-platform-delivery/revalidation.json`，完整替换按[发布设计](06-data.md)的验收与撤下流程执行。
+平台当前只有上述2.9完整数据集可公开下载。六个隔离库中已核验完成的18个旧专项投影按实际export ID归档，活动目录保留2.18专项。重新下载的六张CSV、定义和清单与已核验文件逐字一致。明细见`superseded-intermediate-projections.json`与`baseline-platform-delivery/revalidation.json`，完整替换按[发布设计](06-data.md)的验收与撤下流程执行。
 
 晶科2023候选诊断首次读取返回HTTP 500。498条实际记录中，394条整行筛选没有单个字面量的物理类型。现行响应合同接受整行、片段和具体值的诊断，Console按真实范围显示。用原冻结字节经隔离提取与Console HTTP路径复验，498条全部返回200，原字段、诊断文件及封存摘要一致。2.16三个已交付专项另有105条历史诊断通过兼容回放。47项相关回归、Console生产构建和生成合同一致性检查通过，证据见`candidate-diagnostics-actual-replay.json`及`candidate-rejection-nullability-audit.json`。
 
@@ -202,6 +202,8 @@
 2.14普通批截至2026-11-18 18:14 UTC已评估46个固定源值，42通过、4失败。相同来源和预期下，较2.9维持36项、恢复6项。4个失败全部来自协鑫2021的两组业务能源表，2020/2021原值、期间及MWh单位均一致，实际模型调用1、2选中正确行列但关系由match退为different。其余117项仍待评估。该偏差属于模型关系判断，未用程序改写原决定。完整批仍按原冻结指纹执行，待核对50份接收、投影与下载后替换平台产品。
 
 2.18按普通PDF入口提交晶科2023同一条款专项，使用修订合同摘要`87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b`。240个安装源码与仓库一致，运行指纹`4b1ecb173183a36b74d8f48a63f874402276fe9a8e3c878a70306daa31e0ae56`。通过文档接口读取实际准备产物，五种空气污染物的10个原值均进入模型候选，保留ton单位及证据标题Exhaust Gas Management。此证据覆盖实际准备至候选，最终模型判断和接收仍按原生任务核对。会话、准备证据和只读验收见`table-scope-case-sessions.json`、`table-scope-actual-prepared-verification.json`、`table-scope-case-observation.json`。
+
+2.18专项`extract-dddda02cb04d9109bf459bef1f0b0b64`已完成并正常交付。第58页空气表的10个值、两年期间及印刷单位逐项保留，既有6个match继续通过，恢复VOCs的32.45（2022）及104.36（2023）为match。空气氟化物7.97与28.48仍由实际模型调用2判为different，绑定器未触发拒绝规则。3次调用共140.070模型秒，2.17同专项为7次277.566秒。14条原值全部接收，0拒绝，投影和CSV逐值一致。第64页索引的实际物理筛除证据仍来自2.17专项，2.18此次准备范围覆盖第58页空气表。交付与来源见`table-scope-case-observation.json`和`table-anchors-source-verification.json`。
 
 ## 需求到实现的追踪
 
