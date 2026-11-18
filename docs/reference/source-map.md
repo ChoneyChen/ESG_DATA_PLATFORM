@@ -291,6 +291,7 @@
 | [ExtractESG/document/tests/test_runtime_telemetry.py](../../ExtractESG/document/tests/test_runtime_telemetry.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_search_ranking.py](../../ExtractESG/document/tests/test_search_ranking.py) | A shared topic heading must not outrank an actual labelled measurement. |
 | [ExtractESG/document/tests/test_simple_library_smoke.py](../../ExtractESG/document/tests/test_simple_library_smoke.py) | Synthetic owned files only; no live report, model or production deletion. |
+| [ExtractESG/document/tests/test_source_context_spans.py](../../ExtractESG/document/tests/test_source_context_spans.py) | Printed reference, time and unit spans precede quantity candidate typing. |
 | [ExtractESG/document/tests/test_storage_inventory.py](../../ExtractESG/document/tests/test_storage_inventory.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_text_geometry.py](../../ExtractESG/document/tests/test_text_geometry.py) | 测试/样例 |
 | [ExtractESG/document/tests/test_text_layer_route.py](../../ExtractESG/document/tests/test_text_layer_route.py) | Text-layer route of page-targeted OCR and the scan prescan of the page selector. |

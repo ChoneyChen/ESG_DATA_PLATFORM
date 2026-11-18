@@ -1,8 +1,10 @@
 """Neutral literal inventory; semantics and clause matching belong to the reader."""
 
 import re
+from dataclasses import dataclass
 from esg_contracts.evidence import EvidenceRow, EvidenceCell, TextEvidence
-from esg_data.units import UNIT_PATTERN, is_unit_expression, NUMERIC_SCALE
+from esg_data.units import UNIT_PATTERN, UNIT_RE, CURRENCY_UNIT, is_unit_expression, NUMERIC_SCALE
+from esg_data.periods import MONTH_PATTERN, parse_period
 from esg_data.text_search import sentence_ranges
 from esg_data.normalize import fold
 
@@ -20,13 +22,7 @@ STANDARD_DESIGNATION = re.compile(
     r"(?:\s*[-–:./]\s*\d+)*",
     re.I,
 )
-PARENTHESIZED_ITEM = re.compile(r"[（(]\s*\d{1,3}\s*[）)](?=\s+\S)")
-YEAR_LITERAL = re.compile(r"(?:19|20|21)\d{2}(?:\s*[-~～—–]\s*(?:19|20|21)\d{2})?")
-TEMPORAL_PREFIX = re.compile(
-    r"\b(?:in|since|during|year|FY|as\s+of|end\s+of|relative\s+to|"
-    r"(?:compared|comparison)\s+(?:with|to)(?:\s+(?:our|the))?)\s*$",
-    re.I,
-)
+PARENTHESIZED_ITEM = re.compile(r"[（(\[]\s*\d{1,3}\s*[）)\]](?=\s+\S)")
 URL = re.compile(r"\bhttps?://[^\s<>\"']+", re.I)
 NUMBERED_URL_REFERENCES = re.compile(
     r"(?:^|(?<=[\n\r.。:：]))\s*\d{1,3}\s+https?://[^\s<>\"']+"
@@ -34,6 +30,87 @@ NUMBERED_URL_REFERENCES = re.compile(
 CLASSIFICATION_REFERENCE = re.compile(
     r"\b(?:categor(?:y|ies)|scopes?)\s*\d+(?:\s*[-–—]\s*\d+)?"
     r"(?:\s*(?:,|&|and)\s*(?:and\s+)?\d+(?:\s*[-–—]\s*\d+)?)*", re.I)
+PAGE_REFERENCE = re.compile(r"\b(?:pp?\.|page\s)\s*\d+(?:\s*[-–—]\s*\d+)?", re.I)
+IDENTIFIER_REFERENCE = re.compile(
+    r"\b(?:No\.?\s*|(?:suite|room|series|model|version|section|page)\s+)\d+(?:[-–:.]\s*\d+)*", re.I)
+YEAR = r"(?:19|20|21)\d{2}"
+PERIOD_TOKEN = rf"{YEAR}(?:\s*(?:[-~～—–]|to|through|until|至|到)\s*{YEAR})?"
+PERIOD_REFERENCE = re.compile(
+    rf"\b(?:in|since|during|year|FY|as\s+of|end\s+of|relative\s+to|"
+    rf"(?:compared|comparison)\s+(?:with|to)(?:\s+(?:our|the))?)\s*(?P<period>{PERIOD_TOKEN})(?!\d)", re.I)
+FRONTED_YEAR_REFERENCE = re.compile(
+    rf"\bby\s*(?P<period>{YEAR})(?!\d)\s*(?=[,，]\s*\S)", re.I)
+NAMED_DATE = re.compile(
+    rf"\b(?:(?:\d{{1,2}}\s+)?(?:{MONTH_PATTERN})\s+(?:\d{{1,2}},?\s+)?{YEAR}|"
+    rf"{YEAR}\s*[-/]\s*\d{{1,2}}\s*[-/]\s*\d{{1,2}})\b", re.I)
+CHINESE_DATE = re.compile(r"\d{1,4}(?:\s*[-–—至到]\s*\d{1,4})?\s*[年月日]")
+COMPOUND_CURRENCY_END = re.compile(rf"(?:/|／|per|每)\s*(?:{CURRENCY_UNIT})\s*$", re.I)
+DENOMINATOR_SCALE = re.compile(
+    rf"(?:\s*['’]\s*\d[\d,，]*(?![\d,，]|\.\d)|"
+    rf"\s*{NUMERIC_SCALE}(?![\d,，]|\.\d)(?=\s*(?:[)）.;；]|$)))")
+
+
+@dataclass(frozen=True)
+class SourceContextSpan:
+    start: int
+    end: int
+    kind: str
+    quantity_unit_protects: bool = True
+
+
+def source_context_spans(text):
+    """Locate printed references, periods and unit metadata before reading digits.
+
+    These source offsets never normalize the evidence. In particular a broken
+    printed denominator scale is not repaired into a different numeric value.
+    """
+    spans = [SourceContextSpan(m.start(), m.end(), "identifier", False) for m in URL.finditer(text)]
+    for pattern in (STANDARD_DESIGNATION, CLASSIFICATION_REFERENCE, PAGE_REFERENCE, IDENTIFIER_REFERENCE):
+        spans.extend(SourceContextSpan(m.start(), m.end(), "identifier") for m in pattern.finditer(text))
+    for reference in NUMBERED_URL_REFERENCES.finditer(text):
+        spans.extend(SourceContextSpan(reference.start()+m.start(), reference.start()+m.end(), "footnote")
+            for m in re.finditer(r"\b\d{1,3}(?=\s+https?://)", reference.group(), re.I))
+    for marker in PARENTHESIZED_ITEM.finditer(text):
+        if UNIT.match(fold(text[marker.end():])):
+            continue
+        if not text[:marker.start()].strip():
+            spans.append(SourceContextSpan(marker.start(), marker.end(), "footnote"))
+        elif PARENTHESIZED_ITEM.search(text[:marker.start()]):
+            spans.append(SourceContextSpan(marker.start(), marker.end(), "identifier"))
+    note = re.compile(r"(?:\b(?:notes?|footnotes?)|附[註注]|[脚腳][註注]|註|注)\s*(?:[（(\[]\s*)?\d+", re.I)
+    spans.extend(SourceContextSpan(m.start(), m.end(), "footnote") for m in note.finditer(text))
+    for marker in re.finditer(r"(?:^|[\n。；])\s*(\d{1,3})(?=[.)、]\s*\S)", text):
+        spans.append(SourceContextSpan(marker.start(1), marker.end(1), "identifier"))
+    for marker in re.finditer(r"(?:^|[\n。；])\s*(\d+)(?=\s*(?:由于|注[：:]|备注|说明[：:]|来源[：:]|because\b|due\s+to\b))", text, re.I):
+        spans.append(SourceContextSpan(marker.start(1), marker.end(1), "footnote"))
+    for marker in re.finditer(r"\d+(?=号)", text):
+        if re.search(r"地址|街|路|大道|巷", text[:marker.start()]):
+            spans.append(SourceContextSpan(marker.start(), marker.end(), "identifier"))
+    for pattern in (PERIOD_REFERENCE, FRONTED_YEAR_REFERENCE, NAMED_DATE):
+        for match in pattern.finditer(text):
+            start, end = match.span("period") if "period" in pattern.groupindex else match.span()
+            if parse_period(text[start:end]) is not None:
+                spans.append(SourceContextSpan(start, end, "date"))
+    spans.extend(SourceContextSpan(m.start(), m.end(), "date") for m in CHINESE_DATE.finditer(text))
+    for match in UNIT_RE.finditer(text):
+        raw = match.group()
+        if not is_unit_expression(raw):
+            continue
+        start, end = match.span()
+        # A leading scale can be a real quantity (10,000 MWh). Only an explicit
+        # unit heading or enclosing unit parenthesis establishes that metadata.
+        scale = re.match(rf"{NUMERIC_SCALE}\s*", raw)
+        if scale:
+            heading = re.search(r"(?:\bunits?\s*[:：]|[單单]位\s*[:：])\s*$", text[:start], re.I)
+            parenthesis = re.search(r"[（(]\s*$", text[:start]) and re.match(r"\s*[）)]", text[end:])
+            if not heading and not parenthesis:
+                start += scale.end()
+        if COMPOUND_CURRENCY_END.search(raw):
+            suffix = DENOMINATOR_SCALE.match(text[end:])
+            if suffix:
+                end += suffix.end()
+        spans.append(SourceContextSpan(start, end, "identifier", False))
+    return spans
 
 
 def text_spans(text, *, size=500, pack=False):
@@ -68,6 +145,7 @@ def text_spans(text, *, size=500, pack=False):
 def numeric_rows(text):
     result = []
     sentences = sentence_ranges(text.text)
+    contexts = source_context_spans(text.text)
     for match in LITERAL.finditer(text.text):
         literal = match.group().strip()
         literal_start = match.start() + len(match.group()) - len(match.group().lstrip())
@@ -81,7 +159,7 @@ def numeric_rows(text):
             if unit_match
             else (literal[-1] if literal.endswith(("%", "％", "‰", "‱")) else None)
         )
-        kind = literal_kind(text.text, literal_start, literal_end, unit)
+        kind = literal_kind(text.text, literal_start, literal_end, unit, context_spans=contexts)
         start, end = next(((start, end) for start, end in sentences
             if start <= literal_start < end), (0, len(text.text)))
         row_id = f"{text.object_id}:literal:{text.char_start + literal_start}"
@@ -114,67 +192,20 @@ def numeric_rows(text):
     return result
 
 
-def literal_kind(text, start, end, unit):
+def literal_kind(text, start, end, unit, *, context_spans=None):
     """Physical candidate typing, independent of any clause or target vocabulary.
 
     A digit in a formula/identifier is not a measurement. Ambiguous prose still
     reaches the reader; a missing unit alone never rejects a genuine count.
     """
     before, after = text[:start], text[end:]
-    literal = text[start:end].strip()
-    if any(url.start() <= start and end <= url.end() for url in URL.finditer(text)):
-        return "identifier"
-    if re.fullmatch(NUMERIC_SCALE, literal) and unit:
-        # A parenthesized scale in a heading describes the unit. The actual
-        # quantity remains in the table or chart beside that heading.
-        opening = max(before.rfind("("), before.rfind("（"))
-        closing = re.match(r"\s*" + re.escape(unit) + r"\s*[)）]", after)
-        if opening >= 0 and closing and is_unit_expression(literal + " " + unit):
-            return "identifier"
-    if not unit:
-        if (re.fullmatch(r"\d{1,3}", literal) and re.match(r"\s+https?://", after, re.I)
-            and any(ref.start() <= start and end <= ref.end()
-                    for ref in NUMBERED_URL_REFERENCES.finditer(text))):
-            return "footnote"
-        if any(ref.start() <= start and end <= ref.end()
-               for ref in CLASSIFICATION_REFERENCE.finditer(text)):
-            return "identifier"
-        # A version after a colon is part of the same printed standard code,
-        # even when OCR spaces its preceding hyphen (ISO14064- 1:2018).
-        if any(code.start() <= start and end <= code.end()
-               for code in STANDARD_DESIGNATION.finditer(text)):
-            return "identifier"
-        if re.search(r"(?:\b(?:notes?|footnotes?)|附[註注]|[脚腳][註注]|註|注)\s*(?:[（(\[]\s*)?\Z",before,re.I):
-            return "footnote"
-        closing_marker = re.match(r"\s*[)）\]]\s+", after)
-        if (re.fullmatch(r"\s*[(（\[]\s*",before) and closing_marker
-            and not UNIT.match(fold(after[closing_marker.end():]))):
-            return "footnote"
-        opening_marker = re.search(r"[（(]\s*$", before)
-        if (opening_marker and closing_marker and re.fullmatch(r"\d{1,3}", literal)
-            and not UNIT.match(fold(after[closing_marker.end():]))
-            and PARENTHESIZED_ITEM.search(before[:opening_marker.start()])):
-            return "identifier"
-        if ((not before.strip() or re.search(r"[\n。；]\s*$", before))
-            and re.match(r"\s*[.)、]\s*\S", after)):
-            return "identifier"
-        if re.search(r"\b(?:No\.?|suite|room)\s*$", before, re.I):
-            return "identifier"
-        if after.lstrip().startswith("号") and re.search(r"地址|街|路|大道|巷", before):
-            return "identifier"
-        if YEAR_LITERAL.fullmatch(literal) and TEMPORAL_PREFIX.search(before):
-            return "date"
-        if re.search(r"\b(?:series|model|version|scope|section|page|ISO|IEC|GRI|ESRS|SASB|NSF|IFRS)\s*$", before, re.I):
-            return "identifier"
-    if after.lstrip().startswith(("年", "月", "日")):
-        return "date"
+    contexts = source_context_spans(text) if context_spans is None else context_spans
+    for span in contexts:
+        if span.start <= start and end <= span.end and not (unit and span.quantity_unit_protects):
+            return span.kind
     if re.search(r"[A-Za-zα-ωΑ-Ω]\Z", before):
         token = re.search(r"[A-Za-zα-ωΑ-Ω][A-Za-zα-ωΑ-Ω\d]*$", before)
         return "formula" if token and re.fullmatch(r"(?:[A-Z][a-z]?)+", token[0]) else "identifier"
     if re.match(r"[A-Za-z]", after) and not unit:
         return "identifier"
-    if (not before.strip() or re.search(r"[\n。；]\s*$", before)) and re.match(
-        r"\s*(?:由于|注[：:]|备注|说明[：:]|来源[：:]|because\b|due\s+to\b)", after, re.I
-    ):
-        return "footnote"
     return "measurement" if unit else "unresolved"
