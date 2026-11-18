@@ -3,7 +3,7 @@
 import re
 from esg_data.literals import parse_measure
 from esg_data.units import is_unit_expression
-from .numeric_context import context_sources, uses_local_context
+from .numeric_context import context_sources, printed_table_heading, uses_local_context
 
 
 def printed_unit_sources(frame):
@@ -115,6 +115,8 @@ def reading_frame(frame, *, data_kind=None):
                         for key in link.source_ids))
                     cell["context_source_options"] = list(dict.fromkeys(key
                         for link in links if link.relation=="region" for key in link.source_ids))
+            elif (heading := printed_table_heading(frame, physical)) is not None:
+                row["section"] = heading.text
         if any(uses_local_context(frame,row) for row in frame.rows):
             allowed = {key for link in frame.context_links for key in link.source_ids}
             body["context_sources"] = [{"source_id":key,"text":source.text,

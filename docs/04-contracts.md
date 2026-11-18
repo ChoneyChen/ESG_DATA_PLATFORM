@@ -61,6 +61,8 @@ ReportedContext包含期间、主体、主体聚合角色、边界、方法、�
 
 EvidenceFrame的可选context_links携带cell_id、实际source_ids及same_clause/row/column/region关系。空关系字段在旧帧序列化时省略，保持原快照摘要。文档服务产生关联，提取器按被选量值核对关联和完整来源组。same_clause指向含该量值的原句或结构明确的连续子句。完整原句留在文本证据中，缩短的来源保存在对应行的label_sources。定量模型只选择实际行列与来源ID，数值从对应EvidenceCell绑定。混合文字单元格的子量值保持原cell_id来源及精确字符范围，身份随原量值位置区分。
 
+普通表格行可在缺少分组标题时使用本页唯一证明frame.title的title_sources项。该表标题只辅助局部判断，经绑定保存role=table的实际摘录和位置。
+
 EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、可选bbox/行列/字符范围和source_snapshot。界面显示页码时加1，不重排稀疏准备页。条款关系ClauseMapping独立保存clause_key/digest、source_fact_id、match、reason、scope_ids和flags。
 
 候选诊断的CandidateRejection保存筛选原因与实际作用范围。单个字面量有物理类型时，candidate_kind保持原值。整行或文本片段的筛选可仅携带row_id或span_id，candidate_kind缺失表示本次判断没有给单个字面量分类。已有冻结诊断按原字段读取。

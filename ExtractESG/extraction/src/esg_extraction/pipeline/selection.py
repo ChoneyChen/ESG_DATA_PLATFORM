@@ -3,7 +3,7 @@
 from esg_clauses.reading import check_reading
 from esg_data.units import unit_dimension
 from .reading_frame import statement_scope
-from .numeric_context import closed_sources, context_sources, uses_local_context
+from .numeric_context import closed_sources, context_sources, printed_table_heading, uses_local_context
 
 
 def _local_requirements(clause, frame, row, sources):
@@ -41,7 +41,9 @@ def quantitative_candidates(clause, frame):
         if uses_local_context(frame,row):
             decision = _local_requirements(clause, frame, row, sources)
         else:
-            decision = check_reading(clause, row.label, row.section, row.unit_raw,
+            heading = printed_table_heading(frame, row)
+            section = heading.text if heading else row.section
+            decision = check_reading(clause, row.label, section, row.unit_raw,
                 unit_dimension(row.unit_raw), evidence=" ".join([
                     frame.title or "", *[part for parts in frame.columns.values() for part in parts],
                     *[text.text for text in frame.texts if text.object_type != "cell"],

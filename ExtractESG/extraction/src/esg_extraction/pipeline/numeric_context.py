@@ -21,6 +21,15 @@ def uses_local_context(frame, row):
         for cell in row.cells)
 
 
+def printed_table_heading(frame, row):
+    """A physical row group outranks a uniquely sourced table heading."""
+    if row.section or not frame.title or uses_local_context(frame, row):
+        return None
+    sources = [source for source in frame.title_sources
+        if source.page_index == frame.page_index and source.text.strip() == frame.title.strip()]
+    return sources[0] if len(sources) == 1 else None
+
+
 def comparison_text(text):
     """Join physical word wrapping for comparison while retaining quoted bytes."""
     return re.sub(r"(?<=[A-Za-z])[-‐‑](?:\s|›)+(?=[A-Za-z])","-",text)

@@ -20,7 +20,7 @@ from .decisions import IdentityProposal
 from .period_binding import bind_period
 from .reading_frame import statement_scope, printed_unit_sources
 from esg_data.periods import normalize_period
-from .numeric_context import select_context
+from .numeric_context import printed_table_heading, select_context
 from .quotation import source_quote
 
 CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
@@ -228,6 +228,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     selected_context = select_context(frame,match,row,cell,printed_unit_sources(frame))
     if selected_context is not None:
         frame,row,match = selected_context.frame,selected_context.row,selected_context.match
+    heading = printed_table_heading(frame, row) if selected_context is None else None
     if re.fullmatch(r"\s*(?:[-—–－]+|N/?A|不适用|未披露|未提供|无数据|not\s+(?:disclosed|available))\s*", cell.raw_text, re.I):
         return None, None, "not_a_reported_measurement"
     raw = cell.raw_text.strip()
@@ -343,6 +344,13 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
             excerpt=source.text,role="table",bbox=source.bbox,
             char_start=source.char_start,char_end=source.char_start+len(source.text))
             for source in frame.title_sources)
+    elif heading is not None:
+        evidence.append(EvidenceLocation(
+            source_snapshot=frame.source_snapshot, object_id=heading.object_id,
+            object_type=heading.object_type, page_index=heading.page_index,
+            excerpt=heading.text, role="table", bbox=heading.bbox,
+            char_start=heading.char_start, char_end=heading.char_start+len(heading.text),
+        ))
     if unit:
         sources = [
             *([selected_unit] if selected_unit else []),
@@ -389,7 +397,7 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     reading = check_reading(
         clause,
         selected_context.label if selected_context is not None else row.label,
-        row.section,
+        heading.text if heading else row.section,
         unit,
         unit_dimension(unit),
         evidence=" ".join(

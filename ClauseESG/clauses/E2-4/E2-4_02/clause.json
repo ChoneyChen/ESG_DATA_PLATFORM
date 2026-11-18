@@ -94,7 +94,8 @@
         },
         {
           "aliases": [
-            "VOC"
+            "VOC",
+            "Volatile organic compounds"
           ],
           "code": "VOCs",
           "label": "挥发性有机物"
@@ -115,7 +116,9 @@
         "废气",
         "空气排放",
         "废水",
-        "水体排放"
+        "水体排放",
+        "exhaust gas",
+        "exhaust gases"
       ],
       "description": null,
       "label": "实际排放介质",
@@ -134,7 +137,9 @@
             "大气排放",
             "大氣排放",
             "废气",
-            "廢氣"
+            "廢氣",
+            "exhaust gas",
+            "exhaust gases"
           ],
           "code": "air",
           "label": "空气"
@@ -315,7 +320,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2885513ade99c4fce4ac71f87897511158fb7482cfc1aa03495ae62d7f714f9e",
+  "clause_digest": "87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -861,10 +866,10 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "读取空气污染物排放量，选择表内所有符合的污染物行，不只举一个例子。常见项目为氮氧化物 NOx、二氧化硫 SO2、颗粒物 PM、挥发性有机物 VOCs、非甲烷总烃 NMHC。其他实际空气污染物也可保留原词。",
+      "读取空气污染物排放量，选择表内所有符合的污染物行，不只举一个例子。常见项目为氮氧化物 NOx、二氧化硫 SO2、颗粒物 PM、挥发性有机物 VOCs（Volatile organic compounds）、非甲烷总烃 NMHC。其他实际空气污染物也可保留原词。",
       "化学需氧量 COD、氨氮 NH3-N、总氮 TN、总磷 TP 是水体污染物，不能选为本条空气排放。温室气体、浓度、固废数量、限额和削减量也不属于本条。",
       "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。",
-      "介质由本行与其直接物理父标题判断。空气/废气段落中的Ammonia、Fluoride不能借同表Water或Effluents行归入水；水体排放同样不能归入空气。短行名且介质不明确时保留原值和未决关系，不能用条款目标补齐。",
+      "介质由本行与其直接物理父标题判断；没有更近的分组标题时，可用本物理表标题作为局部证据。Exhaust gas、exhaust gases表示废气介质。空气/废气段落中的Ammonia、Fluoride不能借同表Water或Effluents行归入水；水体排放同样不能归入空气。短行名且介质不明确时保留原值和未决关系，不能用条款目标补齐。",
       "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。"
     ],
     "operator": "pollutant",
@@ -934,7 +939,9 @@
         ],
         "unless_terms": [
           "re:(?:空气(?:污染物|排放)|空氣(?:污染物|排放)|大气(?:污染物|排放)|大氣(?:污染物|排放)|废气|廢氣|\\b(?:air|gas|gaseous|atmospheric)\\s+(?:pollutants?|emissions?|discharges?)\\b|\\bemissions?\\s+(?:to|into)\\s+(?:the\\s+)?(?:air|atmosphere)\\b)",
-          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)"
+          "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)",
+          "re:\\bexhaust\\s+gas(?:es)?\\b",
+          "re:\\bvolatile\\s+organic\\s+compounds?\\b"
         ]
       },
       {
@@ -984,15 +991,18 @@
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
       "air_context": [
-        "re:(?:空气(?:污染物|排放)|空氣(?:污染物|排放)|大气(?:污染物|排放)|大氣(?:污染物|排放)|废气|廢氣|\\b(?:air|gas|gaseous|atmospheric)\\s+(?:pollutants?|emissions?|discharges?)\\b|\\bemissions?\\s+(?:to|into)\\s+(?:the\\s+)?(?:air|atmosphere)\\b)"
+        "re:(?:空气(?:污染物|排放)|空氣(?:污染物|排放)|大气(?:污染物|排放)|大氣(?:污染物|排放)|废气|廢氣|\\b(?:air|gas|gaseous|atmospheric)\\s+(?:pollutants?|emissions?|discharges?)\\b|\\bemissions?\\s+(?:to|into)\\s+(?:the\\s+)?(?:air|atmosphere)\\b)",
+        "re:\\bexhaust\\s+gas(?:es)?\\b"
       ],
       "air_only": [
         "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|二氧化硫|so\\s*2|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|颗粒|烟尘|粉尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|硫酸雾|一氧化碳|particulate|dust)",
-        "re:(?:\\bnitrogen\\s+oxides?\\b|\\bsulph?ur\\s+(?:di)?oxides?\\b)"
+        "re:(?:\\bnitrogen\\s+oxides?\\b|\\bsulph?ur\\s+(?:di)?oxides?\\b)",
+        "re:\\bvolatile\\s+organic\\s+compounds?\\b"
       ],
       "air_pollutant": [
         "re:(?:氮氧化|(?<![a-z0-9])nox(?![a-z0-9])|(?<![a-z0-9])no\\s*x(?![a-z0-9])|二氧化硫|so\\s*2|so₂|硫氧化|(?<![a-z0-9])sox(?![a-z0-9])|(?<![a-z0-9])so\\s*x(?![a-z0-9])|颗粒|\\bpm\\s*(?:10|2\\.?5)?\\b|烟尘|粉尘|尘|挥发性有机|(?<![a-z0-9])vocs?(?![a-z0-9])|一氧化碳|(?<![a-z0-9])co(?![a-z0-9])(?!\\s*2)|硫化氢|氨气|氯化氢|氯气|chlorine|氟化氢|硫酸雾|氟化物|二噁英|苯|甲醛|非甲烷|(?<![a-z0-9])nmhc(?![a-z0-9])|汞|铅|砷|镉|铬|镍|(?<![a-z0-9])hg(?![a-z0-9])|(?<![a-z0-9])pb(?![a-z0-9])|mercury|\\blead\\b|arsenic|particulate|\\bdust\\b|sulph|sulfur|nitrogen\\s+oxide|消耗臭氧|(?<![a-z0-9])ods(?![a-z0-9])|废气污染物|大气污染物|air\\s+(?:pollutant|emission))",
-        "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|\\bfluorides?\\b)"
+        "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|\\bfluorides?\\b)",
+        "re:\\bvolatile\\s+organic\\s+compounds?\\b"
       ],
       "ambiguous_medium_pollutant": [
         "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|氨气|氨氣|氟化物|\\bfluorides?\\b|重金属|重金屬|\\bheavy\\s+metals?\\b|汞|铅|鉛|砷|镉|鎘|铬|鉻|镍|鎳|\\b(?:mercury|lead|arsenic|cadmium|chromium|nickel)\\b)"
@@ -1047,7 +1057,8 @@
       "挥发性有机",
       "vocs",
       "nox",
-      "sox"
+      "sox",
+      "volatile organic compounds"
     ],
     "parent_clause": null,
     "related_clauses": [
@@ -1210,7 +1221,9 @@
       "颗粒物",
       "颗粒物排放",
       "Ammonia emissions",
-      "Fluoride emissions"
+      "Fluoride emissions",
+      "exhaust gas",
+      "exhaust gases"
     ],
     "required_term_groups": [
       [
@@ -1224,7 +1237,8 @@
         "烟尘",
         "氮氧化物",
         "二氧化硫",
-        "非甲烷总烃"
+        "非甲烷总烃",
+        "Volatile organic compounds"
       ],
       [
         "排放",
@@ -1257,7 +1271,9 @@
         "烟气排放",
         "空气排放",
         "空气污染",
-        "空气污染排放"
+        "空气污染排放",
+        "exhaust gas",
+        "exhaust gases"
       ],
       [
         "Emission amount",
