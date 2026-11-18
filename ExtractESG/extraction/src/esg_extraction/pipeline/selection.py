@@ -3,22 +3,49 @@
 from esg_clauses.reading import check_reading
 from esg_data.units import unit_dimension
 from .reading_frame import statement_scope
-from .numeric_context import uses_local_context
+from .numeric_context import closed_sources, context_sources, uses_local_context
+
+
+def _local_requirements(clause, frame, row, sources):
+    """Check only positive clause requirements against each literal's sources."""
+    options = []
+    for cell in row.cells:
+        links = [link for link in frame.context_links if link.cell_id == cell.cell_id
+            and all(key in sources for key in link.source_ids)]
+        section = " › ".join(source.text for link in links if link.relation == "region"
+            for source in closed_sources(frame, [sources[key] for key in link.source_ids]))
+        labels = [link for link in links if link.relation in {"same_clause", "row", "column"}]
+        if labels:
+            options.extend((" › ".join(source.text for source in closed_sources(frame,
+                [sources[key] for key in link.source_ids])), section) for link in labels)
+        else:
+            options.append((row.label, " › ".join(filter(None,
+                [frame.title, row.section, section]))))
+    if not options:
+        options.append((row.label, row.section or frame.title))
+    for label, section in options:
+        # Unit text may be a positive requirement. Dimension guards and other
+        # negative rules belong to the selected measurement's final binding.
+        decision = check_reading(clause, label, section, row.unit_raw, None,
+            evidence=" ".join(filter(None, [label, section, row.unit_raw])),
+            requirements_only=True)
+        if decision.ok:
+            return decision
+    return decision
 
 
 def quantitative_candidates(clause, frame):
     rows, excluded = [], []
+    sources = context_sources(frame)
     for row in frame.rows:
         if uses_local_context(frame,row):
-            # The mixed parent text is reading context. Its negative terms
-            # cannot serve as every literal's measurement label.
-            rows.append(row)
-            continue
-        decision = check_reading(clause, row.label, row.section, row.unit_raw,
-            unit_dimension(row.unit_raw), evidence=" ".join([
-                frame.title or "", *[part for parts in frame.columns.values() for part in parts],
-                *[text.text for text in frame.texts if text.object_type != "cell"],
-            ]))
+            decision = _local_requirements(clause, frame, row, sources)
+        else:
+            decision = check_reading(clause, row.label, row.section, row.unit_raw,
+                unit_dimension(row.unit_raw), evidence=" ".join([
+                    frame.title or "", *[part for parts in frame.columns.values() for part in parts],
+                    *[text.text for text in frame.texts if text.object_type != "cell"],
+                ]))
         if decision.ok:
             rows.append(row)
         else:

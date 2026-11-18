@@ -4,13 +4,17 @@ from esg_contracts.evidence import ObjectReference
 from esg_document.document.evidence_service import DocumentEvidenceService
 
 
-def read_rows(rows):
+def read_rows(rows, *, row_headers=None):
     table_id = 'table-p0001-0001'
     raw = {'table_id': table_id, 'page_index': 0, 'row_count': len(rows),
         'column_count': len(rows[0]), 'header_row_indices': [0],
         'cells': [{'cell_id': f'cell-{r}-{c}', 'row_index': r, 'col_index': c,
             'row_span': 1, 'col_span': 1, 'page_index': 0, 'is_header': r == 0, 'text': text}
             for r, row in enumerate(rows) for c, text in enumerate(row)]}
+    if row_headers:
+        for cell in raw['cells']:
+            if cell['row_index'] in row_headers:
+                cell['row_header_path'] = row_headers[cell['row_index']]
     service = DocumentEvidenceService(lambda _: None)
     service._document = lambda _: (SimpleNamespace(snapshot_id='snapshot'), {},
         {table_id: raw}, {}, {}, {}, {})
@@ -59,3 +63,29 @@ def test_unparsed_denominator_in_physical_unit_column_produces_no_extra_measurem
     assert not any(cell.source_object_id in {'cell-1-1','cell-2-1'}
         for row in frame.rows for cell in row.cells)
     assert any(cell.raw_text=='123' for row in frame.rows for cell in row.cells)
+
+
+def test_disclosure_codes_and_their_full_cell_fallback_remain_identifiers():
+    frame=read_rows([['GRI Standard','Disclosures','Location'],
+        ['GRI 302: Energy 2016','302-1 Energy consumption within the organization; 302-2 Other reference','57']],
+        row_headers={1:['GRI 302: Energy 2016']})
+    candidates=[cell for row in frame.rows for cell in row.cells
+        if cell.candidate_kind in {'measurement','unresolved'}]
+    assert not any(cell.source_object_id=='cell-1-1' or cell.cell_id=='cell-1-1' for cell in candidates)
+    parent=next(cell for row in frame.rows for cell in row.cells if cell.cell_id=='cell-1-1')
+    assert parent.candidate_kind=='identifier'
+
+
+def test_real_quantities_in_disclosure_text_survive_the_index_codes():
+    frame=read_rows([['GRI Standard','Disclosures','Location'],
+        ['GRI 302: Energy 2016','302-1 Energy consumption was 100 MWh; operating temperature was -20–30 °C; unknown amount 125 widgets; 302-2 Other reference','57']],
+        row_headers={1:['GRI 302: Energy 2016']})
+    values=[cell.raw_text for row in frame.rows for cell in row.cells
+        if cell.source_object_id=='cell-1-1' and cell.candidate_kind in {'measurement','unresolved'}]
+    assert values==['100','-20–30','125']
+
+
+def test_numeric_range_without_a_standard_disclosure_context_is_unchanged():
+    frame=read_rows([['Metric','Value'],['Energy range','302-1 MWh']])
+    value=next(cell for row in frame.rows for cell in row.cells if cell.cell_id=='cell-1-1')
+    assert value.candidate_kind=='measurement' and value.raw_text=='302-1 MWh'

@@ -666,3 +666,89 @@ def test_report_period_reference_matches_both_written_chinese_forms():
     for text in ["报告期内的用量","報告期內的用量","本報告期的用量","During the reporting period"]:
         assert references_report_period(text)
     assert not references_report_period("The comparison year is 2020")
+
+
+@pytest.mark.parametrize('quote,expected,literal,clause',[
+    ('our total scope 1 direct GHG emissions were 75,647 tCO2e','match','75,647','E1-6_07'),
+    ('scope 2 indirect GHG emissions were 1,213,638 tCO2e.','uncertain','75,647','E1-6_07'),
+    ('GHG emissions were 75,647 tCO2e','uncertain','75,647','E1-6_07'),
+    ('our total scope 1 direct GHG emissions were 75,648 tCO2e','uncertain','75,647','E1-6_07'),
+    ('scope 2 indirect GHG emissions were 1,213,638 tCO2e.','match','1,213,638','E1-6_09'),
+])
+@pytest.mark.parametrize('repeat_primary',[False,True])
+def test_measurement_quote_keeps_the_selected_value_and_its_complete_clause(documents,repository,quote,expected,literal,clause,repeat_primary):
+    from esg_contracts.evidence import EvidenceContextLink
+    from esg_document.document.literals import numeric_rows,text_spans
+    from esg_document.document.text_geometry import context_links,NativeTextGeometry
+    from esg_extraction.pipeline.decisions import NumericMatch
+    from esg_extraction.pipeline.binding import numeric_fact
+    source=TextEvidence(object_id='multi-scope',page_index=2,text=
+        'In 2022, our total scope 1 direct GHG emissions were 75,647 tCO2e, and scope 2 indirect GHG emissions were 1,213,638 tCO2e.')
+    rows=numeric_rows(source);spans=text_spans(source)
+    links=context_links(rows,spans,NativeTextGeometry())
+    frame=EvidenceFrame(object_id=source.object_id,kind='text',page_index=2,digest='multi',
+        rows=rows,texts=[source,*spans],context_links=links,
+        source_snapshot=documents.document('ir-example').snapshot_id)
+    row=next(row for row in rows if row.cells[0].raw_text==literal)
+    primary=next(link.source_ids[0] for link in links if link.cell_id==row.cells[0].cell_id)
+    fact,mapping,error=numeric_fact(repository.get(clause),documents.document('ir-example'),frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id=primary,label_quote=quote,
+            context_source_ids=[primary] if repeat_primary else []),
+        row,row.cells[0],'exact-clause')
+    assert error is None and fact.value.value_raw==literal and mapping.match==expected
+    if expected=='match':
+        label=next(e for e in fact.evidence if e.role=='row' and e.excerpt==quote)
+        assert source.text[label.char_start:label.char_end]==label.excerpt==quote
+        assert fact.identity.reporting_period.value=='2022'
+
+
+def test_measurement_quote_cannot_drop_a_nonrenewable_word_prefix():
+    from esg_extraction.pipeline.quotation import measurement_quote
+    for quote in ['renewable energy consumption was 100 MWh.', 'energy consumption was 100 MWh.']:
+        with pytest.raises(ValueError):
+            measurement_quote('Non-renewable energy consumption was 100 MWh.',quote)
+
+
+def test_explicit_report_period_in_a_subclause_keeps_its_own_period(repository):
+    from esg_contracts.evidence import DocumentReference
+    from esg_document.document.literals import text_spans
+    from esg_document.document.text_geometry import context_links,NativeTextGeometry
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    source=TextEvidence(object_id='period-source',page_index=2,text=
+        'In 2022, scope 1 emissions were 100 tCO2e, whereas during the reporting period, '
+        'scope 2 emissions were 200 tCO2e.')
+    rows=numeric_rows(source);spans=text_spans(source)
+    document=DocumentReference(document_id='period-source',ir_run_id='ir-period',
+        ir_revision=1,content_digest='period',period_context={
+            'basis':'reporting_period_statement','source_id':'coverage',
+            'evidence':'1 January 2024 to 31 December 2024','page_index':1})
+    frame=EvidenceFrame(object_id=source.object_id,kind='text',page_index=2,digest='period',
+        rows=rows,texts=[source,*spans],context_links=context_links(rows,spans,NativeTextGeometry()),
+        source_snapshot=document.snapshot_id)
+    row=next(row for row in rows if row.cells[0].raw_text=='200')
+    primary=next(link.source_ids[0] for link in frame.context_links if link.cell_id==row.cells[0].cell_id)
+    fact,mapping,error=numeric_fact(repository.get('E1-6_09'),document,frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id=primary,
+            label_quote='during the reporting period, scope 2 emissions were 200 tCO2e.'),
+        row,row.cells[0],'period-source')
+    assert error is None and fact.value.value_raw=='200' and mapping.match=='match'
+    assert fact.identity.reporting_period.value=='2024'
+
+
+def test_geometry_label_group_cannot_be_cropped_with_a_measurement_quote(documents,repository):
+    from esg_contracts.evidence import EvidenceContextLink
+    from esg_document.document.literals import numeric_rows
+    from esg_extraction.pipeline.binding import numeric_fact
+    from esg_extraction.pipeline.decisions import NumericMatch
+    source=TextEvidence(object_id='chart',span_id='label',page_index=2,
+        text='Non-renewable energy consumption 100 MWh')
+    row=next(row for row in numeric_rows(source) if row.cells[0].raw_text=='100')
+    frame=EvidenceFrame(object_id='chart',kind='text',page_index=2,digest='chart-quote',rows=[row],
+        texts=[source],context_links=[EvidenceContextLink(cell_id=row.cells[0].cell_id,
+            source_ids=['label'],relation='column')],source_snapshot=documents.document('ir-example').snapshot_id)
+    fact,mapping,error=numeric_fact(repository.get('E1-5_05'),documents.document('ir-example'),frame,
+        NumericMatch(row_id=row.row_id,columns=['value'],label_source_id='label',
+            label_quote='renewable energy consumption 100 MWh'),row,row.cells[0],'chart-quote')
+    assert error is None and fact.value.value_raw=='100'
+    assert mapping.match=='uncertain' and 'numeric_label_quote_unbound' in mapping.flags

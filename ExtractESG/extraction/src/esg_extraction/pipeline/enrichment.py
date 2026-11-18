@@ -20,6 +20,7 @@ Column source groups gN contain joined physical header parts. Quote their joined
 Read each fact's local_source_ids first. Row/column headings identify its local subject; a general Group name must not replace a business, site or subsidiary named there. A passage about another measurement cannot supply this fact's identity. For report_sources, quote the statement establishing coverage of the report or the named measure, not a bare Group or Total word. If applicability is not established, omit the assignment.
 Use exact quotes and source IDs. Do not use the clause definition or report-resource metadata as report evidence.
 Read an entity name only when the text identifies the statistical subject. Do not substitute the publisher's company.
+A year or period alone is reporting_period evidence, never a reporting_boundary or reporting_entity. For boundary, quote the actual covered businesses, sites, entities or scope; omit it when the source only states a year.
 An inherited reporting period needs an explicit link to 'reporting period' in the fact's local evidence; do not assign a report year to undated facts or historical columns.
 Return assignments with fact_ids and identity proposals (axis, value, quote, source_id). Missing attributes do not invalidate the fact."""
 

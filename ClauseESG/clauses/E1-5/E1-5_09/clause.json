@@ -254,7 +254,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "bbf88b51b28ecd47b1a0e131b4090691ec81fc9aa0fdfc8458624420ec1abd29",
+  "clause_digest": "ba1dd77a612e1b6e1e8859c200a40cc5d1367d47b81f5831375cc5d68963dc64",
   "clause_key": "E1-5_09",
   "data_kind": "quantitative",
   "definition": "可再生能源占能源消费总量的比例",
@@ -834,7 +834,8 @@
     "instructions": [
       "可再生能源占能源消费总量的比例",
       "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。",
-      "分子须为可再生能源，分母须为同一主体的全能源消费。清洁与可再生合计、直接能源分母或电力结构均属其他口径。地区能源利用率及单个基地水电比例不能标为本集团全能源可再生比例。读取完整局部原句，按实际不同口径选择different，原值和期间保留。 Read the entire linked statement. A regional renewable utilization rate or a factory hydropower share describes another boundary. Clean plus renewable, direct-energy-only and electricity-only denominators differ from total energy consumption."
+      "分子须为可再生能源，分母须为同一主体的全能源消费。清洁与可再生合计、直接能源分母或电力结构均属其他口径。地区能源利用率及单个基地水电比例不能标为本集团全能源可再生比例。读取完整局部原句，按实际不同口径选择different，原值和期间保留。 Read the entire linked statement. A regional renewable utilization rate or a factory hydropower share describes another boundary. Clean plus renewable, direct-energy-only and electricity-only denominators differ from total energy consumption.",
+      "单一太阳能、风能或水电消费占比，须由局部原文明确分母为全能源消费才能确认；缺少分母证据时保留数值并标为未决。不得由相邻数据计算分母；泛称可再生能源占比沿用缺失属性保留规则。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -1003,6 +1004,21 @@
         ],
         "unless_terms": [
           "re:\\btotal\\s+energy\\s+consumption\\b|能源消费总量|能源消耗总量|能源消費總量"
+        ]
+      },
+      {
+        "allowed": [],
+        "flag": "renewable_component_share_denominator_unproven",
+        "if_terms": [],
+        "params": {},
+        "reason": null,
+        "rule": "flag_review",
+        "scope": "scope_text",
+        "terms": [
+          "re:(?:\\b(?:solar\\s+(?:energy|power|consumption)|onsite\\s+solar|wind\\s+(?:energy|power)|hydro(?:power|electricity|\\s+energy))\\b|太阳能|太陽能|光伏(?:能源|电力|電力|消耗|消费|消費)|水电|水電|水能|风能|風能|风电|風電)"
+        ],
+        "unless_terms": [
+          "re:(?:\\b(?:total|all)\\s+energy\\s+(?:consumption|use)\\b|(?:能源|能量)(?:消费|消耗|使用)(?:总量|總量)|(?:全部|所有|总|總)能源(?:消费|消耗|使用))"
         ]
       }
     ],

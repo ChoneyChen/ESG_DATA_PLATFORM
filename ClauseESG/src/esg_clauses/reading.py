@@ -121,6 +121,45 @@ def _ghg_scope(
     combined = _match(
         _vocab(reading, "combined_scope"), subject if subject != text else scope_text
     )
+    ambiguous = False
+    if scope in {"scope_1", "scope_2", "scope_3"} and not combined:
+        # Overlapping aliases describe one phrase. An adjacent parenthesis
+        # qualifies that phrase: "Indirect emissions (Scope 3)" is one scope.
+        names = ("scope1", "scope2", "scope3")
+        mentions = []
+        for name in names:
+            for term in _vocab(reading, name):
+                pattern = term[3:] if term.startswith("re:") else re.escape(fold(term))
+                for match in re.finditer(pattern, subject, re.I):
+                    start, end = match.span()
+                    # A vocabulary alias may end at singular "emission" while
+                    # the source uses "emissions"; keep its whole word.
+                    end += len(re.match(r"[a-z]*", subject[end:], re.I).group())
+                    suffix = re.match(r"\s*[（(]([^()（）]+)[)）]", subject[end:])
+                    prefix = re.search(r"[（(]([^()（）]+)[)）]\s*$", subject[:start])
+                    qualifier = suffix or prefix
+                    qualified = {
+                        other for other in names
+                        if qualifier and _match(_vocab(reading, other), qualifier[1])
+                    }
+                    qualified_name = name
+                    if len(qualified) == 1:
+                        qualified_name = qualified.pop()
+                        if suffix:
+                            end += suffix.end()
+                    mentions.append((start, -end, qualified_name))
+        mentions.sort()
+        scopes = set()
+        previous_end = -1
+        for start, negative_end, name in mentions:
+            if start >= previous_end:
+                scopes.add(name)
+                previous_end = -negative_end
+        ambiguous = len(scopes) > 1
+        if ambiguous:
+            flags.append("ghg_scope_ambiguous")
+        elif scopes and {"scope_1":"scope1", "scope_2":"scope2", "scope_3":"scope3"}[scope] not in scopes:
+            return _reject("label_not_scope3" if scope == "scope_3" else "label_not_this_scope")
     if scope == "scope_1":
         if not _match(_vocab(reading, "scope1"), subject):
             return _reject("label_not_this_scope")
@@ -131,7 +170,7 @@ def _ghg_scope(
             return _reject("label_not_this_scope")
         if combined:
             return _reject("label_is_combined_scopes")
-        if _match(_vocab(reading, "scope3"), text):
+        if not ambiguous and _match(_vocab(reading, "scope3"), text):
             return _reject("label_is_scope3")
     elif scope == "scope_3":
         target = subject if subject != text else scope_text

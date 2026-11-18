@@ -667,7 +667,7 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
                 current_section = text
             pending_unit_prefix = (
                 (r, label_refs, unit_refs)
-                if text and unit and re.fullmatch(NUMERIC_SCALE, unit)
+                if unit and re.fullmatch(NUMERIC_SCALE, unit)
                 and not values else None
             )
             continue
@@ -677,10 +677,11 @@ def build_table_view(table: dict, page_payload: dict | None) -> TableView | None
             if is_unit_expression(combined_unit):
                 prefix = " ".join(ref.text for ref in prefix_labels)
                 suffix = " › ".join(label_parts)
-                label_parts = [
-                    prefix[:-1] + suffix if prefix.endswith("-")
-                    else prefix + " " + suffix
-                ]
+                if prefix:
+                    label_parts = [
+                        prefix[:-1] + suffix if prefix.endswith("-")
+                        else prefix + " " + suffix
+                    ]
                 label_refs = [*prefix_labels, *label_refs]
                 unit = combined_unit
                 unit_refs = [*prefix_units, *unit_refs]

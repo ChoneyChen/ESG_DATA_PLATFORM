@@ -75,8 +75,9 @@
       ],
       "description": null,
       "label": "实际统计边界",
-      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。",
+      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。年份或期间本身不能证明统计覆盖，缺少实际范围名称时保留未知。",
       "source": "identity",
+      "value_pattern": "(?s)(?!\\s*(?:[Ff][Yy]\\s*)?(?:19|20|21)\\d{2}\\s*(?:年(?:度)?)?\\s*$).*[^\\W\\d_].*",
       "vocabulary": []
     },
     "reporting_entity": {
@@ -145,7 +146,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "48e134dea6a3cfea084a63982affec640ac47a77950a20fcbbeae74e3c3a226c",
+  "clause_digest": "013f1a3a5423e26375d752bb60670e671ef3f42298d180a72d571d51d88498b0",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",

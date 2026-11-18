@@ -110,8 +110,9 @@
       ],
       "description": null,
       "label": "实际统计边界",
-      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。",
+      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。年份或期间本身不能证明统计覆盖，缺少实际范围名称时保留未知。",
       "source": "identity",
+      "value_pattern": "(?s)(?!\\s*(?:[Ff][Yy]\\s*)?(?:19|20|21)\\d{2}\\s*(?:年(?:度)?)?\\s*$).*[^\\W\\d_].*",
       "vocabulary": []
     },
     "reporting_entity": {
@@ -216,7 +217,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "16d4e1655aebb940b5b76289401173385acb0161664c14b672314fea90ac3c5e",
+  "clause_digest": "3177d56008ae95ed6daae2ffa0987258bda1f20caf98220e8c22be22511847ec",
   "clause_key": "E1-5_01",
   "data_kind": "quantitative",
   "definition": "自身运营的能源消费总量",
@@ -797,6 +798,7 @@
     "allow_regulatory_limit": false,
     "instructions": [
       "读取本企业运营能源消费总量；综合能源消耗量属于总量。相关分项和强度若被读取，必须分别判为不同测量，不能代替总量。",
+      "总量或 Total 字样不能代替能源消费语义；本行或明确章节须说明能源消费。括号或层级中限定为单一能源分类的总量仍是分项；明确包含多类能源的整体总量不据此排除。",
       "原值由后端从所选物理单元格取回，主体、边界、方法只能用实际原文支持，不能填入条款预设值。"
     ],
     "operator": "numeric_label",
@@ -849,8 +851,22 @@
         "rule": "require_any",
         "scope": "scope_text",
         "terms": [
-          "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s+(?:consumption|consumed|use)|total\\s+energy)",
-          "re:(?:总|總|合计|合計|综合|綜合|全部|全集团|整体|total|overall|aggregate|all\\s+sources)"
+          "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s*(?:consumption|consumed|use)|total\\s*energy)",
+          "re:\\bconsume[ds]?\\b[^.;。；]{0,120}\\benergy\\b"
+        ],
+        "unless_terms": []
+      },
+      {
+        "allowed": [],
+        "flag": null,
+        "if_terms": [],
+        "params": {},
+        "reason": "label_is_source_qualified_energy_subtotal",
+        "rule": "forbid_any",
+        "scope": "text",
+        "terms": [
+          "re:(?:^|[（(›])\\s*(?:(?:non[-\\s]*renewable|renewable|clean|fossil)(?:\\s*energy)?|(?:非可再生|可再生|清洁|清潔|化石|非化石)(?:能源)?)\\s*(?:[）)›]|$)",
+          "re:(?:^|[（(›])\\s*(?:(?:solar|photovoltaic|hydro(?:power)?|wind(?:\\s*power)?)(?:\\s*energy)?|(?:太阳能|太陽能|光伏|水电|水電|水能|风能|風能|风电|風電)(?:能源)?)\\s*(?:[）)›]|$)"
         ],
         "unless_terms": []
       },
@@ -863,7 +879,8 @@
         "rule": "forbid_any",
         "scope": "text",
         "terms": [
-          "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)"
+          "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)",
+          "re:(?:太阳能|太陽能|光伏(?:能源|电力|電力|消耗|消费|消費|用量)|水电|水電|水能|风能|風能|风电|風電|\\b(?:solar|photovoltaic|wind)\\s*(?:energy|power|consum|usage|use)|\\bhydro(?:power)?\\b|(?:on[-\\s]*site|off[-\\s]*site)\\s*solar\\b|(?:^|›)\\s*(?:光伏|solar|photovoltaic|wind)\\s*(?:$|›))"
         ],
         "unless_terms": [
           "总能",
@@ -871,7 +888,7 @@
           "能耗总",
           "总耗能",
           "综合能耗",
-          "total energy"
+          "re:total\\s*energy"
         ]
       },
       {
@@ -923,10 +940,12 @@
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
       ],
       "energy_subset": [
-        "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)"
+        "re:(?:直接|间接|direct|indirect|电|煤|油|气|汽|热|柴|electric|gas|diesel|coal|steam|heat|fuel|petrol|gasoline|可再生|清洁|绿色|非化石|化石|renewable|clean|fossil|外购|purchased|自产|self[-\\s]generated|数据中心|data\\s+cent|办公|office)",
+        "re:(?:太阳能|太陽能|光伏(?:能源|电力|電力|消耗|消费|消費|用量)|水电|水電|水能|风能|風能|风电|風電|\\b(?:solar|photovoltaic|wind)\\s*(?:energy|power|consum|usage|use)|\\bhydro(?:power)?\\b|(?:on[-\\s]*site|off[-\\s]*site)\\s*solar\\b|(?:^|›)\\s*(?:光伏|solar|photovoltaic|wind)\\s*(?:$|›))"
       ],
       "energy_total": [
-        "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s+(?:consumption|consumed|use)|total\\s+energy)"
+        "re:(?:能源消耗|能源消费|能耗|能源使用|耗能|用能|能量消耗|energy\\s*(?:consumption|consumed|use)|total\\s*energy)",
+        "re:\\bconsume[ds]?\\b[^.;。；]{0,120}\\benergy\\b"
       ],
       "explicit_total": [
         "总能",
@@ -934,7 +953,7 @@
         "能耗总",
         "总耗能",
         "综合能耗",
-        "total energy"
+        "re:total\\s*energy"
       ],
       "intensity": [
         "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"

@@ -49,6 +49,27 @@ def reference_columns(columns):
             " ".join(parts), re.I)}
 
 
+def disclosure_inventory(source, cell, columns):
+    """Type codes only under the actual disclosure column and standard row."""
+    header = " ".join(cell.get("column_header_path") or
+        columns.get(f"c{cell.get('col_index', 0)}", []))
+    if not re.fullmatch(r"\s*disclosures?\s*", header, re.I):
+        return None
+    prefixes = set()
+    for parent in cell.get("row_header_path", []):
+        match = re.match(r"\s*([A-Za-z]+)\s+([A-Z]?\d[\d.]*)\b", parent)
+        if match and reference_columns({"standard": [f"{match[1]} {match[2]}"]}):
+            prefixes.add(match[2])
+    if not prefixes:
+        return None
+    inventory = numeric_rows(source)
+    return [row.model_copy(update={"cells": [value.model_copy(update={
+        "candidate_kind": "identifier"}) if not row.unit_raw and any(
+            re.fullmatch(re.escape(prefix) + r"-\d+(?:[.-]\d+)*", value.raw_text)
+            for prefix in prefixes) else value for value in row.cells]})
+        for row in inventory]
+
+
 class DocumentEvidenceService:
     def __init__(self, resolver, resource_lookup=None):
         self.resolve = resolver
@@ -306,6 +327,16 @@ class DocumentEvidenceService:
                     bbox=_box(cell),
                 )
 
+            reference_inventories = {}
+            for cell in physical.values():
+                inventory = disclosure_inventory(source(cell), cell, columns)
+                if inventory is not None:
+                    reference_inventories[cell["cell_id"]] = inventory
+            reference_only_cells = {identity for identity, inventory in reference_inventories.items()
+                if any(value.candidate_kind == "identifier" for row in inventory for value in row.cells)
+                and not any(value.candidate_kind in {"measurement", "unresolved"}
+                    for row in inventory for value in row.cells)}
+
             header_cells = [
                 c
                 for c in raw.get("cells", [])
@@ -353,7 +384,7 @@ class DocumentEvidenceService:
                             ],
                             cells=[
                                 EvidenceCell(
-                                    candidate_kind="identifier" if f"c{col}" in references else "measurement",
+                                    candidate_kind="identifier" if f"c{col}" in references or cell.cell_id in reference_only_cells else "measurement",
                                     cell_id=cell.cell_id,
                                     column_id=f"c{col}",
                                     raw_text=physical.get(cell.cell_id, {}).get(
@@ -385,7 +416,7 @@ class DocumentEvidenceService:
                 label = clean_text(cells[0].get("text"))
                 values = [
                     EvidenceCell(
-                        candidate_kind="identifier" if f"c{c.get('col_index', 0)}" in references | unit_columns else "measurement",
+                        candidate_kind="identifier" if f"c{c.get('col_index', 0)}" in references | unit_columns or c["cell_id"] in reference_only_cells else "measurement",
                         cell_id=c["cell_id"],
                         column_id=f"c{c.get('col_index', 0)}",
                         raw_text=c.get("text") or "",
@@ -421,7 +452,9 @@ class DocumentEvidenceService:
                     or is_unit_expression(text)):
                     continue
                 item = source(cell)
-                inventory = numeric_rows(item)
+                inventory = reference_inventories.get(cell["cell_id"])
+                if inventory is None:
+                    inventory = numeric_rows(item)
                 eligible = [value for row in inventory for value in row.cells
                     if value.candidate_kind in {"measurement", "unresolved"}]
                 if not eligible:

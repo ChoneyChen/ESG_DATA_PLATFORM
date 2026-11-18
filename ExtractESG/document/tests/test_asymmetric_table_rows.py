@@ -319,3 +319,26 @@ def test_explicit_year_column_is_context_for_unitless_measurements():
     view = build_table_view(physical.model_dump(mode='json'),None)
     assert view.header_rows == [0] and view.value_cols == [1]
     assert [(line.label,line.values[1].text) for line in view.lines] == [('2023','2000'),('2024','2100')]
+
+
+def test_unlabelled_unit_prefix_row_is_bound_to_the_following_measurement():
+    from esg_document.document.physical import build_table_view
+    physical=table('scaled-unit',0,[['Indicator','Unit','2022','2023'],
+        ['Natural gas consumption','m3','10','20'],
+        ['','10,000','',''],
+        ['Total energy consumption','kJ','1,996,302,695.40','3,284,713,462.23']])
+    view=build_table_view(physical.model_dump(mode='json'),None)
+    row=next(line for line in view.lines if line.label=='Total energy consumption')
+    assert row.unit=='10,000 kJ'
+    assert row.unit_cell_ids==['scaled-unit-2-1','scaled-unit-3-1']
+    assert row.values[2].text=='1,996,302,695.40'
+
+
+def test_a_numeric_measurement_does_not_become_the_next_rows_unit_multiplier():
+    from esg_document.document.physical import build_table_view
+    physical=table('independent-rows',0,[['Indicator','Unit','2022'],
+        ['Number of sites','10,000','7'],
+        ['Total energy consumption','kJ','120']])
+    view=build_table_view(physical.model_dump(mode='json'),None)
+    row=next(line for line in view.lines if line.label=='Total energy consumption')
+    assert row.unit=='kJ' and row.unit_cell_ids==['independent-rows-2-1']

@@ -21,6 +21,7 @@ from .period_binding import bind_period
 from .reading_frame import statement_scope, printed_unit_sources
 from esg_data.periods import normalize_period
 from .numeric_context import select_context
+from .quotation import source_quote
 
 CONTEXT_AXES = set(ReportedContext.model_fields) - {"dimensions"}
 
@@ -439,20 +440,6 @@ def numeric_fact(clause, document, frame, match, row, cell, interpretation_id):
     else:
         mapping = apply_reading(mapping, reading)
     return fact, mapping, None
-
-
-def source_quote(text, quote):
-    """Resolve a unique quote to source bytes; only whitespace may differ."""
-    if quote in text and text.count(quote) == 1:
-        start = text.index(quote)
-        return start, start + len(quote)
-    positions = [index for index, char in enumerate(text) if not char.isspace()]
-    compact = "".join(text[index] for index in positions)
-    needle = "".join(char for char in quote if not char.isspace())
-    start = compact.find(needle)
-    if not needle or start < 0 or compact.find(needle, start + 1) >= 0:
-        raise ValueError("Statement quote is missing or ambiguous within its source span")
-    return positions[start], positions[start + len(needle) - 1] + 1
 
 
 def qualitative_fact(clause, document, frame, match, interpretation_id):

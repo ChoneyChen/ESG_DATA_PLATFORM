@@ -74,7 +74,8 @@ def test_complete_literal_inventory_controls_sentence_links_and_figures_do_not_g
     source = TextEvidence(object_id='block-1', page_index=0,
         text='Energy consumption was 100 or 200 MWh.')
     rows = numeric_rows(source)
-    assert not context_links(rows, text_spans(source), NativeTextGeometry())
+    links = context_links(rows, text_spans(source), NativeTextGeometry())
+    assert len(links) == 2 and links[0].source_ids == links[1].source_ids
     source = source.model_copy(update={'text': 'Energy consumption was 100 MWh.'})
     rows = numeric_rows(source)
     assert len(context_links(rows, text_spans(source), NativeTextGeometry())) == 1
@@ -135,3 +136,16 @@ def test_closed_convex_enclosure_keeps_its_value_and_descriptor_together():
     inner['commands'] = [['m', [40, 40]], ['l', [160, 40]], ['l', [160, 80]],
         ['l', [60, 80]], ['l', [60, 160]], ['l', [40, 160]], ['h']]
     assert not geometry.enclosure_links(cells)
+
+
+def test_every_literal_keeps_its_original_sentence_link_before_filtering():
+    source=TextEvidence(object_id='multi',page_index=0,
+        text='Renewable energy use was 100 tce, accounting for 12.62% of total energy consumption. Other output was 250 GW.')
+    inventory=numeric_rows(source)
+    links=context_links(inventory,text_spans(source),NativeTextGeometry())
+    cells=[cell for row in inventory for cell in row.cells
+        if cell.candidate_kind in {'measurement','unresolved'}]
+    assert all(any(link.cell_id==cell.cell_id for link in links) for cell in cells)
+    first=[link for link in links if link.cell_id in {cells[0].cell_id,cells[1].cell_id}]
+    assert len(first)==2 and first[0].source_ids==first[1].source_ids
+    assert next(link for link in links if link.cell_id==cells[-1].cell_id).source_ids!=first[0].source_ids

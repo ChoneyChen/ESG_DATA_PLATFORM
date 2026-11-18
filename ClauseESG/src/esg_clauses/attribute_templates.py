@@ -3,7 +3,7 @@ from .attributes import AttributeDefinition
 
 COMMON_ATTRIBUTES = {
     "reporting_entity": ("实际统计主体", "只读取原文明确说明的统计主体。发行人/报告标题不自动等于每项数据的主体；本公司等简称需要原文释义。", ["统计范围", "报告范围", "本报告涵盖", "reporting entities", "scope of this report"]),
-    "reporting_boundary": ("实际统计边界", "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。", ["本报告披露信息的覆盖范围", "本报告涵盖", "报告范围", "scope of this report", "reporting boundary"]),
+    "reporting_boundary": ("实际统计边界", "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。年份或期间本身不能证明统计覆盖，缺少实际范围名称时保留未知。", ["本报告披露信息的覆盖范围", "本报告涵盖", "报告范围", "scope of this report", "reporting boundary"]),
     "measurement_method": ("测量方法", "只读取实际适用于该数值的方法说明和脚注；不能从条款规定反推实际采用的方法。", []),
     "reporting_period": ("实际测量期间", "保留每个实际披露期间。报告年度不默认填充无日期数值；只有本地明确引用报告期时才能继承对应说明。", ["报告期", "报告时间", "reporting period", "period covered"]),
     "entity_aggregation_role": ("主体范围类型", "只按明确的集团、子公司、业务分部、场址等文字识别主体类型，未知保留为空。", ["集团", "子公司", "业务分部", "group", "subsidiary", "segment", "site"]),
@@ -15,9 +15,12 @@ COMMON_ATTRIBUTES = {
 LOCAL_ATTRIBUTES = {"reporting_entity", "entity_aggregation_role", "aggregation_role",
     "value_role", "business_segment", "site", "geography"}
 
+BOUNDARY_VALUE_PATTERN = r"(?s)(?!\s*(?:[Ff][Yy]\s*)?(?:19|20|21)\d{2}\s*(?:年(?:度)?)?\s*$).*[^\W\d_].*"
+
 
 def attribute_start(axis, label, source):
     content = COMMON_ATTRIBUTES.get(axis)
+    shape = {"value_pattern":BOUNDARY_VALUE_PATTERN} if axis == "reporting_boundary" else {}
     return AttributeDefinition(label=content[0] if content else label,source=source,
         reading_instruction=content[1] if content else None,context_terms=content[2] if content else [],
-        context_levels=["local"] if axis in LOCAL_ATTRIBUTES else ["local", "report"])
+        context_levels=["local"] if axis in LOCAL_ATTRIBUTES else ["local", "report"],**shape)

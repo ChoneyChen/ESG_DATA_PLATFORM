@@ -110,8 +110,9 @@
       ],
       "description": null,
       "label": "实际统计边界",
-      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。",
+      "reading_instruction": "引用本表、章节或明确适用于这些数据的报告范围说明。保留子公司、业务及场址差异，不用条款目标补齐。年份或期间本身不能证明统计覆盖，缺少实际范围名称时保留未知。",
       "source": "identity",
+      "value_pattern": "(?s)(?!\\s*(?:[Ff][Yy]\\s*)?(?:19|20|21)\\d{2}\\s*(?:年(?:度)?)?\\s*$).*[^\\W\\d_].*",
       "vocabulary": []
     },
     "reporting_entity": {
@@ -216,7 +217,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f2ad887e298fae59e5aa27e2b502444be5663eb7936fa3f430a599dae31c8749",
+  "clause_digest": "b2bb5b626995209c4cf44b9d0c69d38e85a1ad3b738e22a806d749af02d15111",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",

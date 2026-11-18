@@ -1,6 +1,9 @@
 """Bind quantitative labels only through frozen physical source relationships."""
 from dataclasses import dataclass
 import re
+from esg_data.periods import parse_period
+from .period_binding import leading_period_source, references_report_period
+from .quotation import measurement_quote
 
 
 def context_sources(frame):
@@ -93,10 +96,38 @@ def select_context(frame, match, row, cell, units):
     strong = next((link for link in links if link.relation in {"same_clause","row","column"}
         and primary in link.source_ids and all(key in bank for key in link.source_ids)),None)
     labels = closed_sources(frame,[bank[key] for key in strong.source_ids]) if strong else []
+    quote = getattr(match, "label_quote", None)
+    quote_valid = True
+    if quote:
+        quote_valid = False
+        if strong is not None and strong.relation == "same_clause" and len(labels) == 1:
+            source = labels[0]
+            try:
+                start, end = measurement_quote(source.text, quote)
+            except ValueError:
+                pass
+            else:
+                absolute_start, absolute_end = source.char_start + start, source.char_start + end
+                if (source.object_id == cell.source_object_id
+                    and cell.char_start is not None and cell.char_end is not None
+                    and absolute_start <= cell.char_start < cell.char_end <= absolute_end):
+                    labels = [source.model_copy(update={
+                        "text":source.text[start:end],"char_start":absolute_start,
+                        "span_id":f"{source.object_id}@{absolute_start}:{absolute_end}"})]
+                    period_source = leading_period_source(source)
+                    if (period_source and start >= len(period_source.text)
+                        and not parse_period(labels[0].text)
+                        and not references_report_period(labels[0].text)):
+                        labels.insert(0,period_source)
+                    quote_valid = True
     allowed = {key for link in links for key in link.source_ids}
     requested = set(getattr(match,"context_source_ids",[]))
     auxiliary = []
     for link in links:
+        # Repeating the chosen label as context must not reopen its parent
+        # sentence after a narrower, source-bound measurement quote.
+        if link is strong:
+            continue
         if requested.intersection(link.source_ids) and all(key in bank for key in link.source_ids):
             auxiliary.extend(source for source in closed_sources(frame,[bank[key] for key in link.source_ids])
                 if source not in auxiliary)
@@ -110,6 +141,8 @@ def select_context(frame, match, row, cell, units):
     if selected_unit is not None and unit_support is not None:
         selected_unit = selected_unit.model_copy(update={"bbox":unit_support.bbox})
     flags = []
+    if not quote_valid:
+        flags.append("numeric_label_quote_unbound")
     if strong is None:
         flags.append("numeric_context_application_unproven")
     if any(key not in allowed or key not in bank for key in getattr(match,"context_source_ids",[])):

@@ -270,8 +270,8 @@ def context_links(rows, clauses, geometry):
         inside = [cell for cell in cells if cell.char_start is not None and cell.char_end is not None
             and clause.char_start <= cell.char_start
             and cell.char_end <= clause.char_start + len(clause.text)]
-        if len(inside) == 1:
-            links.append(EvidenceContextLink(cell_id=inside[0].cell_id,
+        for cell in inside:
+            links.append(EvidenceContextLink(cell_id=cell.cell_id,
                 source_ids=[clause.span_id], relation='same_clause'))
     links.extend(geometry.bar_links(cells))
     links.extend(geometry.enclosure_links(cells))

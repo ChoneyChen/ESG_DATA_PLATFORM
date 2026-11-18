@@ -24,8 +24,11 @@
 | [ClauseESG/src/esg_clauses/search.py](../../ClauseESG/src/esg_clauses/search.py) | Compile every selected clause's search fields once; consumers own execution. |
 | [ClauseESG/src/esg_clauses/templates.py](../../ClauseESG/src/esg_clauses/templates.py) | Minimal independent clause templates owned by the clause module. |
 | [ClauseESG/tests/test_descriptors.py](../../ClauseESG/tests/test_descriptors.py) | 测试/样例 |
+| [ClauseESG/tests/test_energy_total_reading.py](../../ClauseESG/tests/test_energy_total_reading.py) | Total-energy semantics from the ordinary-PDF release batch and boundary controls. |
+| [ClauseESG/tests/test_ghg_scope.py](../../ClauseESG/tests/test_ghg_scope.py) | Distinct measurements in one sentence need a value-specific scope label. |
 | [ClauseESG/tests/test_independence.py](../../ClauseESG/tests/test_independence.py) | 测试/样例 |
 | [ClauseESG/tests/test_independent_repository.py](../../ClauseESG/tests/test_independent_repository.py) | 测试/样例 |
+| [ClauseESG/tests/test_renewable_share_reading.py](../../ClauseESG/tests/test_renewable_share_reading.py) | Keep source-specific percentages distinct from an unproved energy denominator. |
 
 ## ConsoleESG
 
@@ -319,6 +322,7 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/organization.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/organization.py) | Project clause-owned result layouts over referenced source facts. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py) | Bind local time evidence; a report's main year is never a default identity. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/ports.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py) | Backbone dependencies are value interfaces; implementations own I/O. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/quotation.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/quotation.py) | Resolve model-selected quotations to original source bytes. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py) | Compact model input; full physical frames remain immutable binding evidence. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/reading_policy.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_policy.py) | Bounded reading and task-local progress, shared by both data readers. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py) | Producer-owned facts with a lightweight index; only changed records are written. |
@@ -332,6 +336,7 @@
 | [ExtractESG/extraction/tests/conftest.py](../../ExtractESG/extraction/tests/conftest.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_backbone.py](../../ExtractESG/extraction/tests/test_backbone.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_boundaries.py](../../ExtractESG/extraction/tests/test_boundaries.py) | 测试/样例 |
+| [ExtractESG/extraction/tests/test_candidate_requirements.py](../../ExtractESG/extraction/tests/test_candidate_requirements.py) | Positive local requirements reduce irrelevant calls without discarding raw values. |
 | [ExtractESG/extraction/tests/test_capture_semantics.py](../../ExtractESG/extraction/tests/test_capture_semantics.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_clause_api.py](../../ExtractESG/extraction/tests/test_clause_api.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_exporting.py](../../ExtractESG/extraction/tests/test_exporting.py) | 测试/样例 |

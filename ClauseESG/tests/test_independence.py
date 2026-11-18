@@ -39,6 +39,13 @@ def test_optional_attribute_value_pattern_preserves_legacy_frozen_shape():
     from esg_clauses.attributes import AttributeDefinition
     from esg_clauses.contract import ClauseContract
     original=new_clause('TEST_03','TEST','quantitative','原值')
+    assert not original.attributes['reporting_boundary'].accepts_value('2023')
+    # Old frozen attributes lack the optional field. New authoring defaults may
+    # declare it without adding it while loading those older dictionaries.
+    legacy_attributes={axis:AttributeDefinition.model_validate({key:value
+        for key,value in attribute.model_dump(mode='json').items() if key!='value_pattern'})
+        for axis,attribute in original.attributes.items()}
+    original=original.model_copy(update={'attributes':legacy_attributes}).seal()
     frozen=original.model_dump(mode='json')
     assert all('value_pattern' not in attribute for attribute in frozen['attributes'].values())
     loaded=ClauseContract.model_validate(frozen)

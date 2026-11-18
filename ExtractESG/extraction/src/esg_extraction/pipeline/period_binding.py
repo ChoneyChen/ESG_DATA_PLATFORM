@@ -9,6 +9,18 @@ def references_report_period(text):
     return bool(re.search(r"本报告期|本年度|报告期内|during\s+(?:the\s+)?reporting\s+period",fold(text),re.I))
 
 
+def leading_period_source(source):
+    """Retain an explicit sentence-wide time prefix when selecting a subclause."""
+    match = re.match(r"\s*(?:in\s+(?:19|20|21)\d{2}|(?:19|20|21)\d{2}\s*年|"
+        r"during\s+(?:the\s+)?reporting\s+period|本报告期|本年度|报告期内)\s*[,，:：]",
+        source.text, re.I)
+    if not match:
+        return None
+    text = match[0]
+    return source.model_copy(update={"text":text,
+        "span_id":f"{source.object_id}@{source.char_start}:{source.char_start+len(text)}"})
+
+
 def _field(raw, sources, role, state="stated"):
     period = parse_period(raw)
     if not period or not sources:
