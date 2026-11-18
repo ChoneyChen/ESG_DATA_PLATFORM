@@ -201,7 +201,7 @@
 
 2.14普通批截至2026-11-18 18:14 UTC已评估46个固定源值，42通过、4失败。相同来源和预期下，较2.9维持36项、恢复6项。4个失败全部来自协鑫2021的两组业务能源表，2020/2021原值、期间及MWh单位均一致，实际模型调用1、2选中正确行列但关系由match退为different。其余117项仍待评估。该偏差属于模型关系判断，未用程序改写原决定。完整批仍按原冻结指纹执行，待核对50份接收、投影与下载后替换平台产品。
 
-2.18按普通PDF入口提交晶科2023同一条款专项，使用修订合同摘要`87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b`。240个安装源码与仓库一致，运行指纹`4b1ecb173183a36b74d8f48a63f874402276fe9a8e3c878a70306daa31e0ae56`。隔离接收保持显式发布。会话和只读验收见`table-scope-case-sessions.json`及`table-scope-case-observation.json`。
+2.18按普通PDF入口提交晶科2023同一条款专项，使用修订合同摘要`87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b`。240个安装源码与仓库一致，运行指纹`4b1ecb173183a36b74d8f48a63f874402276fe9a8e3c878a70306daa31e0ae56`。通过文档接口读取实际准备产物，五种空气污染物的10个原值均进入模型候选，保留ton单位及证据标题Exhaust Gas Management。此证据覆盖实际准备至候选，最终模型判断和接收仍按原生任务核对。会话、准备证据和只读验收见`table-scope-case-sessions.json`、`table-scope-actual-prepared-verification.json`、`table-scope-case-observation.json`。
 
 ## 需求到实现的追踪
 
