@@ -12,7 +12,7 @@ import App from "./App";
 const dataset = {
   dataset_version_id: "dataset-one",
   title: "全年份测试集",
-  status: "published",
+  state: "published",
   observations: 3,
   periods: { "2023": 1, "2024": 1, unknown: 1 },
   published_at: "2026-10-31T00:00:00Z",
@@ -123,6 +123,9 @@ it("opens the dataset hierarchy, keeps all periods and exact sparse values, pagi
   expect(
     screen.getByRole("link", { name: "CSV 长表" }).getAttribute("href"),
   ).toContain("period=2024");
+  expect(screen.getByRole("link", { name: "下载" }).getAttribute("href")).toBe(
+    "/api/v2/datasets/dataset-one/export?format=csv",
+  );
   fireEvent.click(screen.getByRole("button", { name: "来源" }));
   expect(await screen.findByRole("link", { name: /查看原PDF/ })).toBeTruthy();
   expect(calls.every((url) => url.pathname.startsWith("/api/v2/"))).toBe(true);
@@ -154,4 +157,5 @@ it("does not render withdrawn data when the API refuses a saved dataset URL", as
   render(<App />);
   expect(await screen.findByText("此发布已撤下")).toBeTruthy();
   expect(screen.queryByRole("combobox", { name: "期间" })).toBeNull();
+  expect(screen.queryByRole("link", { name: "下载" })).toBeNull();
 });

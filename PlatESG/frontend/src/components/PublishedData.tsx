@@ -100,11 +100,15 @@ export default function PublishedDataApp({
       " · ",
     );
   }, [dataset.data]);
-  const download = datasetId
-    ? apiUrl("/v2/datasets/" + encodeURIComponent(datasetId) + "/export", {
-        format: "csv",
-      })
-    : null;
+  const download =
+    dataset.data?.state === "published"
+      ? apiUrl(
+          "/v2/datasets/" +
+            encodeURIComponent(dataset.data.dataset_version_id) +
+            "/export",
+          { format: "csv" },
+        )
+      : null;
   return (
     <AppShell
       datasetCount={catalog.data?.total || 0}
