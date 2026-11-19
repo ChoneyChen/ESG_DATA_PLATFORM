@@ -421,13 +421,16 @@ class StorageInventoryService:
         for scope in scopes:
             references = self.reference_guard.check(scope)
             blockers.extend(references.get("blockers", []))
-        # The one reservation covers all selected document hashes and IR IDs.
+        # A cache-only plan needs only the cache IDs in its reservation.
         hashes = {
             ocr_runs[run_id]["source_pdf_sha256"]
             for run_id in selected_ocr
             if ocr_runs[run_id].get("source_pdf_sha256")
         }
-        reference_scope["source_sha256s"] = sorted(hashes)
+        if len(hashes) == 1:
+            reference_scope["source_sha256"] = next(iter(hashes))
+        elif hashes:
+            reference_scope["source_sha256s"] = sorted(hashes)
 
         selected_runs = [
             *(

@@ -25,7 +25,6 @@ def queue_clause_run(run_id, name, timeout, *, session_id):
 extraction_plans = ExtractionCoordinator(
     document.pipeline_store, document.report_processing, queue_clause_run,
     document.cancel_pipeline_task, document.settings.extraction_backend_url,
-    os.getenv("ESG_DOCUMENT_BACKEND_URL", "http://127.0.0.1:18080"),
 )
 document.library_deletion.configure(
     cancel_task=document.cancel_pipeline_task, processing=document.report_processing, extractions=extraction_plans,

@@ -70,7 +70,8 @@ def archive(source="source-a", periods=("2023", "2024", "2025"), *, known=False,
             evidence=[EvidenceLocation(object_id="cell-"+str(index), object_type="cell", page_index=0, excerpt=statement or amount, role="statement" if statement else "value")])
         facts.append(fact.model_dump(mode="json"))
         links.extend(ClauseMapping(clause_key=key, clause_digest=targets[key]["clause_digest"], source_fact_id=fact.source_fact_id,
-            match="match", reason="Synthetic contract test").model_dump(mode="json") for key in keys)
+            match="match", reason="Synthetic contract test",
+            scope_ids=["scope-synthetic"] if known else []).model_dump(mode="json") for key in keys)
     properties, evidence = property_tables(facts)
     members = {"facts": facts, "properties": properties, "evidence": evidence, "relations": links,
         "targets": targets, "coverage": [ClauseCoverage(clause_key=key, clause_digest=targets[key]["clause_digest"], state="covered", fact_count=len(facts)).model_dump(mode="json") for key in keys],
@@ -79,7 +80,7 @@ def archive(source="source-a", periods=("2023", "2024", "2025"), *, known=False,
     files = [ExportFile(name=role+".json", role=role, sha256=sha256(data).hexdigest(), bytes=len(data), records=1 if role=="document" else len(members[role])) for role, data in content.items()]
     run = source+"-"+interpretation
     export_id = "export-"+sha256(canonical(["extraction-export-1.1", run, *[f.sha256 for f in sorted(files, key=lambda f:f.role)]])).hexdigest()
-    manifest = ExportManifest(authority="facts", export_id=export_id, run_id=run, engine_version="synthetic-test", engine_identity={}, document=document,
+    manifest = ExportManifest(schema_version="extraction-export-1.1", authority="facts", export_id=export_id, run_id=run, engine_version="synthetic-test", engine_identity={}, document=document,
         clause_targets={key: body["clause_digest"] for key, body in targets.items()}, execution_state="completed", sealed_at="2026-10-31T00:00:00Z", files=files)
     data = io.BytesIO()
     with ZipFile(data, "w") as zipped:

@@ -6,8 +6,6 @@ from esg_reports.contract import ReportResource,Company,Industry
 from esg_reports.repository import ReportRepository,file_digest
 from esg_reports.importer import import_folder
 from test_backbone import documents,repository,quantitative
-from esg_extraction.pipeline.binding import numeric_fact
-from esg_extraction.pipeline.decisions import NumericMatch
 from esg_contracts.evidence import SearchIntent
 
 def folder(tmp_path,entries=2):
@@ -78,8 +76,8 @@ def test_report_identity_reaches_each_fact_without_becoming_measurement_identity
     resource=ReportResource(pdf_id='PDF-2026-001',asset_id='pdf-'+'1'*24,sha256='1'*64,original_filename='report.pdf',company=Company(name='档案企业'),publication_year=2026,industry=Industry(name='电池制造'),reporting_year=2025)
     document=document.model_copy(update={'report_resource':resource})
     intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,_,_=numeric_fact(c,document,frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'i')
+    from esg_extraction.pipeline.engine import _fact
+    fact, _ = _fact(document, c, 0, {"value": "1,234.50", "period": "2025", "unit": "MWh"}, True)
     assert fact.report_resource==resource
     assert fact.identity.reporting_entity.state=='not_read'
     assert fact.identity.reporting_period.value=='2025' # Publication year must not overwrite measurement period.

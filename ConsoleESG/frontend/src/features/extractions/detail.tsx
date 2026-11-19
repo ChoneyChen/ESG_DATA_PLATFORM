@@ -502,12 +502,14 @@ export function ExtractionPage({
                       <dd>{sessionId}</dd>
                       <dt>执行 ID</dt>
                       <dd>{run.run_id || "尚未创建"}</dd>
-                      <dt>文档证据 ID</dt>
-                      <dd>{run.ir_run_id || "准备中"}</dd>
+                      <dt>读取来源</dt>
+                      <dd>{run.run?.document?.source_kind === "pdf" || (run.request.input.kind === "pdf" && !run.ir_run_id) ? "原始 PDF" : run.ir_run_id || "—"}</dd>
                       <dt>冻结目标</dt>
                       <dd className="mono">{run.target_digest || "—"}</dd>
                       <dt>提取模型</dt>
                       <dd>{modelSelectionLabel(run.run?.request?.model_selection || run.request.model_selection)}</dd>
+                      <dt>文档定位</dt>
+                      <dd>{run.request.document_model_selection ? modelSelectionLabel(run.request.document_model_selection) : "原生文字定位"}</dd>
                       <dt>引擎指纹</dt>
                       <dd className="mono">
                         {run.engine_fingerprint || "旧任务未记录"}

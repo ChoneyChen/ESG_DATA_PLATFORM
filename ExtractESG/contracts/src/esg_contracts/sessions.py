@@ -21,6 +21,7 @@ PHASE_LABELS = {
     "running": "正在执行",
     "retrieving": "检索条款证据",
     "reading": "阅读条款证据",
+    "locating_pages": "视觉定位相关页",
     "enriching": "补读上下文",
     "extracting": "绑定并保存原值",
     "finished": "执行结束",
@@ -59,6 +60,7 @@ class ExtractionPlanRequest(BaseModel):
     name: str = Field(default="条款提取", min_length=1, max_length=120)
     budget: PipelineBudget = Field(default_factory=PipelineBudget)
     model_selection: ModelSelection | None = None
+    document_model_selection: ModelSelection | None = None
     expected_target_digest: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     expected_engine_fingerprint: str | None = Field(
         default=None, pattern=r"^[a-f0-9]{64}$"
@@ -73,18 +75,21 @@ class ExtractionPlanRequest(BaseModel):
     @model_serializer(mode="wrap")
     def preserve_legacy_shape(self, serializer):
         body = serializer(self)
-        if self.model_selection is None:
-            body.pop("model_selection", None)
+        for key in ("model_selection", "document_model_selection"):
+            if getattr(self, key) is None:
+                body.pop(key, None)
         return body
 
-    def native(self, ir_id):
+    def native(self, ir_id=None):
         return RunRequest(
-            ir_run_id=ir_id,
+            ir_run_id=ir_id or self.input.ir_run_id,
+            asset_id=self.input.asset_id if not ir_id else None,
             clause_keys=self.clause_keys,
             selection=self.selection,
             name=self.name,
             budget=self.budget,
             model_selection=self.model_selection,
+            document_model_selection=self.document_model_selection,
         )
 
 

@@ -17,7 +17,7 @@ $ESG_DATA_ROOT/
     ir/<ir_run_id>/             文档模块拥有的IR包/修订
   extractions/<run_id>/
     input/                     请求、冻结条款、搜索计划、阅读策略
-    evidence/                  本任务实际使用的物理帧
+    input/pages.json           当前任务原生 PDF 页文字快照
     facts/                     单事实记录
     relations/                 单条款关系
     results/                   状态、检查点、索引及最终汇总
@@ -57,7 +57,7 @@ SQL权威为`database/migrations/`，连接/RPC归`database/runtime/`，查询�
 
 接收器解读ZIP清单、成员和两类值，保存原文及字段证据，返回accepted/partial/rejected及逐项处置。缺公司、期间、单位或边界不能当作拒绝真实原值的理由。当前解包上限由ingestion.py的MAX_ARCHIVE_BYTES定义（128MiB），不能返回悄悄截断的成功包。
 
-后台ProjectionWorker读取已接收的不可变输入，由projection.py生成观测及冻结产品定义。一个事实对多个条款的关系分别形成观测；物理occurrence身份辅助说明重复来源，不借此静默删掉跨报告原值。投影失败可重试，原值仍可查询。
+后台ProjectionWorker读取已接收的不可变输入，由projection.py生成观测及冻结产品定义。页级转录保留原 PDF SHA-256、页号及原值。一个事实对多个条款的关系分别形成观测；物理occurrence身份辅助说明重复来源，不借此静默删掉跨报告原值。投影失败可重试，原值仍可查询。
 
 比较资格单独表达eligible/reasons；缺身份、未知期间、未解析数值或关系非match等可能不能比较，但观测仍保留。目标固定轴和报告实际分类分别保存，历史实际值不自动变成baseline。
 

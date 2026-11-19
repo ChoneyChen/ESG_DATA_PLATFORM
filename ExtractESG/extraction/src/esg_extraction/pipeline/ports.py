@@ -1,25 +1,18 @@
 """Backbone dependencies are value interfaces; implementations own I/O."""
 
 from typing import Protocol
-from esg_contracts.evidence import (
-    DocumentReference,
-    SearchIntent,
-    ObjectReference,
-    EvidenceFrame,
-    ObjectSearchPage,
-)
+from esg_contracts.evidence import DocumentReference, PDFPageText
 
 
 class DocumentUnavailable(RuntimeError):
-    """Evidence transport stopped; it says nothing about report disclosure."""
+    """The document service could not supply the PDF source."""
 
 
 class DocumentPort(Protocol):
+    def pdf(self, asset_id: str) -> DocumentReference: ...
     def document(self, ir_run_id: str) -> DocumentReference: ...
-    def search_page(self, ir_run_id: str, intent: SearchIntent) -> ObjectSearchPage: ...
-    def read(
-        self, ir_run_id: str, reference: ObjectReference, chunk_index: int = 0
-    ) -> EvidenceFrame: ...
+    def pages(self, asset_id: str) -> list[PDFPageText]: ...
+    def image(self, asset_id: str, page_index: int, *, thumbnail: bool = False) -> bytes: ...
 
 
 class ModelPort(Protocol):
@@ -31,6 +24,7 @@ class ModelPort(Protocol):
         schema: dict,
         max_tokens: int,
         cancel_check,
+        images: tuple[bytes, ...] = (),
     ): ...
     def close(self): ...
 

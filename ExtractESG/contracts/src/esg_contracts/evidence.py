@@ -33,6 +33,7 @@ class DocumentReference(ProtocolModel):
     report_resource: ReportResource | None = None
     search_scope: dict | None = None
     period_context: ReportingPeriodContext | None = None
+    source_kind: Literal["pdf"] | None = None
 
     @property
     def snapshot_id(self):
@@ -47,8 +48,9 @@ class DocumentReference(ProtocolModel):
     @model_serializer(mode="wrap")
     def preserve_frozen_shape(self, serializer):
         body = serializer(self)
-        if self.period_context is None:
-            body.pop("period_context", None)
+        for key in ("period_context", "source_kind"):
+            if getattr(self, key) is None:
+                body.pop(key, None)
         return body
 
     def evidence_identity(self):
@@ -59,7 +61,13 @@ class DocumentReference(ProtocolModel):
             self.ir_revision,
             self.content_digest,
             self.limited_evidence,
+            self.source_kind,
         )
+
+
+class PDFPageText(ProtocolModel):
+    page_index: int = Field(ge=0)
+    text: str
 
 
 class SearchIntent(ProtocolModel):

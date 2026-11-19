@@ -11,7 +11,8 @@ from pydantic import BaseModel, Field, model_validator
 
 STAGE_LABELS = {
     "retrieving": "检索条款证据",
-    "reading": "阅读条款证据",
+    "reading": "读取 PDF 原页",
+    "locating_pages": "视觉定位报告页",
     "enriching": "补读可选属性",
     "extracting": "绑定条款事实",
     "clause_extraction": "逐条条款提取",

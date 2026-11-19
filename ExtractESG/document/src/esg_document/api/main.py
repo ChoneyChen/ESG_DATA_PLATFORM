@@ -74,7 +74,7 @@ from esg_document.api.library_deletion import library_deletion_router
 
 from esg_document.api.processing_status import processing_status_router
 
-from esg_document.storage.processing_lifecycle import ProcessingLifecycle
+from esg_document.storage.processing_lifecycle import ProcessingLifecycle, processing_lifecycle_router
 
 from esg_document.document.contracts import (
     DocumentIrBuildRequest,
@@ -565,6 +565,7 @@ processing_lifecycle = ProcessingLifecycle(
 )
 
 report_processing.lifecycle_actions = processing_lifecycle.describe
+app.include_router(processing_lifecycle_router(processing_lifecycle))
 
 
 @app.get("/api/report-assets")
@@ -1354,9 +1355,11 @@ def _pdf_preflight_summary(preflight: dict[str, object]) -> dict[str, object]:
 from esg_document.api.evidence import evidence_router
 from esg_reports.repository import ReportRepository
 from esg_document.api.report_resources import resource_router
+from esg_document.api.reading_pages import reading_pages_router
 
 report_resources = ReportRepository(settings.report_asset_root, registry=settings.report_registry_db)
 app.include_router(resource_router(report_assets, report_resources))
+app.include_router(reading_pages_router(report_assets, report_resources))
 
 
 def _resource_for_evidence(reference):

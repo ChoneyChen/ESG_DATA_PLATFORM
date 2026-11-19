@@ -122,6 +122,19 @@
           "default": null,
           "title": "Search Scope"
         },
+        "source_kind": {
+          "anyOf": [
+            {
+              "const": "pdf",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Kind"
+        },
         "source_sha256": {
           "anyOf": [
             {

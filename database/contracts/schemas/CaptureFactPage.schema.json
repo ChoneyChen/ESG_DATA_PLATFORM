@@ -128,7 +128,8 @@
             "cell",
             "text_block",
             "table",
-            "report"
+            "report",
+            "pdf_page"
           ],
           "title": "Object Type",
           "type": "string"
@@ -653,8 +654,11 @@
           "default": null
         },
         "schema_version": {
-          "const": "source-fact-2.0",
           "default": "source-fact-2.0",
+          "enum": [
+            "source-fact-2.0",
+            "source-fact-2.1"
+          ],
           "title": "Schema Version",
           "type": "string"
         },

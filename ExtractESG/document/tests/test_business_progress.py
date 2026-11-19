@@ -38,14 +38,15 @@ def production_extraction_stage_codes():
     from esg_runtime.layout import EXTRACT_ROOT
     root=EXTRACT_ROOT
     source=root/'extraction/src/esg_extraction/pipeline/engine.py'
-    return {v.value for node in ast.walk(ast.parse(source.read_text())) if isinstance(node,ast.Dict)
-            for k,v in zip(node.keys,node.values) if isinstance(k,ast.Constant) and k.value=='stage' and isinstance(v,ast.Constant) and isinstance(v.value,str)}
+    return {node.args[5].value for node in ast.walk(ast.parse(source.read_text()))
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+            and node.func.id == "call" and len(node.args) == 7}
 
 
 def test_all_actual_extraction_producer_stages_have_explicit_business_labels(tmp_path):
     from esg_runtime.progress import STAGE_LABELS
     codes = production_extraction_stage_codes()
-    assert {'retrieving','reading','extracting'} <= codes
+    assert codes == {"locating_pages", "reading"}
     missing = codes - set(STAGE_LABELS)
     assert not missing, f'Actual production stages lack Chinese labels: {sorted(missing)}'
     store = PipelineQueueStore(tmp_path/'queue.db')

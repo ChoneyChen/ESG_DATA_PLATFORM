@@ -12,7 +12,7 @@ from esg_contracts.facts import RunRequest
 from esg_data.organization import OrganizationSpec, OrganizedDataset
 from esg_runtime.local_operator import install_loopback_marker, operator_headers
 from esg_contracts.model_providers import ModelProviders, ModelSelection
-from .runtime import resources, engine_digest
+from .runtime import resources, engine_digest, input_document
 from .adapters.model_credentials import DeepSeekCredentialStore, MAX_KEY_LENGTH
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
@@ -51,11 +51,6 @@ class ExecutionTerminal(BaseModel):
     model_config = ConfigDict(extra="forbid")
     status: Literal["failed", "interrupted"]
     error: str = Field(max_length=1000)
-
-
-class ResumeRun(BaseModel):
-    ir_run_id: str | None = None
-    reason: str | None = None
 
 
 class RunStatusQuery(BaseModel):
@@ -143,7 +138,9 @@ def create_app(resource_factory=resources):
 
     def require_model_setup(request, store):
         selection = request.model_selection or ModelSelection()
-        if selection.provider == "deepseek":
+        if selection.provider == "deepseek" or (
+            request.document_model_selection and request.document_model_selection.provider == "deepseek"
+        ):
             try:
                 configured = DeepSeekCredentialStore(store).configured()
             except OSError:
@@ -303,7 +300,7 @@ def create_app(resource_factory=resources):
         repo, store, artifacts, documents = resource_factory()
         model_selection = require_model_setup(request, store)
         targets = selection(request, repo)
-        document = documents.document(request.ir_run_id)
+        document = input_document(documents, request)
         return {
             "engine_version": ENGINE_VERSION,
             "document": document,
@@ -311,6 +308,7 @@ def create_app(resource_factory=resources):
             "clause_count": len(targets),
             "budget": request.budget,
             "model_selection": model_selection,
+            "document_model_selection": request.document_model_selection,
             "calls_model": False,
         }
 
@@ -342,7 +340,7 @@ def create_app(resource_factory=resources):
             raise HTTPException(
                 409, "Frozen targets differ from selected independent clauses"
             )
-        document = documents.document(request.request.ir_run_id)
+        document = input_document(documents, request.request)
         return store.create(
             request.request,
             repo.freeze(targets),
@@ -395,7 +393,7 @@ def create_app(resource_factory=resources):
         )
 
     @app.post("/api/runs/{run_id}/resume", response_model=NativeRun)
-    def resume(run_id: str, request: ResumeRun):
+    def resume(run_id: str):
         require_current_engine()
         _, store, artifacts, documents = resource_factory()
         state = store.get(run_id)
@@ -405,31 +403,14 @@ def create_app(resource_factory=resources):
             raise HTTPException(409, "The extraction engine changed; create a new extraction")
         if (state.get("delivery") or {}).get("export_id"):
             raise HTTPException(409, "This extraction is sealed; create a new extraction")
-        need = state.get("evidence_request")
-        if not need and state["status"] not in {"interrupted", "failed", "cancelled"}:
+        if state["status"] not in {"interrupted", "failed", "cancelled"}:
             raise HTTPException(409, "Extraction is already running")
         require_model_setup(RunRequest.model_validate(state["request"]), store)
-        sources = dict(state.get("evidence_sources") or {})
-        from esg_contracts.evidence import DocumentReference
-        primary = DocumentReference.model_validate(state["document"])
-        sources.setdefault(primary.snapshot_id, primary.model_dump(mode="json"))
-        exhausted = dict(state.get("exhausted_queries") or {})
-        if request.ir_run_id:
-            additional = documents.document(request.ir_run_id)
-            if additional.source_sha256 != primary.source_sha256:
-                raise HTTPException(409, "Additional evidence belongs to a different PDF")
-            sources[additional.snapshot_id] = additional.model_dump(mode="json")
-        elif need:
-            exhausted[need["request_id"]] = request.reason or "No additional pages were located"
-        context_attempted = set(state.get("context_attempted",[]))
-        if need and need["phase"] == "context":
-            context_attempted.add(need["clause_key"])
         checkpoint = ResultStore(run_id, artifacts).checkpoint()
         store.progress(run_id, current_call=None, progress={"stage":"queued", "current":len(checkpoint.get("completed_clauses", [])),
             "model_calls":(state.get("summary") or {}).get("model_calls",0),
             "total":len(state["targets"]["clauses"]), "fact_count":(state.get("summary") or {}).get("source_facts",0)})
         return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
-            evidence_request=None, evidence_sources=sources, exhausted_queries=exhausted, context_attempted=sorted(context_attempted),
             cancel_requested=False, error=None, finished_at=None)
 
     @app.post("/api/runs/{run_id}/execution-terminal")

@@ -68,47 +68,58 @@ def model_for(selection, store):
     )))
 
 
+def input_document(documents, request):
+    return documents.pdf(request.asset_id) if request.asset_id else documents.document(request.ir_run_id)
+
+
 def execute(run_id, *, model=None):
     from esg_contracts.facts import RunRequest
     from esg_contracts.evidence import DocumentReference
-    from .engine import ExtractionBackbone, PipelineCancelled, EvidenceNeeded, ExecutionYield, ENGINE_VERSION
+    from .engine import ExtractionBackbone, PipelineCancelled, ExecutionYield, ENGINE_VERSION
     from .result_store import ResultStore
     from .ports import DocumentUnavailable
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
+    document_model = None
     try:
         fingerprint = engine_digest()
         if state.get("engine_fingerprint") != fingerprint:
             raise ValueError(
                 "Extraction code changed after run creation; submit a new run"
             )
-        actual = documents.document(state["request"]["ir_run_id"])
+        request = RunRequest.model_validate(state["request"])
+        actual = input_document(documents, request)
         frozen_document = DocumentReference.model_validate(state["document"])
         if actual.evidence_identity() != frozen_document.evidence_identity():
             raise ValueError(
                 "Document evidence changed after run creation; submit a new run"
             )
-        request = RunRequest.model_validate(state["request"])
         if model is None:
             model = model_for(request.model_selection, store)
         model.progress_callback = lambda event: store.progress(run_id, current_call=event)
         identity = {"version": ENGINE_VERSION, "fingerprint": fingerprint}
         if request.model_selection is not None:
             identity["model_selection"] = request.model_selection.model_dump(mode="json")
+        if request.document_model_selection is not None:
+            from esg_contracts.model_providers import ModelSelection
+
+            selection = request.document_model_selection
+            document_model = model if selection == (request.model_selection or ModelSelection()) else model_for(selection, store)
+            document_model.progress_callback = model.progress_callback
+            identity["document_model_selection"] = selection.model_dump(mode="json")
         body = ExtractionBackbone(
             documents,
             model,
             artifacts,
             ResultStore(run_id, artifacts),
             engine_identity=identity,
+            document_model=document_model,
         ).run(
             run_id,
             request,
             repo.thaw(state["targets"]),
             document=frozen_document,
-            sources={key: DocumentReference.model_validate(value) for key,value in state.get("evidence_sources",{}).items()},
-            exhausted_queries=state.get("exhausted_queries",{}),
             cancel_check=lambda: store.is_cancelled(run_id),
             on_progress=lambda event: store.progress(run_id, progress=event),
         )
@@ -145,19 +156,10 @@ def execute(run_id, *, model=None):
         summary = status.get('summary') or {}
         checkpoint = ResultStore(run_id,artifacts).checkpoint()
         store.progress(run_id,current_call=None,progress={'stage':'queued','current':len(checkpoint.get('completed_clauses',[])),
-            'total':len(state['targets']['clauses']),'model_calls':summary.get('model_calls',0),
+            'total':len(state['targets']['clauses']),'model_calls':checkpoint.get('calls',0),
             'fact_count':summary.get('source_facts',0)})
         return store.update(run_id,status='queued',worker_pid=None,worker_started=None,
             execution_continues=True,summary=summary)
-    except EvidenceNeeded as exc:
-        status = ResultStore(run_id, artifacts).status() or {}
-        checkpoint = ResultStore(run_id, artifacts).checkpoint()
-        store.progress(run_id, current_call=None, progress={"stage":"preparing", "clause_key":exc.request.clause_key,
-            "current":len(checkpoint.get("completed_clauses", [])), "total":len(state["targets"]["clauses"]),
-            "model_calls":(status.get("summary") or {}).get("model_calls",0),
-            "fact_count":(status.get("summary") or {}).get("source_facts",0)})
-        return store.update(run_id, worker_pid=None, worker_started=None,
-            evidence_request=exc.request.model_dump(mode="json"),summary=status.get("summary"))
     except DocumentUnavailable as exc:
         return store.update(run_id, status="interrupted", worker_pid=None, worker_started=None,
             error=str(exc), summary=(ResultStore(run_id, artifacts).status() or {}).get("summary"))
@@ -169,5 +171,7 @@ def execute(run_id, *, model=None):
         )
         raise
     finally:
+        if document_model is not None and document_model is not model:
+            document_model.close()
         if model is not None:
             model.close()

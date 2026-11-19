@@ -1,4 +1,4 @@
-"""PDF preparation → independent clause run. Orchestration owns neither reader nor clauses."""
+"""Queue independent clause reads of registered PDFs or existing IR references."""
 
 import json, threading, shutil
 from uuid import uuid4
@@ -14,15 +14,7 @@ from esg_contracts.sessions import (
     PHASE_LABELS,
 )
 from datetime import datetime, timezone
-from esg_contracts.search import PageSearchIntent
-from esg_clauses.repository import ClauseRepository
-from esg_clauses.search import compile_search_plan
-from .report_processing import (
-    ProcessingRequest,
-    ProcessingConfig,
-    ProcessingActionRequest,
-    STAGE_LABELS,
-)
+from .report_processing import ProcessingActionRequest, STAGE_LABELS
 from .context import dispatch_key
 
 
@@ -31,7 +23,7 @@ class ExtractionServiceUnavailable(ConnectionError):
 
 
 class ExtractionCoordinator:
-    def __init__(self, store, processing, queue, cancel_task, base_url, document_url="http://127.0.0.1:18080"):
+    def __init__(self, store, processing, queue, cancel_task, base_url):
         self.store, self.processing, self.queue, self.cancel_task = (
             store,
             processing,
@@ -39,7 +31,6 @@ class ExtractionCoordinator:
             cancel_task,
         )
         self.base_url = base_url.rstrip("/")
-        self.document_url = document_url.rstrip("/")
         self._stop = threading.Event()
         self._thread = None
         self._lock = threading.RLock()
@@ -48,13 +39,13 @@ class ExtractionCoordinator:
                 "CREATE TABLE IF NOT EXISTS clause_extraction_plans (id TEXT PRIMARY KEY, body TEXT NOT NULL)"
             )
 
-    def remote(self, method, path, payload=None, *, base_url=None):
+    def remote(self, method, path, payload=None):
         try:
             with requests.Session() as session:
                 session.trust_env = False
                 response = session.request(
                     method,
-                    (base_url or self.base_url) + path,
+                    self.base_url + path,
                     json=payload,
                     timeout=5 if method == "GET" else 30,
                 )
@@ -168,9 +159,7 @@ class ExtractionCoordinator:
             return {"session_ids": [state["session_id"] for state in states], "purged": True}
 
     def preview(self, request):
-        native = request.native(
-            request.input.ir_run_id or "awaiting-document-preparation"
-        )
+        native = request.native()
         snapshot = self.remote(
             "POST", "/api/targets/freeze", native.model_dump(mode="json")
         )
@@ -206,6 +195,7 @@ class ExtractionCoordinator:
             "calls_model": False,
             "budget": request.budget.model_dump(),
             "model_selection": (request.model_selection or ModelSelection()).model_dump(mode="json"),
+            "document_model_selection": request.document_model_selection.model_dump(mode="json") if request.document_model_selection else None,
             "engine_fingerprint": engine["fingerprint"],
             "engine_version": engine["version"],
         }
@@ -235,7 +225,7 @@ class ExtractionCoordinator:
             "session_id": key,
             "name": request.name,
             "status": "queued",
-            "stage": "preparing" if request.input.kind == "pdf" else "extracting",
+            "stage": "extracting",
             "request": request.model_dump(mode="json"),
             "target_snapshot": preview["targets"],
             "source_sha256": preview["source_sha256"],
@@ -458,39 +448,6 @@ class ExtractionCoordinator:
                     pass  # The child may have returned while cancellation propagated.
         return active
 
-    def _prepare_more(self, state, run, request):
-        need = run["evidence_request"]
-        if state.get("expansion_request") != need["request_id"]:
-            try:
-                located = self.remote("POST", f"/api/evidence/{need['source_ir_run_id']}/locate-pages",
-                    {"target":need["intent"], "excluded_pages":need["excluded_pages"], "limit":need.get("max_pages",4)},
-                    base_url=self.document_url)
-            except ValueError as exc:
-                located = {"page_indices":[],"reason":str(exc)}
-            asset_id = request.input.asset_id or ((run.get("document") or {}).get("report_resource") or {}).get("asset_id")
-            if not located["page_indices"] or not asset_id:
-                self.remote("POST", f"/api/runs/{state['run_id']}/resume", {"reason":located["reason"]})
-                state.update(queue_task_id=None, stage="extracting", execution_index=state.get("execution_index",0)+1)
-                self.save(state)
-                return
-            process = self.processing.create(ProcessingRequest(asset_id=asset_id, mode="auto",
-                source_sha256=(run.get("document") or {}).get("source_sha256"),
-                submission_key=f"{state['session_id']}:{need['request_id']}",
-                config=ProcessingConfig(page_indices=sorted(set(located["page_indices"]) | set(located.get("context_page_indices",[]))), ocr_provider="local_paddleocr",
-                    allow_cloud_ocr=False,execute_required_reviews=False,execute_optional_reviews=False)))
-            state.update(processing_id=process["processing_id"], expansion_request=need["request_id"],stage="preparing")
-            self.save(state)
-        process = self.processing.get(state["processing_id"])
-        if process["status"] in {"ready", "ready_with_limits"}:
-            self.store.pin_ir(state["session_id"], process["ir_run_id"])
-            self.remote("POST",f"/api/runs/{state['run_id']}/resume", {"ir_run_id":process["ir_run_id"]})
-        elif process["status"] in {"failed", "interrupted", "cancelled", "needs_attention"}:
-            self.remote("POST",f"/api/runs/{state['run_id']}/resume", {"reason":"Additional document preparation did not produce evidence"})
-        else:
-            return
-        state.update(queue_task_id=None, stage="extracting", execution_index=state.get("execution_index",0)+1)
-        self.save(state)
-
     def tick(self, state, run_record=None):
         if state["status"] == "cancelling":
             self._cancel_children(state)
@@ -503,54 +460,10 @@ class ExtractionCoordinator:
             return
         state.pop("observation_error", None)
         request = ExtractionPlanRequest.model_validate(state["request"])
-        if not state["ir_run_id"]:
-            if not state["processing_id"]:
-                clauses = ClauseRepository.thaw(state["target_snapshot"])
-                targets = [
-                    PageSearchIntent.model_validate(compile_search_plan(c)["page"])
-                    for k, c in clauses.items()
-                ]
-                process = self.processing.create(
-                    ProcessingRequest(
-                        asset_id=request.input.asset_id,
-                        mode="auto",
-                        source_sha256=state["source_sha256"],
-                        submission_key=state["session_id"],
-                        config=ProcessingConfig(
-                            page_selection="clauses",
-                            page_search_targets=targets,
-                            ocr_provider="local_paddleocr",
-                            allow_cloud_ocr=False,
-                            execute_required_reviews=False,
-                            execute_optional_reviews=False,
-                            review_provider="local_qwen",
-                        ),
-                    )
-                )
-                state["processing_id"] = process["processing_id"]
-                state["status"] = "running"
-                self.save(state)
-            process = self.processing.get(state["processing_id"])
-            if process["status"] in {
-                "failed",
-                "cancelled",
-                "interrupted",
-                "needs_attention",
-            }:
-                state.update(
-                    status="failed",
-                    error="Document preparation did not produce admissible evidence",
-                    processing_status=process["status"],
-                )
-                self.save(state)
-                return
-            if process["status"] not in {"ready", "ready_with_limits"}:
-                return
-            state["ir_run_id"] = process["ir_run_id"]
-            self.save(state)
         if not state["run_id"]:
-            self.store.pin_ir(state["session_id"], state["ir_run_id"])
-            native = request.native(state["ir_run_id"]).model_copy(
+            if state["ir_run_id"]:
+                self.store.pin_ir(state["session_id"], state["ir_run_id"])
+            native = request.native().model_copy(
                 update={
                     "clause_keys": list(state["target_snapshot"]["clauses"]),
                     "selection": None,
@@ -575,9 +488,6 @@ class ExtractionCoordinator:
             # Confirm the native run still requests another slice before
             # dispatching it from a snapshot taken before that child exited.
             run = self.remote("GET", f"/api/runs/{state['run_id']}")
-        if run.get("evidence_request"):
-            self._prepare_more(state, run, request)
-            return
         if run["status"] == "queued" and (previous is None or previous.status.value not in {"queued", "running"}):
             if previous is not None:
                 state['execution_index'] = state.get('execution_index',0)+1

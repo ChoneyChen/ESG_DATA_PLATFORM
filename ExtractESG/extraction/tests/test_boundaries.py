@@ -8,8 +8,6 @@ from esg_extraction.pipeline.state import RunStore
 from esg_extraction.pipeline.api import create_app
 from esg_contracts.facts import RunRequest
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
-from esg_extraction.pipeline.decisions import NumericMatch,StatementMatch
-from esg_extraction.pipeline.binding import numeric_fact,qualitative_fact
 from esg_contracts.evidence import SearchIntent
 from test_backbone import documents,repository,quantitative,ROOT,run_backbone
 
@@ -135,36 +133,6 @@ def test_candidate_diagnostics_keep_existing_row_span_and_literal_records(tmp_pa
     assert artifacts.read(run_id, path) == rows
 
 
-def test_reading_rejection_preserves_raw_value_as_a_different_mapping(documents,repository):
-    c=repository.get('E3-4_01') # Water clause deliberately applied to an energy row.
-    intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0]
-    cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test'),row,cell,'interpretation')
-    assert fact.value.value_raw=='1,234.50'
-    assert mapping.match=='different'
-    assert 'rejected' not in fact.flags and 'unit_is_intensity' not in fact.flags
-    from esg_contracts.facts import SourceFact
-    extended=SourceFact.model_validate({**fact.model_dump(mode='json'),'future_source_note':{'method':'printed'}})
-    assert extended.extensions['future_source_note']=={'method':'printed'}
-    assert not mapping.scope_ids
-
-def test_invented_identity_does_not_pollute_source_facts(documents,repository):
-    c=quantitative(repository)
-    intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    match=NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='test',identity=[{'axis':'reporting_entity','value':'Invented Group','quote':'not printed','source_id':row.row_id}])
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,match,row,cell,'interpretation')
-    assert fact.identity.reporting_entity.state=='not_read'
-    assert fact.identity.reporting_period.value=='2025'
-    assert mapping.match=='match'  # Rejected optional identity does not reject the measurement.
-    assert 'unbound_identity:reporting_entity' in fact.extensions['identity_attempts']
-
-def test_statement_requires_a_unique_literal_source(documents,repository):
-    c=repository.get('E2-4_09');intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='qualitative',positive_terms=['管理制度'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);span=frame.texts[0]
-    with pytest.raises(ValueError):qualitative_fact(c,documents.document('ir-example'),frame,StatementMatch(span_id=span.span_id,quote='model paraphrase',reason='test'),'i')
-
 def test_independent_clause_edit_does_not_mutate_neighbors(tmp_path,repository):
     for key in ['E1-5_01','E1-5_05']:
         c=repository.get(key);p=tmp_path/c.group_id/key;p.mkdir(parents=True);(p/'clause.json').write_text(c.model_dump_json())
@@ -222,76 +190,6 @@ def test_repository_concurrent_saves_have_one_winner(tmp_path,repository):
     assert not list(tmp_path.rglob('*.tmp'))
 
 
-def test_literal_binding_preserves_whitespace_and_actual_cell_page(documents,repository):
-    root=documents.resolve('ir-example');table=json.loads((root/'table.json').read_text())
-    cell=next(c for c in table['cells'] if c['cell_id']=='t:r1c1')
-    cell.update(text=' 1,234.50\n',page_index=1)
-    (root/'table.json').write_text(json.dumps(table))
-    c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=next(r for r in frame.rows if r.row_id.endswith(':r1')) if any(r.row_id.endswith(':r1') for r in frame.rows) else frame.rows[0]
-    value=next(v for v in row.cells if v.cell_id=='t:r1c1')
-    fact,_,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='literal'),row,value,'test')
-    assert fact.value.value_raw==' 1,234.50\n'
-    assert fact.evidence[0].page_index==1 and fact.evidence[0].object_id=='t:r1c1'
-    assert fact.identity.reporting_period.evidence[0].object_id=='t:r0c1'
-    from esg_contracts.facts import SourceFact
-    altered=fact.model_dump(mode='json');altered['value']['value_raw']='invented'
-    with pytest.raises(ValueError,match='exact raw value'):SourceFact.model_validate(altered)
-
-
-@pytest.mark.parametrize('header,quarter',[('2025 Q2',2),('2025年第四季度',4)])
-def test_quarter_headers_are_not_annualized(documents,repository,header,quarter):
-    root=documents.resolve('ir-example');path=root/'table.json';table=json.loads(path.read_text())
-    next(c for c in table['cells'] if c['cell_id']=='t:r0c1')['text']=header
-    path.write_text(json.dumps(table))
-    c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='period'),row,cell,'test')
-    assert fact.identity.reporting_period.value=={'kind':'quarter','year':2025,'quarter':quarter,'raw':header}
-    assert not mapping.scope_ids
-
-
-def test_text_character_offsets_bind_unnormalized_ir_text(documents,repository):
-    root=documents.resolve('ir-example');path=root/'page.json';page=json.loads(path.read_text())
-    raw='  我们已实施\n污染物排放管理制度，  定期监测。'
-    page['blocks'][0]['text']=raw;path.write_text(json.dumps(page))
-    c=repository.get('E2-4_09');intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='qualitative',positive_terms=['管理制度'],source_priority=['text'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);span=frame.texts[0]
-    fact,_,_=qualitative_fact(c,documents.document('ir-example'),frame,StatementMatch(span_id=span.span_id,quote='污染物排放管理制度，  定期监测。',reason='literal'),'test')
-    evidence=fact.evidence[0]
-    assert raw[evidence.char_start:evidence.char_end]==fact.value.statement_raw
-
-
-@pytest.mark.parametrize('raw,comparator',[('>3','greater_than'),('≥3','at_least'),('<3','less_than'),('≤3','at_most'),('小于3','less_than')])
-def test_comparators_keep_open_and_closed_bounds_distinct(raw,comparator):
-    from esg_extraction.pipeline.binding import _number
-    parsed,actual,_=_number(raw)
-    assert actual==comparator and (parsed['lower'] or parsed['upper'])==3
-
-
-def test_clause_evidence_is_evaluated_without_dropping_raw_facts(documents,repository):
-    c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0]);row=frame.rows[0];cell=next(v for v in row.cells if v.column_id=='c1')
-    fact,mapping,_=numeric_fact(c,documents.document('ir-example'),frame,NumericMatch(selection="measurement",row_id=row.row_id,columns=['c1'],reason='literal'),row,cell,'test')
-    assert fact.value.value_raw=='1,234.50'
-    assert 'clause_evidence_missing:unit:row' in mapping.flags  # This fixture has no physically bound unit.
-    assert mapping.match=='match'  # Comparison proof is independent of reception.
-
-
-def test_model_failure_keeps_partial_diagnostic_and_never_invents_a_fact(documents,repository,tmp_path):
-    from esg_extraction.models.errors import ModelRunFailure
-    from esg_extraction.pipeline.engine import ExtractionBackbone
-    class Incomplete:
-        def complete(self,**kwargs):
-            raise ModelRunFailure('token budget',category='generation_incomplete',raw_output='{"matches":[',telemetry={'finish_reason':'length'})
-    c=quantitative(repository);artifacts=FileArtifactPort(tmp_path/'out')
-    result=run_backbone(documents,Incomplete(),artifacts,'failure',RunRequest(ir_run_id='ir-example',clause_keys=[c.clause_key]),{c.clause_key:c})
-    assert not result['facts'] and result['coverage'][0]['state']=='not_covered'
-    diagnostic=artifacts.read('failure','diagnostics/model-calls.json')[0]
-    assert diagnostic['failure_category']=='generation_incomplete'
-    assert diagnostic['incomplete_output']=='{"matches":['
-
-
 def test_ir_structural_cache_cannot_hide_an_evidence_file_edit(documents):
     before=documents.document('ir-example')
     path=documents.resolve('ir-example')/'page.json';body=json.loads(path.read_text());body['blocks'][0]['text']+='新证据';path.write_text(json.dumps(body))
@@ -304,17 +202,6 @@ def test_document_checkout_discovery_does_not_require_a_clause_catalog(tmp_path)
     (tmp_path/'ExtractESG').mkdir();(tmp_path/'PlatESG').mkdir()
     anchor=tmp_path/'ExtractESG'/'some'/'module.py'
     assert project_root(anchor)==tmp_path
-
-
-def test_model_reference_schema_excludes_target_and_resource_metadata(documents,repository):
-    from esg_extraction.pipeline.decisions import decision_schema
-    c=quantitative(repository);intent=SearchIntent(target_id=c.clause_key,contract_digest=c.clause_digest,data_kind='quantitative',positive_terms=['能源'])
-    frame=documents.read('ir-example',documents.search('ir-example',intent)[0])
-    schema=decision_schema('quantitative',frame)
-    proposal=schema['properties']['matches']['items']['properties']
-    assert 'identity' not in proposal
-    assert proposal['row_id']['enum']==[r.row_id for r in frame.rows]
-    assert proposal['columns']['items']['enum']==sorted({cell.column_id for row in frame.rows for cell in row.cells})
 
 
 def test_mutable_report_labels_do_not_replace_the_frozen_reading_context(documents,repository,tmp_path,monkeypatch):

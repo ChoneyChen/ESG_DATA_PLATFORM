@@ -22,9 +22,11 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     document = DocumentReference(
         document_id="synthetic-sdk-check",
-        ir_run_id="ir-sdk-check",
+        ir_run_id="pdf-" + "a" * 64,
         ir_revision=1,
         content_digest="a" * 64,
+        source_sha256="a" * 64,
+        source_kind="pdf",
     )
 
     class Port(BaseHTTPRequestHandler):
@@ -32,21 +34,12 @@ def main():
             pass
 
         def do_GET(self):
-            self.reply(document.model_dump(mode="json"))
-
-        def do_POST(self):
-            self.rfile.read(int(self.headers.get("Content-Length", 0)))
-            self.reply(
-                {
-                    "schema_version": "object-search-page-1.0",
-                    "objects": [],
-                    "total": 0,
-                    "returned": 0,
-                    "next_cursor": None,
-                    "query_digest": "b" * 64,
-                    "scope": {"kind": "explicit_empty_test_port"},
-                }
-            )
+            if self.path.endswith("/reading-source"):
+                self.reply(document.model_dump(mode="json"))
+            elif self.path.endswith("/reading-pages"):
+                self.reply([])
+            else:
+                self.send_error(404)
 
         def reply(self, body):
             value = json.dumps(body).encode()
@@ -70,7 +63,7 @@ def main():
         repo.reindex()
         store = RunStore(work / "control/extractions.sqlite3")
         state = store.create(
-            RunRequest(ir_run_id=document.ir_run_id, clause_keys=[clause.clause_key]),
+            RunRequest(asset_id="pdf-" + "a" * 24, clause_keys=[clause.clause_key]),
             repo.freeze(repo.select([clause.clause_key])),
             document.model_dump(mode="json"),
             engine_fingerprint=engine_digest(),

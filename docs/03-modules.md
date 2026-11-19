@@ -39,6 +39,7 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 | 路径/文件 | 责任 |
 |---|---|
 | `api/main.py`、`config.py` | 文档应用入口与配置；Console组合根在Console模块，不是领域逻辑 |
+| `api/reading_pages.py` | 按资源提供冻结 PDF 身份、原生文字与原页图像；提供定位缩略图 |
 | `assets/report_catalog.py`、`api/report_resources.py` | PDF字节、资源元数据、文件夹和散列读取 |
 | `ocr/page_selection.py`、`text_layer.py`、`pdf_preflight.py` | 消费页查询、原生文字检查、必要识别范围；按实际字形基线、表格横线恢复表头和rowspan |
 | `ocr/local_worker.py`、`providers.py`、`output_writer.py` | OCR/布局提供者执行、适配和当前包写入 |
@@ -62,13 +63,7 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 | 文件 | 责任 |
 |---|---|
 | `api.py` | 条款/目标冻结/原生运行/结果/导出HTTP |
-| `engine.py` | 组合搜索、阅读、绑定和保存；不另设指标目录 |
-| `reading_policy.py` | 局部候选、补页、可选属性额度；命中对象及尝试进度 |
-| `retrieval.py`、`selection.py` | 有界候选流与条款正向阅读条件消费 |
-| `reading_frame.py`、`decisions.py`、`frames.py` | 紧凑输入、两类引用输出协议和分段；引用枚举及数组上限由实际单元格、列和来源集合生成 |
-| `numeric_context.py` | 按文档提供的强关联回绑完整标签组，验证单位片段的适用范围；未证明的局部关系保留uncertain |
-| `structure.py`、`period_binding.py`、`binding.py`、`quotation.py` | 已知列语义、期间、实际数值/引句及字段证据绑定 |
-| `enrichment.py` | 已准备证据上的可选属性补充；不生成量值 |
+| `engine.py` | 合并同页目标，按原页读取定量和定性原值及可选属性；统一保存关系、覆盖和进度 |
 | `statistics.py`、`result_store.py` | 增量计数、结果索引、检查点和分页 |
 | `organization.py` | 依冻结条款生成行表/分组/矩阵，不聚合出新测量 |
 | `exporting.py`、`delivery.py` | 自包含交接包与交付outbox，接收回执和重试 |
@@ -79,7 +74,7 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 
 ## ExtractESG/pipeline与shared_runtime（RQ-08、09）
 
-`esg_pipeline/report_processing.py`生成准备计划；`extraction.py`冻结会话、连接准备与阅读、取消子任务并续跑；`scheduler.py`拥有排队与调度；`native_dispatch.py`/`worker.py`分派实际worker；`store.py`持久化任务与事件；`progress.py`/`outcomes.py`组合进度和终态。编排不能编造事实或改条款含义。
+`esg_pipeline/report_processing.py`生成准备计划；`extraction.py`冻结会话、直接调度阅读、取消子任务并续跑；`scheduler.py`拥有排队与调度；`native_dispatch.py`/`worker.py`分派实际worker；`store.py`持久化任务与事件；`progress.py`/`outcomes.py`组合进度和终态。编排不能编造事实或改条款含义。
 
 `esg_runtime/execution_slot.py`拥有共享执行锁；`process.py`/`lifecycle.py`拥有进程生命周期；`model_calls.py`拥有统一调用信封；`release.py`拥有代码指纹/服务身份；`layout.py`只负责组合根路径；`power.py`限制任务期空闲休眠；`trash.py`提供通用生命周期工具。
 

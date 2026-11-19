@@ -152,7 +152,8 @@
             "cell",
             "text_block",
             "table",
-            "report"
+            "report",
+            "pdf_page"
           ],
           "title": "Object Type",
           "type": "string"

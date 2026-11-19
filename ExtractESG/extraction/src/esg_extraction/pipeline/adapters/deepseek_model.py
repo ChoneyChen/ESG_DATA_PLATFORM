@@ -1,8 +1,10 @@
-"""DeepSeek transport for existing text-only extraction decisions."""
+"""DeepSeek transport for text and Flash page images."""
 
 from __future__ import annotations
 
 import asyncio
+from base64 import b64encode
+from hashlib import sha256
 import json
 import time
 
@@ -46,6 +48,7 @@ class DeepSeekModel:
         if model_id not in DEEPSEEK_MODELS or not api_key.strip():
             raise ModelRunFailure("DeepSeek model or API key is missing or invalid", category="request_config")
         self.model_id = model_id
+        self.accepts_images = model_id == "deepseek-flash"
         self._api_key = api_key
         self.max_tokens = max_tokens
         self.timeout_seconds = timeout_seconds
@@ -109,14 +112,16 @@ class DeepSeekModel:
             raise ModelRunFailure("DeepSeek response has no single decision", category="provider_protocol")
         choice = choices[0]
         reason = choice.get("finish_reason")
+        message = choice.get("message")
+        content = message.get("content") if isinstance(message, dict) else None
         if reason in ("stop", "length", "aborted", "content_filter", "tool_calls", "insufficient_system_resource"):
             telemetry["finish_reason"] = reason
         if reason == "length":
-            raise ModelRunFailure("DeepSeek reached the output token limit", category="generation_incomplete")
+            usable_prefix = content if isinstance(content, str) and self._api_key not in content else ""
+            raise ModelRunFailure("DeepSeek reached the output token limit", category="generation_incomplete",
+                                  cleaned_output=usable_prefix)
         if reason != "stop":
             raise ModelRunFailure("DeepSeek stopped without a complete decision", category="provider_protocol")
-        message = choice.get("message")
-        content = message.get("content") if isinstance(message, dict) else None
         if not isinstance(content, str) or not content.strip():
             raise ModelRunFailure("DeepSeek returned empty decision content", category="generation_incomplete")
         try:
@@ -132,7 +137,7 @@ class DeepSeekModel:
             raise ModelRunFailure("DeepSeek decision does not match the output schema", category="invalid_model_output") from None
         return result
 
-    def complete(self, *, instructions, context, schema, max_tokens, cancel_check):
+    def complete(self, *, instructions, context, schema, max_tokens, cancel_check, images=()):
         started = time.perf_counter()
         execution = context.get("execution", {})
         evidence = json.dumps({key: value for key, value in context.items() if key != "execution"},
@@ -141,12 +146,12 @@ class DeepSeekModel:
         receipt = prepare_call(ModelCallRequest(
             run_id=execution.get("run_id"), evidence_ids=execution.get("evidence_ids", []),
             attempt=execution.get("attempt", 0), parent_task_id=execution.get("parent_task_id"),
-            task_type=execution.get("task_type", "structured_reading"), input_modalities=["text"],
-            prompt_digest=content_digest([instructions, evidence]), schema_digest=content_digest(schema),
+            task_type=execution.get("task_type", "structured_reading"), input_modalities=["text", "image"] if images else ["text"],
+            prompt_digest=content_digest([instructions, evidence, *[sha256(image).hexdigest() for image in images]]), schema_digest=content_digest(schema),
             requested_output_tokens=max_tokens,
             requested_timeout_seconds=execution.get("remaining_seconds", self.timeout_seconds),
         ), ModelCapabilities(
-            provider=self.provider_name, model=self.model_id, input_modalities=["text"],
+            provider=self.provider_name, model=self.model_id, input_modalities=["text", "image"] if self.accepts_images else ["text"],
             max_output_tokens=self.max_tokens, timeout_seconds=self.timeout_seconds,
             output_constraint="prompt_schema",
         ))
@@ -164,8 +169,13 @@ class DeepSeekModel:
             if self.progress_callback:
                 self.progress_callback({"phase": "prefill", "input_chars": len(prompt), "generation_tokens": 0,
                                         "output_token_budget": receipt.effective_output_tokens})
+            content = prompt if not images else [
+                *[{"type": "image_url", "image_url": {"url": "data:image/jpeg;base64," +
+                    b64encode(image).decode("ascii"), "detail": "high"}} for image in images],
+                {"type": "text", "text": prompt},
+            ]
             payload = {
-                "model": self.model_id, "messages": [{"role": "user", "content": prompt}],
+                "model": self.model_id, "messages": [{"role": "user", "content": content}],
                 "max_tokens": receipt.effective_output_tokens, "temperature": 0.0,
                 "thinking": {"type": "disabled"}, "response_format": {"type": "json_object"},
             }

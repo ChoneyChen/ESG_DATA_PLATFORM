@@ -16,7 +16,7 @@ class FrozenModel(BaseModel):
 
 class EvidenceLocation(FrozenModel):
     object_id: str = Field(min_length=1)
-    object_type: Literal["cell", "text_block", "table", "report"]
+    object_type: Literal["cell", "text_block", "table", "report", "pdf_page"]
     page_index: int | None = Field(default=None, ge=0)
     excerpt: str = Field(min_length=1)
     role: Literal[
@@ -108,7 +108,7 @@ class QualitativePayload(QualitativeValue):
 
 
 class SourceFact(FrozenModel):
-    schema_version: Literal["source-fact-2.0"] = "source-fact-2.0"
+    schema_version: Literal["source-fact-2.0", "source-fact-2.1"] = "source-fact-2.0"
     source_fact_id: str
     source_anchor_id: str
     document_id: str
@@ -133,6 +133,10 @@ class SourceFact(FrozenModel):
 
     @model_validator(mode="after")
     def literal_evidence(self):
+        if self.schema_version == "source-fact-2.1":
+            if not any(item.object_type == "pdf_page" for item in self.evidence):
+                raise ValueError("A page transcription needs its PDF page")
+            return self
         role = "value" if self.value.kind == "quantitative" else "statement"
         raw = self.value.value_raw if role == "value" else self.value.statement_raw
         if not any(
@@ -217,22 +221,29 @@ class PipelineBudget(FrozenModel):
 
 
 class RunRequest(FrozenModel):
-    ir_run_id: str = Field(min_length=1)
+    ir_run_id: str | None = Field(default=None, min_length=1)
+    asset_id: str | None = Field(default=None, min_length=1)
     clause_keys: list[str] = Field(default_factory=list)
     selection: str | None = None
     name: str = Field(default="报告提取", min_length=1, max_length=120)
     budget: PipelineBudget = Field(default_factory=PipelineBudget)
     model_selection: ModelSelection | None = None
+    document_model_selection: ModelSelection | None = None
 
     @model_serializer(mode="wrap")
     def preserve_legacy_shape(self, serializer):
         body = serializer(self)
-        if self.model_selection is None:
-            body.pop("model_selection", None)
+        for key in ("ir_run_id", "asset_id", "model_selection", "document_model_selection"):
+            if getattr(self, key) is None:
+                body.pop(key, None)
         return body
 
     @model_validator(mode="after")
     def one_selection(self):
         if bool(self.clause_keys) == bool(self.selection):
             raise ValueError("Provide clause identities or one named selection")
+        if bool(self.asset_id) == bool(self.ir_run_id):
+            raise ValueError("Provide one PDF asset or one existing IR identity")
+        if self.document_model_selection and self.document_model_selection.model == "deepseek-v4-pro":
+            raise ValueError("Document image reading requires DeepSeek Flash or local Qwen")
         return self

@@ -135,6 +135,7 @@
 | [ExtractESG/document/src/esg_document/api/main.py](../../ExtractESG/document/src/esg_document/api/main.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/document/src/esg_document/api/operator_auth.py](../../ExtractESG/document/src/esg_document/api/operator_auth.py) | Local operator boundary. Document operations do not depend on Plat or a token file. |
 | [ExtractESG/document/src/esg_document/api/processing_status.py](../../ExtractESG/document/src/esg_document/api/processing_status.py) | Small read projection for the global processing window, no execution owner. |
+| [ExtractESG/document/src/esg_document/api/reading_pages.py](../../ExtractESG/document/src/esg_document/api/reading_pages.py) | Direct access to the original PDF's page text and pixels. |
 | [ExtractESG/document/src/esg_document/api/report_processing.py](../../ExtractESG/document/src/esg_document/api/report_processing.py) | Report-processing routes, separate from extraction and service readiness. |
 | [ExtractESG/document/src/esg_document/api/report_resources.py](../../ExtractESG/document/src/esg_document/api/report_resources.py) | Report resource metadata and batch intake. The report module owns these files. |
 | [ExtractESG/document/src/esg_document/assets/__init__.py](../../ExtractESG/document/src/esg_document/assets/__init__.py) | Local report-asset catalog owned by the development workbench. |
@@ -311,49 +312,34 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py) | One extraction backbone, independent clause goals, two produced data kinds. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py) | Local implementations of pipeline ports; storage locations stay here. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py) | Artifacts are a producer-owned store addressed by run and artifact IDs. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py) | DeepSeek transport for existing text-only extraction decisions. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py) | HTTP document adapter: only IR IDs and stable evidence object references cross services. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py) | DeepSeek transport for text and Flash page images. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py) | Read original PDF pages and optional IR metadata over the document API. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py) | Local general-purpose Qwen VLM; no NuExtract-specific template tokens. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/model_credentials.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/model_credentials.py) | Write-only operator configuration, resolved by the extraction worker. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/api.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py) | Current extraction and independent clause API. No package/version routes. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/binding.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/binding.py) | Evidence binding shared by every data reader. No clause identities are authored here. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/decisions.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/decisions.py) | Model proposals name evidence; they cannot supply numerical values. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/delivery.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/delivery.py) | Automatic, idempotent raw-data outbox. Database acceptance is not publishing. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/engine.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py) | One backbone. Clause targets are values; readers differ only by data kind. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/enrichment.py) | Read clause-declared attributes after capturing values; never regenerate values. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/engine.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py) | Read and transcribe original PDF pages into the two existing fact types. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py) | Immutable, self-contained export. Views and filesystem layout are not APIs. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/frames.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/frames.py) | Subdivide bounded evidence without recomputing values or changing locations. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/numeric_context.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/numeric_context.py) | Bind quantitative labels only through frozen physical source relationships. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/organization.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/organization.py) | Project clause-owned result layouts over referenced source facts. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/period_binding.py) | Bind local time evidence; a report's main year is never a default identity. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/ports.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py) | Backbone dependencies are value interfaces; implementations own I/O. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/quotation.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/quotation.py) | Resolve model-selected quotations to original source bytes. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_frame.py) | Compact model input; full physical frames remain immutable binding evidence. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/reading_policy.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/reading_policy.py) | Bounded reading and task-local progress, shared by both data readers. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py) | Producer-owned facts with a lightweight index; only changed records are written. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/retrieval.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/retrieval.py) | Stream clause candidates; relax object terms when the target has not been found. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py) | Composition root: filesystem, HTTP and model paths stop here. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/selection.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/selection.py) | Select reading candidates from clause-owned rules before a model call. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/state.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/state.py) | Current run state. Atomic transitions, frozen targets and no historical-route adapter. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/statistics.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/statistics.py) | Incremental run statistics. No facts, evidence or publication decisions are rewritten. |
-| [ExtractESG/extraction/src/esg_extraction/pipeline/structure.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/structure.py) | Physical columns, with no report-year filter or target-specific vocabulary. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/worker.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/worker.py) | One current run executed by the unified document queue. |
 | [ExtractESG/extraction/tests/conftest.py](../../ExtractESG/extraction/tests/conftest.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_backbone.py](../../ExtractESG/extraction/tests/test_backbone.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_boundaries.py](../../ExtractESG/extraction/tests/test_boundaries.py) | 测试/样例 |
-| [ExtractESG/extraction/tests/test_candidate_requirements.py](../../ExtractESG/extraction/tests/test_candidate_requirements.py) | Positive local requirements reduce irrelevant calls without discarding raw values. |
 | [ExtractESG/extraction/tests/test_capture_semantics.py](../../ExtractESG/extraction/tests/test_capture_semantics.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_clause_api.py](../../ExtractESG/extraction/tests/test_clause_api.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_deepseek_model.py](../../ExtractESG/extraction/tests/test_deepseek_model.py) | Cloud adapter contract at the HTTP boundary, without external calls. |
 | [ExtractESG/extraction/tests/test_exporting.py](../../ExtractESG/extraction/tests/test_exporting.py) | 测试/样例 |
-| [ExtractESG/extraction/tests/test_frame_budget.py](../../ExtractESG/extraction/tests/test_frame_budget.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_organization.py](../../ExtractESG/extraction/tests/test_organization.py) | 测试/样例 |
-| [ExtractESG/extraction/tests/test_primary_objects.py](../../ExtractESG/extraction/tests/test_primary_objects.py) | Capture independent entities within the existing bounded primary search. |
 | [ExtractESG/extraction/tests/test_report_resources.py](../../ExtractESG/extraction/tests/test_report_resources.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_result_contract.py](../../ExtractESG/extraction/tests/test_result_contract.py) | Delivery validation is independent of the report parser, clause repository and reader. |
 | [ExtractESG/extraction/tests/test_run_observation.py](../../ExtractESG/extraction/tests/test_run_observation.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_search_pages.py](../../ExtractESG/extraction/tests/test_search_pages.py) | 测试/样例 |
-| [ExtractESG/extraction/tests/test_structure_contract.py](../../ExtractESG/extraction/tests/test_structure_contract.py) | 测试/样例 |
+| [ExtractESG/extraction/tests/test_structure_contract.py](../../ExtractESG/extraction/tests/test_structure_contract.py) | Reported periods preserve their original boundaries and granularity. |
 
 ## ExtractESG/pipeline
 
@@ -363,7 +349,7 @@
 | [ExtractESG/pipeline/src/esg_pipeline/context.py](../../ExtractESG/pipeline/src/esg_pipeline/context.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/pipeline/src/esg_pipeline/contracts.py](../../ExtractESG/pipeline/src/esg_pipeline/contracts.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/pipeline/src/esg_pipeline/execution_api.py](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py) | Queue history and resumable event transport; no worker is owned by a stream. |
-| [ExtractESG/pipeline/src/esg_pipeline/extraction.py](../../ExtractESG/pipeline/src/esg_pipeline/extraction.py) | PDF preparation → independent clause run. Orchestration owns neither reader nor clauses. |
+| [ExtractESG/pipeline/src/esg_pipeline/extraction.py](../../ExtractESG/pipeline/src/esg_pipeline/extraction.py) | Queue independent clause reads of registered PDFs or existing IR references. |
 | [ExtractESG/pipeline/src/esg_pipeline/hooks.py](../../ExtractESG/pipeline/src/esg_pipeline/hooks.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/pipeline/src/esg_pipeline/native_dispatch.py](../../ExtractESG/pipeline/src/esg_pipeline/native_dispatch.py) | Close the native-state → queue crash gap without changing artifact IDs. |
 | [ExtractESG/pipeline/src/esg_pipeline/outcomes.py](../../ExtractESG/pipeline/src/esg_pipeline/outcomes.py) | Shared execution/result axes derived from durable stage artifacts. |

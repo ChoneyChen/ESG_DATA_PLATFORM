@@ -25,11 +25,11 @@ def mock_deepseek(monkeypatch, handle):
     ))
 
 
-def complete(model, *, cancel_check=None, remaining=5):
+def complete(model, *, cancel_check=None, remaining=5, images=()):
     return model.complete(instructions="Read the selected source.", context={
         "row": "披露", "execution": {"run_id": "run-1", "task_type": "clause_context",
                                  "evidence_ids": ["source-1"], "remaining_seconds": remaining},
-    }, schema=SCHEMA, max_tokens=128, cancel_check=cancel_check)
+    }, schema=SCHEMA, max_tokens=128, cancel_check=cancel_check, images=images)
 
 
 def reply(content='{"matches":["source-1"]}', *, finish_reason="stop"):
@@ -63,6 +63,22 @@ def test_uses_official_api_and_preserves_bounded_input(monkeypatch, model_id):
     assert receipt["input_tokens"] == 116 and receipt["output_tokens"] == 12
     assert receipt["output_constraint"] == "prompt_schema" and receipt["status"] == "succeeded"
     assert FAKE_KEY not in json.dumps(telemetry)
+
+
+def test_flash_sends_pdf_page_as_inline_image(monkeypatch):
+    def handle(request):
+        content = json.loads(request.content)["messages"][0]["content"]
+        assert content[1]["type"] == "text"
+        assert content[0] == {
+            "type": "image_url",
+            "image_url": {"url": "data:image/jpeg;base64,cGFnZQ==", "detail": "high"},
+        }
+        return reply()
+
+    mock_deepseek(monkeypatch, handle)
+    _, telemetry = complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY),
+                            images=(b"page",))
+    assert telemetry["execution"]["request"]["input_modalities"] == ["text", "image"]
 
 
 @pytest.mark.parametrize("status,category", [(302, "provider_request"), (401, "provider_authentication"),

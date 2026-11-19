@@ -9,9 +9,9 @@
 | 可执行单条 | clause-contract-1.4 | [ClauseContract](../ClauseESG/src/esg_clauses/contract.py)及[Schema](../ClauseESG/schemas/clause.schema.json) |
 | 结构描述 | clause-descriptor-1.0 | [descriptor.py](../ClauseESG/src/esg_clauses/descriptor.py) |
 | 报告资源/批次 | report-resource-1.0 / report-resource-batch-1.0 | [报告合同](../ExtractESG/contracts/src/esg_reports/contract.py) |
-| 原值 | source-fact-2.0 | [事实合同](../ExtractESG/contracts/src/esg_contracts/facts.py) |
+| 原值 | source-fact-2.1（兼容读取 2.0） | [事实合同](../ExtractESG/contracts/src/esg_contracts/facts.py) |
 | 搜索与物理证据 | clause-search-plan-1.2 / object-search-page-1.0 | [编译器](../ClauseESG/src/esg_clauses/search.py)、[证据DTO](../ExtractESG/contracts/src/esg_contracts/evidence.py) |
-| 阅读/属性卡 | clause-reading-card-1.1 / clause-enrichment-card-1.0 | ClauseContract.reading_card/enrichment_card |
+| 阅读/属性卡 | clause-reading-card-1.1 | ClauseContract.reading_card |
 | 结果/组织视图 | extraction-fact-bundle-2.4 / organized-extraction-1.1 | [结果合同](../ExtractESG/contracts/src/esg_contracts/results.py) |
 | 数据库交接 | extraction-export-1.2 | [导出合同](../ExtractESG/contracts/src/esg_contracts/exports.py) |
 | 接收回执 | extraction-receipt-1.0 | 同上IngestionReceipt |
@@ -40,32 +40,18 @@
 
 ## 两类数据合同
 
-共同外壳SourceFact必须能定位实际来源，包含source_fact_id、source_anchor_id、document_id、IR身份、interpretation_id、value及evidence；identity等附加字段可以未知。线上的判别键在`value.kind`：定量quantitative，定性assertion。条款data_kind的qualitative映射到事实assertion，不是第三类。
+SourceFact 包含原值、事实和来源标识、可选实际身份及页位置。线上类型为 `value.kind` 的 `quantitative` 或 `assertion`，分别对应条款的 `quantitative`、`qualitative`。2.1 允许用 `pdf_page` 记录原页转录。老事实 2.0 按原物理摘录约束读取。
 
-| 类型 | 必需原值 | 可选结构化信息 | 来源约束 |
-|---|---|---|---|
-| quantitative | 非空value_raw | 数值/上下界用十进制字符串，comparator、parse_status、unit_raw和extensions | 至少一份role=value的物理摘录等于原值 |
-| assertion | 非空statement_raw | extensions及公共identity | 至少一份role=statement的物理摘录等于原句 |
+| 类型 | 必需原值 | 可选结构化信息 |
+|---|---|---|
+| quantitative | 印刷值 `value_raw` | 印刷单位、十进制字符串、上下界、比较符及解析状态 |
+| assertion | 原文陈述 `statement_raw` | 通用实际身份及扩展属性 |
 
-区间、比例、强度、分项不是新增值种类，使用定量字段、单位、分母和身份安放。结构化数值解析失败时保留原文及未解析说明，不编零；不把Decimal转为浮点。缺单位也不能直接丢掉实际计数。
+模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格同一行用 `measurements` 列出各期间的 `value`、`period`，单位变化时可在该项填写。行上可共用 `label`、`unit`、`relation`、适用的 `scope_ids` 和条款指定的 `attributes`。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
 
-ReportedContext包含期间、主体、主体聚合角色、边界、方法、值角色、聚合角色、分母及开放dimensions。每个ReportedField独立表达stated/inherited/not_stated/not_read/conflict；已声称取得的值附raw_text及证据。未知不意味着冲突，目标固定分类不冒充实际分类。可选属性是否实际补读由purposes.enrichment.identity_axes选择，声明了属性不等于已执行读取；需区分实际与目标值的条款应同时声明value_role读取及其分类证据。混合实际/目标表必须按具体列和局部句子绑定，不能整表套同一角色或依据报告主年推断。
+`EvidenceLocation` 的页下标为 0 基，界面显示加一。页级事实以记录内容产生事实 ID，原始页及印刷量值另外保留来源锚点。页级 excerpt 是模型转录，不代表逐字或逐格独立核验。来源使用 `DocumentReference.source_kind=pdf` 和原 PDF SHA-256，沿用交接字段 `ir_run_id=pdf-<sha256>` 表达稳定文档引用，页码属于原件。已有 Document IR 可传入有效修订以提供页提示。旧对象、旧引文和候选诊断仍可随既有封存读出。
 
-统计边界须说明实际覆盖。补读在原文回绑后检查统计主体和边界，纯期间以及仅含期间和本条汇总词的声称保留未知。单条属性的value_pattern继续约束每个已声称的结构叶子。两种约束都保留原值及原诊断，现有冻结事实仍按原合同读取。新建条款的边界模板提供值形状约束，执行器读取已冻结的单条合同。
-
-开放属性值逐叶回绑引文中的实际字串，分类值取得本条词表证明后保存代码。属性允许的来源按事实与属性分别计算。报告检索段落需匹配该属性自身的context_terms，页码相邻不产生local授权。标号脚注需有本事实行、列或标题的同号引用。报告级value_role还需引句同时证明该事实原值和期间。属性约束失败保留原值并记录拒绝原因。可选value_pattern未声明时不进入旧合同的序列化内容，旧冻结摘要维持原含义。
-
-组合单位的每个印刷片段分别保存其原始对象和摘录，跨行父标签及续表表头同样回到实际来源，不能给合并字符串伪造一个来源单元格。
-
-文字图形中的独立单位行、Unit声明及括号单位可以作为实际来源片段，定量阅读用unit_source_id选择其引用。绑定器保留原印刷字串和字符范围。同一图形含多个单位时逐测量选择，不能统一套用整个图的首个单位。
-
-EvidenceFrame的可选context_links携带cell_id、实际source_ids及same_clause/row/column/region关系。空关系字段在旧帧序列化时省略，保持原快照摘要。文档服务产生关联，提取器按被选量值核对关联和完整来源组。same_clause指向含该量值的原句或结构明确的连续子句。完整原句留在文本证据中，缩短的来源保存在对应行的label_sources。定量模型只选择实际行列与来源ID，数值从对应EvidenceCell绑定。混合文字单元格的子量值保持原cell_id来源及精确字符范围，身份随原量值位置区分。
-
-普通表格行可在缺少分组标题时使用本页唯一证明frame.title的title_sources项。该表标题只辅助局部判断，经绑定保存role=table的实际摘录和位置。
-
-EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、可选bbox/行列/字符范围和source_snapshot。界面显示页码时加1，不重排稀疏准备页。条款关系ClauseMapping独立保存clause_key/digest、source_fact_id、match、reason、scope_ids和flags。
-
-候选诊断的CandidateRejection保存筛选原因与实际作用范围。单个字面量有物理类型时，candidate_kind保持原值。整行或文本片段的筛选可仅携带row_id或span_id，candidate_kind缺失表示本次判断没有给单个字面量分类。已有冻结诊断按原字段读取。
+`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。覆盖范围和实际值分开保存。
 
 ## 端口及HTTP分工
 
@@ -73,9 +59,8 @@ EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、�
 |---|---|---|
 | Console→编排18080 | ExtractionPlanRequest→ExtractionSession，预览、提交、读取、取消、续跑 | /api/report-sessions及子路径 |
 | 编排→条款/提取18180 | RunRequest冻结目标；CreateRun携带request、target_snapshot和submission_key | /api/targets/freeze、/api/runs |
-| 提取→文档18080 | DocumentReference；SearchIntent→ObjectSearchPage；对象+chunk→EvidenceFrame | /api/evidence/{ir_run_id}及search/read |
-| 阅读→准备 | EvidencePreparationRequest携带条款、页意图、已准备页、原因和max_pages | 编排消费后调用locate-pages，再准备并续跑 |
-| 提取→模型 | instructions/context/schema/max_tokens/cancel_check→引用选择及调用回执 | ModelPort，由任务选择的本地Qwen或DeepSeek适配器实现 |
+| 提取→文档18080 | PDF 引用、原生文字和原页图像；可选既有 IR 引用 | /api/report-assets/{asset_id}/reading-source、reading-pages、reading-pages/{page_index}/image；/api/evidence/{ir_run_id} |
+| 提取→模型 | instructions/context/schema/images/max_tokens/cancel_check → 页提示或转录及调用回执 | ModelPort，由任务选择的本地Qwen或DeepSeek适配器实现 |
 | 提取→数据库18280 | 封存ZIP字节→IngestionReceipt | POST /v1/ingestion/exports |
 | Console→数据库 | 接收/投影状态、预览、成员分页、显式发布/撤下 | /v1/ingestion、/v1/projections、/v1/datasets |
 | Plat→数据库 | 有效发布的产品、观测、定义、来源、精确导出 | /v2/datasets及子路径 |
@@ -83,7 +68,7 @@ EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、�
 
 DocumentPort、ModelPort、ArtifactPort、ResultPort的实际签名见[ports.py](../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py)。部署HTTP和同进程适配都保持这些值接口，不以绝对服务器路径代替引用。
 
-提取请求的`model_selection`只含`provider`和`model`。旧请求缺字段时沿用本地Qwen，`deepseek`需显式指定`deepseek-flash`或`deepseek-v4-pro`。预览返回解析后的选择，任务冻结它并将其交给原生执行器，续跑沿用同一选择。`GET /api/model-providers`提供只读状态及模型清单，`PUT /api/model-providers/deepseek/credential`单独写入密钥，仅返回同一状态。密钥不进入会话、检查点、调用回执或导出。
+提取请求的`model_selection`只含`provider`和`model`。旧请求缺字段时沿用本地Qwen，`deepseek`需显式指定`deepseek-flash`或`deepseek-v4-pro`。另有可选 `document_model_selection`，可选择本地 Qwen 或 DeepSeek Flash 为弱文字页定位。DeepSeek V4 Pro 仅接受文字。预览返回模型选择，任务冻结两阶段配置，续跑沿用原选择。`GET /api/model-providers`提供只读状态及模型清单，`PUT /api/model-providers/deepseek/credential`单独写入密钥，仅返回同一状态。密钥不进入会话、检查点、调用回执或导出。
 
 ## 封存交接与幂等
 

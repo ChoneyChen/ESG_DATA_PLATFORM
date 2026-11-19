@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import json
 import time
+from contextlib import ExitStack
+from hashlib import sha256
+from io import BytesIO
 from pathlib import Path
+from PIL import Image
 
 from esg_extraction.models.capabilities import local_model_readiness
 from esg_extraction.models.errors import ModelRunFailure
@@ -22,6 +26,7 @@ from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare
 
 class LocalQwenModel(MlxVlmRuntime):
     provider_name = "local_qwen"
+    accepts_images = True
 
     def __init__(self, model_path: Path, *, max_tokens=8192, timeout_seconds=600):
         self.model_path = Path(model_path).resolve()
@@ -33,7 +38,7 @@ class LocalQwenModel(MlxVlmRuntime):
         self._model = None
         self._processor = None
 
-    def complete(self, *, instructions, context, schema, max_tokens, cancel_check):
+    def complete(self, *, instructions, context, schema, max_tokens, cancel_check, images=()):
         execution_context = context.get("execution", {})
         context = {key: value for key, value in context.items() if key != "execution"}
         return self.generate_structured(
@@ -44,6 +49,7 @@ class LocalQwenModel(MlxVlmRuntime):
             cancel_check=cancel_check,
             progress_callback=getattr(self, "progress_callback", None),
             execution_context=execution_context,
+            images=images,
         )
 
     def _ensure_loaded(self) -> float:
@@ -105,7 +111,7 @@ class LocalQwenModel(MlxVlmRuntime):
         context,
         instructions,
         template,
-        image_path=None,
+        images=(),
         max_tokens=2048,
         cancel_check=None,
         progress_callback=None,
@@ -119,23 +125,25 @@ class LocalQwenModel(MlxVlmRuntime):
         receipt = prepare_call(ModelCallRequest(
             run_id=execution_context.get("run_id"), evidence_ids=execution_context.get("evidence_ids", []),
             attempt=execution_context.get("attempt", 0), parent_task_id=execution_context.get("parent_task_id"),
-            task_type=execution_context.get("task_type", "structured_reading"), input_modalities=["text", "image"] if image_path else ["text"],
-            prompt_digest=content_digest([instructions, context]), schema_digest=content_digest(json_schema(template)),
+            task_type=execution_context.get("task_type", "structured_reading"), input_modalities=["text", "image"] if images else ["text"],
+            prompt_digest=content_digest([instructions, context, *[sha256(image).hexdigest() for image in images]]), schema_digest=content_digest(json_schema(template)),
             requested_output_tokens=max_tokens, requested_timeout_seconds=execution_context.get("remaining_seconds", configured_timeout),
         ), ModelCapabilities(provider=self.provider_name, model=self.model_id, input_modalities=["text", "image"],
             max_output_tokens=self.max_tokens, timeout_seconds=self.timeout_seconds, output_constraint="grammar_schema"))
         try:
             self.timeout_seconds = receipt.effective_timeout_seconds
-            raw, telemetry = self._generate(
-                context=context,
-                template=json.dumps(json_schema(template), ensure_ascii=False),
-                instructions=instructions,
-                images=[str(image_path)] if image_path else [],
-                output_token_budget=receipt.effective_output_tokens,
-                cancel_check=cancel_check,
-                preflight={"route": "bounded_agent_task", "effective_budget": receipt.model_dump(mode="json")},
-                progress_callback=progress_callback,
-            )
+            with ExitStack() as stack:
+                inputs = [stack.enter_context(Image.open(BytesIO(image))) for image in images]
+                raw, telemetry = self._generate(
+                    context=context,
+                    template=json.dumps(json_schema(template), ensure_ascii=False),
+                    instructions=instructions,
+                    images=inputs,
+                    output_token_budget=receipt.effective_output_tokens,
+                    cancel_check=cancel_check,
+                    preflight={"route": "bounded_agent_task", "effective_budget": receipt.model_dump(mode="json")},
+                    progress_callback=progress_callback,
+                )
         except Exception as exc:
             telemetry = getattr(exc, "telemetry", {})
             exc.telemetry = {**telemetry, "execution": finish_call(receipt, started, telemetry, error=exc)}

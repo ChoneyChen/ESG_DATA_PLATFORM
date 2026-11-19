@@ -32,6 +32,7 @@ type Preview = {
   engine_fingerprint: string;
   calls_model: false;
   model_selection?: ModelSelection;
+  document_model_selection?: ModelSelection | null;
 };
 type Selection = { selections: Record<string, string[]> };
 const modelProvidersPath = "/api/model-providers";
@@ -61,9 +62,11 @@ export function CreateExtractionPage({
     [group, setGroup] = useState(""),
     [budget, setBudget] = useState<ExtractionBudget>(EXTRACTION_BUDGET_DEFAULTS),
     [modelSelection, setModelSelection] = useState<ModelSelection>({ provider: "local" }),
+    [documentModel, setDocumentModel] = useState<"native" | "local" | "deepseek">("native"),
     [advanced, setAdvanced] = useState(false);
   const cloud = modelSelection.provider === "deepseek";
-  const providers = useResource<ModelProviders>("extraction", cloud ? modelProvidersPath : null);
+  const usesCloud = cloud || documentModel === "deepseek";
+  const providers = useResource<ModelProviders>("extraction", usesCloud ? modelProvidersPath : null);
   const deepseek = providers.data?.providers.find((provider) => provider.provider === "deepseek");
   const credentialInput = useRef<HTMLInputElement>(null);
   const alive = useRef(true);
@@ -103,6 +106,8 @@ export function CreateExtractionPage({
         : name,
     budget,
     ...(cloud ? { model_selection: modelSelection } : {}),
+    ...(documentModel !== "native" ? { document_model_selection: documentModel === "deepseek"
+      ? { provider: "deepseek", model: "deepseek-flash" } : { provider: "local" } } : {}),
   });
   function toggle(list: string[], key: string, set: (v: string[]) => void) {
     set(list.includes(key) ? list.filter((x) => x !== key) : [...list, key]);
@@ -177,7 +182,8 @@ export function CreateExtractionPage({
   }
   const ready =
     !!selectedReports.length && !!keys.length && !!name.trim() && !busy &&
-    (!cloud || (!!deepseek?.configured && !!modelSelection.model && deepseek.models.includes(modelSelection.model)));
+    (!usesCloud || !!deepseek?.configured) &&
+    (!cloud || (!!modelSelection.model && !!deepseek?.models.includes(modelSelection.model)));
   return (
     <>
       <PageHeader
@@ -337,6 +343,16 @@ export function CreateExtractionPage({
             <section className="section">
               <div className="section-heading"><h2>3. 提取模型</h2></div>
               <div className="form-grid">
+                <Field label="文档定位">
+                  <select value={documentModel} onChange={(e) => {
+                    const choice = e.target.value;
+                    setDocumentModel(choice === "deepseek" || choice === "local" ? choice : "native");
+                  }}>
+                    <option value="native">原生文字定位</option>
+                    <option value="local">本地 Qwen 视觉定位</option>
+                    <option value="deepseek">DeepSeek Flash 视觉定位</option>
+                  </select>
+                </Field>
                 <Field label="模型提供者">
                   <select
                     value={modelSelection.provider}
@@ -354,14 +370,16 @@ export function CreateExtractionPage({
                     <select value={modelSelection.model || ""} onChange={(e) =>
                       setModelSelection({ provider: "deepseek", model: deepseek?.models.find((model) => model === e.target.value) })}>
                       <option value="">请选择模型</option>
-                      {deepseek?.models.map((model) => <option key={model} value={model}>{model}</option>)}
+                      {deepseek?.models.map((model) => <option key={model} value={model}>
+                        {model}{model === "deepseek-v4-pro" ? "（纯文字）" : ""}
+                      </option>)}
                     </select>
                   </Field>
                 )}
               </div>
-              {cloud && (
+              {usesCloud && (
                 <>
-                  <Notice>提取所需的提示和证据片段将发送给 DeepSeek。PDF 准备和 OCR 仍在本机执行。</Notice>
+                  <Notice>选用 DeepSeek 的阶段会发送所需的页面图像或文字。PDF 页面在本机渲染。</Notice>
                   <ReadError error={providers.error} retry={providers.reload} />
                   {providers.loading && !deepseek && <Loading />}
                   {deepseek && (
@@ -425,6 +443,7 @@ export function CreateExtractionPage({
         <section className="section">
           <h2>确认本次选择</h2>
           <p>提取模型 · {modelSelectionLabel(Object.values(previews)[0]?.model_selection || modelSelection)}</p>
+          <p>文档定位 · {documentModel === "native" ? "原生文字定位" : documentModel === "deepseek" ? "DeepSeek Flash 视觉定位" : "本地 Qwen 视觉定位"}</p>
           <div className="metric-strip">
             <div>
               <strong>{selectedReports.length}</strong>
@@ -449,8 +468,7 @@ export function CreateExtractionPage({
             ))}
           </ul>
           <Notice>
-            提交时冻结条款内容、引擎指纹和模型选择。PDF
-            准备后逐条检索、阅读并保存原值。此预览未调用模型。
+            提交时冻结条款和模型选择。模型按页读取并填写原值。此预览未调用模型。
           </Notice>
           {Object.entries(created).map(([id, run]) => (
             <p key={id}>
