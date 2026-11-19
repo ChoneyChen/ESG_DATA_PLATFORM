@@ -47,6 +47,11 @@ export function ClauseResultPage({ sessionId, clauseKey, active }: { sessionId: 
   const [period, setPeriod] = useState("");
   const [unit, setUnit] = useState("");
   const [query, setQuery] = useState("");
+  const scope = `${sessionId}:${clauseKey}`;
+  const [lastFacets, setLastFacets] = useState<{
+    scope: string;
+    values: Pick<OrganizedPage, "periods" | "units" | "relations">;
+  }>();
   const params = new URLSearchParams({ limit: "50" });
   if (paging.cursor) params.set("cursor", paging.cursor);
   if (relation) params.set("relation", relation);
@@ -56,14 +61,18 @@ export function ClauseResultPage({ sessionId, clauseKey, active }: { sessionId: 
   const page = useResource<OrganizedPage>("document", `/api/report-sessions/${segment(sessionId)}/organized/${segment(clauseKey)}?${params}`, active ? 4000 : 0);
   useEffect(() => { if (!active) page.reload(); }, [active, page.reload]);
   const data = page.data;
+  useEffect(() => {
+    if (data) setLastFacets({ scope, values: { periods: data.periods, units: data.units, relations: data.relations } });
+  }, [scope, data]);
+  const facets = data || (lastFacets?.scope === scope ? lastFacets.values : undefined);
   return <>
     <div className="result-toolbar"><div className="segmented" aria-label="结果分类">
-      {[["match", "目标数据"], ["different", "其他数据"], ["uncertain", "关系未决"], ["", "全部"]].map(([key, name]) => <button key={key} aria-pressed={relation === key} onClick={() => { setRelation(key); paging.reset(); }}>{name} <span>{key ? data?.relations[key] || 0 : Object.values(data?.relations || {}).reduce((a,b) => a+b, 0)}</span></button>)}
+      {[["match", "目标数据"], ["different", "其他数据"], ["uncertain", "关系未决"], ["", "全部"]].map(([key, name]) => <button key={key} aria-pressed={relation === key} onClick={() => { setRelation(key); paging.reset(); }}>{name} <span>{key ? facets?.relations[key] || 0 : Object.values(facets?.relations || {}).reduce((a,b) => a+b, 0)}</span></button>)}
     </div></div>
     <div className="result-filters">
       <input aria-label="搜索结果" placeholder="搜索项目或原文" value={query} onChange={e => { setQuery(e.target.value); paging.reset(); }}/>
-      <select aria-label="期间筛选" value={period} onChange={e => { setPeriod(e.target.value); paging.reset(); }}><option value="">全部期间</option>{data?.periods.map(p => <option key={p}>{p}</option>)}</select>
-      <select aria-label="单位筛选" value={unit} onChange={e => { setUnit(e.target.value); paging.reset(); }}><option value="">全部单位</option>{data?.units.map(u => <option key={u}>{u}</option>)}</select>
+      <select aria-label="期间筛选" value={period} onChange={e => { setPeriod(e.target.value); paging.reset(); }}><option value="">全部期间</option>{facets?.periods.map(p => <option key={p}>{p}</option>)}</select>
+      <select aria-label="单位筛选" value={unit} onChange={e => { setUnit(e.target.value); paging.reset(); }}><option value="">全部单位</option>{facets?.units.map(u => <option key={u}>{u}</option>)}</select>
     </div>
     <ReadError error={page.error} retry={page.reload}/>
     {data ? <><OrganizedTable table={data.table} sessionId={sessionId} facts={data.facts}/><Pager total={data.total} returned={data.returned} next={data.next_cursor} paging={paging}/></> : !page.error && <Loading/>}

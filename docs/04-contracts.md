@@ -47,7 +47,7 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 | quantitative | 印刷值 `value_raw` | 印刷单位、十进制字符串、上下界、比较符及解析状态 |
 | assertion | 原文陈述 `statement_raw` | 通用实际身份及扩展属性 |
 
-模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格同一行用 `measurements` 列出各期间的 `value`、`period`，单位变化时可在该项填写。行上可共用 `label`、`unit`、`relation`、适用的 `scope_ids` 和条款指定的 `attributes`。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
+模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格同一行用 `measurements` 列出各期间的 `value`、`period`。每个期间可覆盖行级 `unit`、`relation` 和 `scope_ids`，并按字段覆盖 `attributes`。行上可共用 `label` 和上述字段。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
 
 `EvidenceLocation` 的页下标为 0 基，界面显示加一。页级事实以记录内容产生事实 ID，原始页及印刷量值另外保留来源锚点。页级 excerpt 是模型转录，不代表逐字或逐格独立核验。来源使用 `DocumentReference.source_kind=pdf` 和原 PDF SHA-256，沿用交接字段 `ir_run_id=pdf-<sha256>` 表达稳定文档引用，页码属于原件。已有 Document IR 可传入有效修订以提供页提示。旧对象、旧引文和候选诊断仍可随既有封存读出。
 

@@ -20,13 +20,14 @@ from esg_data.periods import parse_period, period_payload
 from esg_data.text_search import lexical_score
 from esg_extraction.models.errors import ModelCancelled, ModelRunFailure
 
+from .ports import DocumentUnavailable
 from .statistics import RunStatistics
 
 
-ENGINE_VERSION = "page-reader-3.0"
-READ_INSTRUCTIONS = """Transcribe the report into the requested independent fields. Read the original page image when present; accompanying text helps with spelling and exact digits but may lose table structure.
-Read the entire relevant table, including adjacent rows under a shared heading, all printed units and years, scopes, entities and methods. For a quantitative table use one item per row with shared clause_key, label, unit and attributes. In measurements put one object with two keys, value and period, for each populated column; include unit there only when it changes. Use separate items for different methods, statistics or subjects. Keep both disclosures when a quantity is printed in two units. Example: {"clause_key":"TARGET","label":"printed title","unit":"t","measurements":[{"value":"1,204.50","period":"2024"},{"value":"0","period":"2023"}]}. For a single quantity use value and period directly; for a qualitative item value is the original sentence.
-Copy exact values and periods. Preserve zero, range markers, punctuation and precision. Skip blanks, missing-value dashes, years and reference IDs presented without a measurement. Do not calculate or infer the period from report year. For a clause asking for actual results, goals, forecasts and permitted limits cannot match. Keep stated attributes by the card's field names. Omit unknown fields. Add scope_ids from the card only when the row meets the scope. Use match for a disclosure that answers the target, different for a directly contrasting reported measure, and uncertain for an unclear relation. Omit unrelated numbers and repeated rows. Follow clause guidance for meaning and this protocol for output. Return compact JSON with items only."""
+ENGINE_VERSION = "page-reader-3.1"
+READ_INSTRUCTIONS = """Transcribe the requested independent fields from page_index. Read the first image when present; its text helps with spelling and exact digits but may lose table structure. A preceding_page describes the optional second image. Use its column headers only if the current table visibly continues that table. Copy measurements from the first page only. Map each cell to its printed column heading in order, and omit the period if the column cannot be identified.
+Read each relevant table's total and relevant breakdowns, all printed years and units. For a quantitative table use one item per printed row with shared clause_key, label, unit and attributes. In measurements put value and period for each populated column; override unit, relation, scope_ids or attributes only where that column differs. Use separate items for different methods, statistics or subjects. Keep both disclosures when a quantity is printed in two units. Example: {"clause_key":"TARGET","label":"printed title","unit":"t","measurements":[{"value":"1,204.50","period":"2024"},{"value":"0","period":"2023"}]}. For a single quantity use value and period directly; for a qualitative item value is the original sentence.
+Copy exact values, periods and printed units, including multipliers, chemical notation and denominators. Preserve a printed zero, range markers, punctuation and precision. A phrase such as no discharge is not a printed numerical zero. Skip blanks, missing-value dashes and reference IDs. Do not calculate, substitute a canonical unit or infer a date from the report title. Use different for goals, forecasts and permitted limits when a clause asks for actual results. Determine each column's role from its own heading or applicable note. Keep stated attributes by the card's field names. Omit unknown fields. Specify relation for each item: match answers the target, different is a clearly distinct but related measure, and uncertain is ambiguous. Add scope_ids only for applicable printed scope. Omit unrelated numbers and repeated rows. Return compact JSON with items only."""
 LOCATE_INSTRUCTIONS = """The images are numbered PDF pages in the same order as page_indices. Identify all pages likely to have relevant disclosures for any requested topic, including tables and graphs and their continuation. Return a JSON object with page_indices. This highlights pages for detailed reading; do not extract values."""
 LOCATE_SCHEMA = {"type": "object", "required": ["page_indices"], "properties": {
     "page_indices": {"type": "array", "items": {"type": "integer"}}}}
@@ -34,6 +35,8 @@ MISSING = re.compile(r"^\s*(?:[-–—－]+|n/?a|not\s+(?:available|disclosed)|�
 SLICE_CALLS = 6
 PAGE_SHORTLIST = 8
 MEASUREMENT_LINE = re.compile(r"^[ \t]*[-−<>≈]?\d[\d,. ]*(?:%|[ \t]*[A-Za-z]{1,4})?[ \t\r]*$", re.M)
+TABLE_NUMBER = re.compile(r"(?<![\w.,])[-−<>≈]?\d[\d,]*(?:\.\d+)?%?(?![\w.,])")
+YEAR_COLUMNS = re.compile(r"(?<![\d.,])(?:19|20)\d{2}(?:[ \t]+(?:19|20)\d{2})+(?![\d.,])")
 PROVIDER_STOP = {"provider_authentication", "provider_balance", "request_config"}
 
 
@@ -47,14 +50,17 @@ class ExecutionYield(RuntimeError):
 
 def _schema(keys):
     measure_fields = {key: {"type": "string"} for key in ("value", "unit", "period")}
+    row_fields = {
+        "relation": {"type": "string", "enum": ["match", "different", "uncertain"]},
+        "scope_ids": {"type": "array", "items": {"type": "string"}},
+        "attributes": {"type": "object", "additionalProperties": {"type": "string"}},
+    }
     return {"type": "object", "required": ["items"], "properties": {"items": {
         "type": "array", "items": {"type": "object", "required": ["clause_key"],
         "properties": {"clause_key": {"type": "string", "enum": keys}, **measure_fields,
             "label": {"type": "string"}, "measurements": {"type": "array", "items": {
-                "type": "object", "required": ["value"], "properties": measure_fields}},
-            "relation": {"type": "string", "enum": ["match", "different", "uncertain"]},
-            "scope_ids": {"type": "array", "items": {"type": "string"}},
-            "attributes": {"type": "object", "additionalProperties": {"type": "string"}}}}}}}
+                "type": "object", "required": ["value"], "properties": {**measure_fields, **row_fields}}},
+            **row_fields}}}}}
 
 
 def _page_score(text, intent):
@@ -65,6 +71,22 @@ def _page_score(text, intent):
     score = sum(3 if term in intent["exact_terms"] else 1 for term in phrases
                 if not term.startswith("re:") and fold(term) in normalized)
     return score or lexical_score(phrases, text)
+
+
+def _disclosure_table(text):
+    if len(MEASUREMENT_LINE.findall(text)) >= 6:
+        return True
+    counts = [len(TABLE_NUMBER.findall(line)) for line in text.splitlines()]
+    return sum(count >= 2 for count in counts) >= 3 and sum(counts) >= 12
+
+
+def _preceding_header(page_text, page_index):
+    """Find an adjacent header to show with a possible continuation."""
+    current = page_text[page_index]
+    previous = page_text.get(page_index - 1, "")
+    if not previous or YEAR_COLUMNS.search(current) or not _disclosure_table(current):
+        return None
+    return next((line.strip() for line in previous.splitlines()[:24] if YEAR_COLUMNS.search(line)), None)
 
 
 def page_plan(pages, clauses, page_limit, hint_pages=()):
@@ -94,6 +116,12 @@ def page_plan(pages, clauses, page_limit, hint_pages=()):
         if len(order) > page_limit:
             limited.append(key)
         for index in order[:page_limit]:
+            jobs[index].append(key)
+    shared_tables = [index for index in jobs if _disclosure_table(by_index[index])]
+    for key, scored in scores.items():
+        room = page_limit - sum(key in targets for targets in jobs.values())
+        extra = (index for index in shared_tables if scored[index] > 0 and key not in jobs[index])
+        for index in sorted(extra, key=lambda index: (-scored[index], -rank[index], index))[:room]:
             jobs[index].append(key)
     ordered = sorted(jobs, key=lambda index: (index not in hint_pages, index not in table_pages, -rank[index], index))
     return [[index, jobs[index]] for index in ordered], limited
@@ -259,11 +287,14 @@ class ExtractionBackbone:
             on_progress({"stage": phase, "object_id": f"pdf-page-{indices[0] + 1}",
                 "current": state.get("position", 0), "total": len(state.get("jobs", [])),
                 "model_calls": calls, "fact_count": stats.fact_count})
+            context_pages = [values["preceding_page"]["page_index"]] if values.get("preceding_page") else []
             context = {**values, "execution": {"run_id": run_id, "task_type": phase,
-                "evidence_ids": [f"pdf-page-{index + 1}" for index in indices],
+                "evidence_ids": [f"pdf-page-{index + 1}" for index in [*indices, *context_pages]],
                 "remaining_seconds": max(0.001, remaining())}}
             trace = {"call_index": calls, "phase": phase, "page_indices": indices,
                      "image_digests": [sha256(image).hexdigest() for image in images]}
+            if context_pages:
+                trace["context_pages"] = context_pages
             try:
                 result, info = model.complete(instructions=instructions, context=context,
                     schema=schema, max_tokens=budget.max_output_tokens, cancel_check=cancel_check,
@@ -320,8 +351,15 @@ class ExtractionBackbone:
                 if key not in keys:
                     continue
                 series = item.get("measurements")
-                rows = ({**item, **value} for value in series if isinstance(value, dict)) if isinstance(series, list) else (item,)
-                for row in rows:
+                columns = series if isinstance(series, list) else [{}]
+                for column in columns:
+                    if not isinstance(column, dict):
+                        continue
+                    row = {**item, **column}
+                    shared = item.get("attributes")
+                    override = column.get("attributes")
+                    if isinstance(shared, dict) and isinstance(override, dict):
+                        row["attributes"] = {**shared, **override}
                     output = _fact(document, clauses[key], index, row, visual)
                     if not output:
                         continue
@@ -340,9 +378,17 @@ class ExtractionBackbone:
                 if not image and not page_text[index].strip():
                     raise ModelRunFailure("This page has no native text; choose an image-capable extraction model",
                                           category="page_text_missing")
-                answer = call(self.model, [index], READ_INSTRUCTIONS,
-                    {"page_index": index, "page_text": page_text[index][:12000],
-                     "clauses": {key: cards[key] for key in keys}}, _schema(keys), "reading", image)
+                context = {"page_index": index, "page_text": page_text[index][:12000],
+                           "clauses": {key: cards[key] for key in keys}}
+                header = _preceding_header(page_text, index)
+                if header:
+                    context["preceding_page"] = {"page_index": index - 1, "column_header": header}
+                    if visual:
+                        try:
+                            image += (self.documents.image(asset, index - 1, thumbnail=True),)
+                        except DocumentUnavailable:
+                            pass  # The active page and the saved header are already available.
+                answer = call(self.model, [index], READ_INSTRUCTIONS, context, _schema(keys), "reading", image)
                 if not isinstance(answer.get("items"), list):
                     raise ValueError("Extraction model did not return an items array")
                 record_rows(answer["items"], keys, index)

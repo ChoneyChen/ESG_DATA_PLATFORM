@@ -217,7 +217,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b2bb5b626995209c4cf44b9d0c69d38e85a1ad3b738e22a806d749af02d15111",
+  "clause_digest": "4e3cdfdabe8dbd343cf3b04eee509dc128d367b28d1275ad13a667883c0fd745",
   "clause_key": "E1-5_05",
   "data_kind": "quantitative",
   "definition": "可再生能源消费总量",
@@ -792,6 +792,7 @@
     "allow_regulatory_limit": false,
     "instructions": [
       "可再生能源消费总量",
+      "只把实际可再生能源消费纳入目标。先阅读对应行名和脚注。若清洁能源的有效脚注明确包括天然气或其他化石能源，将该合计保留为 different，即使其中还包含光伏发电。没有组成说明的泛称清洁能源保留为 uncertain。",
       "只把实际可再生能源作为目标。清洁能源、非化石能源、天然气不自动等于可再生能源。明确标为non-renewable或包含天然气/化石燃料的混合清洁能源，不标为可再生消费或比例；实际含义不明时保留未决，不能用目标代填。"
     ],
     "operator": "numeric_label",

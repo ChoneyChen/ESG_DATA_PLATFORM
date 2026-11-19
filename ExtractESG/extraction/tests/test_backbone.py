@@ -7,7 +7,7 @@ from esg_clauses.scope import make_scope
 from esg_data.hashing import digest
 from esg_contracts.facts import QuantitativePayload,QualitativePayload,RunRequest,PipelineBudget
 from esg_contracts.evidence import PDFPageText, SearchIntent
-from esg_extraction.pipeline.engine import ExtractionBackbone, ExecutionYield
+from esg_extraction.pipeline.engine import ExtractionBackbone, ExecutionYield, page_plan
 from esg_extraction.pipeline.result_store import ResultStore
 from esg_extraction.pipeline.adapters.artifacts import FileArtifactPort
 from esg_document.document.evidence_service import DocumentEvidenceService
@@ -81,6 +81,67 @@ def quantitative(repository,key='E1-5_01'):
     # A small test contract explicitly leaves optional scope identity unconstrained.
     return clause.model_copy(update={'reading':clause.reading.model_copy(update={'rules':[],'operator':'numeric_label'}),
         'output_scopes':[make_scope('本期',period='annual')]}).seal()
+
+
+def test_selected_table_adds_matching_clause_without_adding_a_page(repository):
+    total = quantitative(repository)
+    total = total.model_copy(update={
+        "exact_labels": ["首选指标"],
+        "retrieval": total.retrieval.model_copy(update={"positive_terms": ["本条别名"]}),
+    }).seal()
+    other = quantitative(repository, "E3-4_11")
+    other = other.model_copy(update={
+        "exact_labels": ["同页指标"],
+        "retrieval": other.retrieval.model_copy(update={"positive_terms": []}),
+    }).seal()
+    pages = [PDFPageText(page_index=index, text="首选指标 " + "章节说明" * 30) for index in range(11)]
+    pages.append(PDFPageText(page_index=11, text=(
+        "同页指标 本条别名 指标说明\n"
+        "项目甲 100 110 120 130\n项目乙 200 210 220 230\n项目丙 300 310 320 330\n"
+    )))
+    clauses = {c.clause_key: c for c in (total, other)}
+    jobs, _ = page_plan(pages, clauses, 100)
+    assert set(dict(jobs)[11]) == set(clauses)
+    assert 10 in dict(jobs)  # Adjacent to the other clause's only match.
+    limited, _ = page_plan(pages, clauses, 8)
+    assert total.clause_key not in dict(limited)[11]
+
+
+def test_continuation_and_column_overrides_in_one_page_read(documents, repository, tmp_path):
+    clause = quantitative(repository, "E1-5_09")
+    head = "Key Performance Indicators 2021 2022 Boundary"
+    body = "能源占比 原披露表\n" + ("项目 268 169 138 102\n" * 6)
+    documents.pages = lambda asset: [
+        PDFPageText(page_index=0, text=head),
+        PDFPageText(page_index=1, text=body),
+    ]
+    documents.image = lambda asset, index, thumbnail=False: f"{index}:{thumbnail}".encode()
+
+    class ContinuationModel(Model):
+        def complete(self, **kwargs):
+            context = kwargs["context"]
+            if context["page_index"] == 0:
+                return {"items": []}, {}
+            assert context["preceding_page"] == {"page_index": 0, "column_header": head}
+            assert kwargs["images"] == (b"1:False", b"0:True")
+            return {"items": [{
+                "clause_key": clause.clause_key, "unit": "%", "relation": "match",
+                "attributes": {"reporting_entity": "Company"},
+                "measurements": [{"value": "18", "period": "2021"}, {
+                    "value": "20", "period": "2022", "relation": "different",
+                    "attributes": {"value_role": "target"},
+                }],
+            }]}, {}
+
+    result = run_backbone(documents, ContinuationModel(), FileArtifactPort(tmp_path / "out"), "continuation",
+        RunRequest(ir_run_id="ir-example", clause_keys=[clause.clause_key]), {clause.clause_key: clause})
+    facts = {fact["value"]["value_raw"]: fact for fact in result["facts"]}
+    relations = {mapping["source_fact_id"]: mapping["match"] for mapping in result["clause_mappings"]}
+    assert facts["20"]["identity"]["reporting_entity"]["raw_text"] == "Company"
+    assert facts["20"]["identity"]["value_role"]["raw_text"] == "target"
+    assert relations[facts["18"]["source_fact_id"]] == "match"
+    assert relations[facts["20"]["source_fact_id"]] == "different"
+    assert all(fact["evidence"][0]["page_index"] == 1 for fact in facts.values())
 
 def test_raw_contracts_are_open_for_metadata_but_keep_kinds_separate():
     assert QuantitativePayload(value_raw='约十三万吨',extensions={'new_axis':{'source':'note'}}).parse_status=='unparsed'

@@ -821,7 +821,7 @@
       "title": "脱碳杠杆识别中的多情景考虑"
     },
     {
-      "clause_digest": "3177d56008ae95ed6daae2ffa0987258bda1f20caf98220e8c22be22511847ec",
+      "clause_digest": "f782394fd2b26e4432d65c77bd359e1206e80b42b5269f91e9b80f0a06c78b32",
       "clause_key": "E1-5_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -861,7 +861,7 @@
       "title": "核能占能源消费总量的比例"
     },
     {
-      "clause_digest": "b2bb5b626995209c4cf44b9d0c69d38e85a1ad3b738e22a806d749af02d15111",
+      "clause_digest": "4e3cdfdabe8dbd343cf3b04eee509dc128d367b28d1275ad13a667883c0fd745",
       "clause_key": "E1-5_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1111,7 +1111,7 @@
       "title": "范围3价值链分解结构"
     },
     {
-      "clause_digest": "013f1a3a5423e26375d752bb60670e671ef3f42298d180a72d571d51d88498b0",
+      "clause_digest": "74542fa08ea01481f41329688e882054c65877249bfc5e40820eac910c4f2de8",
       "clause_key": "E1-6_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3371,7 +3371,7 @@
       "title": "水风险地区耗水量 Water consumption in areas at water risk"
     },
     {
-      "clause_digest": "3e92fe5e889b9965b7e14335b8ececa43104609db39b78f05de67886fb178280",
+      "clause_digest": "983e89973a71d37d98d56744e18ae32e7d2b73787d4a9184857915ed62a31daa",
       "clause_key": "E3-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -3461,7 +3461,7 @@
       "title": "取水总量 Total water withdrawal"
     },
     {
-      "clause_digest": "3be69236c1f38a1d6f2e73f1412528ad3aef6fd5344636388075accf5efc7761",
+      "clause_digest": "1fa68dd136e2194b5c03f252d5c8abdbb89fcace9262e99cc5833864ba6772a8",
       "clause_key": "E3-4_12",
       "data_kind": "quantitative",
       "entry_kind": "value",

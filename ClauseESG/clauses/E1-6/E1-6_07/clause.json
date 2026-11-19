@@ -146,7 +146,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "013f1a3a5423e26375d752bb60670e671ef3f42298d180a72d571d51d88498b0",
+  "clause_digest": "74542fa08ea01481f41329688e882054c65877249bfc5e40820eac910c4f2de8",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",
@@ -651,7 +651,8 @@
     "allow_regulatory_limit": false,
     "instructions": [
       "范围1温室气体排放总量",
-      "Direct emissions / Indirect emissions 等简短行名只有在实际 CO2 当量单位、温室气体表头或适用脚注明确支持时才按对应范围读取；保留全部披露期间。单有直接/间接排放字样不证明其为温室气体排放。"
+      "Direct emissions / Indirect emissions 等简短行名只有在实际 CO2 当量单位、温室气体表头或适用脚注明确支持时才按对应范围读取；保留全部披露期间。单有直接/间接排放字样不证明其为温室气体排放。",
+      "单位字段照抄实际行、单位列或同表表头。Metric Tons CO₂ 只写原表的 CO₂，不补 e/eq；CO₂ (ten thousand tons) 同时保留 CO₂ 和 ten thousand tons。若报告明确印为 CO₂e 或 CO₂eq，再照抄该记号。不要以指标的标准单位代替报告的原印刷单位。"
     ],
     "operator": "ghg_scope",
     "rules": [
