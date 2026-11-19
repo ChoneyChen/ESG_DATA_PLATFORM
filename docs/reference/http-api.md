@@ -223,35 +223,37 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 
 | 方法与路径 | 参数（含请求模型） | 返回模型 | 实现 |
 |---|---|---|---|
-| `GET /api/clause-contract` | `` | `见实现` | [clause_contract](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L181) |
-| `GET /api/clause-groups` | `` | `见实现` | [groups](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L193) |
-| `POST /api/clause-selection-options` | `keys: list[str]=Body(..., min_length=1, max_length=2000)` | `见实现` | [selection_options](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L231) |
-| `GET /api/clause-selections` | `` | `见实现` | [selections](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L202) |
-| `GET /api/clauses` | `` | `ClauseCatalog` | [clauses](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L171) |
-| `POST /api/clauses/template` | `request: ClauseTemplate` | `见实现` | [clause_template](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L185) |
-| `GET /api/clauses/{key}` | `key: str` | `见实现` | [clause](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L206) |
-| `PUT /api/clauses/{key}` | `key: str, request: SaveClause` | `见实现` | [save](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L235) |
-| `GET /api/clauses/{key}/organization` | `key: str` | `见实现` | [clause_organization](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L210) |
-| `GET /api/clauses/{key}/reading-card` | `key: str` | `见实现` | [reading_card](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L224) |
-| `GET /api/compatibility` | `` | `见实现` | [compatibility](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L129) |
-| `GET /api/engine` | `` | `见实现` | [engine](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L154) |
-| `GET /api/organization-contract` | `` | `见实现` | [organization_contract](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L162) |
-| `GET /api/runs` | `` | `见实现` | [runs](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L308) |
-| `POST /api/runs` | `request: CreateRun` | `NativeRun` | [create](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L268) |
-| `POST /api/runs/preview` | `request: RunRequest` | `见实现` | [preview](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L253) |
-| `POST /api/runs/purge` | `request: PurgeRuns` | `见实现` | [purge_runs](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L321) |
-| `POST /api/runs/status` | `query: RunStatusQuery` | `见实现` | [statuses](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L313) |
-| `GET /api/runs/{run_id}` | `run_id: str` | `NativeRun` | [run](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L317) |
-| `POST /api/runs/{run_id}/cancel` | `run_id: str` | `NativeRun` | [cancel](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L335) |
-| `GET /api/runs/{run_id}/candidates` | `run_id: str` | `list[CandidateRejection]` | [candidates](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L460) |
-| `POST /api/runs/{run_id}/execution-terminal` | `run_id: str, request: ExecutionTerminal` | `NativeRun` | [execution_terminal](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L384) |
-| `POST /api/runs/{run_id}/exports` | `run_id: str` | `见实现` | [export](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L469) |
-| `GET /api/runs/{run_id}/exports/{export_id}` | `run_id: str, export_id: str` | `见实现` | [download_export](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L478) |
-| `GET /api/runs/{run_id}/facts` | `run_id: str, limit: int=Query(50, ge=1, le=500), cursor: str &#124; None=None, clause_key: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None, fact_id: str &#124; None=None` | `FactPage` | [facts](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L424) |
-| `GET /api/runs/{run_id}/facts/{fact_id}` | `run_id: str, fact_id: str` | `见实现` | [fact](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L394) |
-| `GET /api/runs/{run_id}/organized/{clause_key}` | `run_id: str, clause_key: str, limit: int=Query(50, ge=1, le=500), cursor: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None` | `OrganizedPage` | [organized](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L437) |
-| `GET /api/runs/{run_id}/results` | `run_id: str` | `ResultOverview` | [result_overview](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L409) |
-| `POST /api/runs/{run_id}/resume` | `run_id: str, request: ResumeRun` | `NativeRun` | [resume](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L347) |
-| `GET /api/runs/{run_id}/targets` | `run_id: str` | `见实现` | [run_targets](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L330) |
-| `POST /api/targets/freeze` | `request: RunRequest` | `见实现` | [freeze](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L247) |
-| `GET /health` | `` | `见实现` | [health](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L140) |
+| `GET /api/clause-contract` | `` | `见实现` | [clause_contract](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L227) |
+| `GET /api/clause-groups` | `` | `见实现` | [groups](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L239) |
+| `POST /api/clause-selection-options` | `keys: list[str]=Body(..., min_length=1, max_length=2000)` | `见实现` | [selection_options](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L277) |
+| `GET /api/clause-selections` | `` | `见实现` | [selections](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L248) |
+| `GET /api/clauses` | `` | `ClauseCatalog` | [clauses](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L217) |
+| `POST /api/clauses/template` | `request: ClauseTemplate` | `见实现` | [clause_template](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L231) |
+| `GET /api/clauses/{key}` | `key: str` | `见实现` | [clause](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L252) |
+| `PUT /api/clauses/{key}` | `key: str, request: SaveClause` | `见实现` | [save](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L281) |
+| `GET /api/clauses/{key}/organization` | `key: str` | `见实现` | [clause_organization](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L256) |
+| `GET /api/clauses/{key}/reading-card` | `key: str` | `见实现` | [reading_card](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L270) |
+| `GET /api/compatibility` | `` | `见实现` | [compatibility](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L175) |
+| `GET /api/engine` | `` | `见实现` | [engine](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L200) |
+| `GET /api/model-providers` | `response: Response` | `ModelProviders` | [model_providers](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L155) |
+| `PUT /api/model-providers/deepseek/credential` | `payload: SaveDeepSeekCredential, http: Request, response: Response` | `ModelProviders` | [save_deepseek_credential](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L160) |
+| `GET /api/organization-contract` | `` | `见实现` | [organization_contract](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L208) |
+| `GET /api/runs` | `` | `见实现` | [runs](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L358) |
+| `POST /api/runs` | `request: CreateRun` | `NativeRun` | [create](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L317) |
+| `POST /api/runs/preview` | `request: RunRequest` | `见实现` | [preview](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L300) |
+| `POST /api/runs/purge` | `request: PurgeRuns` | `见实现` | [purge_runs](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L371) |
+| `POST /api/runs/status` | `query: RunStatusQuery` | `见实现` | [statuses](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L363) |
+| `GET /api/runs/{run_id}` | `run_id: str` | `NativeRun` | [run](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L367) |
+| `POST /api/runs/{run_id}/cancel` | `run_id: str` | `NativeRun` | [cancel](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L385) |
+| `GET /api/runs/{run_id}/candidates` | `run_id: str` | `list[CandidateRejection]` | [candidates](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L511) |
+| `POST /api/runs/{run_id}/execution-terminal` | `run_id: str, request: ExecutionTerminal` | `NativeRun` | [execution_terminal](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L435) |
+| `POST /api/runs/{run_id}/exports` | `run_id: str` | `见实现` | [export](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L520) |
+| `GET /api/runs/{run_id}/exports/{export_id}` | `run_id: str, export_id: str` | `见实现` | [download_export](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L529) |
+| `GET /api/runs/{run_id}/facts` | `run_id: str, limit: int=Query(50, ge=1, le=500), cursor: str &#124; None=None, clause_key: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None, fact_id: str &#124; None=None` | `FactPage` | [facts](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L475) |
+| `GET /api/runs/{run_id}/facts/{fact_id}` | `run_id: str, fact_id: str` | `见实现` | [fact](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L445) |
+| `GET /api/runs/{run_id}/organized/{clause_key}` | `run_id: str, clause_key: str, limit: int=Query(50, ge=1, le=500), cursor: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None` | `OrganizedPage` | [organized](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L488) |
+| `GET /api/runs/{run_id}/results` | `run_id: str` | `ResultOverview` | [result_overview](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L460) |
+| `POST /api/runs/{run_id}/resume` | `run_id: str, request: ResumeRun` | `NativeRun` | [resume](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L397) |
+| `GET /api/runs/{run_id}/targets` | `run_id: str` | `见实现` | [run_targets](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L380) |
+| `POST /api/targets/freeze` | `request: RunRequest` | `见实现` | [freeze](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L293) |
+| `GET /health` | `` | `见实现` | [health](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py#L186) |

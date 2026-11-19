@@ -1,8 +1,9 @@
 """Public extraction operation views. Scientific facts retain their own contract."""
 
 from typing import Literal
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_serializer, model_validator
 from .facts import PipelineBudget, RunRequest
+from .model_providers import ModelSelection
 from .evidence import DocumentReference, EvidencePreparationRequest
 from .results import RunSummary
 from .exports import DeliveryStatus
@@ -57,6 +58,7 @@ class ExtractionPlanRequest(BaseModel):
     submission_key: str | None = Field(default=None, min_length=1, max_length=160)
     name: str = Field(default="条款提取", min_length=1, max_length=120)
     budget: PipelineBudget = Field(default_factory=PipelineBudget)
+    model_selection: ModelSelection | None = None
     expected_target_digest: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     expected_engine_fingerprint: str | None = Field(
         default=None, pattern=r"^[a-f0-9]{64}$"
@@ -68,6 +70,13 @@ class ExtractionPlanRequest(BaseModel):
             raise ValueError("Select independent clauses or a named set")
         return self
 
+    @model_serializer(mode="wrap")
+    def preserve_legacy_shape(self, serializer):
+        body = serializer(self)
+        if self.model_selection is None:
+            body.pop("model_selection", None)
+        return body
+
     def native(self, ir_id):
         return RunRequest(
             ir_run_id=ir_id,
@@ -75,6 +84,7 @@ class ExtractionPlanRequest(BaseModel):
             selection=self.selection,
             name=self.name,
             budget=self.budget,
+            model_selection=self.model_selection,
         )
 
 

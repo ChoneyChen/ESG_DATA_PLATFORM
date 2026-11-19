@@ -26,6 +26,7 @@ import {
   tone,
   text,
   periodText,
+  modelSelectionLabel,
 } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
 import { ProductStrip } from "../publication/data";
@@ -505,6 +506,8 @@ export function ExtractionPage({
                       <dd>{run.ir_run_id || "准备中"}</dd>
                       <dt>冻结目标</dt>
                       <dd className="mono">{run.target_digest || "—"}</dd>
+                      <dt>提取模型</dt>
+                      <dd>{modelSelectionLabel(run.run?.request?.model_selection || run.request.model_selection)}</dd>
                       <dt>引擎指纹</dt>
                       <dd className="mono">
                         {run.engine_fingerprint || "旧任务未记录"}

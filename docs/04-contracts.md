@@ -75,13 +75,15 @@ EvidenceLocation保存object_id/type、原PDF的0基页号、excerpt、role、�
 | 编排→条款/提取18180 | RunRequest冻结目标；CreateRun携带request、target_snapshot和submission_key | /api/targets/freeze、/api/runs |
 | 提取→文档18080 | DocumentReference；SearchIntent→ObjectSearchPage；对象+chunk→EvidenceFrame | /api/evidence/{ir_run_id}及search/read |
 | 阅读→准备 | EvidencePreparationRequest携带条款、页意图、已准备页、原因和max_pages | 编排消费后调用locate-pages，再准备并续跑 |
-| 提取→模型 | instructions/context/schema/max_tokens/cancel_check→引用选择及调用回执 | ModelPort，由本地适配器实现 |
+| 提取→模型 | instructions/context/schema/max_tokens/cancel_check→引用选择及调用回执 | ModelPort，由任务选择的本地Qwen或DeepSeek适配器实现 |
 | 提取→数据库18280 | 封存ZIP字节→IngestionReceipt | POST /v1/ingestion/exports |
 | Console→数据库 | 接收/投影状态、预览、成员分页、显式发布/撤下 | /v1/ingestion、/v1/projections、/v1/datasets |
 | Plat→数据库 | 有效发布的产品、观测、定义、来源、精确导出 | /v2/datasets及子路径 |
 | Plat→文档 | 完整PDF散列→原PDF字节 | /api/report-sources/{source_sha256}/file |
 
 DocumentPort、ModelPort、ArtifactPort、ResultPort的实际签名见[ports.py](../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py)。部署HTTP和同进程适配都保持这些值接口，不以绝对服务器路径代替引用。
+
+提取请求的`model_selection`只含`provider`和`model`。旧请求缺字段时沿用本地Qwen，`deepseek`需显式指定`deepseek-flash`或`deepseek-v4-pro`。预览返回解析后的选择，任务冻结它并将其交给原生执行器，续跑沿用同一选择。`GET /api/model-providers`提供只读状态及模型清单，`PUT /api/model-providers/deepseek/credential`单独写入密钥，仅返回同一状态。密钥不进入会话、检查点、调用回执或导出。
 
 ## 封存交接与幂等
 

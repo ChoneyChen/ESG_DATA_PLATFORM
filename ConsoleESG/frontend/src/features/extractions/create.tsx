@@ -8,6 +8,8 @@ import type {
   ExtractionBudget,
   Clause,
   ReportFolderList,
+  ModelProviders,
+  ModelSelection,
 } from "../../shared/contracts";
 import { EXTRACTION_BUDGET_DEFAULTS, EXTRACTION_BUDGET_LIMITS } from "../../shared/contracts";
 import { write } from "../../shared/api";
@@ -23,14 +25,16 @@ import {
   SelectionCheckbox,
 } from "../../shared/ui";
 import { href, navigate } from "../../app/routes";
-import { label } from "../../shared/format";
+import { label, modelSelectionLabel } from "../../shared/format";
 type Preview = {
   targets: { digest: string; clauses: Record<string, Clause> };
   clause_count: number;
   engine_fingerprint: string;
   calls_model: false;
+  model_selection?: ModelSelection;
 };
 type Selection = { selections: Record<string, string[]> };
+const modelProvidersPath = "/api/model-providers";
 export function CreateExtractionPage({
   initialReport,
   initialFolder,
@@ -56,7 +60,12 @@ export function CreateExtractionPage({
     [query, setQuery] = useState(""),
     [group, setGroup] = useState(""),
     [budget, setBudget] = useState<ExtractionBudget>(EXTRACTION_BUDGET_DEFAULTS),
+    [modelSelection, setModelSelection] = useState<ModelSelection>({ provider: "local" }),
     [advanced, setAdvanced] = useState(false);
+  const cloud = modelSelection.provider === "deepseek";
+  const providers = useResource<ModelProviders>("extraction", cloud ? modelProvidersPath : null);
+  const deepseek = providers.data?.providers.find((provider) => provider.provider === "deepseek");
+  const credentialInput = useRef<HTMLInputElement>(null);
   const alive = useRef(true);
   useEffect(() => {
     alive.current = true;
@@ -93,9 +102,29 @@ export function CreateExtractionPage({
         ? `${name} · ${available.find((r) => r.pdf_id === pdfId)?.company?.name || pdfId}`
         : name,
     budget,
+    ...(cloud ? { model_selection: modelSelection } : {}),
   });
   function toggle(list: string[], key: string, set: (v: string[]) => void) {
     set(list.includes(key) ? list.filter((x) => x !== key) : [...list, key]);
+  }
+  async function saveCredential() {
+    const input = credentialInput.current;
+    const apiKey = input?.value.trim();
+    if (!input || !apiKey) {
+      setError(new Error("请输入 DeepSeek API 密钥。"));
+      return;
+    }
+    input.value = "";
+    setBusy(true);
+    setError(undefined);
+    try {
+      await write("extraction", `${modelProvidersPath}/deepseek/credential`, { api_key: apiKey }, "PUT");
+      invalidate("extraction", modelProvidersPath);
+    } catch {
+      setError(new Error("DeepSeek 密钥保存失败，请检查本地提取服务后重试。"));
+    } finally {
+      setBusy(false);
+    }
   }
   async function preview() {
     setBusy(true);
@@ -147,7 +176,8 @@ export function CreateExtractionPage({
     }
   }
   const ready =
-    !!selectedReports.length && !!keys.length && !!name.trim() && !busy;
+    !!selectedReports.length && !!keys.length && !!name.trim() && !busy &&
+    (!cloud || (!!deepseek?.configured && !!modelSelection.model && deepseek.models.includes(modelSelection.model)));
   return (
     <>
       <PageHeader
@@ -304,6 +334,52 @@ export function CreateExtractionPage({
                 ))}
               </div>
             </section>
+            <section className="section">
+              <div className="section-heading"><h2>3. 提取模型</h2></div>
+              <div className="form-grid">
+                <Field label="模型提供者">
+                  <select
+                    value={modelSelection.provider}
+                    onChange={(e) => {
+                      setError(undefined);
+                      setModelSelection({ provider: e.target.value === "deepseek" ? "deepseek" : "local" });
+                    }}
+                  >
+                    <option value="local">本地 Qwen</option>
+                    <option value="deepseek">DeepSeek 云端 API</option>
+                  </select>
+                </Field>
+                {cloud && (
+                  <Field label="DeepSeek 模型">
+                    <select value={modelSelection.model || ""} onChange={(e) =>
+                      setModelSelection({ provider: "deepseek", model: deepseek?.models.find((model) => model === e.target.value) })}>
+                      <option value="">请选择模型</option>
+                      {deepseek?.models.map((model) => <option key={model} value={model}>{model}</option>)}
+                    </select>
+                  </Field>
+                )}
+              </div>
+              {cloud && (
+                <>
+                  <Notice>提取所需的提示和证据片段将发送给 DeepSeek。PDF 准备和 OCR 仍在本机执行。</Notice>
+                  <ReadError error={providers.error} retry={providers.reload} />
+                  {providers.loading && !deepseek && <Loading />}
+                  {deepseek && (
+                    <div className="toolbar">
+                      <Field label="DeepSeek API 密钥">
+                        <input ref={credentialInput} type="password" autoComplete="off" spellCheck={false} />
+                      </Field>
+                      <button type="button" className="button-secondary" onClick={saveCredential}>
+                        {deepseek.configured ? "更新密钥" : "保存密钥"}
+                      </button>
+                      <Badge tone={deepseek.configured ? "success" : "warning"}>
+                        {deepseek.configured ? "已配置" : "未配置"}
+                      </Badge>
+                    </div>
+                  )}
+                </>
+              )}
+            </section>
             <button
               className="disclosure-button"
               aria-expanded={advanced}
@@ -348,6 +424,7 @@ export function CreateExtractionPage({
       ) : step === 2 ? (
         <section className="section">
           <h2>确认本次选择</h2>
+          <p>提取模型 · {modelSelectionLabel(Object.values(previews)[0]?.model_selection || modelSelection)}</p>
           <div className="metric-strip">
             <div>
               <strong>{selectedReports.length}</strong>
@@ -372,7 +449,7 @@ export function CreateExtractionPage({
             ))}
           </ul>
           <Notice>
-            提交时冻结条款内容和引擎指纹。PDF
+            提交时冻结条款内容、引擎指纹和模型选择。PDF
             准备后逐条检索、阅读并保存原值。此预览未调用模型。
           </Notice>
           {Object.entries(created).map(([id, run]) => (

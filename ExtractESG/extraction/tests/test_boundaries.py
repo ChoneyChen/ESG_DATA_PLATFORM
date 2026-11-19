@@ -42,6 +42,69 @@ def test_no_path_crosses_the_evidence_http_interface(documents,repository,tmp_pa
         rejected=client.post('/api/runs',json={'request':{'ir_run_id':'ir-example','clause_keys':['E1-5_01'],'api_key':'never-echo-this-secret'}})
         assert rejected.status_code==422 and 'never-echo-this-secret' not in rejected.text
 
+def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, repository, tmp_path, monkeypatch):
+    import stat
+    from esg_extraction.pipeline import runtime
+    from esg_extraction.pipeline.adapters import deepseek_model
+    from esg_extraction.pipeline.adapters.model_credentials import DeepSeekCredentialStore
+    from test_backbone import Model
+
+    store = RunStore(tmp_path / "runs.db")
+    artifacts = FileArtifactPort(tmp_path / "out")
+    resources = lambda: (repository, store, artifacts, documents)
+    app = create_app(resources)
+    operator = TestClient(app, client=("127.0.0.1", 50000), headers={"Origin": "http://127.0.0.1:18081"})
+    public = TestClient(app, client=("192.0.2.1", 50000))
+    write_endpoint = "/api/model-providers/deepseek/credential"
+    sample = "fixture-key-do-not-echo"
+    cloud = {"provider": "deepseek", "model": "deepseek-v4-pro"}
+    raw = {"ir_run_id": "ir-example", "clause_keys": ["E1-5_01"]}
+    request = {**raw, "model_selection": cloud}
+
+    assert "model_selection" not in RunRequest.model_validate(raw).model_dump()
+    assert operator.post("/api/runs", json={"request": request}).status_code == 409
+    assert public.put(write_endpoint, json={"api_key": sample}).status_code == 403
+    wrong_origin = operator.put(write_endpoint, json={"api_key": sample}, headers={"Origin": "https://example.net"})
+    assert wrong_origin.status_code == 403
+    invalid = operator.put(write_endpoint, json={"api_key": [], sample: True})
+    assert invalid.status_code == 422 and sample not in invalid.text
+    response = operator.put(write_endpoint, json={"api_key": sample})
+    assert response.status_code == 200 and sample not in response.text
+    assert response.headers["Cache-Control"] == "no-store"
+    assert operator.get("/api/model-providers").json() == response.json()
+    assert operator.get(write_endpoint).status_code == 405
+    credential = DeepSeekCredentialStore(store)
+    assert stat.S_IMODE(credential.path.stat().st_mode) == 0o600
+    assert credential.read() == sample
+
+    preview = operator.post("/api/runs/preview", json=request).json()
+    assert preview["model_selection"] == cloud
+    created = operator.post("/api/runs", json={"request": request})
+    assert created.status_code == 201 and sample not in created.text
+    run = created.json()["run_id"]
+    assert operator.post(f"/api/runs/{run}/cancel").json()["status"] == "cancelled"
+    resumed = operator.post(f"/api/runs/{run}/resume", json={}).json()
+    assert resumed["request"]["model_selection"] == cloud
+
+    models = []
+
+    def fake_model(model_id, key):
+        assert model_id == cloud["model"] and key == sample
+        model = Model()
+        models.append(model)
+        return model
+
+    monkeypatch.setattr(runtime, "resources", resources)
+    monkeypatch.setattr(deepseek_model, "DeepSeekModel", fake_model)
+    for _ in range(10):
+        result = runtime.execute(run)
+        if result["status"] == "completed":
+            break
+    assert result["status"] == "completed" and any(model.calls for model in models)
+    assert artifacts.read(run, "input/engine.json")["model_selection"] == cloud
+    assert sample.encode() not in store.path.read_bytes()
+
+
 def test_candidate_diagnostics_keep_existing_row_span_and_literal_records(tmp_path, repository, documents):
     store = RunStore(tmp_path / 'runs.db')
     artifacts = FileArtifactPort(tmp_path / 'out')

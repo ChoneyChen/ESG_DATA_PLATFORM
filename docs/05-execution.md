@@ -10,7 +10,7 @@
 | 2 计划准备 | 条款页查询+原PDF→必要页、OCR/IR依赖计划 | report_processing.py、ocr/page_selection.py |
 | 3 物理准备 | 原生文字/布局及必要识别→可回读IR快照 | document/workflows、OCR、物理构建器 |
 | 4 找对象 | 条款SearchIntent→有界对象分页 | retrieval.py、文档search_ranking.py |
-| 5 阅读选择 | 冻结阅读卡+局部帧→行列或原句引用 | reading_frame.py、decisions.py、本地ModelPort |
+| 5 阅读选择 | 冻结阅读卡+局部帧→行列或原句引用 | reading_frame.py、decisions.py、任务选定的ModelPort |
 | 6 绑定原值 | 实际引用→SourceFact、ClauseMapping、覆盖 | binding.py、period_binding.py、SDK规则 |
 | 7 补可选属性 | 命中事实+已准备来源→带字段证据的属性 | enrichment.py、任务内尝试进度 |
 | 8 增量保存 | 事实/关系变化→索引、汇总、检查点 | result_store.py、statistics.py |
@@ -110,8 +110,11 @@ queued表示排队；running还需结合current_phase区分准备与阅读；com
 | PaddleOCR-VL-1.6本地运行时 | 必要页/区域识别 | 文字/表格/坐标，不判断条款 |
 | 系统Vision OCR | 文本预扫/局部识别能力 | 系统内部权重版本未知 |
 | Qwen3.5-9B-4bit本地MLX | 默认定量、定性和可选属性读取 | 阅读卡/证据纯文字，grammar_schema，不生成数值 |
-| 显式IR审查、NuExtract及远程适配器 | 可选能力接口 | 不属于默认条款阅读路径，不自动切换启用 |
+| DeepSeek官方API | 显式选择时处理定量、定性和可选属性读取 | 同一批提示、证据片段、结构要求和有效输出上限，响应在本地校验后进入原绑定 |
+| 显式IR审查及NuExtract | 可选能力接口 | 不属于条款读取路径 |
 
 ModelCallRequest/Capabilities/Receipt记录调用ID、任务/父尝试、实际模态和证据ID、prompt/schema摘要、申请/有效预算、模型/provider、耗时、tokens、取消及失败。输出约束级别按实际能力记录，prompt_schema不冒充token语法约束。
+
+云端适配器仅连接DeepSeek官方服务，提交本次读取所需的文字提示与有来源的证据片段。失败、取消及超时沿用ModelPort调用结果，不切换到其他提供者。准备、Paddle OCR、文档IR、候选与续读、量值绑定及数据库交接沿用相同处理规则。
 
 模型权重可驻留，物理OCR/IR可按内容和配置复用；模型理解不跨条款/运行复用。当前主干没有embedding生产调用。日志与公共信封不含凭据和完整敏感prompt。

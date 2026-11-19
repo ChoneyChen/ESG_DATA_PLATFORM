@@ -101,6 +101,7 @@
 | [ExtractESG/contracts/src/esg_contracts/evidence.py](../../ExtractESG/contracts/src/esg_contracts/evidence.py) | The document service exposes evidence objects, never storage directories. |
 | [ExtractESG/contracts/src/esg_contracts/exports.py](../../ExtractESG/contracts/src/esg_contracts/exports.py) | Sealed producer-to-database handoff; no service paths or presentation objects. |
 | [ExtractESG/contracts/src/esg_contracts/facts.py](../../ExtractESG/contracts/src/esg_contracts/facts.py) | Pipeline records: evidence/facts/goals are independent contracts. |
+| [ExtractESG/contracts/src/esg_contracts/model_providers.py](../../ExtractESG/contracts/src/esg_contracts/model_providers.py) | Public model selection and provider status contain no credentials. |
 | [ExtractESG/contracts/src/esg_contracts/operations.py](../../ExtractESG/contracts/src/esg_contracts/operations.py) | Operational observations expose no dispatch payload, local paths or runtime secrets. |
 | [ExtractESG/contracts/src/esg_contracts/results.py](../../ExtractESG/contracts/src/esg_contracts/results.py) | Extraction delivery is an independent, validated collection of raw facts and links. |
 | [ExtractESG/contracts/src/esg_contracts/search.py](../../ExtractESG/contracts/src/esg_contracts/search.py) | Document-service search input. No standard, selection-set or package imports. |
@@ -310,8 +311,10 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py) | One extraction backbone, independent clause goals, two produced data kinds. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py) | Local implementations of pipeline ports; storage locations stay here. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py) | Artifacts are a producer-owned store addressed by run and artifact IDs. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py) | DeepSeek transport for existing text-only extraction decisions. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py) | HTTP document adapter: only IR IDs and stable evidence object references cross services. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py) | Local general-purpose Qwen VLM; no NuExtract-specific template tokens. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/model_credentials.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/model_credentials.py) | Write-only operator configuration, resolved by the extraction worker. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/api.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/api.py) | Current extraction and independent clause API. No package/version routes. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/binding.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/binding.py) | Evidence binding shared by every data reader. No clause identities are authored here. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/decisions.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/decisions.py) | Model proposals name evidence; they cannot supply numerical values. |
@@ -341,6 +344,7 @@
 | [ExtractESG/extraction/tests/test_candidate_requirements.py](../../ExtractESG/extraction/tests/test_candidate_requirements.py) | Positive local requirements reduce irrelevant calls without discarding raw values. |
 | [ExtractESG/extraction/tests/test_capture_semantics.py](../../ExtractESG/extraction/tests/test_capture_semantics.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_clause_api.py](../../ExtractESG/extraction/tests/test_clause_api.py) | 测试/样例 |
+| [ExtractESG/extraction/tests/test_deepseek_model.py](../../ExtractESG/extraction/tests/test_deepseek_model.py) | Cloud adapter contract at the HTTP boundary, without external calls. |
 | [ExtractESG/extraction/tests/test_exporting.py](../../ExtractESG/extraction/tests/test_exporting.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_frame_budget.py](../../ExtractESG/extraction/tests/test_frame_budget.py) | 测试/样例 |
 | [ExtractESG/extraction/tests/test_organization.py](../../ExtractESG/extraction/tests/test_organization.py) | 测试/样例 |

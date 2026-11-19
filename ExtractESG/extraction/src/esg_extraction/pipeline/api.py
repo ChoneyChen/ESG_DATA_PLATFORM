@@ -1,17 +1,19 @@
 """Current extraction and independent clause API. No package/version routes."""
 
-from fastapi import FastAPI, HTTPException, Body, Query
+from fastapi import FastAPI, HTTPException, Body, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, SecretStr
 from esg_clauses.contract import ClauseContract
 from esg_clauses.descriptor import ClauseDescriptor
 from esg_clauses.catalog import ClauseCatalog, ClauseGroup
 from esg_clauses.repository import ClauseRepository, ClauseRepositoryError
 from esg_contracts.facts import RunRequest
 from esg_data.organization import OrganizationSpec, OrganizedDataset
-from esg_runtime.local_operator import install_loopback_marker
+from esg_runtime.local_operator import install_loopback_marker, operator_headers
+from esg_contracts.model_providers import ModelProviders, ModelSelection
 from .runtime import resources, engine_digest
+from .adapters.model_credentials import DeepSeekCredentialStore, MAX_KEY_LENGTH
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
 from esg_contracts.sessions import NativeRun
@@ -64,6 +66,11 @@ class PurgeRuns(BaseModel):
     run_ids: list[str] = Field(min_length=1, max_length=1000)
 
 
+class SaveDeepSeekCredential(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    api_key: SecretStr = Field(min_length=1, max_length=MAX_KEY_LENGTH)
+
+
 def create_app(resource_factory=resources):
     from .delivery import DeliveryOutbox
     outbox = DeliveryOutbox(resource_factory)
@@ -85,6 +92,8 @@ def create_app(resource_factory=resources):
     async def invalid_request(request, exc):
         from fastapi.responses import JSONResponse
 
+        if request.url.path == "/api/model-providers/deepseek/credential":
+            return JSONResponse(status_code=422, content={"detail": "Invalid DeepSeek API key format"})
         return JSONResponse(
             status_code=422,
             content={
@@ -125,6 +134,43 @@ def create_app(resource_factory=resources):
                 503,
                 "Extraction service code changed; restart before creating a new task",
             )
+
+    def provider_status(store):
+        try:
+            return DeepSeekCredentialStore(store).providers()
+        except OSError:
+            raise HTTPException(503, "The model credential store is unavailable") from None
+
+    def require_model_setup(request, store):
+        selection = request.model_selection or ModelSelection()
+        if selection.provider == "deepseek":
+            try:
+                configured = DeepSeekCredentialStore(store).configured()
+            except OSError:
+                raise HTTPException(503, "The model credential store is unavailable") from None
+            if not configured:
+                raise HTTPException(409, "DeepSeek API key is not configured in the local workbench")
+        return selection
+
+    @app.get("/api/model-providers")
+    def model_providers(response: Response) -> ModelProviders:
+        response.headers["Cache-Control"] = "no-store"
+        return provider_status(resource_factory()[1])
+
+    @app.put("/api/model-providers/deepseek/credential")
+    def save_deepseek_credential(payload: SaveDeepSeekCredential, http: Request, response: Response) -> ModelProviders:
+        if operator_headers(http.headers.get("Authorization")) is None:
+            raise HTTPException(403, "Model credentials can only be configured by a local operator")
+        credentials = DeepSeekCredentialStore(resource_factory()[1])
+        try:
+            credentials.write(payload.api_key.get_secret_value().strip())
+            result = credentials.providers()
+        except ValueError:
+            raise HTTPException(422, "Invalid DeepSeek API key format") from None
+        except OSError:
+            raise HTTPException(503, "The model credential store is unavailable") from None
+        response.headers["Cache-Control"] = "no-store"
+        return result
 
     @app.get("/api/compatibility")
     def compatibility():
@@ -247,13 +293,15 @@ def create_app(resource_factory=resources):
     @app.post("/api/targets/freeze")
     def freeze(request: RunRequest):
         require_current_engine()
-        repo, *_ = resource_factory()
+        repo, store, *_ = resource_factory()
+        require_model_setup(request, store)
         return repo.freeze(selection(request, repo))
 
     @app.post("/api/runs/preview")
     def preview(request: RunRequest):
         require_current_engine()
         repo, store, artifacts, documents = resource_factory()
+        model_selection = require_model_setup(request, store)
         targets = selection(request, repo)
         document = documents.document(request.ir_run_id)
         return {
@@ -262,6 +310,7 @@ def create_app(resource_factory=resources):
             "targets": repo.freeze(targets),
             "clause_count": len(targets),
             "budget": request.budget,
+            "model_selection": model_selection,
             "calls_model": False,
         }
 
@@ -277,6 +326,7 @@ def create_app(resource_factory=resources):
                 "Extraction engine changed after preview; reload before creating a task",
             )
         repo, store, artifacts, documents = resource_factory()
+        require_model_setup(request.request, store)
         targets = (
             repo.thaw(request.target_snapshot)
             if request.target_snapshot
@@ -358,6 +408,7 @@ def create_app(resource_factory=resources):
         need = state.get("evidence_request")
         if not need and state["status"] not in {"interrupted", "failed", "cancelled"}:
             raise HTTPException(409, "Extraction is already running")
+        require_model_setup(RunRequest.model_validate(state["request"]), store)
         sources = dict(state.get("evidence_sources") or {})
         from esg_contracts.evidence import DocumentReference
         primary = DocumentReference.model_validate(state["document"])

@@ -74,7 +74,8 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 | `exporting.py`、`delivery.py` | 自包含交接包与交付outbox，接收回执和重试 |
 | `ports.py`、`adapters/` | Document/Model/Artifact/Result端口及具体I/O |
 | `state.py`、`runtime.py`、`worker.py` | 原生运行持久化、错误/续跑、执行槽及worker入口 |
-| `../models/` | 本地Qwen能力、MLX执行、结构约束及失败类别 |
+| `../models/` | 本地Qwen能力、MLX执行、共用结构化提示及失败类别 |
+| `adapters/deepseek_model.py`、`adapters/model_credentials.py` | DeepSeek模型调用适配及仅供本机执行器读取的密钥配置 |
 
 ## ExtractESG/pipeline与shared_runtime（RQ-08、09）
 

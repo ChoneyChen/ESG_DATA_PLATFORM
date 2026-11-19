@@ -48,6 +48,8 @@ function mock(
       body =
         url === "/document/api/report-resources"
           ? { reports: [resource("甲"), resource("乙")] }
+          : url === "/document/api/report-resources/folders"
+            ? { folders: [] }
           : url === "/document/api/report-sessions"
             ? []
             : url === "/extraction/api/clauses"
@@ -158,6 +160,59 @@ it("previews targets before execution and retries only the unsubmitted report in
   fireEvent.click(screen.getByText("提交剩余报告"));
   await screen.findByText("已创建 2 个独立任务");
   expect(posted).toEqual(["asset-甲", "asset-乙", "asset-乙"]);
+});
+it("saves the DeepSeek key separately and freezes only the selected provider and model", async () => {
+  const selection = { provider: "deepseek", model: "deepseek-v4-pro" };
+  const value = "fixture-secret-value";
+  let configured = false;
+  const providerStatus = () => ({ providers: [
+    { provider: "local", configured: true, models: [] },
+    { provider: "deepseek", configured, models: ["deepseek-flash", "deepseek-v4-pro"] },
+  ] });
+  const submissions: Record<string, unknown>[] = [];
+  const fetch = mock((url, init) => {
+    if (url === "/extraction/api/model-providers") return providerStatus();
+    if (url === "/extraction/api/model-providers/deepseek/credential") {
+      expect(init.method).toBe("PUT");
+      expect(JSON.parse(init.body as string)).toEqual({ api_key: value });
+      configured = true;
+      return providerStatus();
+    }
+    if (url === "/document/api/report-sessions/preview") {
+      submissions.push(JSON.parse(init.body as string));
+      return {
+        targets: { digest: "d".repeat(64), clauses: { TEST_01: {} } },
+        clause_count: 1,
+        engine_fingerprint: "e".repeat(64),
+        calls_model: false,
+        model_selection: selection,
+      };
+    }
+    if (url === "/document/api/report-sessions" && init.method === "POST") {
+      submissions.push(JSON.parse(init.body as string));
+      return { session_id: "cloud-session" };
+    }
+  });
+  await open("#/extractions/new");
+  fireEvent.click(await screen.findByText("报告 甲"));
+  fireEvent.click(await screen.findByText("年度用量"));
+  fireEvent.change(screen.getByLabelText("模型提供者"), { target: { value: "deepseek" } });
+  await screen.findByText("未配置");
+  fireEvent.change(screen.getByLabelText("DeepSeek 模型"), { target: { value: selection.model } });
+  const preview = screen.getByRole<HTMLButtonElement>("button", { name: "核对提取目标" });
+  expect(preview.disabled).toBe(true);
+  const credential = screen.getByLabelText<HTMLInputElement>("DeepSeek API 密钥");
+  fireEvent.change(credential, { target: { value } });
+  fireEvent.click(screen.getByRole("button", { name: "保存密钥" }));
+  await screen.findByText("已配置");
+  expect(credential.value).toBe("");
+  fireEvent.click(preview);
+  await screen.findByText("提取模型 · DeepSeek · deepseek-v4-pro");
+  fireEvent.click(screen.getByRole("button", { name: "开始提取" }));
+  await waitFor(() => expect(submissions).toHaveLength(2));
+  expect(submissions.map((entry) => entry.model_selection)).toEqual([selection, selection]);
+  expect(JSON.stringify(submissions)).not.toContain(value);
+  expect(fetch.mock.calls.filter(([, init]) => String(init?.body || "").includes(value))).toHaveLength(1);
 });
 it("keeps report edits open on a revision conflict and submits only the original revision", async () => {
   const fetch = mock((url, init) =>

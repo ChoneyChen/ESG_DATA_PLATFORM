@@ -1,3 +1,5 @@
+import type { ModelSelection } from "./contracts";
+
 export const labels: Record<string, string> = {
   targeted_extraction: "条款提取",
   document_ir: "文档证据",
@@ -43,6 +45,10 @@ export const labels: Record<string, string> = {
   template: "模板",
   sample: "组织示例",
 };
+export const modelSelectionLabel = (selection?: ModelSelection | null) =>
+  selection?.provider === "deepseek"
+    ? `DeepSeek · ${selection.model}`
+    : "本地 Qwen";
 export const label = (key: string | null | undefined) =>
   key ? labels[key] || key : "—";
 export const tone = (

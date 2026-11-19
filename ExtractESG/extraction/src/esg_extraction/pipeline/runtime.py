@@ -51,25 +51,32 @@ def engine_digest():
     )
 
 
+def model_for(selection, store):
+    if selection is not None and selection.provider == "deepseek":
+        from .adapters.deepseek_model import DeepSeekModel
+        from .adapters.model_credentials import DeepSeekCredentialStore
+
+        key = DeepSeekCredentialStore(store).read()
+        if key is None:
+            raise ValueError("DeepSeek API key is not configured in the local workbench")
+        return DeepSeekModel(selection.model, key)
+
+    from .adapters.local_model import LocalQwenModel
+
+    return LocalQwenModel(Path(os.getenv(
+        "QWEN_VLM_MODEL_PATH", str(Path.home() / "Desktop/model/Qwen3.5-9B-4bit"),
+    )))
+
+
 def execute(run_id, *, model=None):
     from esg_contracts.facts import RunRequest
     from esg_contracts.evidence import DocumentReference
-    from .adapters.local_model import LocalQwenModel
     from .engine import ExtractionBackbone, PipelineCancelled, EvidenceNeeded, ExecutionYield, ENGINE_VERSION
     from .result_store import ResultStore
     from .ports import DocumentUnavailable
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
-    model = model or LocalQwenModel(
-        Path(
-            os.getenv(
-                "QWEN_VLM_MODEL_PATH",
-                str(Path.home() / "Desktop/model/Qwen3.5-9B-4bit"),
-            )
-        )
-    )
-    model.progress_callback = lambda event: store.progress(run_id, current_call=event)
     try:
         fingerprint = engine_digest()
         if state.get("engine_fingerprint") != fingerprint:
@@ -82,15 +89,22 @@ def execute(run_id, *, model=None):
             raise ValueError(
                 "Document evidence changed after run creation; submit a new run"
             )
+        request = RunRequest.model_validate(state["request"])
+        if model is None:
+            model = model_for(request.model_selection, store)
+        model.progress_callback = lambda event: store.progress(run_id, current_call=event)
+        identity = {"version": ENGINE_VERSION, "fingerprint": fingerprint}
+        if request.model_selection is not None:
+            identity["model_selection"] = request.model_selection.model_dump(mode="json")
         body = ExtractionBackbone(
             documents,
             model,
             artifacts,
             ResultStore(run_id, artifacts),
-            engine_identity={"version": ENGINE_VERSION, "fingerprint": fingerprint},
+            engine_identity=identity,
         ).run(
             run_id,
-            RunRequest.model_validate(state["request"]),
+            request,
             repo.thaw(state["targets"]),
             document=frozen_document,
             sources={key: DocumentReference.model_validate(value) for key,value in state.get("evidence_sources",{}).items()},
@@ -155,4 +169,5 @@ def execute(run_id, *, model=None):
         )
         raise
     finally:
-        model.close()
+        if model is not None:
+            model.close()

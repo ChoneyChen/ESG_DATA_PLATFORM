@@ -21,8 +21,8 @@
 ## 工作区约束
 
 - CrawlESG保护区不读取、修改、删除或暂存；保留已有无关改动。
-- 不读取/复制`PlatESG/.local/review-token`、`.env*`或其他凭据；凭据不进入URL、日志、任务、前端或文档。
-- 本地模型，`allow_cloud_ocr=false`，不静默切换提供者；`PLATESG_AUTO_PUBLISH=0`。
+- 不读取/复制`PlatESG/.local/review-token`、`.env*`或其他凭据。云端提取密钥仅由操作者通过专用临时表单写入本机后端，不进入URL、日志、任务、浏览器存储或文档。
+- 提取默认本地模型，云端模型仅由操作者为任务显式选择，不静默切换提供者。`allow_cloud_ocr=false`，`PLATESG_AUTO_PUBLISH=0`。
 - 不重置或迁移`PlatESG/.local/demo-data`；不因文档任务启动、恢复或取消生产任务。
 - `.local/`存运行数据与开发产物，不是规范文档目录；`.claude/`不纳入提交。
 - 已授权的完成轮次直接提交并推送；身份为`Choney Chen <ChoneyChen@users.noreply.github.com>`，不暂存CrawlESG或无关文件。

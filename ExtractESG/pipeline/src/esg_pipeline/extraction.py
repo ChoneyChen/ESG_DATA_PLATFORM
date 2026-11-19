@@ -3,6 +3,7 @@
 import json, threading, shutil
 from uuid import uuid4
 import requests
+from esg_contracts.model_providers import ModelSelection
 from esg_contracts.sessions import (
     ExtractionPlanRequest,
     ExtractionSession,
@@ -204,6 +205,7 @@ class ExtractionCoordinator:
             "source_sha256": asset["sha256"] if asset else None,
             "calls_model": False,
             "budget": request.budget.model_dump(),
+            "model_selection": (request.model_selection or ModelSelection()).model_dump(mode="json"),
             "engine_fingerprint": engine["fingerprint"],
             "engine_version": engine["version"],
         }

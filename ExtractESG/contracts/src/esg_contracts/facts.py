@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Literal, Annotated
 from esg_reports.contract import ReportResource
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator, model_serializer
+from .model_providers import ModelSelection
 from .data_kinds import extensible_metadata
 from .data_kinds.quantitative import QuantitativeValue
 from .data_kinds.qualitative import QualitativeValue
@@ -221,6 +222,14 @@ class RunRequest(FrozenModel):
     selection: str | None = None
     name: str = Field(default="报告提取", min_length=1, max_length=120)
     budget: PipelineBudget = Field(default_factory=PipelineBudget)
+    model_selection: ModelSelection | None = None
+
+    @model_serializer(mode="wrap")
+    def preserve_legacy_shape(self, serializer):
+        body = serializer(self)
+        if self.model_selection is None:
+            body.pop("model_selection", None)
+        return body
 
     @model_validator(mode="after")
     def one_selection(self):

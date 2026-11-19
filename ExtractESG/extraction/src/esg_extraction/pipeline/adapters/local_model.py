@@ -14,8 +14,8 @@ from esg_extraction.models.schema_decoding import (
     build_decoding_constraint,
 )
 from esg_extraction.models.structured_template import (
-    STRUCTURED_OUTPUT_RULES,
     json_schema,
+    structured_prompt,
 )
 from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 
@@ -61,15 +61,7 @@ class LocalQwenModel(MlxVlmRuntime):
         from mlx_vlm.prompt_utils import apply_chat_template
 
         schema = json_schema(json.loads(template))
-        prompt = "\n\n".join(
-            (
-                instructions,
-                STRUCTURED_OUTPUT_RULES,
-                "OUTPUT_SCHEMA="
-                + json.dumps(schema, ensure_ascii=False, separators=(",", ":")),
-                "EVIDENCE=" + context,
-            )
-        )
+        prompt = structured_prompt(instructions, context, schema)
         return apply_chat_template(
             self._processor,
             self._model.config,

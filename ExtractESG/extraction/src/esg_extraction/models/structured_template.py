@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from pydantic import BaseModel
@@ -14,6 +15,15 @@ STRUCTURED_OUTPUT_RULES = (
     "Use [] for empty arrays, never null. Omit unsupported optional business fields; "
     "do not fabricate a source or a column for a negative decision."
 )
+
+
+def structured_prompt(instructions: str, context: str, schema: dict) -> str:
+    return "\n\n".join((
+        instructions,
+        STRUCTURED_OUTPUT_RULES,
+        "OUTPUT_SCHEMA=" + json.dumps(schema, ensure_ascii=False, separators=(",", ":")),
+        "EVIDENCE=" + context,
+    ))
 
 
 NATIVE_TYPES = {

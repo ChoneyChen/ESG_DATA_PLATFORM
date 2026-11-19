@@ -61,6 +61,37 @@ def test_submission_retry_returns_the_same_plan_and_rejects_changed_input(coordi
         coordinator.create(request.model_copy(update={'name':'changed input'}))
 
 
+def test_existing_ir_plan_dispatches_the_selected_provider_without_credentials(coordinator):
+    calls = []
+    snapshot = {"clauses": {"TEST_01": {}}, "digest": "a" * 64}
+
+    def remote(method, path, payload=None):
+        calls.append((path, payload))
+        if path == "/api/targets/freeze":
+            return snapshot
+        if path == "/api/engine":
+            return {"ready": True, "fingerprint": "b" * 64, "version": "test"}
+        if path == "/api/runs/preview":
+            return {"calls_model": False}
+        return {"run_id": "selected-run", "status": "queued"}
+
+    coordinator.remote = remote
+    coordinator.store.pin_ir = lambda *args: None
+    coordinator.queue = lambda *args, **kwargs: SimpleNamespace(task_id="queue")
+    choice = {"provider": "deepseek", "model": "deepseek-flash"}
+    request = ExtractionPlanRequest(input={"kind": "document_ir", "ir_run_id": "ir"},
+                                    clause_keys=["TEST_01"], model_selection=choice)
+    assert coordinator.preview(request)["model_selection"] == choice
+    plan = coordinator.create(request)
+    coordinator.tick(coordinator.get(plan["session_id"]))
+    created = next(payload for path, payload in calls if path == "/api/runs")
+    assert created["request"]["model_selection"] == choice
+    assert created["request"]["budget"] == request.budget.model_dump()
+    assert created["request"]["ir_run_id"] == "ir"
+    assert "api_key" not in created["request"]
+    assert coordinator.get(plan["session_id"])["request"]["model_selection"] == choice
+
+
 def test_preparation_cancel_waits_for_queue_exit_and_projects_actual_child_state(coordinator):
     child=SimpleNamespace(status=SimpleNamespace(value='running'),cancel_requested=True,progress=None)
     coordinator.store.get=lambda key:child
