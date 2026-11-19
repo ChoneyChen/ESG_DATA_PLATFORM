@@ -12,7 +12,7 @@ from esg_contracts.facts import RunRequest
 from esg_data.organization import OrganizationSpec, OrganizedDataset
 from esg_runtime.local_operator import install_loopback_marker, operator_headers
 from esg_contracts.model_providers import ModelProviders, ModelSelection
-from .runtime import resources, engine_digest, input_document
+from .runtime import resources, engine_digest, input_document, saved_reading_progress
 from .adapters.model_credentials import DeepSeekCredentialStore, MAX_KEY_LENGTH
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
@@ -407,11 +407,11 @@ def create_app(resource_factory=resources):
             raise HTTPException(409, "Extraction is already running")
         require_model_setup(RunRequest.model_validate(state["request"]), store)
         checkpoint = ResultStore(run_id, artifacts).checkpoint()
-        store.progress(run_id, current_call=None, progress={"stage":"queued", "current":len(checkpoint.get("completed_clauses", [])),
-            "model_calls":(state.get("summary") or {}).get("model_calls",0),
-            "total":len(state["targets"]["clauses"]), "fact_count":(state.get("summary") or {}).get("source_facts",0)})
+        store.progress(run_id, current_call=None, progress=saved_reading_progress(
+            checkpoint, state.get("progress"), state.get("summary") or {}, "queued",
+        ))
         return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
-            cancel_requested=False, error=None, finished_at=None)
+            cancel_requested=False, execution_continues=False, error=None, finished_at=None)
 
     @app.post("/api/runs/{run_id}/execution-terminal")
     def execution_terminal(run_id: str, request: ExecutionTerminal) -> NativeRun:

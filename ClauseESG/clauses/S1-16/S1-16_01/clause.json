@@ -93,7 +93,7 @@
       "context_terms": [],
       "description": null,
       "label": "薪酬定义",
-      "reading_instruction": null,
+      "reading_instruction": "保留报告用于该项的原文薪酬口径，如平均小时工资、基本工资、总薪酬、明确的差额或男女薪酬比定义。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f9fcbb835241fd0088e93a6144c9871c73fc4350c47faa5f502babb6c337c219",
+  "clause_digest": "d07b497f87da09f9bf2575fcb1617bb3f6f9fd6e451f50f2c1b52800e9124c82",
   "clause_key": "S1-16_01",
   "data_kind": "quantitative",
   "definition": "男女员工薪酬水平之差占男性薪酬水平的比例。",
@@ -226,7 +226,13 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Gender Pay Gap",
+    "Gender Pay Ratio",
+    "Ratio of Average Hourly Wage of Female Employees",
+    "性别薪酬差距",
+    "男女薪酬比"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "同工同酬比例与薪酬差距是不同指标；薪酬口径（基本工资或总薪酬）须一致。"
@@ -703,7 +709,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "男女员工薪酬水平之差占男性薪酬水平的比例。"
+      "逐年读取实际披露的性别薪酬差距。目标是男女薪酬差额占男性薪酬的比例。先读实际行标签、定义或公式，再判断关系。保留实际薪酬统计范围及男女比较口径。",
+      "若报告写作 gender pay gap，但说明该值是女性薪酬除以男性薪酬，按实际薪酬比归 different。Gender pay ratio、female-to-male wage ratio 和同工同酬比例不替代差距。不从薪酬比换算差距。"
     ],
     "operator": "numeric_label",
     "rules": [

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type {
   TaskObservation,
   ExtractionSession,
@@ -10,6 +11,7 @@ import {
   Badge,
   Empty,
   Notice,
+  Tabs,
 } from "../../shared/ui";
 import { label, tone, date } from "../../shared/format";
 import { segment } from "../../shared/api";
@@ -19,20 +21,29 @@ type Compatibility = {
   readiness?: { ready: boolean; blockers: string[] };
   service?: string;
 };
+const inQueue = ({ status }: TaskObservation) => ["queued", "running", "cancelling"].includes(status);
+
+function taskMessage(task: TaskObservation) {
+  if (task.stage === "window_yielded" && task.status === "queued") return "进度已保存 · 等待续读";
+  if (task.stage === "window_yielded" && task.status === "running") return "准备继续读取";
+  return task.message;
+}
+
 export function RuntimePage({ taskId }: { taskId?: string }) {
+  const [view, setView] = useState("active");
   const doc = useResource<Compatibility>(
       "document",
-      "/health/compatibility",
+      taskId ? null : "/health/compatibility",
       8000,
     ),
     engine = useResource<{
       version: string;
       ready: boolean;
       fingerprint: string;
-    }>("extraction", "/api/engine", 8000),
+    }>("extraction", taskId ? null : "/api/engine", 8000),
     queue = useResource<TaskObservation[]>(
       "document",
-      "/api/operations/tasks",
+      taskId ? null : "/api/operations/tasks",
       2500,
     ),
     task = useResource<TaskObservation>(
@@ -42,11 +53,13 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
     ),
     runs = useResource<ExtractionSession[]>(
       "document",
-      "/api/report-sessions",
-      2500,
+      taskId ? "/api/report-sessions" : null,
     );
   const parent = runs.data?.find((r) => r.queue_task_id === taskId),
     current = task.data;
+  const active = queue.data?.filter(inQueue) || [];
+  const history = queue.data?.filter(t => !inQueue(t)) || [];
+  const shown = view === "active" ? active : history;
   return (
     <>
       <PageHeader
@@ -63,7 +76,7 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
                 <Badge tone={tone(current.status)}>
                   {label(current.status)}
                 </Badge>
-                <strong>{current.message}</strong>
+                <strong>{taskMessage(current)}</strong>
               </div>
               {parent && (
                 <a
@@ -78,6 +91,10 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
                 <dd>{label(current.task_type)}</dd>
                 <dt>阶段</dt>
                 <dd>{current.stage}</dd>
+                {current.status === "queued" && current.position != null && <>
+                  <dt>等待顺位</dt>
+                  <dd>{current.position}</dd>
+                </>}
                 <dt>实际计数</dt>
                 <dd>
                   {current.progress_total
@@ -166,9 +183,17 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
               </button>
             </div>
             <ReadError error={queue.error} retry={queue.reload} />
+            <Tabs
+              value={view}
+              onChange={setView}
+              tabs={[
+                { id: "active", label: queue.data ? `当前工作 · ${active.length}` : "当前工作" },
+                { id: "history", label: "近期执行记录" },
+              ]}
+            />
             {!queue.data && !queue.error ? (
               <Loading />
-            ) : queue.data?.length ? (
+            ) : queue.data && shown.length ? (
               <div className="table-scroll">
                 <table className="data-table">
                   <thead>
@@ -176,11 +201,12 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
                       <th>任务</th>
                       <th>状态</th>
                       <th>当前工作</th>
+                      {view === "active" && <th>等待顺位</th>}
                       <th>计数</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {queue.data.map((t) => (
+                    {shown.map((t) => (
                       <tr key={t.task_id}>
                         <td>
                           <a
@@ -194,7 +220,8 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
                         <td>
                           <Badge tone={tone(t.status)}>{label(t.status)}</Badge>
                         </td>
-                        <td>{t.message}</td>
+                        <td>{taskMessage(t)}</td>
+                        {view === "active" && <td>{t.status === "queued" ? t.position ?? "—" : "—"}</td>}
                         <td>
                           {t.progress_total
                             ? `${t.progress_current} / ${t.progress_total}`
@@ -205,13 +232,10 @@ export function RuntimePage({ taskId }: { taskId?: string }) {
                   </tbody>
                 </table>
               </div>
-            ) : (
-              <Empty title="队列为空" />
-            )}
+            ) : queue.data ? (
+              <Empty title={view === "active" ? "没有运行中或等待中的任务" : "没有近期执行记录"} />
+            ) : null}
           </section>
-          <p className="muted">
-            页面按需刷新；计数来自执行服务。模型 token 不计入条款完成比例。
-          </p>
         </>
       )}
     </>

@@ -113,3 +113,5 @@ export const write = <T>(
 export const segment = (value: string) => encodeURIComponent(value);
 export const pdfUrl = (asset: string, page?: number) =>
   `/document/api/report-assets/${segment(asset)}/file${page ? `#page=${page}` : ""}`;
+export const pdfPageImageUrl = (asset: string, pageIndex: number) =>
+  serviceUrl("document", `/api/report-assets/${segment(asset)}/reading-pages/${pageIndex}/image`);

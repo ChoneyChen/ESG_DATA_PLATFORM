@@ -72,7 +72,20 @@ def input_document(documents, request):
     return documents.pdf(request.asset_id) if request.asset_id else documents.document(request.ir_run_id)
 
 
-def execute(run_id, *, model=None):
+def saved_reading_progress(checkpoint, previous, summary, stage):
+    previous = previous or {}
+    jobs = checkpoint.get("jobs")
+    return {
+        "stage": stage,
+        "object_id": previous.get("object_id"),
+        "current": checkpoint.get("position", previous.get("current", 0)),
+        "total": len(jobs) if jobs is not None else previous.get("total", 0),
+        "model_calls": checkpoint.get("calls", previous.get("model_calls", 0)),
+        "fact_count": summary.get("source_facts", previous.get("fact_count", 0)),
+    }
+
+
+def execute(run_id, *, model=None, waiting_tasks=0):
     from esg_contracts.facts import RunRequest
     from esg_contracts.evidence import DocumentReference
     from .engine import ExtractionBackbone, PipelineCancelled, ExecutionYield, ENGINE_VERSION
@@ -81,6 +94,7 @@ def execute(run_id, *, model=None):
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
+    results = ResultStore(run_id, artifacts)
     document_model = None
     try:
         fingerprint = engine_digest()
@@ -112,7 +126,7 @@ def execute(run_id, *, model=None):
             documents,
             model,
             artifacts,
-            ResultStore(run_id, artifacts),
+            results,
             engine_identity=identity,
             document_model=document_model,
         ).run(
@@ -122,12 +136,16 @@ def execute(run_id, *, model=None):
             document=frozen_document,
             cancel_check=lambda: store.is_cancelled(run_id),
             on_progress=lambda event: store.progress(run_id, progress=event),
+            waiting_tasks=waiting_tasks,
         )
         status = (
             "completed"
             if body["summary"]["assessment"]["execution_state"] == "completed"
             else "partial"
         )
+        store.progress(run_id, current_call=None, progress=saved_reading_progress(
+            results.checkpoint(), store.get(run_id).get("progress"), body["summary"], "finished",
+        ))
         result = store.update(
             run_id,
             status=status,
@@ -151,15 +169,13 @@ def execute(run_id, *, model=None):
                 delivery={"state": "failed", "message": "原值已保存，导出准备失败。"},
             )
         return result
-    except ExecutionYield:
-        status = ResultStore(run_id,artifacts).status() or {}
-        summary = status.get('summary') or {}
-        checkpoint = ResultStore(run_id,artifacts).checkpoint()
-        store.progress(run_id,current_call=None,progress={'stage':'queued','current':len(checkpoint.get('completed_clauses',[])),
-            'total':len(state['targets']['clauses']),'model_calls':checkpoint.get('calls',0),
-            'fact_count':summary.get('source_facts',0)})
-        return store.update(run_id,status='queued',worker_pid=None,worker_started=None,
-            execution_continues=True,summary=summary)
+    except ExecutionYield as exc:
+        summary = (results.status() or {}).get("summary") or {}
+        store.progress(run_id, current_call=None, progress=saved_reading_progress(
+            results.checkpoint(), store.get(run_id).get("progress"), summary, "window_yielded",
+        ))
+        return {**store.update(run_id, status="queued", worker_pid=None, worker_started=None,
+                              execution_continues=True, summary=summary), "window": exc.window}
     except DocumentUnavailable as exc:
         return store.update(run_id, status="interrupted", worker_pid=None, worker_started=None,
             error=str(exc), summary=(ResultStore(run_id, artifacts).status() or {}).get("summary"))

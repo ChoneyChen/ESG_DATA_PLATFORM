@@ -57,7 +57,7 @@
       "context_terms": [],
       "description": null,
       "label": "强度分母",
-      "reading_instruction": null,
+      "reading_instruction": "抄录强度标签或单位写明的分母，区分净收入、普通收入和产品产量；保留原货币或产量单位。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -69,7 +69,7 @@
       "context_terms": [],
       "description": null,
       "label": "强度分子范围",
-      "reading_instruction": null,
+      "reading_instruction": "抄录适用于本强度的实际范围及方法，例如原表明确写明的范围1和范围2；方法未注明时不要自行补上。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b931eda57ee56dadffa4dcc00783ad90534e7828448ba901dffe0367ebf64af0",
+  "clause_digest": "93366f271fe41ef1062e42ddbce631217057dd1329e4781b4e13aa6613d56b59",
   "clause_key": "E1-6_30",
   "data_kind": "quantitative",
   "definition": "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。",
@@ -203,7 +203,12 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "GHG intensity per revenue",
+    "greenhouse gas emissions intensity per net revenue",
+    "单位净收入温室气体排放强度",
+    "GHG Intensity per MW Produced"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "绝对排放总量不能与排放强度互换；净收入、营业收入与产值是不同的分母。"
@@ -663,7 +668,10 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "范围 1＋位置法范围 2 温室气体排放总量与净收入之比。"
+      "读取已披露的温室气体排放强度、原单位及各实际期间。只有分子明确是范围1加位置法范围2、分母明确是净收入时才标 match。范围2方法未说明或分母只写 Revenue/收入时保留 uncertain。市场法或按出货、产出、装机容量等分母披露的强度归 different。",
+      "逐行保存实际分子范围、分母及合并方式。相邻绝对排放行、合规或标准索引不能证明该强度采用同一范围2方法；不根据数据反算或把绝对排放、供应商数量当作强度。",
+      "量值来自强度行时，即使关系为未决或不同，也填写该行印刷的分子和分母。比如为普通收入则照录 Revenue，为单位产量则保留实际产量分母及印刷单位。",
+      "同一表同时披露期内收入强度和按产出计算的强度时，两行各自转录。以 MW 表示产出分母的行标 different。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -854,13 +862,9 @@
       "碳排放强度",
       "Location-based",
       "基于位置法",
-      "Total GHG emissions",
       "location based method",
       "total GHG emissions / net revenue",
-      "total scope 1 2 and 3 emissions",
-      "位置法",
-      "温室气体排放合计",
-      "范围1、2、3排放总和"
+      "位置法"
     ],
     "required_term_groups": [],
     "role_term_groups": [

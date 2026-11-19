@@ -83,7 +83,7 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/document-ir/documents` | `self` | `list[dict[str, object]]` | [self.list_document_ir_documents](../../ExtractESG/document/src/esg_document/api/document_archive.py#L546) |
 | `GET /api/document-ir/documents/{document_id}/revisions` | `self, document_id: str` | `list[dict[str, object]]` | [self.list_document_revisions](../../ExtractESG/document/src/esg_document/api/document_archive.py#L551) |
 | `GET /api/document-ir/jobs` | `self` | `list[DocumentIrJobState]` | [self.list_document_ir_jobs](../../ExtractESG/document/src/esg_document/api/document_archive.py#L410) |
-| `POST /api/document-ir/jobs` | `request: DocumentIrBuildRequest=Body(...)` | `DocumentIrJobState` | [create_document_ir_job](../../ExtractESG/document/src/esg_document/api/main.py#L1203) |
+| `POST /api/document-ir/jobs` | `request: DocumentIrBuildRequest=Body(...)` | `DocumentIrJobState` | [create_document_ir_job](../../ExtractESG/document/src/esg_document/api/main.py#L1202) |
 | `DELETE /api/document-ir/jobs/{run_id}` | `run_id: str, request: LibraryDeleteRequest, authorization: str &#124; None=Header(default=None)` | `见实现` | [delete_ir](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L102) |
 | `GET /api/document-ir/jobs/{run_id}` | `self, run_id: str` | `DocumentIrJobState` | [self.get_document_ir_job](../../ExtractESG/document/src/esg_document/api/document_archive.py#L418) |
 | `GET /api/document-ir/jobs/{run_id}/artifact-index` | `self, run_id: str` | `list[dict[str, object]]` | [self.get_document_ir_artifact_index](../../ExtractESG/document/src/esg_document/api/document_archive.py#L536) |
@@ -105,13 +105,13 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/document-ir/jobs/{run_id}/pages` | `self, run_id: str` | `list[dict[str, object]]` | [self.list_document_ir_pages](../../ExtractESG/document/src/esg_document/api/document_archive.py#L441) |
 | `GET /api/document-ir/jobs/{run_id}/pages/{page_index}` | `self, run_id: str, page_index: int` | `dict[str, object]` | [self.get_document_ir_page](../../ExtractESG/document/src/esg_document/api/document_archive.py#L446) |
 | `GET /api/document-ir/jobs/{run_id}/patch-transactions` | `self, run_id: str` | `list[dict[str, object]]` | [self.get_document_ir_patch_transactions](../../ExtractESG/document/src/esg_document/api/document_archive.py#L501) |
-| `POST /api/document-ir/jobs/{run_id}/patches/{patch_id}/decision` | `run_id: str, patch_id: str, request: PatchDecisionRequest=Body(...)` | `dict[str, object]` | [decide_document_ir_patch](../../ExtractESG/document/src/esg_document/api/main.py#L1215) |
+| `POST /api/document-ir/jobs/{run_id}/patches/{patch_id}/decision` | `run_id: str, patch_id: str, request: PatchDecisionRequest=Body(...)` | `dict[str, object]` | [decide_document_ir_patch](../../ExtractESG/document/src/esg_document/api/main.py#L1214) |
 | `GET /api/document-ir/jobs/{run_id}/quality-report` | `self, run_id: str` | `dict[str, object]` | [self.get_document_ir_quality_report](../../ExtractESG/document/src/esg_document/api/document_archive.py#L426) |
-| `POST /api/document-ir/jobs/{run_id}/repair` | `run_id: str, request: DocumentIrRepairRequest=Body(...)` | `DocumentIrJobState` | [repair_document_ir](../../ExtractESG/document/src/esg_document/api/main.py#L1247) |
+| `POST /api/document-ir/jobs/{run_id}/repair` | `run_id: str, request: DocumentIrRepairRequest=Body(...)` | `DocumentIrJobState` | [repair_document_ir](../../ExtractESG/document/src/esg_document/api/main.py#L1246) |
 | `GET /api/document-ir/jobs/{run_id}/review-tasks` | `self, run_id: str` | `list[dict[str, object]]` | [self.get_document_ir_review_tasks](../../ExtractESG/document/src/esg_document/api/document_archive.py#L556) |
-| `POST /api/document-ir/jobs/{run_id}/review-tasks/{task_id}/decision` | `run_id: str, task_id: str, request: PatchDecisionRequest=Body(...)` | `dict[str, object]` | [decide_document_ir_review_task](../../ExtractESG/document/src/esg_document/api/main.py#L1231) |
+| `POST /api/document-ir/jobs/{run_id}/review-tasks/{task_id}/decision` | `run_id: str, task_id: str, request: PatchDecisionRequest=Body(...)` | `dict[str, object]` | [decide_document_ir_review_task](../../ExtractESG/document/src/esg_document/api/main.py#L1230) |
 | `GET /api/document-ir/jobs/{run_id}/reviewer-results` | `self, run_id: str` | `list[dict[str, object]]` | [self.get_document_ir_reviewer_results](../../ExtractESG/document/src/esg_document/api/document_archive.py#L491) |
-| `POST /api/document-ir/jobs/{run_id}/reviews/retry` | `run_id: str, request: ReviewRetryRequest=Body(...)` | `DocumentIrJobState` | [retry_document_ir_reviews](../../ExtractESG/document/src/esg_document/api/main.py#L1265) |
+| `POST /api/document-ir/jobs/{run_id}/reviews/retry` | `run_id: str, request: ReviewRetryRequest=Body(...)` | `DocumentIrJobState` | [retry_document_ir_reviews](../../ExtractESG/document/src/esg_document/api/main.py#L1264) |
 | `GET /api/document-ir/jobs/{run_id}/reviews/{task_id}` | `self, run_id: str, task_id: str` | `dict[str, object]` | [self.get_document_ir_review_bundle](../../ExtractESG/document/src/esg_document/api/document_archive.py#L526) |
 | `GET /api/document-ir/jobs/{run_id}/structure-edges` | `self, run_id: str` | `list[dict[str, object]]` | [self.get_document_ir_structure_edges](../../ExtractESG/document/src/esg_document/api/document_archive.py#L476) |
 | `GET /api/document-ir/jobs/{run_id}/tables` | `self, run_id: str` | `list[dict[str, object]]` | [self.list_document_ir_tables](../../ExtractESG/document/src/esg_document/api/document_archive.py#L451) |
@@ -124,18 +124,18 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `POST /api/evidence/{ir_run_id}/locate-pages` | `ir_run_id: str, request: PageLocationRequest` | `见实现` | [locate_pages](../../ExtractESG/document/src/esg_document/api/evidence.py#L44) |
 | `POST /api/evidence/{ir_run_id}/read` | `ir_run_id: str, request: ReadRequest` | `EvidenceFrame` | [read](../../ExtractESG/document/src/esg_document/api/evidence.py#L40) |
 | `POST /api/evidence/{ir_run_id}/search` | `ir_run_id: str, request: SearchIntent` | `ObjectSearchPage` | [search](../../ExtractESG/document/src/esg_document/api/evidence.py#L36) |
-| `GET /api/models/status` | `provider: Literal['qiniu', 'local_nuextract', 'local_qwen'] &#124; None=None` | `dict[str, object]` | [get_model_status](../../ExtractESG/document/src/esg_document/api/main.py#L913) |
+| `GET /api/models/status` | `provider: Literal['qiniu', 'local_nuextract', 'local_qwen'] &#124; None=None` | `dict[str, object]` | [get_model_status](../../ExtractESG/document/src/esg_document/api/main.py#L912) |
 | `GET /api/ocr-library` | `authorization: str &#124; None=Header(default=None)` | `见实现` | [library](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L79) |
 | `DELETE /api/ocr-library/{run_id}` | `run_id: str, request: LibraryDeleteRequest, authorization: str &#124; None=Header(default=None)` | `见实现` | [delete_ocr](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L88) |
 | `GET /api/ocr-library/{run_id}` | `run_id: str, authorization: str &#124; None=Header(default=None)` | `见实现` | [description](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L83) |
-| `GET /api/ocr/jobs` | `` | `list[OcrJobState]` | [list_ocr_jobs](../../ExtractESG/document/src/esg_document/api/main.py#L1121) |
-| `POST /api/ocr/jobs` | `file: Annotated[UploadFile &#124; None, File()]=None, file_url: Annotated[str &#124; None, Form()]=None, token: Annotated[str &#124; None, Form()]=None, model: Annotated[str, Form()]=settings.paddle_model, ocr_provider: Annotated[str, Form()]=settings.default_ocr_provider, allow_api_fallback: Annotated[bool, Form()]=False, useDocOrientationClassify: Annotated[bool, Form()]=False, useDocUnwarping: Annotated[bool, Form()]=False, useChartRecognition: Annotated[bool, Form()]=False, poll_interval_seconds: Annotated[float, Form()]=settings.poll_interval_seconds, page_selection: Annotated[str, Form()]='all', page_indices: Annotated[str &#124; None, Form(description='Comma-separated original 0-based PDF page indices')]=None` | `OcrJobState` | [create_ocr_job](../../ExtractESG/document/src/esg_document/api/main.py#L990) |
-| `GET /api/ocr/jobs/{run_id}` | `run_id: str` | `OcrJobState` | [get_ocr_job](../../ExtractESG/document/src/esg_document/api/main.py#L1147) |
-| `GET /api/ocr/jobs/{run_id}/artifacts` | `run_id: str` | `dict[str, object]` | [list_ocr_artifacts](../../ExtractESG/document/src/esg_document/api/main.py#L1180) |
-| `GET /api/ocr/jobs/{run_id}/manifest` | `run_id: str` | `dict[str, object]` | [get_ocr_manifest](../../ExtractESG/document/src/esg_document/api/main.py#L1167) |
-| `GET /api/ocr/providers/status` | `` | `dict[str, object]` | [get_ocr_provider_status](../../ExtractESG/document/src/esg_document/api/main.py#L1116) |
-| `GET /api/operations/tasks` | `` | `list[TaskObservation]` | [operation_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L1419) |
-| `GET /api/operations/tasks/{task_id}` | `task_id: str` | `TaskObservation` | [operation_task](../../ExtractESG/document/src/esg_document/api/main.py#L1427) |
+| `GET /api/ocr/jobs` | `` | `list[OcrJobState]` | [list_ocr_jobs](../../ExtractESG/document/src/esg_document/api/main.py#L1120) |
+| `POST /api/ocr/jobs` | `file: Annotated[UploadFile &#124; None, File()]=None, file_url: Annotated[str &#124; None, Form()]=None, token: Annotated[str &#124; None, Form()]=None, model: Annotated[str, Form()]=settings.paddle_model, ocr_provider: Annotated[str, Form()]=settings.default_ocr_provider, allow_api_fallback: Annotated[bool, Form()]=False, useDocOrientationClassify: Annotated[bool, Form()]=False, useDocUnwarping: Annotated[bool, Form()]=False, useChartRecognition: Annotated[bool, Form()]=False, poll_interval_seconds: Annotated[float, Form()]=settings.poll_interval_seconds, page_selection: Annotated[str, Form()]='all', page_indices: Annotated[str &#124; None, Form(description='Comma-separated original 0-based PDF page indices')]=None` | `OcrJobState` | [create_ocr_job](../../ExtractESG/document/src/esg_document/api/main.py#L989) |
+| `GET /api/ocr/jobs/{run_id}` | `run_id: str` | `OcrJobState` | [get_ocr_job](../../ExtractESG/document/src/esg_document/api/main.py#L1146) |
+| `GET /api/ocr/jobs/{run_id}/artifacts` | `run_id: str` | `dict[str, object]` | [list_ocr_artifacts](../../ExtractESG/document/src/esg_document/api/main.py#L1179) |
+| `GET /api/ocr/jobs/{run_id}/manifest` | `run_id: str` | `dict[str, object]` | [get_ocr_manifest](../../ExtractESG/document/src/esg_document/api/main.py#L1166) |
+| `GET /api/ocr/providers/status` | `` | `dict[str, object]` | [get_ocr_provider_status](../../ExtractESG/document/src/esg_document/api/main.py#L1115) |
+| `GET /api/operations/tasks` | `` | `list[TaskObservation]` | [operation_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L1424) |
+| `GET /api/operations/tasks/{task_id}` | `task_id: str` | `TaskObservation` | [operation_task](../../ExtractESG/document/src/esg_document/api/main.py#L1429) |
 | `GET /api/pdf-library` | `` | `见实现` | [pdf_library](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L55) |
 | `GET /api/pipeline/clause-groups` | `` | `见实现` | [groups](../../ConsoleESG/backend/src/esg_console/sessions.py#L135) |
 | `GET /api/pipeline/clause-selections` | `` | `见实现` | [selections](../../ConsoleESG/backend/src/esg_console/sessions.py#L139) |
@@ -145,11 +145,11 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/pipeline/events/stream` | `request: Request, after: int=Query(0, ge=0), task_id: str &#124; None=None, latest: bool=Query(False)` | `见实现` | [event_stream](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L51) |
 | `GET /api/pipeline/history` | `limit: int=Query(300, ge=1, le=1000)` | `见实现` | [history](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L19) |
 | `GET /api/pipeline/organization-contract` | `` | `见实现` | [organization_contract](../../ConsoleESG/backend/src/esg_console/sessions.py#L122) |
-| `GET /api/pipeline/status` | `` | `见实现` | [current_pipeline_status](../../ExtractESG/document/src/esg_document/api/main.py#L1406) |
+| `GET /api/pipeline/status` | `` | `见实现` | [current_pipeline_status](../../ExtractESG/document/src/esg_document/api/main.py#L1405) |
 | `GET /api/pipeline/tasks` | `limit: int=Query(300, ge=1, le=1000), include_archived: bool=False` | `list[PipelineTask]` | [list_pipeline_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L378) |
-| `POST /api/pipeline/tasks/document-ir` | `request: DocumentIrPipelineTaskRequest=Body(...)` | `PipelineTask` | [queue_document_ir_task](../../ExtractESG/document/src/esg_document/api/main.py#L767) |
-| `POST /api/pipeline/tasks/native/{native_id}/cancel` | `native_id: str` | `dict[str, object]` | [cancel_native_pipeline_task](../../ExtractESG/document/src/esg_document/api/main.py#L453) |
-| `POST /api/pipeline/tasks/ocr` | `request: OcrPipelineTaskRequest=Body(...)` | `PipelineTask` | [queue_ocr_task](../../ExtractESG/document/src/esg_document/api/main.py#L691) |
+| `POST /api/pipeline/tasks/document-ir` | `request: DocumentIrPipelineTaskRequest=Body(...)` | `PipelineTask` | [queue_document_ir_task](../../ExtractESG/document/src/esg_document/api/main.py#L766) |
+| `POST /api/pipeline/tasks/native/{native_id}/cancel` | `native_id: str` | `dict[str, object]` | [cancel_native_pipeline_task](../../ExtractESG/document/src/esg_document/api/main.py#L452) |
+| `POST /api/pipeline/tasks/ocr` | `request: OcrPipelineTaskRequest=Body(...)` | `PipelineTask` | [queue_ocr_task](../../ExtractESG/document/src/esg_document/api/main.py#L690) |
 | `PUT /api/pipeline/tasks/order` | `request: PipelineOrderRequest=Body(...)` | `list[PipelineTask]` | [reorder_pipeline_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L423) |
 | `GET /api/pipeline/tasks/{task_id}` | `task_id: str` | `PipelineTask` | [get_pipeline_task](../../ExtractESG/document/src/esg_document/api/main.py#L403) |
 | `POST /api/pipeline/tasks/{task_id}/archive` | `task_id: str, request: HistoryCommand` | `见实现` | [archive_task](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L43) |
@@ -157,19 +157,19 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/pipeline/tasks/{task_id}/events` | `task_id: str, after: int=Query(0, ge=0), limit: int=Query(1000, ge=1, le=2000)` | `list[dict[str, object]]` | [get_pipeline_task_events](../../ExtractESG/document/src/esg_document/api/main.py#L411) |
 | `POST /api/pipeline/tasks/{task_id}/restore` | `task_id: str, request: HistoryCommand` | `见实现` | [restore_task](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L47) |
 | `GET /api/processing-status` | `` | `见实现` | [status](../../ExtractESG/document/src/esg_document/api/processing_status.py#L31) |
-| `GET /api/report-assets` | `` | `dict[str, object]` | [list_report_assets](../../ExtractESG/document/src/esg_document/api/main.py#L571) |
-| `POST /api/report-assets` | `file: Annotated[UploadFile, File(...)]` | `dict[str, object]` | [upload_report_asset](../../ExtractESG/document/src/esg_document/api/main.py#L606) |
-| `GET /api/report-assets-history` | `` | `见实现` | [report_asset_history](../../ExtractESG/document/src/esg_document/api/main.py#L679) |
+| `GET /api/report-assets` | `` | `dict[str, object]` | [list_report_assets](../../ExtractESG/document/src/esg_document/api/main.py#L570) |
+| `POST /api/report-assets` | `file: Annotated[UploadFile, File(...)]` | `dict[str, object]` | [upload_report_asset](../../ExtractESG/document/src/esg_document/api/main.py#L605) |
+| `GET /api/report-assets-history` | `` | `见实现` | [report_asset_history](../../ExtractESG/document/src/esg_document/api/main.py#L678) |
 | `DELETE /api/report-assets/{asset_id}` | `asset_id: str, request: PdfDeleteRequest, authorization: str &#124; None=Header(default=None)` | `见实现` | [delete_pdf](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L118) |
-| `POST /api/report-assets/{asset_id}/archive` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L668) |
+| `POST /api/report-assets/{asset_id}/archive` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L667) |
 | `GET /api/report-assets/{asset_id}/deletion` | `asset_id: str, authorization: str &#124; None=Header(default=None)` | `见实现` | [pdf_description](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L111) |
-| `POST /api/report-assets/{asset_id}/discard` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L668) |
-| `GET /api/report-assets/{asset_id}/file` | `asset_id: str` | `FileResponse` | [get_report_asset_file](../../ExtractESG/document/src/esg_document/api/main.py#L620) |
-| `GET /api/report-assets/{asset_id}/lifecycle` | `asset_id: str` | `见实现` | [get_report_asset_lifecycle](../../ExtractESG/document/src/esg_document/api/main.py#L649) |
+| `POST /api/report-assets/{asset_id}/discard` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L667) |
+| `GET /api/report-assets/{asset_id}/file` | `asset_id: str` | `FileResponse` | [get_report_asset_file](../../ExtractESG/document/src/esg_document/api/main.py#L619) |
+| `GET /api/report-assets/{asset_id}/lifecycle` | `asset_id: str` | `见实现` | [get_report_asset_lifecycle](../../ExtractESG/document/src/esg_document/api/main.py#L648) |
 | `GET /api/report-assets/{asset_id}/reading-pages` | `asset_id: str` | `list[PDFPageText]` | [reading_pages](../../ExtractESG/document/src/esg_document/api/reading_pages.py#L33) |
 | `GET /api/report-assets/{asset_id}/reading-pages/{page_index}/image` | `asset_id: str, page_index: int, thumbnail: bool=Query(False)` | `见实现` | [page_image](../../ExtractESG/document/src/esg_document/api/reading_pages.py#L40) |
 | `GET /api/report-assets/{asset_id}/reading-source` | `asset_id: str` | `DocumentReference` | [reading_source](../../ExtractESG/document/src/esg_document/api/reading_pages.py#L24) |
-| `POST /api/report-assets/{asset_id}/restore` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L668) |
+| `POST /api/report-assets/{asset_id}/restore` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L667) |
 | `GET /api/report-library` | `` | `见实现` | [report_library](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L59) |
 | `GET /api/report-processing/runs` | `include_archived: bool=False` | `见实现` | [runs](../../ExtractESG/document/src/esg_document/api/report_processing.py#L77) |
 | `POST /api/report-processing/runs` | `request: ProcessingRequest` | `见实现` | [create](../../ExtractESG/document/src/esg_document/api/report_processing.py#L84) |
@@ -207,18 +207,18 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `POST /api/report-sessions/{key}/restore` | `key: str` | `见实现` | [restore](../../ConsoleESG/backend/src/esg_console/sessions.py#L39) |
 | `GET /api/report-sessions/{key}/results` | `key: str` | `ResultOverview` | [result_overview](../../ConsoleESG/backend/src/esg_console/sessions.py#L92) |
 | `POST /api/report-sessions/{key}/resume` | `key: str` | `见实现` | [resume](../../ConsoleESG/backend/src/esg_console/sessions.py#L84) |
-| `GET /api/report-sources/{source_sha256}/file` | `source_sha256: str` | `FileResponse` | [get_report_source_file](../../ExtractESG/document/src/esg_document/api/main.py#L635) |
+| `GET /api/report-sources/{source_sha256}/file` | `source_sha256: str` | `FileResponse` | [get_report_source_file](../../ExtractESG/document/src/esg_document/api/main.py#L634) |
 | `GET /api/reports` | `` | `见实现` | [reports](../../ExtractESG/document/src/esg_document/api/report_processing.py#L47) |
 | `POST /api/reports` | `request: RegisterReportRequest` | `见实现` | [register](../../ExtractESG/document/src/esg_document/api/report_processing.py#L54) |
 | `GET /api/reports/{report_id}` | `report_id: str` | `见实现` | [report](../../ExtractESG/document/src/esg_document/api/report_processing.py#L60) |
 | `PATCH /api/reports/{report_id}` | `report_id: str, request: ReportMetadataPatch` | `见实现` | [update_report](../../ExtractESG/document/src/esg_document/api/report_processing.py#L64) |
 | `POST /api/reports/{report_id}/versions` | `report_id: str, request: ReportVersionRequest` | `见实现` | [attach_version](../../ExtractESG/document/src/esg_document/api/report_processing.py#L68) |
-| `POST /api/storage/deletion-plans` | `request: DeletionPlanRequest=Body(...)` | `dict[str, object]` | [create_storage_deletion_plan](../../ExtractESG/document/src/esg_document/api/main.py#L925) |
-| `POST /api/storage/deletion-plans/{plan_id}/execute` | `plan_id: str, request: LifecycleCommand &#124; None=Body(default=None)` | `dict[str, object]` | [execute_storage_deletion_plan](../../ExtractESG/document/src/esg_document/api/main.py#L935) |
-| `GET /api/storage/inventory` | `` | `dict[str, object]` | [get_storage_inventory](../../ExtractESG/document/src/esg_document/api/main.py#L920) |
-| `GET /api/storage/trash` | `` | `见实现` | [list_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L959) |
-| `POST /api/storage/trash/{cleanup_id}/purge` | `cleanup_id: str, request: LifecycleCommand` | `见实现` | [purge_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L977) |
-| `POST /api/storage/trash/{cleanup_id}/restore` | `cleanup_id: str, request: LifecycleCommand` | `见实现` | [restore_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L967) |
+| `POST /api/storage/deletion-plans` | `request: DeletionPlanRequest=Body(...)` | `dict[str, object]` | [create_storage_deletion_plan](../../ExtractESG/document/src/esg_document/api/main.py#L924) |
+| `POST /api/storage/deletion-plans/{plan_id}/execute` | `plan_id: str, request: LifecycleCommand &#124; None=Body(default=None)` | `dict[str, object]` | [execute_storage_deletion_plan](../../ExtractESG/document/src/esg_document/api/main.py#L934) |
+| `GET /api/storage/inventory` | `` | `dict[str, object]` | [get_storage_inventory](../../ExtractESG/document/src/esg_document/api/main.py#L919) |
+| `GET /api/storage/trash` | `` | `见实现` | [list_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L958) |
+| `POST /api/storage/trash/{cleanup_id}/purge` | `cleanup_id: str, request: LifecycleCommand` | `见实现` | [purge_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L976) |
+| `POST /api/storage/trash/{cleanup_id}/restore` | `cleanup_id: str, request: LifecycleCommand` | `见实现` | [restore_storage_trash](../../ExtractESG/document/src/esg_document/api/main.py#L966) |
 | `GET /health` | `` | `dict[str, object]` | [health](../../ExtractESG/document/src/esg_document/api/main.py#L246) |
 | `GET /health/compatibility` | `` | `dict` | [get_compatibility](../../ExtractESG/document/src/esg_document/api/main.py#L263) |
 

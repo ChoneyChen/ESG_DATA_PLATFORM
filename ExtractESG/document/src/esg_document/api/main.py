@@ -403,7 +403,7 @@ def _queue_with_references(task):
 @app.get("/api/pipeline/tasks/{task_id}")
 def get_pipeline_task(task_id: str) -> PipelineTask:
     try:
-        return _queue_with_references(pipeline_store.get(task_id))
+        return _queue_with_references(pipeline_store.get(task_id, ranked=True))
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Pipeline task not found") from exc
 
@@ -439,12 +439,11 @@ def reorder_pipeline_tasks(
 @app.post("/api/pipeline/tasks/{task_id}/cancel")
 def cancel_pipeline_task(task_id: str) -> PipelineTask:
     try:
-        previous = pipeline_store.get(task_id)
         task = pipeline_store.request_cancel(task_id)
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Pipeline task not found") from exc
     pipeline_secrets.discard(task_id)
-    if previous.status.value == "queued" and task.status.value == "cancelled":
+    if task.status.value == "cancelled":
         pipeline_hooks.cancelled(task)
     pipeline_scheduler.wake()
     return task
@@ -1416,20 +1415,21 @@ def current_pipeline_status():
 from esg_contracts.operations import TaskObservation
 
 
+def _task_observation(task: PipelineTask) -> TaskObservation:
+    return TaskObservation.model_validate(
+        task.model_dump(mode="json", exclude={"position"} if task.status.value != "queued" else None)
+    )
+
+
 @app.get("/api/operations/tasks")
 def operation_tasks() -> list[TaskObservation]:
-    return [
-        TaskObservation.model_validate(task.model_dump(mode="json"))
-        for task in pipeline_store.list(300)
-    ]
+    return [_task_observation(task) for task in pipeline_store.list(300)]
 
 
 @app.get("/api/operations/tasks/{task_id}")
 def operation_task(task_id: str) -> TaskObservation:
     try:
-        return TaskObservation.model_validate(
-            pipeline_store.get(task_id).model_dump(mode="json")
-        )
+        return _task_observation(pipeline_store.get(task_id, ranked=True))
     except KeyError as exc:
         raise HTTPException(404, "Task does not exist") from exc
 

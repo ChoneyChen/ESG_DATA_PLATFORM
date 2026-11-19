@@ -1492,6 +1492,72 @@ details p {
   white-space: nowrap;
   min-width: 96px;
 }
+.result-source .text-link {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.fact-value > div,
+.fact-attributes > div {
+  margin-bottom: 14px;
+}
+.fact-value dt,
+.fact-attributes dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+.fact-value dd,
+.fact-attributes dd {
+  margin: 3px 0 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.fact-attributes dd > small {
+  display: block;
+}
+.fact-review {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: start;
+}
+.fact-review h3 {
+  margin: 0;
+}
+.original-page-tools {
+  display: flex;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.original-page-tools > select {
+  width: auto;
+}
+.original-page {
+  overflow: auto;
+  max-height: 58vh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.original-page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.original-page-zoom img {
+  width: 175%;
+  max-width: none;
+}
+.fact-locations {
+  margin-top: 16px;
+}
+@media (max-width: 680px) {
+  .fact-review {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .result-footer {
   font-size: 13px;
   color: var(--muted);
@@ -1602,6 +1668,12 @@ details p {
   padding: 24px 20px;
   font-size: 13px;
   color: var(--muted);
+}
+.monitor-recent > summary {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 13px;
 }
 @media (max-width: 700px) {
   .run-monitor {

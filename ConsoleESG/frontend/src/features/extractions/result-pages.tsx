@@ -3,7 +3,7 @@ import type { FactPage, OrganizedPage, ResultOverview } from "../../shared/contr
 import { useResource } from "../../shared/resource";
 import { segment } from "../../shared/api";
 import { ReadError, Loading } from "../../shared/ui";
-import { FactsTable, OrganizedTable } from "./results";
+import { FactsTable, OrganizedTable, type TableView } from "./results";
 
 function usePaging() {
   const [cursors, setCursors] = useState<string[]>([]);
@@ -43,6 +43,7 @@ export function FactPages({ sessionId, overview, active }: { sessionId: string; 
 }
 export function ClauseResultPage({ sessionId, clauseKey, active }: { sessionId: string; clauseKey: string; active: boolean }) {
   const paging = usePaging();
+  const [view, setView] = useState<TableView>({ mode: "rows" });
   const [relation, setRelation] = useState("match");
   const [period, setPeriod] = useState("");
   const [unit, setUnit] = useState("");
@@ -75,6 +76,6 @@ export function ClauseResultPage({ sessionId, clauseKey, active }: { sessionId: 
       <select aria-label="单位筛选" value={unit} onChange={e => { setUnit(e.target.value); paging.reset(); }}><option value="">全部单位</option>{facets?.units.map(u => <option key={u}>{u}</option>)}</select>
     </div>
     <ReadError error={page.error} retry={page.reload}/>
-    {data ? <><OrganizedTable table={data.table} sessionId={sessionId} facts={data.facts}/><Pager total={data.total} returned={data.returned} next={data.next_cursor} paging={paging}/></> : !page.error && <Loading/>}
+    {data ? <><OrganizedTable table={data.table} sessionId={sessionId} facts={data.facts} view={view} onViewChange={setView}/><Pager total={data.total} returned={data.returned} next={data.next_cursor} paging={paging}/></> : !page.error && <Loading/>}
   </>;
 }

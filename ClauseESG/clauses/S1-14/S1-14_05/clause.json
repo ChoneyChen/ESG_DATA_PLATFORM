@@ -8,7 +8,7 @@
       "context_terms": [],
       "description": null,
       "label": "工伤定义",
-      "reading_instruction": null,
+      "reading_instruction": "照录对应率定义，例如需医疗处理或超出急救范围、是否排除死亡；不同统计主体的定义各自保存。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -50,9 +50,21 @@
       "context_terms": [],
       "description": null,
       "label": "分母单位",
-      "reading_instruction": null,
+      "reading_instruction": "照录率的分母量纲，例如 Hours 或 working hours。不得把人数分母当作工时。",
       "source": "dimension",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "工時",
+            "hours worked",
+            "working hours",
+            "Hours",
+            "hour"
+          ],
+          "code": "hours",
+          "label": "工时"
+        }
+      ]
     },
     "entity_aggregation_role": {
       "context_levels": [
@@ -105,7 +117,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际人群",
-      "reading_instruction": null,
+      "reading_instruction": "按该行或图系列记载受统计人群，如员工、自有劳动力、制造部门或承包商。统计主体另填在 reporting_entity。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -117,9 +129,37 @@
       "context_terms": [],
       "description": null,
       "label": "发生率倍率",
-      "reading_instruction": null,
+      "reading_instruction": "照录单位明确写出的倍率，例如 million、1,000,000 或 200,000，保留指标实际值，不作换算。",
       "source": "dimension",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "million",
+            "1,000,000",
+            "1 000 000",
+            "1000000",
+            "百萬",
+            "百万",
+            "per million working hours",
+            "per million hours worked",
+            "per million hours"
+          ],
+          "code": "per_million_hours",
+          "label": "每百万工时"
+        },
+        {
+          "aliases": [
+            "200,000",
+            "200 000",
+            "200000",
+            "20万",
+            "20萬",
+            "per 200,000 hours"
+          ],
+          "code": "per_200000_hours",
+          "label": "每20万工时"
+        }
+      ]
     },
     "reporting_boundary": {
       "context_levels": [
@@ -193,7 +233,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "f618d259ca652f4edaa2cc480ae2759ba1ecb0932f5e0b95befd9ead763e0f5f",
+  "clause_digest": "b01be004f3b9446ddd88a94ec069bfc055348f2f21a8cc806a749fbe5b7e2492",
   "clause_key": "S1-14_05",
   "data_kind": "quantitative",
   "definition": "自有劳动力每百万工时的可记录工伤事故数。",
@@ -666,15 +706,18 @@
   },
   "output_scopes": [
     {
-      "aggregation": "share",
-      "axes": {},
+      "aggregation": null,
+      "axes": {
+        "denominator_unit": "hours",
+        "rate_multiplier": "per_million_hours"
+      },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比",
+      "label_zh": "年度 · 集团合并 · 每百万工时可记录工伤事故率",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-616c01af2f7bcf2f",
+      "scope_id": "scope-6afb4ba46887e21c",
       "value_role": "actual"
     }
   ],
@@ -717,7 +760,8 @@
         "denominator_unit",
         "rate_multiplier",
         "gender",
-        "country"
+        "country",
+        "value_role"
       ],
       "missing_action": "annotate"
     },
@@ -725,7 +769,9 @@
       "conflict_action": "separate",
       "discriminating_axes": [
         "value_role",
-        "aggregation_role"
+        "aggregation_role",
+        "denominator_unit",
+        "rate_multiplier"
       ],
       "missing_action": "retain"
     }
@@ -734,7 +780,10 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "自有劳动力每百万工时的可记录工伤事故数。"
+      "读取实际可记录工伤率的每个印刷值及期间，区分全公司、制造、场址或子公司。频率的单位保留所印工时倍率。",
+      "每 200,000、每 1,000,000 工时的原值分别保留，前者与每百万工时目标口径不同，不换算。误工率、工伤人数、死亡与保险覆盖率不填为可记录事故率。",
+      "把图例、单位和定义脚注用于实际对应的系列、行和主体；其他分组的脚注不外推。",
+      "句中说明单位和工时倍率时，连同该率抄入 unit。填写 denominator_unit 和 rate_multiplier 后仍保留印刷单位。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -924,7 +973,13 @@
     "positive_terms": [
       "Rate of recordable work-related accidents for own workforce",
       "自有劳动力可记录工伤事故率",
-      "按每百万工时计算的自有劳动力可记录工伤事故率。"
+      "Recordable Injury Rate",
+      "Total Recordable Incident Rate",
+      "Total Recordable Injury Frequency Rate",
+      "TRIR",
+      "TRIFR",
+      "可记录工伤事故率",
+      "可記錄工傷事故率"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -935,14 +990,25 @@
     "structural_anchors": [],
     "topic_term_groups": [
       [
-        "Rate of recordable work-related accidents for own workforce"
+        "Rate of recordable work-related accidents for own workforce",
+        "自有劳动力可记录工伤事故率",
+        "Recordable Injury Rate",
+        "Total Recordable Incident Rate",
+        "Total Recordable Injury Frequency Rate",
+        "TRIR",
+        "TRIFR",
+        "可记录工伤事故率",
+        "可記錄工傷事故率"
       ]
     ]
   },
   "schema_version": "clause-contract-1.4",
   "value": {
     "canonical_unit": "rate",
-    "fixed_axes": {},
+    "fixed_axes": {
+      "denominator_unit": "hours",
+      "rate_multiplier": "per_million_hours"
+    },
     "unit_dimension": null
   }
 }

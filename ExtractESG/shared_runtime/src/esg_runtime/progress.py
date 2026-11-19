@@ -17,6 +17,7 @@ STAGE_LABELS = {
     "extracting": "绑定条款事实",
     "clause_extraction": "逐条条款提取",
     "queued": "等待执行",
+    "window_yielded": "已保存进度，等待继续",
     "starting": "启动执行",
     "running": "正在执行",
     "stopping": "正在取消",
@@ -383,7 +384,11 @@ def progress_from_event(task: Any, event: dict[str, Any]) -> BusinessProgress:
         current = sum(s.get("status") in {"done", "completed"} for s in stages)
         unit = "steps"
     elif task.task_type.value == "targeted_extraction":
-        if counts.get("selected_clauses"):
+        if stage in {"reading", "window_yielded", "finished"} and event.get("progress_total"):
+            current = int(event.get("progress_current") or 0)
+            total = int(event["progress_total"])
+            unit = "objects"
+        elif counts.get("selected_clauses"):
             current = max(0, int(counts.get("processed_clauses") or 0))
             total = int(counts["selected_clauses"])
             unit = "requirements"

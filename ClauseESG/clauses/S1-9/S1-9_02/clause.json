@@ -57,7 +57,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际性别",
-      "reading_instruction": null,
+      "reading_instruction": "照录该比例的性别标签，如女性或男性；不填写反向性别，也不推算其比例。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -69,7 +69,7 @@
       "context_terms": [],
       "description": null,
       "label": "管理层定义",
-      "reading_instruction": null,
+      "reading_instruction": "按同一报告的层级标签和适用说明填写，比如 Senior Management 或 Top Management；不把董事或一般管理人员当作最高管理层。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -93,7 +93,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际人群",
-      "reading_instruction": null,
+      "reading_instruction": "照录占比的实际分母范围，如最高管理层全体员工、全体经理或其他明确人群。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -169,7 +169,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "52a3fc387b7ef950ccb315a1ee6456f11e0c3aa1bea35ad5fe4eb572a5676be3",
+  "clause_digest": "d874a2f73c3fd8c0c76535275aaea957f07c5208a04d65b0677c519d0b946095",
   "clause_key": "S1-9_02",
   "data_kind": "quantitative",
   "definition": "最高管理层员工中按性别划分的占比。",
@@ -723,7 +723,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "最高管理层员工中按性别划分的占比。"
+      "按报告中明示的层级读取最高管理层内部的性别百分比。表内同时列高级、中级和初级管理层时，明确区分层级，不把所有经理的比例当最高层。",
+      "只转录已经披露的比例；高管人数、董事会性别比例和全体员工性别比例不能代替。保留各年及按性别原有分项，男女分母均为相应最高管理层全员。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -922,7 +923,14 @@
     "positive_terms": [
       "Gender distribution in percentage of employees at top management level",
       "最高管理层员工性别分布占比",
-      "最高管理层员工按性别划分的人数占比。"
+      "Female employees in senior management",
+      "Women in senior management",
+      "Women in top management",
+      "Female representation in top management",
+      "Percentage of women in senior management",
+      "女性高管占比",
+      "女性高级管理人员比例",
+      "高級管理層女性比例"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -933,7 +941,16 @@
     "structural_anchors": [],
     "topic_term_groups": [
       [
-        "Gender distribution in percentage of employees at top management level"
+        "Gender distribution in percentage of employees at top management level",
+        "最高管理层员工性别分布占比",
+        "Female employees in senior management",
+        "Women in senior management",
+        "Women in top management",
+        "Female representation in top management",
+        "Percentage of women in senior management",
+        "女性高管占比",
+        "女性高级管理人员比例",
+        "高級管理層女性比例"
       ]
     ]
   },

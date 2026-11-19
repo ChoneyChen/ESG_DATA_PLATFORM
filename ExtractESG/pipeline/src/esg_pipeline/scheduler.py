@@ -157,25 +157,7 @@ class PipelineScheduler:
                 except Exception:
                     snapshot = None
                 try:
-                    if snapshot and snapshot.get("status") in {
-                        "completed",
-                        "partial",
-                        "failed",
-                        "cancelled",
-                        "interrupted",
-                    }:
-                        self._finish_native_state(task, snapshot)
-                    else:
-                        result = self._read_worker_result(task)
-                        if result is not None:
-                            self._finish_native_state(
-                                task,
-                                {
-                                    **result,
-                                    "status": result.get("status") or "completed",
-                                },
-                                result=result,
-                            )
+                    self._restore_result(task, snapshot)
                 except Exception as exc:  # noqa: BLE001 - one unreadable result must not block every other task
                     self.store.add_event(
                         task.task_id,
@@ -252,6 +234,11 @@ class PipelineScheduler:
             worker_log = self.store.path.parent / "tasks" / task.task_id / "worker.log"
             worker_log.parent.mkdir(parents=True, exist_ok=True)
             offset = worker_log.stat().st_size if worker_log.exists() else 0
+            waiting = self.store.waiting_count() if task.task_type.value == "targeted_extraction" else 0
+            self.store.add_event(
+                task.task_id, "starting", "info", "Launching worker",
+                {"worker_log_offset": offset, "waiting_at_dispatch": waiting},
+            )
             with worker_log.open("a", encoding="utf-8") as output:
                 process = subprocess.Popen(
                     command.argv,
@@ -260,6 +247,7 @@ class PipelineScheduler:
                         **command.environment,
                         "ESG_EXECUTION_SLOT_FD": str(slot.fd),
                         "ESG_EXECUTION_SLOT_PATH": str(slot.path),
+                        "ESG_EXTRACTION_WAITING_TASKS": str(waiting),
                     },
                     stdout=output,
                     stderr=subprocess.STDOUT,
@@ -291,7 +279,7 @@ class PipelineScheduler:
             "running",
             "info",
             f"Worker PID {process.pid} started",
-            {"worker_log": str(worker_log), "worker_log_offset": offset},
+            {"worker_log": str(worker_log)},
         )
 
         lines: queue.Queue[str | None] = queue.Queue()
@@ -371,6 +359,9 @@ class PipelineScheduler:
         with self._active_lock:
             self._active_process = None
         latest = self.store.get(task.task_id)
+        if self._stop.is_set() and result and self._is_window_yield(latest, result):
+            self._requeue_window(latest, result, result=result)
+            return
         if self._stop.is_set() and not latest.cancel_requested:
             self.store.update(
                 task.task_id,
@@ -430,6 +421,9 @@ class PipelineScheduler:
         }:
             self._finish_native_state(latest, native_snapshot)
             return
+        if self._saved_window(latest, native_snapshot):
+            self._requeue_window(latest, native_snapshot, result=result)
+            return
         if return_code != 0:
             error = str(
                 (result or {}).get("error")
@@ -441,6 +435,9 @@ class PipelineScheduler:
             self._finish_failed(
                 task, "Worker completed without a structured result event"
             )
+            return
+        if self._is_window_yield(latest, result):
+            self._requeue_window(latest, result, result=result)
             return
         native_status = str(result.get("status") or "")
         terminal_progress = {"kind": "progress", **result}
@@ -539,30 +536,67 @@ class PipelineScheduler:
             snapshot = self.hooks.probe(self.store.get(task.task_id)) or snapshot
         except Exception:
             pass
+        latest = self.store.get(task.task_id)
+        if not self._restore_result(latest, snapshot):
+            self._finish_native_state(
+                latest,
+                {
+                    "status": "interrupted",
+                    "error": "Reconnected worker exited without a terminal result; checkpoints retained",
+                },
+            )
+
+    @staticmethod
+    def _is_window_yield(task: PipelineTask, result: dict) -> bool:
+        return (
+            task.task_type.value == "targeted_extraction"
+            and result.get("status") in {"queued", "completed"}
+            and bool(result.get("execution_continues"))
+            and not result.get("evidence_request")
+        )
+
+    def _restore_result(self, task: PipelineTask, snapshot: dict | None) -> bool:
         if snapshot and snapshot.get("status") in {
-            "completed",
-            "partial",
-            "failed",
-            "cancelled",
-            "interrupted",
+            "completed", "partial", "failed", "cancelled", "interrupted",
         }:
-            self._finish_native_state(self.store.get(task.task_id), snapshot)
+            self._finish_native_state(task, snapshot)
+            return True
+        result = self._read_worker_result(task)
+        if self._saved_window(task, snapshot):
+            self._requeue_window(task, snapshot, result=result)
+            return True
+        if result is None:
+            return False
+        if self._is_window_yield(task, result):
+            self._requeue_window(task, result, result=result)
         else:
-            result = self._read_worker_result(task)
-            if result is not None:
-                self._finish_native_state(
-                    task,
-                    {**result, "status": result.get("status") or "completed"},
-                    result=result,
-                )
-            else:
-                self._finish_native_state(
-                    task,
-                    {
-                        "status": "interrupted",
-                        "error": "Reconnected worker exited without a terminal result; checkpoints retained",
-                    },
-                )
+            self._finish_native_state(
+                task, {**result, "status": result.get("status") or "completed"}, result=result,
+            )
+        return True
+
+    def _saved_window(self, task: PipelineTask, snapshot: dict | None) -> bool:
+        return bool(snapshot and self._is_window_yield(task, snapshot)
+            and (snapshot.get("updated_at") or "") >= (task.started_at or ""))
+
+    def _requeue_window(self, task: PipelineTask, snapshot: dict, *, result: dict | None) -> None:
+        saved = snapshot.get("progress") or {}
+        progress = progress_from_event(task, {
+            **snapshot, "kind": "progress", "stage": "window_yielded", "status": "queued",
+            "progress_current": saved.get("current"),
+            "progress_total": saved.get("total"),
+        })
+        detail = (result or {}).get("window") or {}
+        detail = {
+            **detail,
+            "model_calls_total": saved.get("model_calls", 0),
+            "read_current": progress.current,
+            "read_total": progress.total,
+        }
+        if not self.store.requeue_window(task.task_id, progress, detail):
+            latest = self.store.get(task.task_id)
+            if latest.status == PipelineTaskStatus.RUNNING and latest.cancel_requested:
+                self._finish_native_state(latest, {**snapshot, "status": "cancelled"})
 
     def _read_worker_result(self, task: PipelineTask) -> dict | None:
         """Recover an explicit terminal return after API loss, not infer success."""
@@ -570,12 +604,7 @@ class PipelineScheduler:
         if not path.is_file():
             return None
         # Read only the bounded tail; native artifacts remain the source of truth.
-        starts = [
-            e["detail"]["worker_log_offset"]
-            for e in self.store.events(task.task_id)
-            if e.get("detail") and "worker_log_offset" in e["detail"]
-        ]
-        attempt_offset = starts[-1] if starts else 0
+        attempt_offset = self.store.worker_log_offset(task.task_id)
         with path.open("rb") as output:
             output.seek(max(attempt_offset, path.stat().st_size - 1024 * 1024))
             lines = output.read().decode("utf-8", errors="replace").splitlines()
@@ -593,6 +622,8 @@ class PipelineScheduler:
             ):
                 continue
             result = self._normalize_result(task, event["payload"])
+            if self._is_window_yield(task, result):
+                return result
             status = result.get("status")
             if status and status not in {
                 "completed",

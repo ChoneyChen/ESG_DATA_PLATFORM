@@ -178,9 +178,25 @@ def test_both_kinds_share_one_backbone(documents,repository,tmp_path):
     assert model.calls[0]["images"] == (b"page-image",)
     assert set(model.calls[0]["context"]["clauses"]) == {q.clause_key, a.clause_key}
     assert all(fact["evidence"][0]["object_type"] == "pdf_page" for fact in result["facts"])
+    assert {mapping["match"] for mapping in result["clause_mappings"]} == {"uncertain"}
     periods = {fact["identity"]["reporting_period"]["raw_text"] for fact in result["facts"]
                if fact["identity"]["reporting_period"].get("raw_text")}
     assert periods == {"2024", "2025"}
+
+
+def test_reported_rate_multiplier_retains_printed_value_in_the_distinct_scope(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get("S1-14_05")
+    document = documents.document("ir-example")
+    row = {"value": "0.53", "unit": "per 200,000 Hours", "period": "2024", "relation": "match",
+           "attributes": {"rate_multiplier": "200,000"}}
+    fact, mapping = _fact(document, clause, 85, row, True)
+    assert fact.value.value_raw == "0.53"
+    assert fact.value.unit_raw == "per 200,000 Hours"
+    assert fact.identity.dimensions["rate_multiplier"].raw_text == "200,000"
+    assert fact.identity.dimensions["rate_multiplier"].value == "per_200000_hours"
+    assert mapping.match == "different"
 
 def test_no_cross_clause_or_cross_run_model_cache(documents,repository,tmp_path):
     model=Model();artifacts=FileArtifactPort(tmp_path/'out')

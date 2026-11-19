@@ -131,11 +131,15 @@ class PipelineQueueStore:
                 "revision": "INTEGER NOT NULL DEFAULT 0",
                 "archived_at": "TEXT",
                 "archive_reason": "TEXT",
+                "queue_priority": "INTEGER",
             }.items():
                 if name not in columns:
                     connection.execute(
                         f"ALTER TABLE pipeline_tasks ADD COLUMN {name} {kind}"
                     )
+            connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_pipeline_last_start ON pipeline_tasks(started_at DESC)"
+            )
 
     def create(
         self,
@@ -268,14 +272,50 @@ class PipelineQueueStore:
                 task_ids.append(task_id)
         return [self.get(task_id) for task_id in task_ids]
 
-    def get(self, task_id: str) -> PipelineTask:
+    @staticmethod
+    def _pending(connection: sqlite3.Connection, limit=None):
+        last = connection.execute(
+            "SELECT task_type FROM pipeline_tasks WHERE started_at IS NOT NULL ORDER BY started_at DESC LIMIT 1"
+        ).fetchone()
+        prepare = last is not None and last["task_type"] == PipelineTaskType.TARGETED_EXTRACTION.value
+        return connection.execute(
+            """
+            WITH waiting AS (
+                SELECT *, ROW_NUMBER() OVER (
+                    PARTITION BY (task_type = 'targeted_extraction')
+                    ORDER BY queue_priority IS NULL, queue_priority,
+                        CASE WHEN stage = 'window_yielded' THEN updated_at ELSE created_at END,
+                        position, task_id
+                ) AS turn
+                FROM pipeline_tasks
+                WHERE status='queued' AND cancel_requested=0
+            )
+            SELECT * FROM waiting
+            ORDER BY
+                turn, CASE WHEN (task_type != 'targeted_extraction') = ? THEN 0 ELSE 1 END
+            LIMIT ?
+            """,
+            (int(prepare), limit if limit is not None else -1),
+        ).fetchall()
+
+    def waiting_count(self) -> int:
+        with self._connect() as connection:
+            return connection.execute(
+                "SELECT COUNT(*) FROM pipeline_tasks WHERE status='queued' AND cancel_requested=0"
+            ).fetchone()[0]
+
+    def get(self, task_id: str, *, ranked: bool = False) -> PipelineTask:
         with self._connect() as connection:
             row = connection.execute(
                 "SELECT * FROM pipeline_tasks WHERE task_id = ?", (task_id,)
             ).fetchone()
-        if row is None:
-            raise KeyError(task_id)
-        return self._record(row)
+            if row is None:
+                raise KeyError(task_id)
+            if ranked and row["status"] == "queued":
+                for position, pending in enumerate(self._pending(connection), 1):
+                    if pending["task_id"] == task_id:
+                        return self._record(row, position)
+            return self._record(row)
 
     def active_native_task(
         self,
@@ -301,19 +341,24 @@ class PipelineQueueStore:
         self, limit: int = 300, *, include_archived: bool = False
     ) -> list[PipelineTask]:
         with self._connect() as connection:
-            rows = connection.execute(
+            running = connection.execute(
+                "SELECT * FROM pipeline_tasks WHERE status='running' ORDER BY position LIMIT ?",
+                (limit,),
+            ).fetchall()
+            pending = self._pending(connection, limit - len(running))
+            history = connection.execute(
                 """
                 SELECT * FROM pipeline_tasks
-                WHERE archived_at IS NULL OR ?
-                ORDER BY
-                    CASE status WHEN 'running' THEN 0 WHEN 'queued' THEN 1 ELSE 2 END,
-                    CASE WHEN status IN ('running','queued') THEN position ELSE 0 END,
-                    created_at DESC
-                LIMIT ?
+                WHERE status NOT IN ('running','queued') AND (archived_at IS NULL OR ?)
+                ORDER BY created_at DESC LIMIT ?
                 """,
-                (int(include_archived), limit),
+                (int(include_archived), limit - len(running) - len(pending)),
             ).fetchall()
-        return [self._record(row) for row in rows]
+        return [
+            *[self._record(row) for row in running],
+            *[self._record(row, position) for position, row in enumerate(pending, 1)],
+            *[self._record(row) for row in history],
+        ]
 
     def clear_history(self) -> list[str]:
         """Archive every terminal visible row; dependency journals and pins survive."""
@@ -409,27 +454,15 @@ class PipelineQueueStore:
             ).fetchone()
             if running:
                 return None
-            last = connection.execute(
-                "SELECT task_type FROM pipeline_tasks WHERE started_at IS NOT NULL ORDER BY started_at DESC LIMIT 1"
-            ).fetchone()
-            prepare = last is not None and last['task_type'] == 'targeted_extraction'
-            row = connection.execute(
-                """
-                SELECT task_id FROM pipeline_tasks
-                WHERE status = ? AND cancel_requested = 0
-                ORDER BY
-                    CASE WHEN (task_type != 'targeted_extraction') = ? THEN 0 ELSE 1 END,
-                    CASE WHEN task_type='document_ir' THEN 0 ELSE 1 END,
-                    position, created_at LIMIT 1
-                """,
-                (PipelineTaskStatus.QUEUED.value,int(prepare)),
-            ).fetchone()
-            if row is None:
+            pending = self._pending(connection, 1)
+            if not pending:
                 return None
+            row = pending[0]
             connection.execute(
                 """
                 UPDATE pipeline_tasks
-                SET status = ?, stage = ?, message = ?, started_at = ?, updated_at = ?, revision=revision+1
+                SET status = ?, stage = ?, message = ?, started_at = ?, updated_at = ?,
+                    queue_priority=NULL, revision=revision+1
                 WHERE task_id = ? AND status = ?
                 """,
                 (
@@ -452,6 +485,24 @@ class PipelineQueueStore:
             )
         task = self.get(str(row["task_id"]))
         return task
+
+    def requeue_window(self, task_id, progress, detail) -> bool:
+        with self._lock, self._connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            cursor = connection.execute(
+                """
+                UPDATE pipeline_tasks
+                SET status='queued', stage=?, message=?, worker_pid=NULL, worker_started=NULL,
+                    progress_current=?, progress_total=?, progress_json=?, updated_at=?, revision=revision+1
+                WHERE task_id=? AND status='running' AND cancel_requested=0
+                """,
+                (progress.stage_code, progress.label, progress.current or 0, progress.total or 0,
+                 progress.model_dump_json(), utc_now(), task_id),
+            )
+            if not cursor.rowcount:
+                return False
+            self._insert_event(connection, task_id, progress.stage_code, "info", progress.label, detail)
+            return True
 
     def update(self, task_id: str, **changes: Any) -> PipelineTask:
         if "error" in changes and "error_detail_json" not in changes:
@@ -532,6 +583,10 @@ class PipelineQueueStore:
         return self.get(task_id)
 
     def request_cancel(self, task_id: str) -> PipelineTask:
+        with self._lock:
+            return self._request_cancel(task_id)
+
+    def _request_cancel(self, task_id: str) -> PipelineTask:
         task = self.get(task_id)
         if task.status in {
             PipelineTaskStatus.COMPLETED,
@@ -564,6 +619,7 @@ class PipelineQueueStore:
         if len(task_ids) != len(set(task_ids)):
             raise ValueError("task_ids must be unique")
         with self._lock, self._connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
             rows = (
                 connection.execute(
                     "SELECT task_id,status FROM pipeline_tasks WHERE task_id IN (%s)"
@@ -582,21 +638,14 @@ class PipelineQueueStore:
             ]
             if not_queued:
                 raise ValueError("Only queued tasks can be reordered")
-            existing = connection.execute(
-                "SELECT task_id FROM pipeline_tasks WHERE status = 'queued' ORDER BY position,created_at"
-            ).fetchall()
-            existing_ids = [str(row["task_id"]) for row in existing]
-            ordered = [
-                *task_ids,
-                *[item for item in existing_ids if item not in set(task_ids)],
-            ]
-            now = utc_now()
-            for index, task_id in enumerate(ordered, start=1):
-                connection.execute(
-                    "UPDATE pipeline_tasks SET position = ?, updated_at = ? WHERE task_id = ?",
-                    (index, now, task_id),
+            if task_ids:
+                now = utc_now()
+                connection.execute("UPDATE pipeline_tasks SET queue_priority=NULL WHERE status='queued'")
+                connection.executemany(
+                    "UPDATE pipeline_tasks SET queue_priority=?, updated_at=?, revision=revision+1 WHERE task_id=?",
+                    [(index, now, task_id) for index, task_id in enumerate(task_ids, 1)],
                 )
-        return [self.get(task_id) for task_id in ordered]
+            return [self._record(row, position) for position, row in enumerate(self._pending(connection), 1)]
 
     def rebase_queued_ir_references(
         self,
@@ -876,6 +925,19 @@ class PipelineQueueStore:
             ).fetchone()
         return int(row[0] or 0)
 
+    def worker_log_offset(self, task_id: str) -> int:
+        with self._connect() as connection:
+            row = connection.execute(
+                """
+                SELECT json_extract(detail_json, '$.worker_log_offset') AS offset
+                FROM pipeline_events
+                WHERE task_id=? AND offset IS NOT NULL
+                ORDER BY event_id DESC LIMIT 1
+                """,
+                (task_id,),
+            ).fetchone()
+            return int(row["offset"]) if row else 0
+
     def events(
         self, task_id: str | None, after: int = 0, *, limit: int = 1000
     ) -> list[dict[str, Any]]:
@@ -908,14 +970,14 @@ class PipelineQueueStore:
         ]
 
     @staticmethod
-    def _record(row: sqlite3.Row) -> PipelineTask:
+    def _record(row: sqlite3.Row, queue_position: int | None = None) -> PipelineTask:
         task = PipelineTask(
             task_id=row["task_id"],
             task_type=row["task_type"],
             operation=row["operation"],
             title=row["title"],
             status=row["status"],
-            position=row["position"],
+            position=queue_position if queue_position is not None else row["position"],
             payload=json.loads(row["payload_json"]),
             native_job_id=row["native_job_id"],
             stage=row["stage"],

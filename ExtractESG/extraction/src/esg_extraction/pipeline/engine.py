@@ -14,7 +14,7 @@ from esg_contracts.facts import (
 )
 from esg_contracts.results import FactBundle
 from esg_data.hashing import digest
-from esg_data.literals import parse_measure
+from esg_data.literals import number_text, parse_measure
 from esg_data.normalize import fold
 from esg_data.periods import parse_period, period_payload
 from esg_data.text_search import lexical_score
@@ -24,15 +24,17 @@ from .ports import DocumentUnavailable
 from .statistics import RunStatistics
 
 
-ENGINE_VERSION = "page-reader-3.1"
+ENGINE_VERSION = "page-reader-3.3"
 READ_INSTRUCTIONS = """Transcribe the requested independent fields from page_index. Read the first image when present; its text helps with spelling and exact digits but may lose table structure. A preceding_page describes the optional second image. Use its column headers only if the current table visibly continues that table. Copy measurements from the first page only. Map each cell to its printed column heading in order, and omit the period if the column cannot be identified.
-Read each relevant table's total and relevant breakdowns, all printed years and units. For a quantitative table use one item per printed row with shared clause_key, label, unit and attributes. In measurements put value and period for each populated column; override unit, relation, scope_ids or attributes only where that column differs. Use separate items for different methods, statistics or subjects. Keep both disclosures when a quantity is printed in two units. Example: {"clause_key":"TARGET","label":"printed title","unit":"t","measurements":[{"value":"1,204.50","period":"2024"},{"value":"0","period":"2023"}]}. For a single quantity use value and period directly; for a qualitative item value is the original sentence.
-Copy exact values, periods and printed units, including multipliers, chemical notation and denominators. Preserve a printed zero, range markers, punctuation and precision. A phrase such as no discharge is not a printed numerical zero. Skip blanks, missing-value dashes and reference IDs. Do not calculate, substitute a canonical unit or infer a date from the report title. Use different for goals, forecasts and permitted limits when a clause asks for actual results. Determine each column's role from its own heading or applicable note. Keep stated attributes by the card's field names. Omit unknown fields. Specify relation for each item: match answers the target, different is a clearly distinct but related measure, and uncertain is ambiguous. Add scope_ids only for applicable printed scope. Omit unrelated numbers and repeated rows. Return compact JSON with items only."""
+For a quantitative table or chart, read totals and relevant breakdowns across all printed years and units. Use one item per row or chart series with shared clause_key, printed label, unit, relation and attributes. Put each value and period in measurements; put fields that vary by column or point (scope, period, unit, relation or attributes) there. Use separate items for different methods, statistics or subjects. Keep both disclosures when a quantity is printed in two units. Example: {"clause_key":"TARGET","label":"printed title","unit":"t","relation":"match","measurements":[{"value":"1,204.50","period":"2024"},{"value":"0","period":"2023"}]}. For a single quantity use value and period directly. For a qualitative item copy the relevant complete sentence or bullet into value.
+Copy exact values, periods and printed units, including multipliers, chemical notation and denominators. Preserve a printed zero, range markers, punctuation and precision. A phrase such as no discharge is not a printed numerical zero. Skip blanks, missing-value dashes and reference IDs. Do not calculate, substitute a canonical unit or infer a date from the report title.
+Fill stated attributes with short original words from the applicable row, heading, legend, surrounding statement or footnote. Use the card's field names for every relation. For a rate or intensity copy the actual bases from its own label or unit, even when its method or scope is unresolved. Observe which rows and periods each footnote covers, including small print below either panel of a spread. Keep comparative rows and targets under their own labels. Omit an unstated attribute. Target codes or nearby rows do not supply facts about this value.
+Set relation to match for the target, different for a related quantity with a distinct stated meaning or basis, or uncertain if the match is unresolved. Stated practices can match qualitative targets even when optional dates or areas are unstated. A future target or permitted limit is different when the clause asks for actual results. Scope_ids are optional and apply only to a stated matching scope. Omit unrelated numbers and repeated rows. Return compact JSON with items only."""
 LOCATE_INSTRUCTIONS = """The images are numbered PDF pages in the same order as page_indices. Identify all pages likely to have relevant disclosures for any requested topic, including tables and graphs and their continuation. Return a JSON object with page_indices. This highlights pages for detailed reading; do not extract values."""
 LOCATE_SCHEMA = {"type": "object", "required": ["page_indices"], "properties": {
     "page_indices": {"type": "array", "items": {"type": "integer"}}}}
 MISSING = re.compile(r"^\s*(?:[-–—－]+|n/?a|not\s+(?:available|disclosed)|不适用|未披露|无数据)\s*$", re.I)
-SLICE_CALLS = 6
+WINDOW_MAX_CALLS = 10
 PAGE_SHORTLIST = 8
 MEASUREMENT_LINE = re.compile(r"^[ \t]*[-−<>≈]?\d[\d,. ]*(?:%|[ \t]*[A-Za-z]{1,4})?[ \t\r]*$", re.M)
 TABLE_NUMBER = re.compile(r"(?<![\w.,])[-−<>≈]?\d[\d,]*(?:\.\d+)?%?(?![\w.,])")
@@ -46,6 +48,10 @@ class PipelineCancelled(RuntimeError):
 
 class ExecutionYield(RuntimeError):
     """The next slice uses the saved page plan and results."""
+
+    def __init__(self, window):
+        super().__init__("Reading window checkpoint saved")
+        self.window = window
 
 
 def _schema(keys):
@@ -127,6 +133,13 @@ def page_plan(pages, clauses, page_limit, hint_pages=()):
     return [[index, jobs[index]] for index in ordered], limited
 
 
+def _reading_fields(clause):
+    names = set(clause.purposes.enrichment.identity_axes)
+    names.update(clause.purposes.target_scope.discriminating_axes)
+    return {name: definition for name, definition in clause.attributes.items()
+            if name in names and name != "reporting_period"}
+
+
 def _reading_card(clause):
     original = clause.reading_card()
     fields = ("labels", "definition", "distinguish_from", "exclusions", "data_kind", "value", "exact_labels")
@@ -137,11 +150,10 @@ def _reading_card(clause):
          **{key: value for key, value in scope.canonical().items() if value is not None}}
         for scope in clause.output_scopes
     ]
-    card["attributes"] = {
-        axis: attribute.reading_instruction or attribute.description or attribute.label
-        for axis, attribute in clause.attributes.items()
-        if axis in clause.purposes.enrichment.identity_axes and axis != "reporting_period"
-    }
+    card["attributes"] = {}
+    for name, definition in _reading_fields(clause).items():
+        parts = dict.fromkeys((definition.label, definition.reading_instruction or definition.description))
+        card["attributes"][name] = "。".join(part for part in parts if part)
     return card
 
 
@@ -187,18 +199,20 @@ def _fact(document, clause, page_index, item, visual):
 
     axes = {}
     dimensions = {}
+    recognized = {}
     parsed_period = parse_period(period)
     if period:
         axes["reporting_period"] = field(period, period_payload(parsed_period) if parsed_period else period)
     attributes = item.get("attributes")
     if isinstance(attributes, dict):
-        for name in clause.purposes.enrichment.identity_axes:
+        for name, attribute in _reading_fields(clause).items():
             text = _text(attributes, name)
-            attribute = clause.attributes.get(name)
-            if text and name != "reporting_period" and attribute and attribute.accepts_value(text):
+            if text and attribute.accepts_value(text):
                 target = axes if attribute.source == "identity" and name in ReportedContext.model_fields else dimensions
                 category = attribute.classify({"state": "stated", "value": text, "raw_text": text})
-                target[name] = field(text, category.code if category and category.state == "recognized" else text)
+                if category and category.state == "recognized":
+                    recognized[name] = category.code
+                target[name] = field(text, recognized.get(name, text))
     identity = ReportedContext(**axes, dimensions=dimensions)
     if role == "value":
         numeric = parse_measure(raw)
@@ -207,7 +221,9 @@ def _fact(document, clause, page_index, item, visual):
             for source, target in (("value", "value_numeric"), ("lower", "value_lower"), ("upper", "value_upper")):
                 if numeric[source] is not None:
                     parsed[target] = format(numeric[source], "f")
-        value = QuantitativePayload(value_raw=raw, unit_raw=unit or ("%" if raw.endswith("%") else None), **parsed)
+        implicit_unit = number_text(raw)[-1:] if unit is None else ""
+        value = QuantitativePayload(value_raw=raw,
+            unit_raw=unit or (implicit_unit if implicit_unit in {"%", "％"} else None), **parsed)
     else:
         value = QualitativePayload(statement_raw=raw)
     anchor = digest([document.source_sha256 or document.document_id, page_index, label, period, unit, raw])
@@ -218,13 +234,19 @@ def _fact(document, clause, page_index, item, visual):
         flags=["visual_transcription" if visual else "text_transcription"])
     interpretation = digest(fact.model_dump(mode="json", exclude={"source_fact_id", "interpretation_id"}))
     fact = fact.model_copy(update={"source_fact_id": interpretation, "interpretation_id": interpretation})
-    relation = _text(item, "relation") or "match"
+    relation = _text(item, "relation")
+    conflicts = [name for name in clause.purposes.target_scope.discriminating_axes
+                 if name in recognized and name in clause.value.fixed_axes
+                 and recognized[name] != clause.value.fixed_axes[name]]
+    if conflicts:
+        relation = "different"
     reported_scopes = item.get("scope_ids")
     scope_ids = [scope.scope_id for scope in clause.output_scopes if scope.scope_id in reported_scopes
                  ] if relation == "match" and isinstance(reported_scopes, list) else []
     mapping = ClauseMapping(clause_key=clause.clause_key, clause_digest=clause.clause_digest,
         source_fact_id=fact.source_fact_id, match=relation if relation in {"match", "different", "uncertain"} else "uncertain",
-        reason="Reported on the selected PDF page", scope_ids=scope_ids)
+        reason="Reported scope differs in " + ", ".join(conflicts) if conflicts else "Reported on the selected PDF page",
+        scope_ids=scope_ids)
     return fact, mapping
 
 
@@ -237,7 +259,7 @@ class ExtractionBackbone:
         self.results = results
         self.engine_identity = engine_identity or {"version": ENGINE_VERSION}
 
-    def run(self, run_id, request, clauses, *, document, cancel_check, on_progress, **_):
+    def run(self, run_id, request, clauses, *, document, cancel_check, on_progress, waiting_tasks=0, **_):
         budget = request.budget
         asset = request.asset_id or (document.report_resource.asset_id if document.report_resource else None)
         if asset is None and document.source_sha256:
@@ -246,9 +268,11 @@ class ExtractionBackbone:
             raise ValueError("The requested IR needs its original PDF asset")
         state = self.results.checkpoint()
         self.artifacts.write(run_id, "input/engine.json", self.engine_identity)
-        started = time.monotonic() - state.get("elapsed_seconds", 0)
+        window_started = time.monotonic()
+        started = window_started - state.get("elapsed_seconds", 0)
         calls = state.get("calls", 0)
         turn_start = calls
+        window_seconds = 45 if not waiting_tasks else 30 if waiting_tasks < 4 else 20 if waiting_tasks < 10 else 12
         errors = list(state.get("errors", []))
         inspected = state.get("inspected", {})
         stats = RunStatistics(clauses)
@@ -273,6 +297,21 @@ class ExtractionBackbone:
 
         def remaining():
             return budget.timeout_seconds - (time.monotonic() - started)
+
+        def window_used():
+            count = calls - turn_start
+            if not count:
+                return False
+            elapsed = time.monotonic() - window_started
+            return count >= WINDOW_MAX_CALLS or elapsed + elapsed / count >= window_seconds
+
+        def yield_window():
+            raise ExecutionYield({
+                "model_calls": calls - turn_start,
+                "elapsed_seconds": round(time.monotonic() - window_started, 3),
+                "target_seconds": window_seconds,
+                "waiting_at_dispatch": waiting_tasks,
+            })
 
         def checkpoint(**updates):
             state.update(updates, calls=calls, elapsed_seconds=time.monotonic() - started,
@@ -333,8 +372,8 @@ class ExtractionBackbone:
                         if getattr(exc, "category", None) in PROVIDER_STOP:
                             break
                     checkpoint(located=offset + len(group))
-                    if calls - turn_start >= SLICE_CALLS:
-                        raise ExecutionYield()
+                    if remaining() > 0 and window_used():
+                        yield_window()
             jobs, limited = page_plan(catalog, clauses, budget.max_objects_per_clause, hint_pages)
             checkpoint(jobs=jobs, limited=limited, position=0)
         jobs = state["jobs"]
@@ -400,7 +439,7 @@ class ExtractionBackbone:
                     split = len(keys) // 2
                     jobs[position:position + 1] = [[index, keys[:split]], [index, keys[split:]]]
                     checkpoint(jobs=jobs, position=position)
-                    if calls - turn_start >= SLICE_CALLS:
+                    if window_used():
                         break
                     continue
                 if category == "generation_incomplete":
@@ -418,7 +457,7 @@ class ExtractionBackbone:
             position += 1
             self.results.flush()
             checkpoint(position=position)
-            if calls - turn_start >= SLICE_CALLS:
+            if window_used():
                 break
         pending = position < len(jobs)
         continuing = pending and calls < budget.max_model_calls and remaining() > 0 and not stop_provider
@@ -466,7 +505,7 @@ class ExtractionBackbone:
         self.results.status(body)
         checkpoint(completed_clauses=completed)
         if continuing:
-            raise ExecutionYield()
+            yield_window()
         body.update(self.results.collection())
         body = FactBundle.model_validate(body).model_dump(mode="json", exclude_none=True)
         self.artifacts.write(run_id, "results/facts.json", body)

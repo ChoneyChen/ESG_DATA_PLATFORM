@@ -131,6 +131,14 @@
       "source": "identity",
       "vocabulary": []
     },
+    "waste_flow": {
+      "context_terms": [],
+      "description": null,
+      "label": "废弃物流向",
+      "reading_instruction": "抄录实际环节，例如表中印刷的 Generated、Directed to Disposal、Recycled 或 Incineration；只继承明确适用的父标题。",
+      "source": "dimension",
+      "vocabulary": []
+    },
     "waste_scope": {
       "context_levels": [
         "local",
@@ -145,7 +153,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "863223dbc89060ffa8d999892bbfa333accbac72008e2dbae366d8b91a38a803",
+  "clause_digest": "c6486c6e96a16c3ea033e017b7af97597c3f68e556b7c4ee9f2964ef79c205ad",
   "clause_key": "E5-5_15",
   "data_kind": "quantitative",
   "definition": "报告期内产生的危险废弃物重量。",
@@ -190,7 +198,12 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Hazardous Waste Generated",
+    "Hazardous Waste Generation",
+    "危险废弃物产生量",
+    "危险废物产生量"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "危险废弃物是废弃物的分项，不能当作全部废弃物；处置路线不是产生量。"
@@ -659,7 +672,8 @@
         "measurement_method",
         "waste_scope",
         "hazard_classification",
-        "aggregation_role"
+        "aggregation_role",
+        "waste_flow"
       ],
       "missing_action": "annotate"
     },
@@ -669,7 +683,8 @@
         "value_role",
         "aggregation_role",
         "hazard_classification",
-        "waste_scope"
+        "waste_scope",
+        "waste_flow"
       ],
       "missing_action": "retain"
     }
@@ -678,7 +693,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "报告期内产生的危险废弃物重量。"
+      "读取各实际期间的危险废弃物产生总重量，例如 Hazardous Waste Generated 或 Amount of Hazardous Waste Generated。按报告印刷保留单位和表内主体/业务边界。",
+      "总产生量标 match。危险废弃物处置、焚烧、填埋、回收、再利用、转移处置及强度都是不同统计口径，有相关明示量值时按 different 单列。注意继承同一表的危险／非危险父级；相邻非危险废弃物不进入本条。"
     ],
     "operator": "waste",
     "rules": [

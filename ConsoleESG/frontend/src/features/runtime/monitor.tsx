@@ -1,9 +1,56 @@
 import { useEffect, useRef, useState } from "react";
-import type { MonitorSnapshot } from "../../shared/contracts";
+import type { MonitorSnapshot, MonitorSnapshot_MonitorRun } from "../../shared/contracts";
 import { useResource } from "../../shared/resource";
 import { label, tone } from "../../shared/format";
 import { href } from "../../app/routes";
 import { Badge } from "../../shared/ui";
+
+function MonitorRunRows({ runs }: { runs: MonitorSnapshot_MonitorRun[] }) {
+  return <ol>
+    {runs.map(run => (
+      <li key={run.session_id}>
+        <a href={href("extractions", run.session_id)} className="monitor-title">{run.name}</a>
+        <div className="monitor-state">
+          <Badge tone={tone(run.status)}>{label(run.status)}</Badge>
+          {run.phase_label !== label(run.status) && <span>{run.phase_label}</span>}
+          {run.status === "running" && run.clause_key && <small>{run.clause_key}</small>}
+        </div>
+        {run.products?.export_id && (
+          <a className="monitor-products" href={href("extractions", run.session_id, "data")}>
+            {run.products.stage_label} →
+          </a>
+        )}
+        {run.observation === "unavailable" ? (
+          <p className="monitor-warning">服务连接中断，保留最后状态</p>
+        ) : (
+          <div className="monitor-counts">
+            {!!run.total && <span>{run.current ?? 0} / {run.total} 个目标</span>}
+            <span>{run.facts ?? 0} 条原值</span>
+            <span>{run.model_calls ?? 0} 次调用</span>
+          </div>
+        )}
+        {run.status === "running" && ["preparing", "ocr", "ir", "quality"].includes(run.current_phase) &&
+          run.preparation?.map(step => (
+            <div className="monitor-counts" key={String(step.stage)}>
+              <span>{step.label}</span>
+              <span>
+                {step.current != null && step.total
+                  ? `${step.current} / ${step.total}${step.unit === "pages" ? " 页" : ""}`
+                  : step.status === "partial" ? "已结束 · 证据受限" : label(String(step.status))}
+              </span>
+            </div>
+          ))}
+        {run.status === "running" && run.model_phase && (
+          <small>
+            模型{run.model_phase === "generation" ? "生成" : "读取"}
+            {run.generated_tokens != null ? ` · ${run.generated_tokens} token` : ""}
+            {run.elapsed_seconds != null ? ` · ${Math.round(run.elapsed_seconds)} 秒` : ""}
+          </small>
+        )}
+      </li>
+    ))}
+  </ol>;
+}
 
 export function RunMonitor() {
   const [open, setOpen] = useState(false);
@@ -29,6 +76,8 @@ export function RunMonitor() {
     return () => window.removeEventListener("keydown", escape);
   }, [open]);
   const runs = monitor.data?.runs || [];
+  const active = runs.filter(run => ["queued", "running", "cancelling"].includes(run.status));
+  const recent = runs.filter(run => !active.includes(run));
   return (
     <aside
       className="run-monitor"
@@ -45,7 +94,9 @@ export function RunMonitor() {
           <header>
             <div>
               <h2 id="monitor-title">运行监视</h2>
-              <small>{monitor.data?.running_count || 0} 个执行 · {monitor.data?.waiting_count || 0} 个等待补页 · {monitor.data?.queued_count || 0} 个排队</small>
+              {monitor.data && !monitor.error && (
+                <small>{monitor.data.running_count ?? 0} 个执行 · {monitor.data.waiting_count ?? 0} 个等待准备 · {monitor.data.queued_count ?? 0} 个排队</small>
+              )}
             </div>
             <div>
               <button
@@ -77,69 +128,15 @@ export function RunMonitor() {
               {monitor.loading ? "读取中…" : "当前没有提取任务"}
             </p>
           ) : (
-            <ol>
-              {runs.map((run) => (
-                <li key={run.session_id}>
-                  <a
-                    href={href("extractions", run.session_id)}
-                    className="monitor-title"
-                  >
-                    {run.name}
-                  </a>
-                  <div className="monitor-state">
-                    <Badge tone={tone(run.status)}>{label(run.status)}</Badge>
-                    <span>{run.phase_label}</span>
-                    {run.clause_key && <small>{run.clause_key}</small>}
-                  </div>
-                  {run.products?.export_id && (
-                    <a
-                      className="monitor-products"
-                      href={href("extractions", run.session_id, "data")}
-                    >
-                      {run.products.stage_label} →
-                    </a>
-                  )}
-                  {run.observation === "unavailable" ? (
-                    <p className="monitor-warning">
-                      服务连接中断，保留最后状态
-                    </p>
-                  ) : (
-                    <div className="monitor-counts">
-                      <span>
-                        {run.current} / {run.total} 个目标
-                      </span>
-                      <span>{run.facts} 条原值</span>
-                      <span>{run.model_calls} 次阅读</span>
-                    </div>
-                  )}
-                  {run.status === "running" &&
-                    ["preparing", "ocr", "ir", "quality"].includes(
-                      run.current_phase,
-                    ) &&
-                    run.preparation?.map((step) => (
-                      <div className="monitor-counts" key={String(step.stage)}>
-                        <span>{step.label}</span>
-                        <span>
-                          {step.current != null && step.total
-                            ? `${step.current} / ${step.total}${step.unit === "pages" ? " 页" : ""}`
-                            : step.status === "partial"
-                              ? "已结束 · 证据受限"
-                              : label(String(step.status))}
-                        </span>
-                      </div>
-                    ))}
-                  {run.model_phase && (
-                    <small>
-                      模型{run.model_phase === "generation" ? "生成" : "读取"} ·{" "}
-                      {run.generated_tokens ?? 0} token
-                      {run.elapsed_seconds != null
-                        ? ` · ${Math.round(run.elapsed_seconds)} 秒`
-                        : ""}
-                    </small>
-                  )}
-                </li>
-              ))}
-            </ol>
+            <>
+              {!!active.length && <MonitorRunRows runs={active}/>}
+              {!!recent.length && (
+                <details className="monitor-recent" open={!active.length}>
+                  <summary>近期提取记录</summary>
+                  <MonitorRunRows runs={recent}/>
+                </details>
+              )}
+            </>
           )}
           <footer>
             <a href={href("runtime")}>查看全部运行 →</a>

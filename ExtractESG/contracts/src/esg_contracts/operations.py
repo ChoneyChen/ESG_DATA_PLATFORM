@@ -10,6 +10,7 @@ class TaskObservation(BaseModel):
     operation: str
     title: str
     status: str
+    position: int | None = None
     native_job_id: str | None = None
     stage: str
     message: str

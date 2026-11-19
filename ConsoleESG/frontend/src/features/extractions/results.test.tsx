@@ -1,6 +1,7 @@
 import {cleanup, fireEvent, render, screen} from '@testing-library/react';
 import {afterEach, expect, it, vi} from 'vitest';
-import type {OrganizedTable} from './results';
+import {FactEvidence, type OrganizedTable} from './results';
+import type {SourceFact} from '../../shared/contracts';
 import {ClauseResultPage} from './result-pages';
 import {invalidate} from '../../shared/resource';
 
@@ -72,8 +73,11 @@ it('uses the returned cursor to read the remaining rows', async () => {
   const requests = loadResults(fixture(55));
   expect(await screen.findByText('项目49')).toBeTruthy();
   expect(screen.queryByText('项目50')).toBeNull();
+  fireEvent.click(screen.getByRole('checkbox', {name: '原单位'}));
+  expect(screen.queryByRole('columnheader', {name: '原单位'})).toBeNull();
   fireEvent.click(screen.getByRole('button', {name: '下一页'}));
   expect(await screen.findByText('项目54')).toBeTruthy();
+  expect(screen.queryByRole('columnheader', {name: '原单位'})).toBeNull();
   expect(screen.queryByText('项目49')).toBeNull();
   expect(screen.getByText('共 55 条 · 本页 5 条')).toBeTruthy();
   expect(requests.mock.lastCall?.[0]).toContain('cursor=50');
@@ -94,4 +98,28 @@ it('shows all years by default and requests the displayed quarter as a filter', 
   expect(screen.getByText('项目2')).toBeTruthy();
   expect(screen.queryByText('项目0')).toBeNull();
   expect(requests.mock.lastCall?.[0]).toContain('period=2025+Q2');
+});
+
+it('opens the corresponding original page while preserving printed fields and category codes', () => {
+  const fact = {
+    source_row_label: '2 类间接排放',
+    report_resource: {asset_id: 'pdf-test'},
+    value: {kind:'quantitative', value_raw:'2,541,120', unit_raw:'tCO₂e'},
+    identity: {measurement_method: {state:'stated', raw_text:'Location based', value:'location_based'},
+      reporting_period: {state:'stated', raw_text:'2024 年', value:{kind:'annual',year:2024}}},
+    evidence: [{page_index:41, excerpt:'2,541,120', role:'value'}, {page_index:42, excerpt:'Location based', role:'row'}],
+  } as SourceFact;
+  render(<FactEvidence fact={fact} onClose={() => {}}/>);
+  expect(screen.getByRole('dialog', {name:'核对报告原页'})).toBeTruthy();
+  expect(screen.getByText('tCO₂e')).toBeTruthy();
+  expect(screen.getByText('2024 年')).toBeTruthy();
+  expect(screen.getByText('Location based', {selector: 'span'})).toBeTruthy();
+  expect(screen.getByText('记录值 location_based')).toBeTruthy();
+  expect(screen.getByAltText('报告原页，第 42 页').getAttribute('src')).toContain('/reading-pages/41/image');
+  fireEvent.change(screen.getByRole('combobox', {name:'报告原页'}), {target:{value:'42'}});
+  const preview = screen.getByAltText('报告原页，第 43 页');
+  expect(preview.getAttribute('src')).toContain('/reading-pages/42/image');
+  fireEvent.error(preview);
+  expect(screen.getByRole('status').textContent).toContain('原页预览暂不可用');
+  expect(screen.getByRole('region', {name:'报告原页'}).querySelector('a')?.getAttribute('href')).toContain('/file#page=43');
 });

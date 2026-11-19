@@ -20,15 +20,15 @@ def main():
         raise PipelineCancelled("Worker cancellation requested")
 
     signal.signal(signal.SIGTERM, stop)
-    result = execute(args.run_id)
+    result = execute(args.run_id, waiting_tasks=int(os.environ.get("ESG_EXTRACTION_WAITING_TASKS", "0")))
     progress = result.get("progress") or {}
     print(
         encode_event(
             "result",
             payload={
                 **result,
-                "status": "completed" if result.get("evidence_request") or result.get('execution_continues') else result["status"],
-                "execution_continues": bool(result.get("evidence_request") or result.get('execution_continues')),
+                "status": "completed" if result.get("evidence_request") else result["status"],
+                "execution_continues": bool(result.get("execution_continues") or result.get("evidence_request")),
                 "progress_current": progress.get("current", 0),
                 "progress_total": progress.get("total", 0),
             },

@@ -38,7 +38,7 @@
       "context_terms": [],
       "description": null,
       "label": "分母范围",
-      "reading_instruction": null,
+      "reading_instruction": "照录人均分母，如每名员工或相应性别/职级员工；培训小时总数没有人均分母。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -69,7 +69,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际性别",
-      "reading_instruction": null,
+      "reading_instruction": "读取该行明确印出的性别分组。合计行没有性别时留空。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -93,7 +93,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际人群",
-      "reading_instruction": null,
+      "reading_instruction": "记录该行或同系列注明的员工人群。全员、基层员工、经理及以上、按性别或职级的子群各自填写。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -128,7 +128,7 @@
       ],
       "description": null,
       "label": "实际统计主体",
-      "reading_instruction": "只读取原文明确说明的统计主体。发行人/报告标题不自动等于每项数据的主体；本公司等简称需要原文释义。",
+      "reading_instruction": "抄录有明确适用关系的公司、子公司、业务或场址名称。查看图表标题、图例及引出该系列的正文，勿从报告封面代填。说明段用 “At …” 等文字明确主体并引出同一培训系列时，把该主体作为整组共用字段。",
       "source": "identity",
       "vocabulary": []
     },
@@ -157,7 +157,7 @@
       "context_terms": [],
       "description": null,
       "label": "培训范围",
-      "reading_instruction": null,
+      "reading_instruction": "记录全员培训、在岗培训或安全、道德等专项培训的实际口径。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d602537b4ff00c8da92457391a28205cbaf0513bb392e67495ba4c7cfb313feb",
+  "clause_digest": "e6c55484e9941bf9035bed57e2291dd8f35a664fdfe4f0c50f9503dc2e1de644",
   "clause_key": "S1-13_04",
   "data_kind": "quantitative",
   "definition": "报告期内员工人均培训小时数。",
@@ -680,19 +680,19 @@
   },
   "output_scopes": [
     {
-      "aggregation": "share",
+      "aggregation": null,
       "axes": {
         "denominator_scope": "per_employee",
         "population": "employees",
         "training_scope": "all_employees"
       },
       "entity": "group",
-      "label_zh": "年度 · 集团合并 · 占比 · population=employees · training_scope=all_employees · denominator_scope=per_employee",
+      "label_zh": "年度 · 集团合并 · 全员人均培训时长",
       "method": null,
       "period": "annual",
       "qualifier": null,
       "required": true,
-      "scope_id": "scope-b07ba3e2d9cbdf0a",
+      "scope_id": "scope-fda29a2cb6c70111",
       "value_role": "actual"
     }
   ],
@@ -733,7 +733,8 @@
         "training_scope",
         "denominator_scope",
         "gender",
-        "country"
+        "country",
+        "value_role"
       ],
       "missing_action": "annotate"
     },
@@ -753,7 +754,9 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "报告期内员工人均培训小时数。"
+      "读取按年披露的每名员工平均培训时长，保留原单位和各期精度。图表同时有培训频次时，按图例选时长系列；总培训小时、次数、覆盖率与时长不同。",
+      "保留全员行及同一人均培训指标的性别、职级、主体分项，逐行填写适用的实际人群和分母。仅针对专项的人均培训和明确目标列可作为不同口径保留，不替代全员实际。",
+      "读图时查阅紧邻介绍图表的正文。若正文明确命名适用于整组数据的实际公司、部门或其他主体，把该名字与图例中各期值一起填写。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -995,7 +998,12 @@
     "positive_terms": [
       "Average number of training hours per person for employees",
       "员工人均培训小时数",
-      "报告期内员工人均接受培训的小时数。"
+      "Average training hours per employee",
+      "Avg. Hours Per Employee",
+      "Average employee training hours",
+      "人均培训时长",
+      "人均培训小时",
+      "人均培訓時數"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -1006,7 +1014,14 @@
     "structural_anchors": [],
     "topic_term_groups": [
       [
-        "Average number of training hours per person for employees"
+        "Average number of training hours per person for employees",
+        "员工人均培训小时数",
+        "Average training hours per employee",
+        "Avg. Hours Per Employee",
+        "Average employee training hours",
+        "人均培训时长",
+        "人均培训小时",
+        "人均培訓時數"
       ]
     ]
   },

@@ -112,6 +112,11 @@ class RunStore:
             if not row:
                 raise KeyError(run_id)
             state = json.loads(row[0])
+            if ((patch.get("execution_continues") and state.get("cancel_requested"))
+                    or (patch.get("cancel_requested") and state["status"] == "queued")):
+                patch.update(status="cancelled", finished_at=now())
+            if patch.get("status") in {"completed", "partial", "failed", "interrupted", "cancelled"}:
+                patch["execution_continues"] = False
             state.update(patch, updated_at=now())
             db.execute(
                 "UPDATE runs SET body=? WHERE run_id=?",

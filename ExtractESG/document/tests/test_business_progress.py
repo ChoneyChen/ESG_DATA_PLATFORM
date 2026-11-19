@@ -56,8 +56,12 @@ def test_all_actual_extraction_producer_stages_have_explicit_business_labels(tmp
             'progress_current':7,'progress_total':7,'detail':{'generation_tokens':1000}})
         assert progress.stage_code == code and progress.label == STAGE_LABELS[code]
         assert any('\u4e00' <= char <= '\u9fff' for char in progress.label)
-        assert progress.unit == 'unknown' and progress.current is None and progress.percent is None
-        assert progress.determinate is False  # phase names/tokens do not imply measured coverage
+        if code == "reading":
+            assert (progress.unit, progress.current, progress.total) == ("objects", 7, 7)
+            assert progress.determinate and progress.percent == 100
+        else:
+            assert progress.unit == "unknown" and progress.current is None and progress.percent is None
+            assert not progress.determinate
 
 
 def test_log_fields_cannot_forge_current_call_stage_status_or_coverage(tmp_path):

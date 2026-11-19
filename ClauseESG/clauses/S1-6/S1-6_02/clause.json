@@ -69,7 +69,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际性别",
-      "reading_instruction": null,
+      "reading_instruction": "只填写本行明确声明的性别，保留原词。总行没有性别标签时留空。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -93,7 +93,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际人群",
-      "reading_instruction": null,
+      "reading_instruction": "填写表格脚注定义的实际纳入人群。总行保留其完整纳入范围。分项按适用年份填纳入人群，性别再填 gender。同一性别分项按期间有两种纳入范围时，各列都明确填写所属人群。只在所有期间适用时才在行上共用同一字段。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "61737809fc2937606ead3f5cb55db3ee7092560c9cb24459f56131e5176c42db",
+  "clause_digest": "e08bdd454e3e706159832cc88a3267a4dda49ebfc4c1e58f7786dfb65557a94f",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -227,10 +227,17 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Number of Employees",
+    "Total Employees",
+    "Total Number of Employees",
+    "员工总人数",
+    "员工总数"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
-    "员工人头数、全职当量与全部自有劳动力人数不可互换。"
+    "员工人头数、全职当量与全部自有劳动力人数不可互换。",
+    "员工总数衡量实际在岗人员存量。Employee turnover number、离职人数、流入流出和招聘人数属于人员变动。省略这些行及其所属分项，即使同用 person。"
   ],
   "group_id": "S1-6",
   "labels": {
@@ -737,7 +744,9 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "报告期末属于本主体的员工人头数。"
+      "分别读取每年员工总人数和紧随总行的员工分项。保留各分项的原标签、性别、地域及统计人群；员工分项保留原人数并与总行区分。新入职或内部招聘数量、流失率和全职当量不能当成总人数。",
+      "当表格注释说明人员统计范围按期间变化时，为各期间单独填写实际人群或统计边界。例如部分年度仅统计全职合同员工，其他年度统计全体员工。年份列只证明年度，具体统计时点仅从明确日期、期末或平均等原文填写。",
+      "当脚注明确说单独的总数涵盖多种雇用形式，并在下一句把历史年份的分项限于全职合同员工时，前半说明只填总行，后半说明逐列填分项，包含性别分项。两个口径不可互用。"
     ],
     "operator": "numeric_label",
     "rules": [

@@ -47,11 +47,11 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 | quantitative | 印刷值 `value_raw` | 印刷单位、十进制字符串、上下界、比较符及解析状态 |
 | assertion | 原文陈述 `statement_raw` | 通用实际身份及扩展属性 |
 
-模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格同一行用 `measurements` 列出各期间的 `value`、`period`。每个期间可覆盖行级 `unit`、`relation` 和 `scope_ids`，并按字段覆盖 `attributes`。行上可共用 `label` 和上述字段。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
+模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格行或同一图表系列用 `measurements` 列出各期间的 `value`、`period`。每项量值可覆盖行级 `unit`、`relation` 和 `scope_ids`，并按字段覆盖 `attributes`。属性限单条的丰富字段和用于区分目标的字段，抄录原词。代码可按单条词典对原词分类，同时保存原词。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
 
 `EvidenceLocation` 的页下标为 0 基，界面显示加一。页级事实以记录内容产生事实 ID，原始页及印刷量值另外保留来源锚点。页级 excerpt 是模型转录，不代表逐字或逐格独立核验。来源使用 `DocumentReference.source_kind=pdf` 和原 PDF SHA-256，沿用交接字段 `ir_run_id=pdf-<sha256>` 表达稳定文档引用，页码属于原件。已有 Document IR 可传入有效修订以提供页提示。旧对象、旧引文和候选诊断仍可随既有封存读出。
 
-`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。覆盖范围和实际值分开保存。
+`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。模型省略关系时保存为 `uncertain`。若单条声明的目标判别字段已按该条款词典识别，且与固定轴明确冲突，关系保存为 `different`。原值和实际属性继续入库。覆盖范围和实际值分开保存。
 
 ## 端口及HTTP分工
 
@@ -89,6 +89,8 @@ export_id、内容摘要和接收回执标识同一交接；相同包重送返�
 ## 内部worker与数据库RPC
 
 队列worker行协议由`esg_contracts/worker.py`定义：标准前缀`ESG_PIPELINE_EVENT `后接含kind的JSON，消费者在native_dispatch及worker中解释进度/日志/结果。执行进程仍需继承运行时槽位；日志行不是可以随意伪造的业务完成状态。输入/输出、模型调用和最终事实合同各自独立。
+
+原生阅读让出窗口时为 `queued`，累积计数跟随同一 `NativeRun`，`execution_continues` 表示已保存的续读位置。编排沿用任务 ID 并发出 `window_yielded` 事件，记录本窗口调用数、历时、时间目标及派发时等待数。运行观察的 `position` 仅在排队态提供，为当下预计的等待顺位。
 
 数据库内部桥为DatabaseBridge→capture_worker.mjs，长驻单连接、序列化JSON行：请求`{id, method, params}`，响应`{id, result}`或`{id, error:{code,message}}`。方法由capture_worker.mjs的显式分派表定义，SQL不向外部模块暴露；超时写入先查业务回执，不能自动重放。
 

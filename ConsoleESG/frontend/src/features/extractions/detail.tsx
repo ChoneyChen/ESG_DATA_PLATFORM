@@ -5,7 +5,6 @@ import type {
   FactPage,
   SourceFact,
   ReportList,
-  SourceFact_ReportedField,
   CandidateRejection,
 } from "../../shared/contracts";
 import { useResource, invalidate } from "../../shared/resource";
@@ -24,27 +23,17 @@ import {
   date,
   label,
   tone,
-  text,
-  periodText,
   modelSelectionLabel,
 } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
 import { ProductStrip } from "../publication/data";
 import {
   FactEvidence,
+  FactAttributes,
+  FactValue,
   OrganizedList,
 } from "./results";
 import { FactPages, ClauseResultPage } from "./result-pages";
-const identityNames: Record<string, string> = {
-  reporting_period: "实际测量期间",
-  reporting_entity: "实际统计主体",
-  entity_aggregation_role: "主体汇总方式",
-  reporting_boundary: "实际范围",
-  measurement_method: "测量方法",
-  value_role: "数值角色",
-  aggregation_role: "汇总角色",
-  denominator: "分母",
-};
 const candidateTypes: Record<string, string> = {
   formula: "化学式",
   identifier: "编号",
@@ -298,13 +287,15 @@ export function ExtractionPage({
                       <span className="step-dot" />
                       <span>条款检索与阅读</span>
                       <small>
-                        {run.progress?.total
+                        {run.current_phase === "window_yielded"
+                          ? "进度已保存 · 等待续读"
+                          : run.progress?.total
                           ? `${run.progress.current || 0} / ${run.progress.total} 个目标`
-                          : "等待文档证据"}
+                          : "等待开始阅读"}
                       </small>
                     </div>
                   </div>
-                  {run.progress?.clause_key && active && (
+                  {run.progress?.clause_key && run.status === "running" && (
                     <p>
                       当前条款 <strong>{run.progress.clause_key}</strong>
                       {run.progress.object_id && (
@@ -526,7 +517,7 @@ export function ExtractionPage({
                 )}
               </>
             )}
-            {child === "tables" && childId && (run.run ? <ClauseResultPage key={childId} sessionId={sessionId} clauseKey={childId} active={active}/> : <Empty title="等待文档证据"/>)}
+            {child === "tables" && childId && (run.run ? <ClauseResultPage key={sessionId + ":" + childId} sessionId={sessionId} clauseKey={childId} active={active}/> : <Empty title="等待开始阅读"/>)}
             {child === "facts" && (
               <>
                 <ReadError error={results.error} retry={results.reload} />
@@ -535,35 +526,11 @@ export function ExtractionPage({
                     <div className="section-heading">
                       <h2>{fact.source_row_label || "原始事实"}</h2>
                       <button onClick={() => setEvidence(fact)}>
-                        查看原文证据
+                        核对报告原页
                       </button>
                     </div>
-                    <div className="source-value">
-                      {"value_raw" in fact.value
-                        ? fact.value.value_raw
-                        : fact.value.statement_raw}
-                    </div>
-                    <dl className="detail-list">
-                      {[
-                        ...(Object.entries(fact.identity || {}).filter(
-                          ([key]) => key !== "dimensions",
-                        ) as [string, SourceFact_ReportedField][]),
-                        ...Object.entries(fact.identity?.dimensions || {}),
-                      ].map(([key, value]) => (
-                        <div className="detail-pair" key={key}>
-                          <dt>{identityNames[key] || key}</dt>
-                          <dd>
-                            {key === "reporting_period"
-                              ? periodText(value.value)
-                              : text(value.value)}{" "}
-                            <Badge>{label(value.state)}</Badge>
-                            {value.raw_text && (
-                              <small>原文：{value.raw_text}</small>
-                            )}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
+                    <FactValue fact={fact}/>
+                    <FactAttributes fact={fact}/>
                     {Object.keys(fact.extensions || {}).length > 0 && (
                       <details>
                         <summary>补充属性</summary>
@@ -641,7 +608,7 @@ export function ExtractionPage({
         </Modal>
       )}
       {evidence && (
-        <FactEvidence fact={evidence} onClose={() => setEvidence(undefined)} />
+        <FactEvidence key={evidence.source_fact_id} fact={evidence} onClose={() => setEvidence(undefined)} />
       )}
     </>
   );

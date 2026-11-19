@@ -14,6 +14,7 @@ RunStatus = Literal[
 TERMINAL = {"completed", "partial", "failed", "cancelled", "interrupted"}
 PHASE_LABELS = {
     "queued": "等待执行",
+    "window_yielded": "已保存进度，等待继续",
     "preparing": "准备文档证据",
     "ocr": "识别报告页面",
     "ir": "构建结构与证据",
@@ -121,6 +122,7 @@ class NativeRun(View):
     document: DocumentReference | None = None
     evidence_sources: dict[str, DocumentReference] = Field(default_factory=dict)
     evidence_request: EvidencePreparationRequest | None = None
+    execution_continues: bool = False
     resumable: bool = False
     engine_fingerprint: str | None = None
     clause_keys: list[str] = Field(default_factory=list)
@@ -154,6 +156,9 @@ class NativeRun(View):
             self.current_call = None
         elif self.evidence_request:
             self.current_phase = 'preparing'
+            self.current_call = None
+        elif self.status == "queued" and self.execution_continues:
+            self.current_phase = "window_yielded"
             self.current_call = None
         else:
             self.current_phase = self.progress.stage or (

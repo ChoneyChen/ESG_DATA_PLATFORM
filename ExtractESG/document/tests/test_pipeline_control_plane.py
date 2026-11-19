@@ -55,6 +55,33 @@ def test_queue_reorder_cancel_and_restart_recovery(tmp_path: Path) -> None:
     assert store.get("pt-c").status == PipelineTaskStatus.INTERRUPTED
 
 
+def test_saved_reading_window_keeps_progress_and_yields_to_existing_waiters(tmp_path):
+    from esg_pipeline.contracts import utc_now
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), PipelineTaskHooks())
+    for name in ("first", "second", "third"):
+        store.create(task_id=name, task_type=PipelineTaskType.TARGETED_EXTRACTION,
+                     operation="extract", title=name, payload={}, native_job_id=f"run-{name}")
+        if name == "first":
+            first = store.claim_next()
+    window = {"status": "queued", "execution_continues": True, "updated_at": utc_now(),
+              "progress": {"current": 8, "total": 24, "model_calls": 10}}
+    assert scheduler._restore_result(first, window)
+    assert [(task.task_id, task.position) for task in store.list()] == [
+        ("second", 1), ("third", 2), ("first", 3),
+    ]
+    assert store.get("first").progress_current == 8
+    assert store.get("first").progress_total == 24
+    assert store.events("first")[-1]["stage"] == "window_yielded"
+    store.reorder(["first"])
+    first_again = store.claim_next()
+    assert first_again.task_id == first.task_id
+    assert not scheduler._restore_result(first_again, window)
+    assert scheduler._restore_result(first_again, {**window, "updated_at": utc_now()})
+    assert store.claim_next().task_id == "second"
+
+
 def test_queue_create_many_is_atomic_and_keeps_package_order(tmp_path: Path) -> None:
     store = PipelineQueueStore(tmp_path / "queue.sqlite3")
     specifications = [
@@ -423,7 +450,7 @@ def test_current_extraction_worker_result_is_consumed_by_real_scheduler(tmp_path
     from esg_extraction.pipeline import worker
     monkeypatch.setattr(sys,'argv',['esg-extraction','extract-protocol-fixture'])
     monkeypatch.setattr(worker,'inherited_slot_is_valid',lambda:True)
-    monkeypatch.setattr(worker,'execute',lambda _:{'run_id':'extract-protocol-fixture','status':native_status,'progress':{'current':1,'total':1},'summary':{'selected_clauses':1,'processed_clauses':1,'source_facts':1}})
+    monkeypatch.setattr(worker,'execute',lambda _, *, waiting_tasks:{'run_id':'extract-protocol-fixture','status':native_status,'progress':{'current':1,'total':1},'summary':{'selected_clauses':1,'processed_clauses':1,'source_facts':1}})
     monkeypatch.setattr(worker.signal,'signal',lambda *_:None)
     worker.main()
     emitted=capsys.readouterr().out.strip()

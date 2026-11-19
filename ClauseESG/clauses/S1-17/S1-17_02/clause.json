@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "23ff139bc6024c19642b4aafff7320db08a8891f0dd1105d0596136677bdbda4",
+  "clause_digest": "68a8c1555f5281d0a375a1abd07cbd107f4450769523d3d3d7eeeeb5b78abd63",
   "clause_key": "S1-17_02",
   "data_kind": "quantitative",
   "definition": "报告期内报告的歧视事件数量。",
@@ -227,7 +227,12 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Incidents of Discrimination",
+    "Discrimination Incidents",
+    "歧视事件数量",
+    "Employee Discrimination Incidents"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "已确认事件、投诉与内部处分分别计数，不能互相替代。"
@@ -753,7 +758,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "报告期内报告的歧视事件数量。"
+      "读取报告期内报告的歧视事件实际计数，保留报告所用的人群、事件定义和计数状态。已确认事件、投诉和处分按各自统计名称保留，不当作同义的报告事件总数。",
+      "量值须是表内数字或正文中明示的数量。定性句子「没有发生歧视」或 no incidents of discrimination 不抄作定量事实，也不换算成零；若本项印刷的计数为0，则保留0。"
     ],
     "operator": "numeric_label",
     "rules": [

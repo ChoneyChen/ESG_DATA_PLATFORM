@@ -1341,7 +1341,7 @@
       "title": "范围3边界、方法、假设与工具"
     },
     {
-      "clause_digest": "b931eda57ee56dadffa4dcc00783ad90534e7828448ba901dffe0367ebf64af0",
+      "clause_digest": "93366f271fe41ef1062e42ddbce631217057dd1329e4781b4e13aa6613d56b59",
       "clause_key": "E1-6_30",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2711,7 +2711,7 @@
       "title": "空气、水和土壤污染随时间变化描述"
     },
     {
-      "clause_digest": "6b09a2a2e5bfc710eae0be77a952232cccb48a25b45a2b5b66fe48a85006dcb7",
+      "clause_digest": "2a27466f292dbc37f242da6340a6e4f38e27f8a7adfbbaa3f81a7767e6136269",
       "clause_key": "E2-4_09",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -5231,7 +5231,7 @@
       "title": "Disclosure of materials that are present in waste"
     },
     {
-      "clause_digest": "863223dbc89060ffa8d999892bbfa333accbac72008e2dbae366d8b91a38a803",
+      "clause_digest": "c6486c6e96a16c3ea033e017b7af97597c3f68e556b7c4ee9f2964ef79c205ad",
       "clause_key": "E5-5_15",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -5911,7 +5911,7 @@
       "title": "治理成员性别等多样性比例"
     },
     {
-      "clause_digest": "30642c2a9944fd07ca7088ac0cc703ff496c72cb090eda1b8bb03d0ccaefae1e",
+      "clause_digest": "97246fca0172caa0a494df5fe92175b4a6b383c2793b8cf3d2269bd2eef5ab31",
       "clause_key": "GOV-1_06",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7341,7 +7341,7 @@
       "title": "按性别划分的平均培训小时数 Average training hours by gender"
     },
     {
-      "clause_digest": "d602537b4ff00c8da92457391a28205cbaf0513bb392e67495ba4c7cfb313feb",
+      "clause_digest": "e6c55484e9941bf9035bed57e2291dd8f35a664fdfe4f0c50f9503dc2e1de644",
       "clause_key": "S1-13_04",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7421,7 +7421,7 @@
       "title": "Number of recordable work-related accidents for own workforce"
     },
     {
-      "clause_digest": "f618d259ca652f4edaa2cc480ae2759ba1ecb0932f5e0b95befd9ead763e0f5f",
+      "clause_digest": "b01be004f3b9446ddd88a94ec069bfc055348f2f21a8cc806a749fbe5b7e2492",
       "clause_key": "S1-14_05",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7541,7 +7541,7 @@
       "title": "通过社会政策或集体协议保障家庭相关假期"
     },
     {
-      "clause_digest": "f9fcbb835241fd0088e93a6144c9871c73fc4350c47faa5f502babb6c337c219",
+      "clause_digest": "d07b497f87da09f9bf2575fcb1617bb3f6f9fd6e451f50f2c1b52800e9124c82",
       "clause_key": "S1-16_01",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -7621,7 +7621,7 @@
       "title": "按类型划分的歧视事件数量（表）"
     },
     {
-      "clause_digest": "23ff139bc6024c19642b4aafff7320db08a8891f0dd1105d0596136677bdbda4",
+      "clause_digest": "68a8c1555f5281d0a375a1abd07cbd107f4450769523d3d3d7eeeeb5b78abd63",
       "clause_key": "S1-17_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8281,7 +8281,7 @@
       "title": "Characteristics of undertaking's employees - number of employees by gender [table]"
     },
     {
-      "clause_digest": "61737809fc2937606ead3f5cb55db3ee7092560c9cb24459f56131e5176c42db",
+      "clause_digest": "e08bdd454e3e706159832cc88a3267a4dda49ebfc4c1e58f7786dfb65557a94f",
       "clause_key": "S1-6_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8381,7 +8381,7 @@
       "title": "Number of employee who have left undertaking"
     },
     {
-      "clause_digest": "3f12d22f39bfe7e2eae11dfcb86d9668f719f83fe422f1a37fcf19f68656b766",
+      "clause_digest": "94b3294a7125b70fe96f56e5218a2a26a6b010d2f85f5b80f515522180a00233",
       "clause_key": "S1-6_12",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -8661,7 +8661,7 @@
       "title": "Gender distribution in number of employees (head count) at top management level"
     },
     {
-      "clause_digest": "52a3fc387b7ef950ccb315a1ee6456f11e0c3aa1bea35ad5fe4eb572a5676be3",
+      "clause_digest": "d874a2f73c3fd8c0c76535275aaea957f07c5208a04d65b0677c519d0b946095",
       "clause_key": "S1-9_02",
       "data_kind": "quantitative",
       "entry_kind": "value",

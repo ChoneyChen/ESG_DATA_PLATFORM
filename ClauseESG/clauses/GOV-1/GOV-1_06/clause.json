@@ -26,7 +26,7 @@
       "context_terms": [],
       "description": null,
       "label": "董事会范围",
-      "reading_instruction": null,
+      "reading_instruction": "记录该比例实际涉及的治理机构，如董事会或监事会。若来源同时明确对应董事会总人数，可在此保留分母口径。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -57,7 +57,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际性别",
-      "reading_instruction": null,
+      "reading_instruction": "按原标签记录该比例的性别，如女性董事或男性董事；不填写未披露的另一性别。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -157,7 +157,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "30642c2a9944fd07ca7088ac0cc703ff496c72cb090eda1b8bb03d0ccaefae1e",
+  "clause_digest": "97246fca0172caa0a494df5fe92175b4a6b383c2793b8cf3d2269bd2eef5ab31",
   "clause_key": "GOV-1_06",
   "data_kind": "quantitative",
   "definition": "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。",
@@ -676,7 +676,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
+      "逐年转录原表已披露的董事会性别百分比，分母是同一治理机构的董事人数。女性董事人数、董事总数、独立董事百分比和高管性别比例不能代填。",
+      "按页内标签或适用说明记录实际机构、性别和期间。仅有分子分母人数时不推算百分比；没有日期依据时不推定具体年末日。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -827,7 +828,13 @@
     "positive_terms": [
       "Board's gender diversity ratio",
       "董事会性别多样性比例",
-      "Board's gender diversity ratio。董事会性别多样性比例。治理机构成员不是员工总数；性别多样性和独立性分母、机构范围及统计时点必须明确。责任、能力和监督分别举证。"
+      "Percentage of female board directors",
+      "Percentage of female board members",
+      "Women on the board",
+      "Board gender diversity",
+      "女性董事占比",
+      "女性董事比例",
+      "女性董事佔比"
     ],
     "required_term_groups": [],
     "role_term_groups": [],
@@ -839,7 +846,14 @@
     "topic_term_groups": [
       [
         "Board's gender diversity ratio",
-        "董事会性别多样性比例"
+        "董事会性别多样性比例",
+        "Percentage of female board directors",
+        "Percentage of female board members",
+        "Women on the board",
+        "Board gender diversity",
+        "女性董事占比",
+        "女性董事比例",
+        "女性董事佔比"
       ]
     ]
   },

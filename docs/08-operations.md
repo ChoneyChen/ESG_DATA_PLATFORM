@@ -67,6 +67,8 @@ workbench.py后台托管五服务，记录进程身份，只停止自己拥有�
 
 单服务入口是`ConsoleESG/scripts/run_service.sh document|extraction|console|database|plat`。其document仍为Console组合应用；真正独立的文档程序入口还可使用esg-document CLI。桌面启动项由install_desktop_launcher.py安装，控制器与命令行共用。
 
+同一 Python 环境更新共享合同时，按实际依赖重启服务。隔离环境共用 Python 时包括数据库接收服务。重启后查兼容接口及数据库 `/health`，运行和磁盘指纹一致后继续验收。因指纹不一致暂缓的封存包由 outbox 按原 export_id 核对及重试。
+
 ## 新库与模式管理
 
 仅对明确选定的新目录执行，不能把示例路径替换为正在使用的demo或生产库：
