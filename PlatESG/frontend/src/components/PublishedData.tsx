@@ -445,16 +445,26 @@ function DatasetContent({
 }
 
 function ObservationDetail({ row }: { row: Observation }) {
+  const structure = row.value.kind === "assertion" ? row.value.structure : null;
+  const printed = row.value.kind === "quantitative"
+    ? row.value.value_raw + (row.value.unit_raw && !row.value.value_raw.endsWith(row.value.unit_raw) ? ` ${row.value.unit_raw}` : "")
+    : row.value.statement_raw;
   return (
     <>
       <div className="page-heading">
         <h1>{row.source_row_label || row.title}</h1>
-        <p className="published-raw">
-          {row.value.kind === "quantitative"
-            ? `${row.value.value_raw} ${row.value.unit_raw || ""}`
-            : row.value.statement_raw}
-        </p>
+        <p className="published-raw">{printed}</p>
       </div>
+      {structure && (structure.topic || structure.subject || structure.action) && (
+        <section className="panel published-details">
+          <h2>陈述结构</h2>
+          <dl>
+            {[["主题", structure.topic], ["对象", structure.subject], ["动作", structure.action]].map(([label, value]) => value && (
+              <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+            ))}
+          </dl>
+        </section>
+      )}
       <section className="panel published-details">
         <h2>实际口径</h2>
         <dl>
@@ -487,6 +497,16 @@ function ObservationDetail({ row }: { row: Observation }) {
         <p>
           {relationLabel[row.relation]} · {row.mapping?.reason}
         </p>
+        {row.mapping?.scope_differences?.length ? (
+          <dl>
+            {row.mapping.scope_differences.map((difference) => (
+              <div key={difference.axis}>
+                <dt>{fieldLabels[difference.axis] || difference.axis}</dt>
+                <dd>报告实际 {difference.raw_text || String(difference.reported)} · 条款目标 {String(difference.expected)}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
         <p>
           {row.comparison.eligible
             ? "满足此条声明的比较条件"

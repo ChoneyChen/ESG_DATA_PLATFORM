@@ -17,6 +17,16 @@ STRUCTURED_OUTPUT_RULES = (
 )
 
 
+def output_properties(pairs):
+    """Accept padding inside JSON keys while retaining their values verbatim."""
+    result = {}
+    for key, value in pairs:
+        field = key.strip()
+        if field not in result or field == key:
+            result[field] = value
+    return result
+
+
 def structured_prompt(instructions: str, context: str, schema: dict) -> str:
     return "\n\n".join((
         instructions,

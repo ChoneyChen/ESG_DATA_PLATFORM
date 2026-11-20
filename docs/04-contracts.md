@@ -44,14 +44,16 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 
 | 类型 | 必需原值 | 可选结构化信息 |
 |---|---|---|
-| quantitative | 印刷值 `value_raw` | 印刷单位、十进制字符串、上下界、比较符及解析状态 |
-| assertion | 原文陈述 `statement_raw` | 通用实际身份及扩展属性 |
+| quantitative | 印刷值 `value_raw` | 印刷单位、十进制字符串、上下界、比较符及解析状态。`identity.value_role` 单独表示实绩、基准、目标、预测等明确披露的角色 |
+| assertion | 原文陈述 `statement_raw` | `structure` 可保存主题 `topic`、对象 `subject`、动作 `action` 的原文片段，另有通用实际身份和扩展属性 |
 
-模型输出 `items` 数组，每项提供 `clause_key`。原句或单个数值使用 `value`，表格行或同一图表系列用 `measurements` 列出各期间的 `value`、`period`。每项量值可覆盖行级 `unit`、`relation` 和 `scope_ids`，并按字段覆盖 `attributes`。属性限单条的丰富字段和用于区分目标的字段，抄录原词。代码可按单条词典对原词分类，同时保存原词。程序以定量/定性合同保存，沿用共享数值和期间解析。解析不出仍保留原值，未知属性留空。报告元数据不填入未声明的实际期间或统计主体。每个披露期间分别保存，保留印刷精度和比例。
+模型输出 `items` 数组，每项提供 `clause_key`。原句或单个量值使用 `value`，表格行或同一图表系列用 `measurements` 列出各期间的 `value` 和 `period`。各期间可覆盖行级单位、关系、理由、角色及口径属性。通用实际身份使用固定字段名，专用维度使用单条合同的字段及词典。已识别的类别同时保存编码和印刷措辞。解析支持点值、区间、近似、显式上下限、常用科学记数和有明示单位的倍率。模糊或无法判读的表达保留原值，未知属性留空。实际期间和统计主体取自适用的原页陈述。每个披露期间分别保存，保留印刷精度和比例。
 
 `EvidenceLocation` 的页下标为 0 基，界面显示加一。页级事实以记录内容产生事实 ID，原始页及印刷量值另外保留来源锚点。页级 excerpt 是模型转录，不代表逐字或逐格独立核验。来源使用 `DocumentReference.source_kind=pdf` 和原 PDF SHA-256，沿用交接字段 `ir_run_id=pdf-<sha256>` 表达稳定文档引用，页码属于原件。已有 Document IR 可传入有效修订以提供页提示。旧对象、旧引文和候选诊断仍可随既有封存读出。
 
-`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。模型省略关系时保存为 `uncertain`。如单条 `reading.vocabulary.matching_statement_terms` 明确识别已实施的做法，且原句满足该条读取语义，可补为 `match`。明确冲突的目标判别字段将关系记为 `different`。原值和实际属性继续入库。覆盖范围和实际值分开保存。
+`ClauseMapping` 单独记录条款摘要、事实 ID、`match`、`different` 或 `uncertain` 及 `reason`。明确冲突的目标判别字段将关系记为 `different`，`scope_differences` 保存冲突字段、实际值、预期值和报告印刷措辞。模型省略关系时保存为 `uncertain`。单条 `reading.vocabulary.matching_statement_terms` 明确识别已实施的做法且原句满足条款读取语义时，可补为 `match`。所有关系都继续保存原值和实际属性。
+
+`ClauseCoverage.state` 描述读取执行情况。`disclosure_observations` 记录目标行或单元格明确说明的 `not_disclosed`、`not_applicable` 或 `not_available`，保留原话、PDF 页下标及适用行名和期间。同一条款可在不同期间同时包含原值和明示缺失。空白、无释义破折号及读取失败保留各自含义。旧记录缺少新增可选字段时继续按原形状读取。
 
 ## 端口及HTTP分工
 

@@ -8,7 +8,7 @@ import type {
   CandidateRejection,
 } from "../../shared/contracts";
 import { useResource, invalidate } from "../../shared/resource";
-import { segment, write } from "../../shared/api";
+import { pdfUrl, segment, write } from "../../shared/api";
 import {
   PageHeader,
   ReadError,
@@ -23,6 +23,7 @@ import {
   date,
   label,
   tone,
+  text,
   modelSelectionLabel,
 } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
@@ -31,6 +32,7 @@ import {
   FactEvidence,
   FactAttributes,
   FactValue,
+  identityNames,
   OrganizedList,
 } from "./results";
 import { FactPages, ClauseResultPage } from "./result-pages";
@@ -402,6 +404,7 @@ export function ExtractionPage({
                               <th>已阅读 / 候选</th>
                               <th>事实</th>
                               <th>已取得期间</th>
+                              <th>原文明示缺失</th>
                               <th>原因</th>
                             </tr>
                           </thead>
@@ -446,6 +449,19 @@ export function ExtractionPage({
                                         `${period} · ${count}`,
                                     )
                                     .join("；") || "—"}
+                                </td>
+                                <td>
+                                  {c.disclosure_observations?.length ? c.disclosure_observations.map((entry, index) => (
+                                    <div key={index}>
+                                      <Badge>{label(entry.state)}</Badge>{" "}
+                                      {[entry.source_row_label, entry.period_raw, entry.statement_raw].filter(Boolean).join(" · ")}{" "}
+                                      {report ? (
+                                        <a href={pdfUrl(report.asset_id, entry.page_index + 1)} target="_blank" rel="noreferrer">
+                                          PDF 第 {entry.page_index + 1} 页
+                                        </a>
+                                      ) : <small>PDF 第 {entry.page_index + 1} 页</small>}
+                                    </div>
+                                  )) : "—"}
                                 </td>
                                 <td>{c.reasons?.join("；") || "—"}</td>
                               </tr>
@@ -556,7 +572,7 @@ export function ExtractionPage({
                     {results.data?.clause_mappings
                       .filter((m) => m.source_fact_id === fact.source_fact_id)
                       .map((m) => (
-                        <p key={m.clause_key}>
+                        <div key={m.clause_key}>
                           <a
                             href={href(
                               "extractions",
@@ -569,7 +585,12 @@ export function ExtractionPage({
                           </a>{" "}
                           <Badge tone={tone(m.match)}>{label(m.match)}</Badge>{" "}
                           {m.reason}
-                        </p>
+                          {m.scope_differences?.map((difference) => (
+                            <p key={difference.axis}>
+                              {identityNames[difference.axis] || difference.axis} · 报告实际 {difference.raw_text || text(difference.reported)} · 条款目标 {text(difference.expected)}
+                            </p>
+                          ))}
+                        </div>
                       ))}
                     {(fact.flags?.length || 0) > 0 && (
                       <details>

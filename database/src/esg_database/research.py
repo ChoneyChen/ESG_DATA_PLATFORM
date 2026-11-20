@@ -1,15 +1,19 @@
 """Typed long-table research exports. Display matrices are never a data authority."""
 import csv
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, localcontext
 from hashlib import sha256
 import io
 import json
 from zipfile import ZipFile, ZIP_DEFLATED
+from esg_contracts.facts import ClauseCoverage
 from esg_data.hashing import digest
-from .products_contracts import Observation, ObservationPage
+from esg_data.quantities import standard_unit
+from .products_contracts import Observation, ObservationPage, ObservationSource
+from .projection import period_facet
 
 # A single column declaration drives CSV metadata and Arrow types.
+RESEARCH_VERSION = "capture-research-1.2"
 TABLES = {
     "facts": [("observation_id","string"),("source_fact_id","string"),("occurrence_id","string"),("source_id","string"),
         ("kind","string"),("source_row_label","string"),("value_raw","string"),("statement_raw","string"),
@@ -28,6 +32,15 @@ TABLES = {
     "sources": [("source_id","string"),("document_id","string"),("pdf_sha256","string"),("pdf_id","string"),
         ("title","string"),("report_company","string"),("report_company_id","string"),("publication_year","int32"),
         ("resource_revision","int32"),("industry","string"),("reporting_year","int32")],
+    "quantitative": [("observation_id","string"),("value_role","string"),("value_role_raw","string"),
+        ("value_role_state","string"),("parse_status","string"),("comparator","string"),("normalization_status","string"),
+        ("unit_id","string"),("unit_multiplier","decimal"),("value_numeric","decimal"),
+        ("value_lower","decimal"),("value_upper","decimal")],
+    "qualitative": [("observation_id","string"),("topic","string"),("subject","string"),("action","string")],
+    "coverage": [("source_id","string"),("projection_id","string"),("export_id","string"),
+        ("clause_key","string"),("clause_digest","string"),("coverage_state","string"),("fact_count","int32"),
+        ("candidate_objects","int32"),("inspected_objects","int32"),("disclosure_state","string"),
+        ("statement_raw","string"),("page_index","int32"),("period","string"),("period_raw","string"),("source_row_label","string")],
 }
 
 
@@ -36,13 +49,48 @@ class ResearchCapacityError(ValueError):
 
 
 def contract():
-    return {"schema_version":"capture-research-1.1", "tables":{name:[{"name":key,"type":kind,"nullable":True} for key,kind in fields] for name,fields in TABLES.items()},
+    return {"schema_version":RESEARCH_VERSION, "tables":{name:[{"name":key,"type":kind,"nullable":True} for key,kind in fields] for name,fields in TABLES.items()},
         "authority":"Referenced immutable source facts; these tables are deterministic projections.",
         "period_policy":"all_reported", "aggregation_performed":False,
+        "facts":"Printed values and statements with their original structured fields. quantitative and qualitative join by observation_id.",
+        "quantitative":"One row per quantitative observation. Value role and comparator are independent. Decimal fields in this table use unit_id after exact scaling. Unknown roles, units, and unparsed quantities remain available in facts.",
+        "qualitative":"One row per qualitative observation. Topic, subject and action are the components captured during reading and may be absent.",
+        "coverage":"Internal projection exports include frozen clause coverage without a period filter, plus explicitly reported disclosure markers matching the filters. Dataset exports include only markers with a selected observation from the same single-source projection, clause and period. Page indexes are zero-based. Coverage state and explicit disclosure state describe separate observations.",
         "properties":"One scalar leaf per RFC6901 value_path. Empty containers retain explicit type.",
         "evidence":"One location per container/field_key/evidence_index. Coordinates are a separate child table.",
         "decimal":"CSV preserves exact decimal strings. Parquet uses an exact column decimal128/256 schema recorded in the manifest; incompatible precision fails explicitly without rounding.",
         "limits":"Capacity exhaustion aborts the whole download; it never returns a truncated completed export."}
+
+
+def quantitative_row(observation):
+    value = observation.value
+    role = observation.identity.value_role
+    row = {
+        "observation_id": observation.observation_id,
+        "value_role": role.value if isinstance(role.value, str) else None,
+        "value_role_raw": role.raw_text,
+        "value_role_state": role.state,
+        "parse_status": value.parse_status,
+        "comparator": value.comparator,
+    }
+    unit = standard_unit(value.unit_raw)
+    if unit:
+        row["unit_id"], multiplier = unit
+        row["unit_multiplier"] = format(multiplier, "f")
+    if value.parse_status != "parsed":
+        row["normalization_status"] = "value_unparsed"
+    elif not unit:
+        row["normalization_status"] = "unit_unrecognized" if value.unit_raw else "unit_unavailable"
+    else:
+        row["normalization_status"] = "normalized"
+        for key in ("value_numeric", "value_lower", "value_upper"):
+            reported = getattr(value, key)
+            if reported is not None:
+                number = Decimal(reported)
+                with localcontext() as context:
+                    context.prec = len(number.as_tuple().digits) + len(multiplier.as_tuple().digits)
+                    row[key] = format(number * multiplier, "f")
+    return row
 
 
 def leaves(value, path=""):
@@ -58,9 +106,19 @@ def leaves(value, path=""):
         yield path,kind,None if value is None else ("true" if value else "false") if isinstance(value,bool) else str(value)
 
 
-def tables(observations, *, max_observations=100000, max_rows=2000000):
+def tables(observations, *, coverage=(), period=None, max_observations=100000, max_rows=2000000):
     output={name:[] for name in TABLES}
     sources={}
+    def add_source(source):
+        body=source.model_dump(mode="json")
+        source_id="source-"+digest(body)
+        sources[source_id]=body
+        return source_id
+
+    def check_rows():
+        if sum(map(len,output.values()))+len(sources)>max_rows:
+            raise ResearchCapacityError("Export exceeds the declared expanded-row capacity; filter the snapshot")
+
     def evidence(oid,container,key,locations):
         for index,location in enumerate(locations):
             body=location.model_dump(mode="json")
@@ -76,11 +134,16 @@ def tables(observations, *, max_observations=100000, max_rows=2000000):
     for count,body in enumerate(observations,1):
         if count>max_observations:raise ResearchCapacityError("Export exceeds the declared observation capacity; filter the immutable snapshot")
         row=Observation.model_validate(body);oid=row.observation_id;value=row.value.model_dump(mode="json")
-        source=row.source.model_dump(mode="json");source_id="source-"+digest(source);sources[source_id]=source
+        source_id=add_source(row.source)
         output["facts"].append({"observation_id":oid,"source_fact_id":row.source_fact_id,"occurrence_id":row.occurrence_id,"source_id":source_id,
             **{key:value.get(key) for key in ("kind","value_raw","statement_raw","unit_raw","parse_status","comparator","value_numeric","value_lower","value_upper")},
             "source_row_label":row.source_row_label,"period_kind":row.period.kind,"period_raw":row.period.raw,"year":row.period.year,"quarter":row.period.quarter,
             "period_start":row.period.start.isoformat() if row.period.start else None,"period_end":row.period.end.isoformat() if row.period.end else None,"quality":row.quality})
+        if row.value.kind == "quantitative":
+            output["quantitative"].append(quantitative_row(row))
+        else:
+            structure=value.get("structure") or {}
+            output["qualitative"].append({"observation_id":oid, **{key:structure.get(key) for key in ("topic","subject","action")}})
         evidence(oid,"fact","",row.evidence)
         for key in type(row.identity).model_fields:
             if key=="dimensions":continue
@@ -93,10 +156,33 @@ def tables(observations, *, max_observations=100000, max_rows=2000000):
         if row.mapping:
             property_value(oid,"relation","scope_ids",row.mapping.scope_ids)
             property_value(oid,"relation","flags",row.mapping.flags)
+            if row.mapping.scope_differences:
+                property_value(oid,"relation","scope_differences",[item.model_dump(mode="json") for item in row.mapping.scope_differences])
         output["relations"].append({"observation_id":oid,"source_fact_id":row.source_fact_id,"clause_key":row.clause_key,"clause_digest":row.clause_digest,
             "title":row.title,"relation":row.relation,"reason":row.mapping.reason if row.mapping else "No frozen target relation",
             "comparison_eligible":row.comparison.eligible})
-        if sum(map(len,output.values()))+len(sources)>max_rows:raise ResearchCapacityError("Export exceeds the declared expanded-row capacity; filter the snapshot")
+        check_rows()
+    for record in coverage:
+        clause=ClauseCoverage.model_validate(record["coverage"])
+        allowed_periods=record.get("allowed_periods")
+        member_scoped=allowed_periods is not None
+        allowed={period_facet(value) for value in allowed_periods or ()}
+        rows=[]
+        if not member_scoped and not period:
+            rows.append({"coverage_state":clause.state,"fact_count":clause.fact_count,
+                         "candidate_objects":clause.candidate_objects,"inspected_objects":clause.inspected_objects})
+        for item in clause.disclosure_observations:
+            facet=period_facet(item.period_raw)
+            if (period and period != facet) or (member_scoped and (facet == "unknown" or facet not in allowed)):
+                continue
+            rows.append({"disclosure_state":item.state,"statement_raw":item.statement_raw,"page_index":item.page_index,
+                         "period":facet,"period_raw":item.period_raw,"source_row_label":item.source_row_label})
+        if rows:
+            common={"source_id":add_source(ObservationSource.model_validate(record["source"])),
+                    "projection_id":record["projection_id"],"export_id":record["export_id"],
+                    "clause_key":clause.clause_key,"clause_digest":clause.clause_digest}
+            output["coverage"].extend({**common,**row} for row in rows)
+            check_rows()
     output["sources"]=[{"source_id":key,**value} for key,value in sorted(sources.items())]
     return output
 
@@ -111,12 +197,12 @@ def decimal_type(values, pa):
     return (pa.decimal128 if precision<=38 else pa.decimal256)(precision,scale)
 
 
-def archive(observations, snapshot_id, *, format="csv", max_observations=100000, max_rows=2000000, definitions=None, query=None):
+def archive(observations, snapshot_id, *, format="csv", max_observations=100000, max_rows=2000000, definitions=None, coverage=(), query=None):
     if format not in {"csv","parquet"}:raise ValueError("Choose csv or parquet")
     if format=="parquet":
         import pyarrow as pa
         import pyarrow.parquet as pq
-    data=tables(observations,max_observations=max_observations,max_rows=max_rows)
+    data=tables(observations,coverage=coverage,period=(query or {}).get("period"),max_observations=max_observations,max_rows=max_rows)
     result=io.BytesIO();files=[]
     with ZipFile(result,"w",compression=ZIP_DEFLATED) as zipped:
         for name,columns in TABLES.items():
@@ -129,7 +215,7 @@ def archive(observations, snapshot_id, *, format="csv", max_observations=100000,
                 for key,kind in columns:
                     dtype=decimal_type((row.get(key) for row in rows),pa) if kind=="decimal" else {"string":pa.string(),"int32":pa.int32(),"bool":pa.bool_(),"date32":pa.date32()}[kind]
                     fields.append(pa.field(key,dtype,nullable=True))
-                schema=pa.schema(fields,metadata={b"contract":b"capture-research-1.1"})
+                schema=pa.schema(fields,metadata={b"contract":RESEARCH_VERSION.encode()})
                 converted=[]
                 for row in rows:
                     converted.append({key:Decimal(str(value)) if kind=="decimal" and value is not None else date.fromisoformat(value) if kind=="date32" and value is not None else value

@@ -143,7 +143,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "d2570e07908f21a20623f72ee23c1eacbc7f3d39d84c644ed1fa53200046b4f9",
+  "clause_digest": "47f098050da655e0f395ee7b6e2a660c7bf309b44364a6a9fc0011fe8715383d",
   "clause_key": "E2-4_09",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染测量方法描述",
@@ -165,7 +165,8 @@
   "exact_labels": [],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
-    "不能以污染物排放数值本身、监测设施数量、无具体测量说明的认证名称替代本条款所定义的测量或说明。"
+    "不能以污染物排放数值本身、监测设施数量、无具体测量说明的认证名称替代本条款所定义的测量或说明。",
+    "GRI/SASB 索引中的 None 等孤立答复、其他主题的未发生事件或 N/A 都不属于污染测量方法。"
   ],
   "group_id": "E2-4",
   "labels": {

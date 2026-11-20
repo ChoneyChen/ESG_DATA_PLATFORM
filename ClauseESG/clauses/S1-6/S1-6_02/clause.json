@@ -26,9 +26,31 @@
       "context_terms": [],
       "description": null,
       "label": "人数计量基础",
-      "reading_instruction": null,
+      "reading_instruction": "读取适用于该行的人头数或全职当量的印刷依据，包含小标题或单位中的明确表述。",
       "source": "dimension",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "headcount",
+            "employee headcount",
+            "number of employees",
+            "员工人数",
+            "僱員人數"
+          ],
+          "code": "headcount",
+          "label": "人头数"
+        },
+        {
+          "aliases": [
+            "FTE",
+            "full-time equivalent",
+            "full-time equivalents",
+            "全職當量"
+          ],
+          "code": "fte",
+          "label": "全职当量"
+        }
+      ]
     },
     "country": {
       "context_levels": [
@@ -69,9 +91,53 @@
       "context_terms": [],
       "description": null,
       "label": "实际性别",
-      "reading_instruction": "只填写本行明确声明的性别，保留原词。总行没有性别标签时留空。",
+      "reading_instruction": "保留行列直接印刷的性别组别原词。总行没有性别组别时留空；若 Not Disclosed 是组别且有量值，读出组别及该量值。",
       "source": "dimension",
-      "vocabulary": []
+      "vocabulary": [
+        {
+          "aliases": [
+            "Female employees",
+            "Women",
+            "Female",
+            "女",
+            "女员工",
+            "女雇员"
+          ],
+          "code": "female",
+          "label": "女性"
+        },
+        {
+          "aliases": [
+            "Male employees",
+            "Men",
+            "Male",
+            "男",
+            "男员工",
+            "男雇员"
+          ],
+          "code": "male",
+          "label": "男性"
+        },
+        {
+          "aliases": [
+            "Other",
+            "Other gender",
+            "其他性別"
+          ],
+          "code": "other",
+          "label": "其他性别"
+        },
+        {
+          "aliases": [
+            "Not disclosed",
+            "Gender not disclosed",
+            "Not specified",
+            "性別未披露"
+          ],
+          "code": "not_disclosed",
+          "label": "性别未披露"
+        }
+      ]
     },
     "measurement_method": {
       "context_levels": [
@@ -181,7 +247,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "4e65b8cb8fc67f86c2658e659be43b22f57729f21c3f49acbd6e5d888286b1c3",
+  "clause_digest": "795f29dd8b7a2bb933b3e9c3420390ad037b55c3455f7823b4b998a37403a144",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",
@@ -237,7 +303,8 @@
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
     "员工人头数、全职当量与全部自有劳动力人数不可互换。",
-    "员工总数衡量实际在岗人员存量。Employee turnover number、离职人数、流入流出和招聘人数属于人员变动。省略这些行及其所属分项，即使同用 person。"
+    "员工总数衡量实际在岗人员存量。Employee turnover number、离职人数、流入流出和招聘人数属于人员变动。省略这些行及其所属分项，即使同用 person。",
+    "单独的管理层级或董事会构成不是全体员工表按性别或地区的分项。"
   ],
   "group_id": "S1-6",
   "labels": {

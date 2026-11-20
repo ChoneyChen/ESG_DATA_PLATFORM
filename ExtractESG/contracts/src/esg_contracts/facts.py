@@ -153,6 +153,13 @@ class SourceFact(FrozenModel):
         return self.value.kind
 
 
+class ScopeDifference(FrozenModel):
+    axis: str = Field(min_length=1)
+    reported: JsonValue
+    expected: JsonValue
+    raw_text: str | None = None
+
+
 class ClauseMapping(FrozenModel):
     clause_key: str
     clause_digest: str = Field(pattern=r"^[a-f0-9]{64}$")
@@ -161,6 +168,14 @@ class ClauseMapping(FrozenModel):
     reason: str
     scope_ids: list[str] = Field(default_factory=list)
     flags: list[str] = Field(default_factory=list)
+    scope_differences: list[ScopeDifference] = Field(default_factory=list)
+
+    @model_serializer(mode="wrap")
+    def preserve_frozen_shape(self, serializer):
+        body = serializer(self)
+        if not self.scope_differences:
+            body.pop("scope_differences", None)
+        return body
 
 
 class SearchQueryObservation(FrozenModel):
@@ -189,6 +204,14 @@ class PeriodCoverage(FrozenModel):
     meaning: str
 
 
+class DisclosureObservation(FrozenModel):
+    state: Literal["not_disclosed", "not_applicable", "not_available"]
+    statement_raw: str = Field(min_length=1)
+    page_index: int = Field(ge=0)
+    period_raw: str | None = None
+    source_row_label: str | None = None
+
+
 class ClauseCoverage(FrozenModel):
     clause_key: str
     clause_digest: str
@@ -203,6 +226,7 @@ class ClauseCoverage(FrozenModel):
     reasons: list[str] = Field(default_factory=list)
     search: SearchObservation | None = None
     periods: PeriodCoverage | None = None
+    disclosure_observations: list[DisclosureObservation] = Field(default_factory=list)
 
     @model_serializer(mode="wrap")
     def preserve_frozen_shape(self, serializer):
@@ -210,6 +234,8 @@ class ClauseCoverage(FrozenModel):
         for key in ("search", "periods"):
             if getattr(self, key) is None:
                 body.pop(key, None)
+        if not self.disclosure_observations:
+            body.pop("disclosure_observations", None)
         return body
 
 

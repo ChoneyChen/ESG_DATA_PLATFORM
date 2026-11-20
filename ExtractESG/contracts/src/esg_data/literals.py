@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 import re
+import unicodedata
 from decimal import Decimal, InvalidOperation
 
 PERIOD_RE = re.compile(
@@ -68,9 +69,22 @@ def parse_number(text: str | None) -> Decimal | None:
     return -value if negative else value
 
 
-_RANGE_RE = re.compile(
-    r"^\s*([-+]?\d[\d,，.]*)\s*(?:-|–|—|~|～|至|到)\s*([-+]?\d[\d,，.]*)"
+_POINT = r"[-−+]?\s*(?:\d{1,3}(?:(?:[,，]\s*|\s+)\d{3})+|\d+)(?:\.\d+)?"
+_RANGE_RE = re.compile(rf"^({_POINT})\s*(?:-|–|—|~|～|至|到|\bto\b)\s*({_POINT})$", re.I)
+_BETWEEN_RE = re.compile(rf"^between\s+({_POINT})\s+and\s+({_POINT})$", re.I)
+_RANGE_QUALIFIER = re.compile(r"\s+(?:or\s+more|and\s+above|or\s+less|and\s+below)$|(?<=\d)\s*\+$", re.I)
+_APPROXIMATION = r"大约|大約|约|約|\b(?:approximately|about|around|circa)\b|\bapprox\b\.?|~|～|≈"
+_QUALIFIERS = (
+    ("at_least", r"≥|>=|不少于|不低于|至少|at least|no less than"),
+    ("at_most", r"≤|<=|不超过|不高于|至多|at most|no more than|up to"),
+    ("greater_than", r">|大于|高于|多于|more than|greater than|over"),
+    ("less_than", r"<|小于|低于|少于|less than|under|below"),
+    ("approx", _APPROXIMATION),
 )
+_SCIENTIFIC_RE = re.compile(rf"^({_POINT})\s*(?:[Ee]|[×x]\s*10\s*\^)\s*([+-]?\d{{1,2}})$")
+_SUPER_EXPONENT = re.compile(r"([×x]\s*10)\s*([⁺⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]{1,2})$")
+_PERCENT = re.compile(r"(?<=\d)\s*([%％])(?=\s*\D|$)")
+_UNIT_BOUNDARY = re.compile(r"(?<=[\d+%％)）*¹²³⁴⁵⁶⁷⁸⁹⁰])(?=\s*[^\W\d_]|\s*[%％])")
 
 
 def parse_measure(text: str | None) -> dict | None:
@@ -80,34 +94,33 @@ def parse_measure(text: str | None) -> dict | None:
     the platform receives a comparator and lower/upper bounds instead of a
     silently truncated exact number.
     """
-    if not text:
-        return None
-    raw = number_text(text)
-    if not raw:
-        return None
-    match = _RANGE_RE.match(raw.replace(" ", ""))
-    if match and not re.search(r"\d", raw.replace(" ", "")[match.end() :]):
-        low, high = parse_number(match.group(1)), parse_number(match.group(2))
+    return parse_printed_measure(text)[0]
+
+
+def _parse_measure_literal(text: str) -> dict | None:
+    raw = number_text(_SUPER_EXPONENT.sub(
+        lambda match: match[1] + "^" + unicodedata.normalize("NFKC", match[2]), text
+    ))
+    match = _RANGE_RE.fullmatch(raw) or _BETWEEN_RE.fullmatch(raw)
+    if match:
+        low, high = (parse_number(part.strip()) for part in match.groups())
         if low is not None and high is not None and low <= high:
             return {"value": None, "comparator": "range", "lower": low, "upper": high}
     comparator = "exact"
-    if re.search(r"≥|>=|不少于|不低于|至少", raw):
-        comparator = "at_least"
-    elif re.search(r"≤|<=|不超过|不高于|至多", raw):
-        comparator = "at_most"
-    elif re.search(r">|大于|高于|多于", raw):
-        comparator = "greater_than"
-    elif re.search(r"<|小于|低于|少于", raw):
-        comparator = "less_than"
-    elif re.search(r"约|大約|大约|約|approximately|approx\.?|~|～|≈", raw, re.I):
-        comparator = "approx"
-    cleaned = re.sub(
-        r"不少于|不低于|不超过|不高于|至少|至多|大于|高于|多于|小于|低于|少于|大約|大约|approximately|approx\.?|约|約|≥|>=|≤|<=|>|<|~|～|≈",
-        "",
-        raw,
-        flags=re.I,
-    ).strip()
-    value = parse_number(cleaned)
+    if boundary := _RANGE_QUALIFIER.search(raw):
+        comparator = "at_least" if boundary[0].strip().casefold() in {"or more", "and above", "+"} else "at_most"
+        raw = raw[:boundary.start()]
+    for kind, pattern in _QUALIFIERS:
+        prefix = re.match(rf"^(?:{pattern})\s*(?=[−+\-\d(（])", raw, re.I)
+        if prefix:
+            comparator, raw = kind, raw[prefix.end():]
+            break
+    value = parse_number(raw)
+    if value is None and (scientific := _SCIENTIFIC_RE.fullmatch(unicodedata.normalize("NFKC", raw))):
+        mantissa = parse_number(scientific[1])
+        if mantissa is not None:
+            sign, digits, exponent = mantissa.as_tuple()
+            value = Decimal((sign, digits, exponent + int(scientific[2])))
     if value is None:
         return None
     return {
@@ -116,6 +129,45 @@ def parse_measure(text: str | None) -> dict | None:
         "lower": value if comparator in {"greater_than", "at_least"} else None,
         "upper": value if comparator in {"less_than", "at_most"} else None,
     }
+
+
+def parse_printed_measure(text: str | None, unit_raw: str | None = None) -> tuple[dict | None, str | None]:
+    """Parse a complete printed expression and separate a unit printed with it."""
+    if not text:
+        return None, unit_raw
+    from .quantities import standard_unit
+    from .units import is_unit_expression
+
+    raw = text.strip()
+    literal = _parse_measure_literal(raw)
+    if literal is not None:
+        percent = _PERCENT.search(raw)
+        return literal, unit_raw or (percent[1] if percent else None)
+    percentages = list(_PERCENT.finditer(raw))
+    if 1 <= len(percentages) <= 2 and not raw[percentages[-1].end():].strip():
+        literal = _parse_measure_literal(_PERCENT.sub("", raw))
+        if literal is not None and literal["comparator"] == "range":
+            return literal, unit_raw or percentages[-1][1]
+    for boundary in _UNIT_BOUNDARY.finditer(raw):
+        amount, unit = raw[:boundary.start()].rstrip(), raw[boundary.start():].strip()
+        if not (is_unit_expression(unit) or standard_unit(unit)):
+            continue
+        literal = _parse_measure_literal(amount)
+        if literal is not None:
+            return literal, unit
+    return None, unit_raw
+
+
+def has_reported_approximation(label: str | None, raw: str, page_text: str) -> bool:
+    """Confirm a qualifier that was transcribed with the label instead of the value."""
+    if not label or not page_text:
+        return False
+    amount = number_text(raw)
+    if parse_number(amount) is None:
+        return False
+    literal = r"\s+".join(re.escape(part) for part in amount.split())
+    return bool(re.search(_APPROXIMATION, label, re.I) and
+        re.search(rf"(?:{_APPROXIMATION})[\s.:：]*{literal}(?![\d.,，])", page_text, re.I))
 
 
 CN_DIGITS = {

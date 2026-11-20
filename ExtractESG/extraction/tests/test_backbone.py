@@ -197,6 +197,29 @@ def test_reported_rate_multiplier_retains_printed_value_in_the_distinct_scope(do
     assert fact.identity.dimensions["rate_multiplier"].raw_text == "200,000"
     assert fact.identity.dimensions["rate_multiplier"].value == "per_200000_hours"
     assert mapping.match == "different"
+    difference, = mapping.scope_differences
+    assert (difference.axis, difference.reported, difference.expected, difference.raw_text) == (
+        "rate_multiplier", "per_200000_hours", "per_million_hours", "200,000",
+    )
+
+
+@pytest.mark.parametrize(("key", "expected"), [("E1-6_07", "scope_1"), ("E1-6_09", "scope_2"), ("E1-6_12", "total")])
+def test_explicit_combined_ghg_label_keeps_the_value_under_a_distinct_scope(documents, repository, key, expected):
+    from esg_clauses.reading import reported_combined_ghg_scope
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get(key)
+    label = "Scope 1 & 2 Emissions, Actual"
+    fact, mapping = _fact(documents.document("ir-example"), clause, 17, {
+        "value": "502", "label": label, "relation": "match", "attributes": {"ghg_scope": expected},
+    }, True)
+    assert fact.value.value_raw == "502"
+    assert fact.identity.dimensions["ghg_scope"].value == "scope_1_2"
+    assert fact.identity.dimensions["ghg_scope"].raw_text == label
+    assert mapping.match == "different"
+    assert mapping.scope_differences[0].expected == expected
+    assert reported_combined_ghg_scope(clause, "Scope 1 emissions") is None
+    assert reported_combined_ghg_scope(clause, "Scope 1, 2 and 3 emissions") is None
 
 
 def test_declared_method_statement_resolves_uncertain_relation_without_using_dates(documents, repository):
@@ -205,8 +228,14 @@ def test_declared_method_statement_resolves_uncertain_relation_without_using_dat
     clause = repository.get("E2-4_09")
     document = documents.document("ir-example")
     statement = "Furthermore, we have deployed an online monitoring system to analyze our total wastewater discharge."
-    fact, mapping = _fact(document, clause, 33, {"value": statement, "relation": "uncertain"}, True)
+    structure = {"topic": "wastewater discharge", "subject": "we", "action": "deployed an online monitoring system"}
+    fact, mapping = _fact(document, clause, 33, {
+        "value": statement, "relation": "uncertain", "structure": structure,
+        "attributes": {"measurement_method": "online monitoring system"},
+    }, True)
     assert fact.value.statement_raw == statement
+    assert fact.value.structure.model_dump() == structure
+    assert fact.identity.measurement_method.raw_text == "online monitoring system"
     assert fact.identity.reporting_period.raw_text is None
     assert mapping.match == "match"
 
@@ -227,19 +256,102 @@ def test_annual_fields_select_the_applicable_printed_population_phrase(documents
     clause = repository.get("S1-6_02")
     document = documents.document("ir-example")
     scope = "full-time contract employees in 2022 and 2023; the total number of employees in 2024"
-    for year, value, expected in (
-        ("2023", "12,827", "full-time contract employees in 2022 and 2023"),
-        ("2024", "10,597", "the total number of employees in 2024"),
-        ("2025", "2,000", scope),
+    for year, value, gender, expected in (
+        ("2023", "12,827", "Female", "full-time contract employees in 2022 and 2023"),
+        ("2024", "10,597", "female", "the total number of employees in 2024"),
+        ("2025", "2,000", "Women", scope),
     ):
         fact, _ = _fact(document, clause, 70, {
-            "value": value, "period": year, "unit": "person", "attributes": {"population": scope},
+            "value": value, "period": year, "unit": "person", "attributes": {"population": scope, "gender": gender},
         }, True)
         assert fact.identity.dimensions["population"].raw_text == expected
+        assert fact.identity.dimensions["gender"].value == "female"
+        assert fact.identity.dimensions["gender"].raw_text == gender
+
+
+def test_role_keeps_the_literal_separate_from_the_number_and_period(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get("E1-6_30")
+    document = documents.document("ir-example")
+    row = {"value": "0.13", "unit": "kWh per watt produced", "period": "2020", "relation": "match"}
+    historical, mapping = _fact(document, clause, 42, row, True)
+    assert historical.identity.value_role.state == "not_read" and mapping.match == "match"
+
+    baseline, mapping = _fact(document, clause, 42, {
+        **row, "value_role": {"code": "baseline", "raw_text": "2020 Baseline"},
+        "relation_reason": "The blue reference bar is the 2020 baseline.",
+    }, True)
+    assert baseline.value.value_numeric == "0.13"
+    assert baseline.identity.value_role.value == "baseline"
+    assert baseline.identity.value_role.raw_text == "2020 Baseline"
+    assert mapping.match == "different"
+    assert mapping.scope_differences[0].expected == "actual"
+    assert "blue reference bar" in mapping.reason
+
+    ambiguous, mapping = _fact(document, clause, 42, {
+        **row, "value_role": {"code": "baseline", "raw_text": "2020"},
+    }, True)
+    assert ambiguous.identity.value_role.state == "not_read" and mapping.match == "match"
+
+
+def test_printed_percent_is_distinct_from_hours_per_employee(documents, repository):
+    from esg_extraction.pipeline.engine import _fact, _unit_scope_difference
+
+    document = documents.document("ir-example")
+    clause = repository.get("S1-13_04")
+    fact, mapping = _fact(document, clause, 47, {
+        "value": "100%", "label": "Leadership-related training courses coverage", "relation": "match",
+    }, True)
+    assert fact.value.value_raw == "100%" and fact.value.unit_raw == "%"
+    assert mapping.match == "different"
+    difference, = mapping.scope_differences
+    assert (difference.axis, difference.reported, difference.expected, difference.raw_text) == (
+        "unit_dimension", "percent", "hour/person", "%",
+    )
+    for compatible in ("percent", "ratio", "person/person", "unknown"):
+        assert _unit_scope_difference("%", compatible) is None
+
+
+def test_printed_energy_intensity_cannot_match_water_volume(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    fact, mapping = _fact(documents.document("ir-example"), repository.get("E3-4_01"), 68, {
+        "value": "13.112", "unit": "kWh/m²", "relation": "match",
+        "label": "Energy consumption per unit of finished solar glass products",
+    }, True)
+    assert fact.value.value_raw == "13.112"
+    assert mapping.match == "different"
+    difference, = mapping.scope_differences
+    assert (difference.reported, difference.expected, difference.raw_text) == (
+        "megajoule/square-metre", "cubic-metre", "kWh/m²",
+    )
+    fact, mapping = _fact(documents.document("ir-example"), repository.get("E1-3_04"), 16, {
+        "value": "28.76", "unit": "million kWh", "relation": "match",
+        "label": "Expected annual generation of PV green power",
+    }, True)
+    assert fact.value.value_raw == "28.76" and mapping.match == "different"
+    assert mapping.scope_differences[0].expected == "tonne-co2e"
+
+
+def test_forecast_preserves_approximation_split_from_value(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    item = {"value": "16,000", "unit": "tonne", "relation": "match",
+            "label": "Reduce CO2 emissions by about Yiwu Base Low-Carbon Park Project",
+            "value_role": {"code": "forecast", "raw_text": "is expected to"}}
+    source = "The project is expected to generate power a year, reduce\nCO2 emissions by about 16,000 tonne"
+    document = documents.document("ir-example")
+    clause = repository.get("E1-3_04")
+    fact, _ = _fact(document, clause, 16, item, True, source)
+    assert fact.identity.value_role.value == "forecast"
+    assert fact.value.value_raw == "16,000" and fact.value.comparator == "approx"
+    fact, _ = _fact(document, clause, 16, item, True, source.replace("about 16,000", "16,000"))
+    assert fact.value.comparator == "exact"
 
 
 def test_numeric_reader_keeps_zero_and_skips_missing_value_messages(documents, repository):
-    from esg_extraction.pipeline.engine import _fact
+    from esg_extraction.pipeline.engine import _disclosure, _fact
 
     clause = repository.get("S1-13_04")
     document = documents.document("ir-example")
@@ -248,6 +360,62 @@ def test_numeric_reader_keeps_zero_and_skips_missing_value_messages(documents, r
     }, True) is None
     fact, _ = _fact(document, clause, 71, {"value": "0", "unit": "hour"}, True)
     assert fact.value.value_raw == "0"
+    row = {"value": "15", "label": "Not Disclosed", "attributes": {"gender": "Not Disclosed"},
+           "disclosure": {"state": "not_disclosed", "statement_raw": "Not Disclosed"}}
+    fact, _ = _fact(document, repository.get("S1-6_02"), 58, row, True)
+    assert _disclosure(row, 58, True, "Not Disclosed 15") is None
+    assert fact.identity.dimensions["gender"].value == "not_disclosed"
+
+
+def test_explicit_disclosure_survives_a_window_and_coexists_with_values(documents, repository, tmp_path, monkeypatch):
+    from esg_extraction.pipeline import engine
+
+    clause = repository.get("S1-6_12")
+    footnote = "Data newly disclosed in 2024, not disclosed in 2023"
+    documents.pages = lambda asset: [
+        PDFPageText(page_index=0, text=f"Employee turnover rate\nIndonesia N/A\n{footnote}."),
+        PDFPageText(page_index=1, text="Employee turnover rate\nIndonesia 2.9 98.7 N/A"),
+    ]
+    monkeypatch.setattr(engine, "WINDOW_MAX_CALLS", 1)
+
+    class TurnoverModel(Model):
+        def complete(self, **kwargs):
+            self.calls.append(kwargs)
+            index = kwargs["context"]["page_index"]
+            values = [{"period": "2023", "disclosure": {"state": "not_disclosed", "statement_raw": footnote}}] if index == 0 else [
+                {"period": "2025", "value": "2.9%", "relation": "match"},
+                {"period": "2024", "value": "98.7%", "relation": "match"},
+                {"period": "2022", "value": "N/A", "disclosure": {"state": "not_disclosed", "statement_raw": "N/A"}},
+            ]
+            return {"items": [{"clause_key": clause.clause_key, "label": "Indonesia", "measurements": values}]}, {}
+
+    model = TurnoverModel()
+    result = run_backbone(documents, model, FileArtifactPort(tmp_path / "out"), "turnover",
+        RunRequest(ir_run_id="ir-example", clause_keys=[clause.clause_key]), {clause.clause_key: clause})
+    assert len(model.calls) == 2
+    assert model.calls[0]["context"]["disclosure_text"] == [footnote + "."]
+    assert "disclosure_text" not in model.calls[1]["context"]
+    assert {fact["value"]["value_raw"] for fact in result["facts"]} == {"2.9%", "98.7%"}
+    coverage, = result["coverage"]
+    assert coverage["state"] == "covered"
+    assert coverage["disclosure_observations"] == [{
+        "state": "not_disclosed", "statement_raw": footnote, "page_index": 0,
+        "period_raw": "2023", "source_row_label": "Indonesia",
+    }]
+
+
+def test_missing_declaration_requires_printed_words():
+    from esg_extraction.pipeline.engine import _disclosure
+
+    def report(statement, page):
+        return _disclosure({"disclosure": {"state": "not_disclosed", "statement_raw": statement}}, 0, True, page)
+
+    comment = "The page does not disclose the percentage of employee turnover."
+    assert report(comment, "Female employees 2,380 N/A") is None
+    assert report(comment, "") is None
+    assert report("Indonesia", "Indonesia not disclosed in 2023") is None
+    assert report("Data not disclosed in 2023", "").state == "not_disclosed"
+    assert report("Not disclosed in 2023", "Indonesia N/A\nNote 3: NOT DISCLOSED IN\n2023.").state == "not_disclosed"
 
 
 def test_local_model_accepts_padding_in_structural_keys_without_changing_source_text(tmp_path):
@@ -261,6 +429,35 @@ def test_local_model_accepts_padding_in_structural_keys_without_changing_source_
     result, _ = model.complete(instructions="", context={}, schema={}, max_tokens=64, cancel_check=lambda: False)
     assert result == {"items": [{"value": "33.00", "unit": "hour",
                                 "attributes": {"population": "  All employees  "}}]}
+
+
+def test_truncated_local_qualitative_read_keeps_the_completed_item(documents, repository, tmp_path):
+    from esg_extraction.models.errors import ModelRunFailure
+    from esg_extraction.pipeline.adapters.local_model import LocalQwenModel
+
+    clause = repository.get("E2-4_09")
+    statement = "We deployed an online monitoring system for wastewater discharge."
+    model = LocalQwenModel(tmp_path)
+    artifacts = FileArtifactPort(tmp_path / "results")
+
+    def generate(**kwargs):
+        fields = kwargs["template"]["properties"]["items"]["items"]["properties"]
+        assert "unit" not in fields and "measurements" not in fields and "value_role" not in fields
+        assert "structure" in fields and "structure.topic" in kwargs["instructions"]
+        assert "Read all printed periods" not in kwargs["instructions"]
+        complete = json.dumps({"clause_key ": clause.clause_key, "value ": statement,
+            "label ": "Water pollution", "relation ": "different"})
+        raise ModelRunFailure("Token limit", category="generation_incomplete",
+            raw_output='{" items ":[' + complete + ',{"value":"unfinished')
+
+    model.generate_structured = generate
+    result = run_backbone(documents, model, artifacts, "truncated", RunRequest(
+        ir_run_id="ir-example", clause_keys=[clause.clause_key]), {clause.clause_key: clause})
+    assert [fact["value"]["statement_raw"] for fact in result["facts"]] == [statement]
+    assert result["clause_mappings"][0]["reason"] == "Read under the printed label ‘Water pollution’"
+    assert result["coverage"][0]["state"] == "failed"
+    call = artifacts.read("truncated", "diagnostics/calls/1.json")
+    assert call["recoverable_items"] == 1 and call["telemetry"]["completion_chars"] > len(statement)
 
 
 def test_no_cross_clause_or_cross_run_model_cache(documents,repository,tmp_path):

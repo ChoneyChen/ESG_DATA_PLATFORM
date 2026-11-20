@@ -25,7 +25,8 @@ def product_router(bridge, release, projector):
     def export(snapshot_id, query, format):
         try:
             definitions=bridge.call("product_definitions", query)
-            body=research_archive(observation_stream(bridge, **query),snapshot_id,format=format,definitions=definitions,query=query)
+            coverage=bridge.call("research_coverage", query)
+            body=research_archive(observation_stream(bridge, **query),snapshot_id,format=format,definitions=definitions,coverage=coverage,query=query)
             return Response(body,media_type="application/zip",headers={"Content-Disposition":f'attachment; filename="research-{snapshot_id}-{format}.zip"'})
         except ImportError as exc:
             raise HTTPException(503,"Install the database research dependencies for Parquet export") from exc

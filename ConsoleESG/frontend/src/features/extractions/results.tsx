@@ -15,7 +15,7 @@ type ResultTable = OrganizedDataset_OrganizedTable;
 type ResultRow = OrganizedDataset_OrganizedRow;
 type OrganizationFields = ResultTable["definition"]["fields"];
 
-const identityNames: Record<string, string> = {
+export const identityNames: Record<string, string> = {
   reporting_period: "实际测量期间",
   reporting_entity: "实际统计主体",
   entity_aggregation_role: "主体汇总方式",
@@ -45,6 +45,13 @@ export function FactValue({ fact }: { fact: SourceFact }) {
       {value.kind === "quantitative" && (
         <div><dt>原单位</dt><dd>{value.unit_raw || "未取得单位"}</dd></div>
       )}
+      {value.kind === "assertion" && value.structure && [
+        ["主题", value.structure.topic],
+        ["对象", value.structure.subject],
+        ["动作", value.structure.action],
+      ].map(([title, content]) => content && (
+        <div key={title}><dt>{title}</dt><dd>{content}</dd></div>
+      ))}
     </dl>
   );
 }

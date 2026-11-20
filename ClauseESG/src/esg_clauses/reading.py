@@ -22,6 +22,9 @@ def _reject(flag: str) -> GuardResult:
 
 
 MARKUP_RE = re.compile(r"[$\\{}^]|_(?=[{\w])|\\(?:mathrm|text|operatorname)")
+THIRD_SCOPE_CONTINUATION = re.compile(
+    r"\s*(?:,?\s*(?:and|plus)\b|[,/+&、及和与])\s*(?:scope\s*|范围\s*|范畴\s*)?[3三](?!\d)", re.I,
+)
 
 
 def normalize(text: str | None) -> str:
@@ -55,6 +58,21 @@ def _match(terms, text: str | None) -> bool:
 
 def _vocab(reading, name: str) -> list[str]:
     return list((getattr(reading, "vocabulary", {}) or {}).get(name, []))
+
+
+def reported_combined_ghg_scope(clause, label: str | None) -> str | None:
+    """Read the explicitly combined Scope 1 and 2 label using the clause vocabulary."""
+    if not label or "ghg_scope" not in clause.purposes.target_scope.discriminating_axes:
+        return None
+    text = fold(label)
+    if _match(_vocab(clause.reading, "scope3"), label):
+        return None
+    for term in _vocab(clause.reading, "combined_scope"):
+        pattern = term[3:] if term.startswith("re:") else re.escape(fold(term))
+        match = re.search(rf"(?:{pattern})(?!\d)", text, re.I)
+        if match and not THIRD_SCOPE_CONTINUATION.match(text[match.end():]):
+            return "scope_1_2"
+    return None
 
 
 def matches_reported_statement(clause, statement: str) -> bool:

@@ -126,11 +126,50 @@ export async function observationPage(db,{projection_id=null,dataset_version_id=
 
 export async function productDefinitions(db,{projection_id=null,dataset_version_id=null,published_only=true}) {
   if(Boolean(projection_id)===Boolean(dataset_version_id))throw fault('invalid_query','Select one product snapshot');
-  if(dataset_version_id)await datasetVersion(db,{dataset_version_id,published_only});
-  else if(!(await db.query('SELECT 1 FROM esg.capture_projections WHERE projection_id=$1',[projection_id])).rows.length)throw fault('not_found','Unknown projection');
-  const table=projection_id?'capture_projection_members':'capture_dataset_members',key=projection_id?'projection_id':'dataset_version_id';
+  if(projection_id){
+    const projection=(await db.query('SELECT export_id FROM esg.capture_projections WHERE projection_id=$1',[projection_id])).rows[0];
+    if(!projection)throw fault('not_found','Unknown projection');
+    return (await db.query(`SELECT d.clause_key,d.clause_digest,d.title,d.contract FROM esg.capture_product_definitions d
+      JOIN esg.capture_clause_targets t USING(clause_digest,clause_key) WHERE t.export_id=$1 ORDER BY d.clause_key,d.clause_digest`,[projection.export_id])).rows;
+  }
+  await datasetVersion(db,{dataset_version_id,published_only});
   return (await db.query(`SELECT DISTINCT d.clause_key,d.clause_digest,d.title,d.contract FROM esg.capture_product_definitions d
-    JOIN esg.capture_observations o USING(clause_digest) JOIN esg.${table} m USING(observation_id) WHERE m.${key}=$1 ORDER BY d.clause_key,d.clause_digest`,[projection_id||dataset_version_id])).rows;
+    JOIN esg.capture_observations o USING(clause_digest) JOIN esg.capture_dataset_members m USING(observation_id)
+    WHERE m.dataset_version_id=$1 ORDER BY d.clause_key,d.clause_digest`,[dataset_version_id])).rows;
+}
+
+export async function researchCoverage(db,{projection_id=null,dataset_version_id=null,published_only=true,clause_key=null}) {
+  if(Boolean(projection_id)===Boolean(dataset_version_id))throw fault('invalid_query','Select one product snapshot');
+  if(projection_id){
+    return (await db.query(`SELECT p.projection_id,e.export_id,p.summary->'source' AS source,c.record AS coverage
+      FROM esg.capture_projections p JOIN esg.capture_exports e USING(export_id)
+      CROSS JOIN LATERAL jsonb_array_elements(e.coverage) WITH ORDINALITY AS c(record,position)
+      WHERE p.projection_id=$1 AND ($2::text IS NULL OR c.record->>'clause_key'=$2)
+      ORDER BY c.position`,[projection_id,clause_key||null])).rows;
+  }
+  await datasetVersion(db,{dataset_version_id,published_only});
+  return (await db.query(`WITH allowed AS (
+    SELECT p.projection_id,o.clause_key,o.clause_digest,jsonb_agg(DISTINCT o.record->'period') AS allowed_periods
+    FROM esg.capture_dataset_versions v
+    JOIN esg.capture_dataset_projections dp USING(dataset_version_id)
+    JOIN esg.capture_projections p USING(projection_id)
+    JOIN esg.capture_exports e USING(export_id)
+    JOIN esg.capture_projection_members pm USING(projection_id)
+    JOIN esg.capture_dataset_members m ON m.dataset_version_id=v.dataset_version_id AND m.observation_id=pm.observation_id
+    JOIN esg.capture_observations o ON o.observation_id=m.observation_id
+    WHERE v.dataset_version_id=$1 AND (NOT $3::boolean OR v.state='published') AND o.clause_key IS NOT NULL
+      AND ($2::text IS NULL OR o.clause_key=$2)
+      AND COALESCE(e.manifest->'sources','{}'::jsonb)='{}'::jsonb
+      AND o.record->'source'=p.summary->'source'
+    GROUP BY p.projection_id,o.clause_key,o.clause_digest
+  )
+  SELECT p.projection_id,e.export_id,p.summary->'source' AS source,c.record AS coverage,a.allowed_periods
+  FROM esg.capture_projections p JOIN esg.capture_exports e USING(export_id)
+  JOIN allowed a USING(projection_id)
+  JOIN LATERAL jsonb_array_elements(e.coverage) WITH ORDINALITY AS c(record,position)
+    ON c.record->>'clause_digest'=a.clause_digest AND c.record->>'clause_key'=a.clause_key
+  WHERE jsonb_array_length(COALESCE(c.record->'disclosure_observations','[]'::jsonb))>0
+  ORDER BY p.projection_id,c.position`,[dataset_version_id,clause_key||null,published_only])).rows;
 }
 
 export async function publicSource(db,{pdf_sha256}) {

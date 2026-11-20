@@ -3,42 +3,57 @@
 import json
 import re
 import time
+import unicodedata
 from collections import defaultdict
 from hashlib import sha256
 
-from esg_clauses.reading import matches_reported_statement
+from esg_clauses.reading import matches_reported_statement, reported_combined_ghg_scope
+from esg_clauses.scope import VALUE_ROLE_CODES
 from esg_clauses.search import compile_search_plan
+from esg_contracts.data_kinds.qualitative import QualitativeStructure
 from esg_contracts.evidence import PDFPageText
 from esg_contracts.facts import (
-    ClauseCoverage, ClauseMapping, EvidenceLocation, QualitativePayload,
-    QuantitativePayload, ReportedContext, ReportedField, SourceFact,
+    ClauseCoverage, ClauseMapping, DisclosureObservation, EvidenceLocation,
+    QualitativePayload, QuantitativePayload, ReportedContext, ReportedField,
+    ScopeDifference, SourceFact,
 )
 from esg_contracts.results import FactBundle
 from esg_data.hashing import digest
-from esg_data.literals import number_text, parse_measure
+from esg_data.literals import has_reported_approximation, parse_printed_measure
 from esg_data.normalize import fold
 from esg_data.periods import YEAR, parse_period, period_payload
+from esg_data.quantities import standard_unit
 from esg_data.text_search import lexical_score
 from esg_extraction.models.errors import ModelCancelled, ModelRunFailure
+from esg_extraction.models.structured_template import output_properties
 
 from .ports import DocumentUnavailable
 from .statistics import RunStatistics
 
 
-ENGINE_VERSION = "page-reader-3.5"
-READ_INSTRUCTIONS = """Transcribe the requested independent fields from page_index. Read the first image when present; its text helps with spelling and exact digits but may lose table structure. A preceding_page describes the optional second image. Use its column headers only if the current table visibly continues that table. Copy measurements from the first page only. Map each cell to its printed column heading in order, and omit the period if the column cannot be identified.
-For a quantitative table or chart, read totals and relevant breakdowns across all printed years and units. Use one item per row or chart series with shared clause_key, printed label, unit, relation and attributes. Put each value and period in measurements; put fields that vary by column or point (scope, period, unit, relation or attributes) there. Use separate items for different methods, statistics or subjects. Keep both disclosures when a quantity is printed in two units. Example: {"clause_key":"TARGET","label":"printed title","unit":"t","relation":"match","measurements":[{"value":"1,204.50","period":"2024"},{"value":"0","period":"2023"}]}. For a single quantity use value and period directly. For a qualitative item copy the relevant complete sentence or bullet into value.
-Copy exact values, periods and printed units, including multipliers, chemical notation and denominators. The value, label and unit must describe the same printed quantity. Use a label from the report rather than the clause title. A count of activities is not a duration of those activities. Preserve a printed zero, range markers, punctuation and precision. A phrase such as no discharge is not a printed numerical zero. Skip blanks, missing-value dashes and reference IDs. Do not calculate, substitute a canonical unit or infer a date from the report title.
-Fill stated attributes with original words from the applicable row, heading, legend, surrounding statement or footnote. Keep qualifiers such as all, only and full-time when they determine scope. Use the card's field names for every relation. For a rate or intensity copy the actual bases from its own label or unit, even when its method or scope is unresolved. Observe which rows and periods each footnote covers, including small print below either panel of a spread. Keep comparative rows and targets under their own labels. Omit an unstated attribute. Target codes or nearby rows do not supply facts about this value.
-Set relation to match for the target, different for a related quantity with a distinct stated meaning or basis, or uncertain if the match is unresolved. Stated practices can match qualitative targets even when optional dates or areas are unstated. A future target or permitted limit is different when the clause asks for actual results. Scope_ids are optional and apply only to a stated matching scope. Omit unrelated numbers and repeated rows. Return compact JSON with items only."""
+ENGINE_VERSION = "page-reader-3.11"
+PAGE_INSTRUCTIONS = """Fill each requested clause independently from the current PDF page. Read the first image when present. Use its text to check spelling and digits. Copy the applicable printed label, period and attributes. Observe which rows and years a footnote covers. Copy the named entity, boundary, method and qualifiers when stated. Omit unknown fields."""
+MEASUREMENT_INSTRUCTIONS = """Read totals and relevant breakdowns in every printed column, including the first data column. For a table row or chart series, put label, unit, attributes and relation on the item once; measurements lists every printed period's value or explicit missing disclosure, with overrides only when fields change. Use the preceding_page header only for a visible continuation. Copy the complete printed quantity including qualifiers such as about, ~, ≥, and both range endpoints. Copy unit, multiplier, chemistry and denominator. Keep printed zeros. Skip unexplained blanks, dashes and N/A. A counted Not Disclosed group still has a value. Return explicit numeric roles with code and printed raw_text. A year alone is not a baseline. A target or limit is different when actual results are requested."""
+ASSERTION_INSTRUCTIONS = """Use the relevant complete sentence or bullet as value. If stated, copy short phrases for structure.topic (subject matter), structure.subject (actor or object) and structure.action (what happens). Leave the remaining fields out."""
+RELATION_INSTRUCTIONS = """Return compact JSON with items; omit unrelated items and duplicates. Use match, different for a distinct stated meaning or basis, or uncertain, and give a short printed basis in relation_reason for different or uncertain. Scope_ids apply only to matching scopes. For explicit absence write disclosure.state and verbatim disclosure.statement_raw, with the affected label and period. If a table cell carries a note, follow the printed note to the affected period in that row. disclosure_text contains candidate quotes; use them only where applicable. If you find no disclosure, omit the item instead of commenting on the page."""
 LOCATE_INSTRUCTIONS = """The images are numbered PDF pages in the same order as page_indices. Identify all pages likely to have relevant disclosures for any requested topic, including tables and graphs and their continuation. Return a JSON object with page_indices. This highlights pages for detailed reading; do not extract values."""
 LOCATE_SCHEMA = {"type": "object", "required": ["page_indices"], "properties": {
     "page_indices": {"type": "array", "items": {"type": "integer"}}}}
-MISSING = re.compile(
-    r"^\s*(?:[-–—－]+|n/?a|not\s+(?:available|disclosed)|"
-    r"no\s+data(?:\s+(?:available|reported|disclosed))?(?:\s+for\b.+)?|不适用|未披露|无数据)[.。]?\s*$",
-    re.I,
-)
+EMPTY_CELL = re.compile(r"(?:[-–—－]+|n[/\.]?a|none|null|无)[.。]?", re.I)
+ABSENCE_TEXT = {
+    "not_disclosed": re.compile(
+        r"(?:\bnot\s+(?:disclosed|reported)\b|\bno\s+data\s+(?:reported|disclosed)\b|未披露|未报告)(?:\s+(?:for|in)\b.+)?[.。]?", re.I,
+    ),
+    "not_applicable": re.compile(r"(?:\bnot\s+applicable\b|\binapplicable\b|不适用)[.。]?", re.I),
+    "not_available": re.compile(
+        r"(?:\bnot\s+(?:available|collected)\b|\bno\s+data(?:\s+available)?\b|无数据|未收集)(?:\s+(?:for|in)\b.+)?[.。]?", re.I,
+    ),
+}
+PAGE_COMMENT = re.compile(r"^\s*(?:on\s+)?(?:this|the)\s+(?:page|report|document|table)\b", re.I)
+MEASURE_ROLES = tuple(code for code in VALUE_ROLE_CODES if code not in {"unknown", "structure", "context"})
+PERCENT_UNITS = {"percent", "percentage-point"}
+ENERGY_UNITS = {"megajoule", "tonne-coal-equivalent"}
+CARBON_UNITS = {"tonne-co2", "tonne-co2e"}
 WINDOW_MAX_CALLS = 10
 PAGE_SHORTLIST = 8
 MEASUREMENT_LINE = re.compile(r"^[ \t]*[-−<>≈]?\d[\d,. ]*(?:%|[ \t]*[A-Za-z]{1,4})?[ \t\r]*$", re.M)
@@ -61,19 +76,46 @@ class ExecutionYield(RuntimeError):
         self.window = window
 
 
-def _schema(keys):
-    measure_fields = {key: {"type": "string"} for key in ("value", "unit", "period")}
-    row_fields = {
+def _reading_instructions(kinds):
+    instructions = [PAGE_INSTRUCTIONS]
+    if "quantitative" in kinds:
+        instructions.append(MEASUREMENT_INSTRUCTIONS)
+    if "qualitative" in kinds:
+        instructions.append(ASSERTION_INSTRUCTIONS)
+    instructions.append(RELATION_INSTRUCTIONS)
+    return "\n".join(instructions)
+
+
+def _schema(cards, kinds):
+    def object_shape(properties, required=()):
+        shape = {"type": "object", "properties": properties, "additionalProperties": False}
+        if required:
+            shape["required"] = list(required)
+        return shape
+
+    string = {"type": "string"}
+    attributes = dict.fromkeys((name for card in cards.values() for name in card["attributes"]), string)
+    disclosure = object_shape({
+        "state": {"type": "string", "enum": list(ABSENCE_TEXT)}, "statement_raw": string,
+    }, required=("state", "statement_raw"))
+    fields = {
+        "value": string, "period": string,
         "relation": {"type": "string", "enum": ["match", "different", "uncertain"]},
-        "scope_ids": {"type": "array", "items": {"type": "string"}},
-        "attributes": {"type": "object", "additionalProperties": {"type": "string"}},
+        "relation_reason": string,
+        "scope_ids": {"type": "array", "items": string},
+        "attributes": object_shape(attributes),
+        "disclosure": disclosure,
     }
-    return {"type": "object", "required": ["items"], "properties": {"items": {
-        "type": "array", "items": {"type": "object", "required": ["clause_key"],
-        "properties": {"clause_key": {"type": "string", "enum": keys}, **measure_fields,
-            "label": {"type": "string"}, "measurements": {"type": "array", "items": {
-                "type": "object", "required": ["value"], "properties": {**measure_fields, **row_fields}}},
-            **row_fields}}}}}
+    row = {"clause_key": {"type": "string", "enum": list(cards)}, "label": string, **fields}
+    if "quantitative" in kinds:
+        quantitative = {"unit": string, "value_role": object_shape({
+            "code": {"type": "string", "enum": list(MEASURE_ROLES)}, "raw_text": string,
+        }, required=("code", "raw_text"))}
+        row.update(quantitative, measurements={"type": "array", "items": object_shape({**fields, **quantitative})})
+    if "qualitative" in kinds:
+        row["structure"] = object_shape(dict.fromkeys(("topic", "subject", "action"), string))
+    return object_shape({"items": {"type": "array", "items": object_shape(row, required=("clause_key",))}},
+        required=("items",))
 
 
 def _page_score(text, intent):
@@ -143,6 +185,7 @@ def page_plan(pages, clauses, page_limit, hint_pages=()):
 def _reading_fields(clause):
     names = set(clause.purposes.enrichment.identity_axes)
     names.update(clause.purposes.target_scope.discriminating_axes)
+    names.add("entity_aggregation_role")
     return {name: definition for name, definition in clause.attributes.items()
             if name in names and name != "reporting_period"}
 
@@ -170,6 +213,46 @@ def _text(item, key):
     return value.strip() if isinstance(value, str) and value.strip() else None
 
 
+def _absence_state(raw):
+    return next((state for state, pattern in ABSENCE_TEXT.items() if pattern.fullmatch(raw)), None)
+
+
+def _quotation_text(text):
+    normalized = fold(unicodedata.normalize("NFKC", text))
+    return "".join(character for character in normalized if character.isalnum())
+
+
+def _disclosure_text(text):
+    return [line.strip() for line in text.splitlines()
+            if any(pattern.search(line) for pattern in ABSENCE_TEXT.values())][:8]
+
+
+def _disclosure(item, page_index, quantitative, page_text):
+    raw = _text(item, "value")
+    raw_state = _absence_state(raw) if quantitative and raw else None
+    if raw and not raw_state and not EMPTY_CELL.fullmatch(raw):
+        return None
+    details = item.get("disclosure")
+    stated = _text(details, "statement_raw") if isinstance(details, dict) else None
+    state = _text(details, "state") if isinstance(details, dict) else None
+    if not stated and raw_state:
+        stated = raw
+        state = raw_state
+    if not stated or state not in ABSENCE_TEXT or PAGE_COMMENT.match(stated):
+        return None
+    observed_state = _absence_state(stated)
+    if observed_state:
+        state = observed_state
+    elif not ABSENCE_TEXT[state].search(stated):
+        return None
+    if page_text and any(character.isalpha() for character in page_text):
+        quotation = _quotation_text(stated)
+        if not quotation or quotation not in _quotation_text(page_text):
+            return None
+    return DisclosureObservation(state=state, statement_raw=stated, page_index=page_index,
+        period_raw=_text(item, "period"), source_row_label=_text(item, "label"))
+
+
 def _annual_attribute(text, period):
     """Select the literal phrase when a model groups explicit year-specific scopes."""
     if not period or period.kind != "annual":
@@ -189,11 +272,21 @@ def _annual_attribute(text, period):
 
 def _completed_items(prefix):
     """Keep each whole returned row before a token-limited JSON answer ends."""
-    start = re.match(r'^\s*\{\s*"items"\s*:\s*\[', prefix)
+    body = prefix.lstrip()
+    if not body.startswith("{"):
+        return
+    body = body[1:].lstrip()
+    decoder = json.JSONDecoder(object_pairs_hook=output_properties)
+    try:
+        field, end = decoder.raw_decode(body)
+    except ValueError:
+        return
+    if not isinstance(field, str) or field.strip() != "items":
+        return
+    start = re.match(r"\s*:\s*\[", body[end:])
     if start is None:
         return
-    decoder = json.JSONDecoder()
-    tail = prefix[start.end():].lstrip()
+    tail = body[end + start.end():].lstrip()
     while tail.startswith("{"):
         try:
             item, end = decoder.raw_decode(tail)
@@ -206,14 +299,31 @@ def _completed_items(prefix):
         tail = tail[1:].lstrip()
 
 
-def _fact(document, clause, page_index, item, visual):
+def _unit_scope_difference(printed_unit, canonical_unit):
+    actual = standard_unit(printed_unit)
+    expected = standard_unit(canonical_unit)
+    if not actual or not expected:
+        return None
+    numerator, _, denominator = expected[0].partition("/")
+    actual_numerator = actual[0].split("/", 1)[0]
+    percent_for_quantity = actual[0] in PERCENT_UNITS and numerator not in PERCENT_UNITS and numerator != denominator
+    non_energy = CARBON_UNITS | {"cubic-metre"}
+    incompatible_media = ((numerator in non_energy and actual_numerator in ENERGY_UNITS)
+        or (actual_numerator in non_energy and numerator in ENERGY_UNITS))
+    if not percent_for_quantity and not incompatible_media:
+        return None
+    return ScopeDifference(axis="unit_dimension", reported=actual[0], expected=expected[0], raw_text=printed_unit)
+
+
+def _fact(document, clause, page_index, item, visual, page_text=""):
     raw = _text(item, "value")
-    if not raw or (clause.data_kind == "quantitative" and MISSING.fullmatch(raw)):
+    quantitative = clause.data_kind == "quantitative"
+    if not raw or (quantitative and (EMPTY_CELL.fullmatch(raw) or _absence_state(raw))):
         return None
     unit = _text(item, "unit")
     label = _text(item, "label")
     period = _text(item, "period")
-    role = "value" if clause.data_kind == "quantitative" else "statement"
+    role = "value" if quantitative else "statement"
     location = EvidenceLocation(object_id=f"pdf-page-{page_index + 1}", object_type="pdf_page",
         page_index=page_index, excerpt=raw, role=role)
 
@@ -240,19 +350,32 @@ def _fact(document, clause, page_index, item, visual):
                 if category and category.state == "recognized":
                     recognized[name] = category.code
                 target[name] = field(text, recognized.get(name, text))
+    combined_scope = reported_combined_ghg_scope(clause, label)
+    if combined_scope:
+        dimensions["ghg_scope"] = field(label, combined_scope)
+        recognized["ghg_scope"] = combined_scope
+    value_role = item.get("value_role")
+    if quantitative and isinstance(value_role, dict):
+        code, wording = _text(value_role, "code"), _text(value_role, "raw_text")
+        if code in MEASURE_ROLES and wording and not re.fullmatch(YEAR, wording):
+            axes["value_role"] = field(wording, code)
+            recognized["value_role"] = code
     identity = ReportedContext(**axes, dimensions=dimensions)
-    if role == "value":
-        numeric = parse_measure(raw)
+    if quantitative:
+        numeric, printed_unit = parse_printed_measure(raw, unit)
         parsed = {"parse_status": "parsed", "comparator": numeric["comparator"]} if numeric else {}
         if numeric:
+            if numeric["comparator"] == "exact" and has_reported_approximation(label, raw, page_text):
+                parsed["comparator"] = "approx"
             for source, target in (("value", "value_numeric"), ("lower", "value_lower"), ("upper", "value_upper")):
                 if numeric[source] is not None:
                     parsed[target] = format(numeric[source], "f")
-        implicit_unit = number_text(raw)[-1:] if unit is None else ""
-        value = QuantitativePayload(value_raw=raw,
-            unit_raw=unit or (implicit_unit if implicit_unit in {"%", "％"} else None), **parsed)
+        value = QuantitativePayload(value_raw=raw, unit_raw=printed_unit, **parsed)
     else:
-        value = QualitativePayload(statement_raw=raw)
+        structure = item.get("structure")
+        fields = {name: _text(structure, name) for name in QualitativeStructure.model_fields} if isinstance(structure, dict) else {}
+        value = QualitativePayload(statement_raw=raw,
+            structure=QualitativeStructure(**fields) if any(fields.values()) else None)
     anchor = digest([document.source_sha256 or document.document_id, page_index, label, period, unit, raw])
     fact = SourceFact(schema_version="source-fact-2.1", source_fact_id=anchor, source_anchor_id=anchor,
         document_id=document.document_id, ir_run_id=document.ir_run_id, ir_revision=document.ir_revision,
@@ -262,13 +385,23 @@ def _fact(document, clause, page_index, item, visual):
     interpretation = digest(fact.model_dump(mode="json", exclude={"source_fact_id", "interpretation_id"}))
     fact = fact.model_copy(update={"source_fact_id": interpretation, "interpretation_id": interpretation})
     relation = _text(item, "relation")
-    reason = "Reported on the selected PDF page"
-    conflicts = [name for name in clause.purposes.target_scope.discriminating_axes
-                 if name in recognized and name in clause.value.fixed_axes
-                 and recognized[name] != clause.value.fixed_axes[name]]
-    if conflicts:
+    reason = _text(item, "relation_reason")
+    expected = dict(clause.value.fixed_axes)
+    if quantitative and "value_role" not in expected:
+        roles = {scope.value_role for scope in clause.output_scopes}
+        if len(roles) == 1 and None not in roles:
+            expected["value_role"] = roles.pop()
+    differences = [ScopeDifference(axis=name, reported=recognized[name], expected=expected[name],
+                       raw_text=(axes.get(name) or dimensions[name]).raw_text)
+                   for name in clause.purposes.target_scope.discriminating_axes
+                   if name in recognized and name in expected and recognized[name] != expected[name]
+                   and (name, recognized[name], expected[name]) != ("value_role", "restated", "actual")]
+    if quantitative and (unit_difference := _unit_scope_difference(printed_unit, clause.value.canonical_unit)):
+        differences.append(unit_difference)
+    if differences:
         relation = "different"
-        reason = "Reported scope differs in " + ", ".join(conflicts)
+        details = ", ".join(f"{change.axis}={change.reported} (target {change.expected})" for change in differences)
+        reason = f"Reported scope differs: {details}" + (f". {reason}" if reason else "")
     elif relation in (None, "uncertain") and matches_reported_statement(clause, raw):
         relation = "match"
         reason = "The reported assertion states a practice described by the clause"
@@ -277,7 +410,8 @@ def _fact(document, clause, page_index, item, visual):
                  ] if relation == "match" and isinstance(reported_scopes, list) else []
     mapping = ClauseMapping(clause_key=clause.clause_key, clause_digest=clause.clause_digest,
         source_fact_id=fact.source_fact_id, match=relation if relation in {"match", "different", "uncertain"} else "uncertain",
-        reason=reason, scope_ids=scope_ids)
+        reason=reason or (f"Read under the printed label ‘{label}’" if label else "Reported on the selected PDF page"),
+        scope_ids=scope_ids, scope_differences=differences)
     return fact, mapping
 
 
@@ -376,6 +510,8 @@ class ExtractionBackbone:
                 raise PipelineCancelled() from exc
             except (ModelRunFailure, ValueError) as exc:
                 trace.update(status="failed", telemetry=getattr(exc, "telemetry", {}), error=str(exc)[:300])
+                if getattr(exc, "category", None) == "generation_incomplete":
+                    trace["recoverable_items"] = sum(1 for _ in _completed_items(exc.cleaned_output))
                 raise
             finally:
                 self.artifacts.write(run_id, f"diagnostics/calls/{calls}.json", trace)
@@ -413,6 +549,14 @@ class ExtractionBackbone:
         stop_provider = False
         visual = getattr(self.model, "accepts_images", False)
 
+        def record_disclosure(key, row, index):
+            disclosure = _disclosure(row, index, clauses[key].data_kind == "quantitative", page_text[index])
+            if disclosure is not None:
+                observations = state.setdefault("disclosure_observations", {}).setdefault(key, [])
+                body = disclosure.model_dump(mode="json", exclude_none=True)
+                if body not in observations:
+                    observations.append(body)
+
         def record_rows(items, keys, index):
             for item in items:
                 if not isinstance(item, dict):
@@ -421,16 +565,24 @@ class ExtractionBackbone:
                 if key not in keys:
                     continue
                 series = item.get("measurements")
-                columns = series if isinstance(series, list) else [{}]
+                if isinstance(series, list):
+                    record_disclosure(key, item, index)
+                    base = {name: value for name, value in item.items() if name not in {"value", "disclosure"}}
+                    columns = series
+                else:
+                    base, columns = item, [{}]
                 for column in columns:
                     if not isinstance(column, dict):
                         continue
-                    row = {**item, **column}
+                    row = {**base, **column}
+                    if "relation" in column and "relation_reason" not in column:
+                        row.pop("relation_reason", None)
                     shared = item.get("attributes")
                     override = column.get("attributes")
                     if isinstance(shared, dict) and isinstance(override, dict):
                         row["attributes"] = {**shared, **override}
-                    output = _fact(document, clauses[key], index, row, visual)
+                    record_disclosure(key, row, index)
+                    output = _fact(document, clauses[key], index, row, visual, page_text[index])
                     if not output:
                         continue
                     fact, mapping = output
@@ -448,9 +600,12 @@ class ExtractionBackbone:
                 if not image and not page_text[index].strip():
                     raise ModelRunFailure("This page has no native text; choose an image-capable extraction model",
                                           category="page_text_missing")
-                context = {"page_index": index, "page_text": page_text[index][:12000],
-                           "clauses": {key: cards[key] for key in keys}}
-                header = _preceding_header(page_text, index)
+                page_cards = {key: cards[key] for key in keys}
+                kinds = {card["data_kind"] for card in page_cards.values()}
+                context = {"page_index": index, "page_text": page_text[index][:12000], "clauses": page_cards}
+                if disclosure_text := _disclosure_text(page_text[index]):
+                    context["disclosure_text"] = disclosure_text
+                header = _preceding_header(page_text, index) if "quantitative" in kinds else None
                 if header:
                     context["preceding_page"] = {"page_index": index - 1, "column_header": header}
                     if visual:
@@ -458,7 +613,7 @@ class ExtractionBackbone:
                             image += (self.documents.image(asset, index - 1, thumbnail=True),)
                         except DocumentUnavailable:
                             pass  # The active page and the saved header are already available.
-                answer = call(self.model, [index], READ_INSTRUCTIONS, context, _schema(keys), "reading", image)
+                answer = call(self.model, [index], _reading_instructions(kinds), context, _schema(page_cards, kinds), "reading", image)
                 if not isinstance(answer.get("items"), list):
                     raise ValueError("Extraction model did not return an items array")
                 record_rows(answer["items"], keys, index)
@@ -525,7 +680,8 @@ class ExtractionBackbone:
                 candidate_objects=page_counts[key], inspected_objects=inspected.get(key, 0),
                 fact_count=fact_counts[key], reasons=reasons,
                 required_scopes=[scope.scope_id for scope in clause.output_scopes if scope.required],
-                covered_scopes=sorted(covered_scopes[key])))
+                covered_scopes=sorted(covered_scopes[key]),
+                disclosure_observations=state.get("disclosure_observations", {}).get(key, [])))
         body = {"engine_version": ENGINE_VERSION, "engine_identity": self.engine_identity,
             "run_id": run_id, "document": document.model_dump(mode="json"), "sources": {},
             "clause_targets": {key: clause.clause_digest for key, clause in clauses.items()},

@@ -32,6 +32,13 @@
           "title": "Reason",
           "type": "string"
         },
+        "scope_differences": {
+          "items": {
+            "$ref": "#/$defs/ScopeDifference"
+          },
+          "title": "Scope Differences",
+          "type": "array"
+        },
         "scope_ids": {
           "items": {
             "type": "string"
@@ -362,6 +369,17 @@
           "minLength": 1,
           "title": "Statement Raw",
           "type": "string"
+        },
+        "structure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualitativeStructure"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -369,6 +387,53 @@
         "kind"
       ],
       "title": "QualitativePayload",
+      "type": "object"
+    },
+    "QualitativeStructure": {
+      "additionalProperties": false,
+      "description": "Optional parts of the original assertion.",
+      "properties": {
+        "action": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subject"
+        },
+        "topic": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Topic"
+        }
+      },
+      "title": "QualitativeStructure",
       "type": "object"
     },
     "QuantitativePayload": {
@@ -634,6 +699,41 @@
         "raw"
       ],
       "title": "ReportedPeriod",
+      "type": "object"
+    },
+    "ScopeDifference": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "minLength": 1,
+          "title": "Axis",
+          "type": "string"
+        },
+        "expected": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "raw_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Text"
+        },
+        "reported": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "axis",
+        "reported",
+        "expected"
+      ],
+      "title": "ScopeDifference",
       "type": "object"
     }
   },

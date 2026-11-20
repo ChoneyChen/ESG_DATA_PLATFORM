@@ -22,13 +22,13 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 
 | 包/文件 | 责任 |
 |---|---|
-| `esg_contracts/data_kinds/quantitative.py`、`qualitative.py` | 两类原值字段与原文优先语义 |
-| `esg_contracts/facts.py` | SourceFact、身份字段、证据位置、ClauseMapping、覆盖、运行预算 |
+| `esg_contracts/data_kinds/quantitative.py`、`qualitative.py` | 印刷量值的可选精确表达，以及原文陈述的可选主题、对象和动作 |
+| `esg_contracts/facts.py` | SourceFact、实际身份、页位置、带口径差异的条款关系、明示缺失与读取覆盖、运行预算 |
 | `evidence.py`、`search.py` | 文档引用、页/对象搜索、分页、EvidenceFrame、EvidenceContextLink及补页请求；关联携带具体量值与完整来源组 |
 | `sessions.py`、`results.py` | 编排会话、原生运行、结果概览、分页事实和组织结果 |
 | `exports.py` | 封存清单、文件角色、交付状态、接收回执 |
 | `esg_reports/contract.py`、`repository.py`、`importer.py` | PDF级资源身份、批次、文件夹及登记/导入 |
-| `esg_data/units.py`、`quantities.py`、`literals.py`、`periods.py` | 共享单位、精确数值和期间语义；不决定指标目标 |
+| `esg_data/units.py`、`quantities.py`、`literals.py`、`periods.py` | 单位识别、精确规范化、量值表达解析和期间语义；不决定指标目标 |
 | `esg_data/organization.py`、`categories.py`、`text_search.py` | 组织合同、分类编码、通用词项匹配 |
 | `schemas/` | 对外生成Schema；字段精确类型从源码生成 |
 
@@ -86,7 +86,7 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 
 ## database（RQ-10、11、13）
 
-`src/esg_database/api.py`接收服务；`ingestion.py`解包；`client.py`调用本模块SQL桥；`projector.py`后台投影；`projection.py`确定性编译观测与比较资格；`selection.py`预览/选源/重述；`products_api.py`产品HTTP；`research.py`精确长表导出；`sources_api.py`/`source_contracts.py`来源生命周期；`http_client.py`向其他模块提供客户端。
+`src/esg_database/api.py`接收服务；`ingestion.py`解包；`client.py`调用本模块SQL桥；`projector.py`后台投影；`projection.py`确定性编译观测与比较资格；`selection.py`预览/选源/重述；`products_api.py`产品HTTP；`research.py`从冻结观测生成原值、规范定量、定性组成和覆盖长表；`sources_api.py`/`source_contracts.py`来源生命周期；`http_client.py`向其他模块提供客户端。
 
 `runtime/`连接、RPC、当前模式和显式管理命令；`queries/`事务与查询；`migrations/`不可变SQL历史；`contracts/`生成DTO/类型SDK。数据库部署资产属于该模块，不分散到Plat中。
 

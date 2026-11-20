@@ -19,19 +19,10 @@ from esg_extraction.models.schema_decoding import (
 )
 from esg_extraction.models.structured_template import (
     json_schema,
+    output_properties,
     structured_prompt,
 )
 from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
-
-
-def _output_properties(pairs):
-    """The local model can insert padding inside JSON property names."""
-    result = {}
-    for key, value in pairs:
-        field = key.strip()
-        if field not in result or field == key:
-            result[field] = value
-    return result
 
 
 class LocalQwenModel(MlxVlmRuntime):
@@ -51,17 +42,23 @@ class LocalQwenModel(MlxVlmRuntime):
     def complete(self, *, instructions, context, schema, max_tokens, cancel_check, images=()):
         execution_context = context.get("execution", {})
         context = {key: value for key, value in context.items() if key != "execution"}
-        raw, telemetry = self.generate_structured(
-            context=context,
-            instructions=instructions,
-            template=schema,
-            max_tokens=max_tokens,
-            cancel_check=cancel_check,
-            progress_callback=getattr(self, "progress_callback", None),
-            execution_context=execution_context,
-            images=images,
-        )
-        return json.loads(raw, object_pairs_hook=_output_properties), telemetry
+        try:
+            raw, telemetry = self.generate_structured(
+                context=context,
+                instructions=instructions,
+                template=schema,
+                max_tokens=max_tokens,
+                cancel_check=cancel_check,
+                progress_callback=getattr(self, "progress_callback", None),
+                execution_context=execution_context,
+                images=images,
+            )
+        except ModelRunFailure as exc:
+            if exc.category == "generation_incomplete":
+                exc.cleaned_output = exc.raw_output
+                exc.telemetry["completion_chars"] = len(exc.raw_output)
+            raise
+        return json.loads(raw, object_pairs_hook=output_properties), telemetry
 
     def _ensure_loaded(self) -> float:
         if self._model is None:

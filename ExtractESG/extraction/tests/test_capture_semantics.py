@@ -38,6 +38,59 @@ def test_printed_scale_is_part_of_unit(unit, family, scale):
     assert unit_dimension(unit) is not None
 
 
+@pytest.mark.parametrize("raw,unit,expected_unit,comparator,point,lower,upper", [
+    ("66 million kWh", "kWh", "million kWh", "exact", "66", None, None),
+    ("between 1.2 and 2.35 MW", None, "MW", "range", None, "1.2", "2.35"),
+    ("5% to 10%", None, "%", "range", None, "5", "10"),
+    ("more than 17,000 people", None, "people", "greater_than", "17000", "17000", None),
+    ("approximately 5.19 tonne", None, "tonne", "approx", "5.19", None, None),
+    ("1.23 × 10⁶", None, None, "exact", "1230000", None, None),
+    ("50+ million tCO2e", None, "million tCO2e", "at_least", "50", "50", None),
+])
+def test_parse_complete_printed_expressions(raw, unit, expected_unit, comparator, point, lower, upper):
+    from decimal import Decimal
+    from esg_data.literals import parse_printed_measure
+
+    quantity, printed_unit = parse_printed_measure(raw, unit)
+    assert printed_unit == expected_unit
+    assert quantity["comparator"] == comparator
+    assert tuple(quantity[field] for field in ("value", "lower", "upper")) == tuple(
+        Decimal(field) if field is not None else None for field in (point, lower, upper)
+    )
+    assert parse_printed_measure("2 projects reused 111,800 tonnes")[0] is None
+
+
+@pytest.mark.parametrize("unit,expected,multiplier", [
+    ("thousands m³", "cubic-metre", "1000"),
+    ("thousand cubic meters (m³)", "cubic-metre", "1000"),
+    ("100 million kWh", "megajoule", "360000000"),
+    ("metric tons (t)", "tonne", "1"),
+    ("kt", "tonne", "1000"),
+    ("million liters", "cubic-metre", "1000"),
+    ("kWh", "megajoule", "3.6"),
+    ("GJ", "megajoule", "1000"),
+    ("tCO₂e", "tonne-co2e", "1"),
+    ("Thousand metric tons CO2-eq", "tonne-co2e", "1000"),
+    ("tCO₂", "tonne-co2", "1"),
+    ("10,000 tce 万吨标准煤", "tonne-coal-equivalent", "10000"),
+    ("hour/person", "hour/person", "1"),
+    ("tCO2e/MWp", "tonne-co2e/watt-peak", "0.000001"),
+    ("m3/RMB 10,000", "cubic-metre/cny", "0.0001"),
+    ("mWh", "megajoule", "0.0000036"),
+    ("ML", "cubic-metre", "1000"),
+    ("mL", "cubic-metre", "0.000001"),
+])
+def test_standard_unit_scales_only_identified_units(unit, expected, multiplier):
+    from decimal import Decimal
+    from esg_data.quantities import standard_unit
+
+    assert standard_unit(unit) == (expected, Decimal(multiplier))
+    assert standard_unit("tons per person") is None
+    assert standard_unit("tCO₂e / revenue") is None
+    assert standard_unit("MT CO₂e/MW") is None
+    assert standard_unit("metric tons (kg)") is None
+
+
 def test_parenthesized_scale_is_not_a_source_measurement():
     from esg_document.document.literals import numeric_rows
     from esg_contracts.evidence import TextEvidence

@@ -1,5 +1,6 @@
 """Real isolated SQL and HTTP boundaries; these fixtures are synthetic, not report accuracy evidence."""
 from collections import Counter
+import csv
 from hashlib import sha256
 from pathlib import Path
 import io
@@ -46,7 +47,8 @@ def field(value, role="table"):
 
 
 def archive(source="source-a", periods=("2023", "2024", "2025"), *, known=False, publication=2026,
-            amount="1.530140000000000000001", interpretation="one", two_targets=False, statement=None):
+            amount="1.530140000000000000001", interpretation="one", two_targets=False, statement=None,
+            unit="吨", value_role=None, structure=None, scope_differences=(), disclosures=()):
     pdf_sha = sha256(source.encode()).hexdigest()
     resource = ReportResource(pdf_id=source, asset_id="pdf-"+pdf_sha[:24], sha256=pdf_sha, original_filename="synthetic.pdf",
         company=Company(name="资源企业"), publication_year=publication)
@@ -62,19 +64,21 @@ def archive(source="source-a", periods=("2023", "2024", "2025"), *, known=False,
     for index, period in enumerate(periods):
         identity = ReportedContext(reporting_period=field(period, "column_header") if period is not None else ReportedField(),
             reporting_entity=field("实际统计主体") if known else ReportedField(),
-            reporting_boundary=field("集团合并") if known else ReportedField())
+            reporting_boundary=field("集团合并") if known else ReportedField(),
+            value_role=field(value_role) if value_role else ReportedField())
         fact = SourceFact(source_fact_id=source+"-"+interpretation+"-"+str(index), source_anchor_id="anchor-"+str(index),
             document_id=source, ir_run_id=document.ir_run_id, ir_revision=1, interpretation_id=interpretation, report_resource=resource,
-            value=QualitativePayload(statement_raw=statement) if statement else QuantitativePayload(value_raw=amount, value_numeric=amount, unit_raw="吨", parse_status="parsed", comparator="exact"),
+            value=QualitativePayload(statement_raw=statement, structure=structure) if statement else QuantitativePayload(value_raw=amount, value_numeric=amount, unit_raw=unit, parse_status="parsed", comparator="exact"),
             source_row_label="实测数量", identity=identity, quality="grounded",
             evidence=[EvidenceLocation(object_id="cell-"+str(index), object_type="cell", page_index=0, excerpt=statement or amount, role="statement" if statement else "value")])
         facts.append(fact.model_dump(mode="json"))
         links.extend(ClauseMapping(clause_key=key, clause_digest=targets[key]["clause_digest"], source_fact_id=fact.source_fact_id,
-            match="match", reason="Synthetic contract test",
-            scope_ids=["scope-synthetic"] if known else []).model_dump(mode="json") for key in keys)
+            match="different" if scope_differences else "match", reason="Synthetic contract test",
+            scope_ids=["scope-synthetic"] if known else [], scope_differences=list(scope_differences)).model_dump(mode="json") for key in keys)
     properties, evidence = property_tables(facts)
     members = {"facts": facts, "properties": properties, "evidence": evidence, "relations": links,
-        "targets": targets, "coverage": [ClauseCoverage(clause_key=key, clause_digest=targets[key]["clause_digest"], state="covered", fact_count=len(facts)).model_dump(mode="json") for key in keys],
+        "targets": targets, "coverage": [ClauseCoverage(clause_key=key, clause_digest=targets[key]["clause_digest"],
+            state="covered" if facts else "not_found", fact_count=len(facts), disclosure_observations=list(disclosures)).model_dump(mode="json") for key in keys],
         "document": document.model_dump(mode="json"), "diagnostics": []}
     content = {role: canonical(body) for role, body in members.items()}
     files = [ExportFile(name=role+".json", role=role, sha256=sha256(data).hexdigest(), bytes=len(data), records=1 if role=="document" else len(members[role])) for role, data in content.items()]
@@ -203,23 +207,34 @@ def test_public_snapshot_paginates_beyond_one_thousand_without_duplicate_or_loss
 
 def test_research_csv_and_parquet_have_exact_decimals_typed_years_and_frozen_definitions(system):
     from decimal import Decimal
-    import csv
     import pyarrow as pa
     import pyarrow.parquet as pq
     client, bridge = system
-    _, projection = receive(client, bridge)
+    differences = [{"axis":"denominator","reported":"revenue","expected":"net_revenue","raw_text":"Revenue"}]
+    _, projection = receive(client, bridge, unit="thousands m³", value_role="target", scope_differences=differences)
     base="/v1/projections/"+projection["projection_id"]
     result=client.get(base+"/export?format=csv")
     assert result.status_code==200,result.text
     with ZipFile(io.BytesIO(result.content)) as zipped:
         manifest=json.loads(zipped.read("manifest.json"))
+        assert manifest["schema_version"]=="capture-research-1.2"
         assert manifest["complete"] and manifest["observations"]==3 and not manifest["aggregation_performed"]
         rows=list(csv.DictReader(io.StringIO(zipped.read("facts.csv").decode())))
         assert {row["year"] for row in rows}=={"2023","2024","2025"}
         assert {row["value_numeric"] for row in rows}=={"1.530140000000000000001"}
+        assert {row["unit_raw"] for row in rows}=={"thousands m³"}
+        normalized=list(csv.DictReader(io.StringIO(zipped.read("quantitative.csv").decode())))
+        assert {row["observation_id"] for row in normalized}=={row["observation_id"] for row in rows}
+        assert {row["value_numeric"] for row in normalized}=={"1530.140000000000000001"}
+        assert {row["unit_id"] for row in normalized}=={"cubic-metre"}
+        assert {row["value_role"] for row in normalized}=={"target"}
         assert json.loads(zipped.read("definitions.json"))[0]["clause_key"]=="TEST.amount"
         properties=list(csv.DictReader(io.StringIO(zipped.read("properties.csv").decode())))
         assert all(row["value_type"] not in {"object","array"} for row in properties)
+        assert {row["value_text"] for row in properties if row["field_key"]=="scope_differences"
+            and row["value_path"]=="/0/raw_text"}=={"Revenue"}
+        relations=list(csv.DictReader(io.StringIO(zipped.read("relations.csv").decode())))
+        assert {row["reason"] for row in relations}=={"Synthetic contract test"}
     result=client.get(base+"/export?format=parquet")
     assert result.status_code==200,result.text
     with ZipFile(io.BytesIO(result.content)) as zipped:
@@ -228,6 +243,8 @@ def test_research_csv_and_parquet_have_exact_decimals_typed_years_and_frozen_def
         assert pa.types.is_integer(table.schema.field("year").type)
         assert pa.types.is_date32(table.schema.field("period_start").type)
         assert set(table.column("value_numeric").to_pylist())=={Decimal("1.530140000000000000001")}
+        normalized=pq.read_table(io.BytesIO(zipped.read("quantitative.parquet")))
+        assert set(normalized.column("value_numeric").to_pylist())=={Decimal("1530.140000000000000001")}
         relations=pq.read_table(io.BytesIO(zipped.read("relations.parquet")))
         assert pa.types.is_boolean(relations.schema.field("comparison_eligible").type)
     too_precise="0."+"1"*80
@@ -239,10 +256,67 @@ def test_research_csv_and_parquet_have_exact_decimals_typed_years_and_frozen_def
 def test_qualitative_projection_preserves_unknown_period_and_literal_statement(system):
     client, bridge = system
     statement="2023年至2025年持续实施环境监测；未声明具体统计边界。"
-    _, projection=receive(client,bridge,source="statement",periods=(None,),statement=statement)
-    rows=client.get("/v1/projections/"+projection["projection_id"]+"/observations").json()["items"]
+    structure={"topic":"环境监测","action":"持续实施环境监测"}
+    _, projection=receive(client,bridge,source="statement",periods=(None,),statement=statement,structure=structure)
+    base="/v1/projections/"+projection["projection_id"]
+    rows=client.get(base+"/observations").json()["items"]
     assert len(rows)==1 and rows[0]["value"]["kind"]=="assertion"
     assert rows[0]["value"]["statement_raw"]==statement and rows[0]["period"]["kind"]=="unknown"
+    with ZipFile(io.BytesIO(client.get(base+"/export").content)) as zipped:
+        facts=list(csv.DictReader(io.StringIO(zipped.read("facts.csv").decode())))
+        qualitative=list(csv.DictReader(io.StringIO(zipped.read("qualitative.csv").decode())))
+        assert facts[0]["statement_raw"]==statement
+        assert qualitative==[{"observation_id":facts[0]["observation_id"],**structure,"subject":""}]
+
+
+def test_coverage_export_carries_zero_fact_disclosure_and_respects_published_members(system):
+    client, bridge = system
+    selected={"state":"not_applicable","statement_raw":"Not applicable to Northern division",
+              "period_raw":"2024","page_index":4,"source_row_label":"Northern division"}
+    unselected={"state":"not_disclosed","statement_raw":"This metric was not disclosed",
+                "period_raw":"2023","page_index":5}
+    separate={"state":"not_available","statement_raw":"Data unavailable","period_raw":"2024","page_index":9}
+    _, report=receive(client,bridge,source="public-member",periods=("2024",),disclosures=(selected,unselected))
+    receipt, zero=receive(client,bridge,source="no-public-member",periods=(),disclosures=(separate,))
+    assert receipt["accepted_facts"]==0
+
+    def download(path, **filters):
+        response=client.get(path,params=filters)
+        assert response.status_code==200,response.text
+        with ZipFile(io.BytesIO(response.content)) as zipped:
+            coverage=list(csv.DictReader(io.StringIO(zipped.read("coverage.csv").decode())))
+            sources=list(csv.DictReader(io.StringIO(zipped.read("sources.csv").decode())))
+            definitions=json.loads(zipped.read("definitions.json"))
+            manifest=json.loads(zipped.read("manifest.json"))
+        return coverage,sources,definitions,manifest
+
+    internal="/v1/projections/"+zero["projection_id"]+"/export"
+    coverage,sources,definitions,manifest=download(internal)
+    assert manifest["observations"]==0
+    assert [item["coverage_state"] for item in coverage]==["not_found",""]
+    assert [item["disclosure_state"] for item in coverage]==["","not_available"]
+    assert coverage[1]["statement_raw"]==separate["statement_raw"]
+    assert coverage[1]["source_id"]==sources[0]["source_id"]
+    assert coverage[1]["clause_digest"]==definitions[0]["clause_digest"]
+    assert download(internal,period="2023")[0]==[]
+    assert len(download(internal,period="2024",clause_key="TEST.amount")[0])==1
+
+    request,decision=preview(client,[report["projection_id"],zero["projection_id"]])
+    dataset=publish(client,request,decision)
+    public="/v2/datasets/"+dataset["dataset_version_id"]+"/export"
+    coverage,sources,_,_=download(public)
+    assert [item["statement_raw"] for item in coverage]==[selected["statement_raw"]]
+    assert coverage[0]["coverage_state"]=="" and coverage[0]["page_index"]=="4"
+    assert [item["pdf_id"] for item in sources]==["public-member"]
+    assert download(public,period="2023")[0]==[]
+    assert download(public,clause_key="TEST.unselected")[0]==[]
+    dataset_id=dataset["dataset_version_id"]
+    withdrawn=client.post(f"/v1/datasets/{dataset_id}/withdraw",json={"expected_revision":dataset["revision"],"reason":"Isolated visibility test"})
+    assert withdrawn.status_code==200,withdrawn.text
+    assert client.get(public).status_code==404
+    historical=f"/v1/datasets/{dataset_id}/export"
+    assert download(historical)[0]==coverage
+    assert download(historical,period="2023")[0]==[]
 
 
 def test_projection_failure_does_not_change_receipt_and_can_be_retried(system,monkeypatch):
