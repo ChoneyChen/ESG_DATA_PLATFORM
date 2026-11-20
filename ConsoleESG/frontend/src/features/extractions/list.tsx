@@ -47,6 +47,9 @@ export function SessionRows({ runs, selected, onSelect, disabled = false }: { ru
                     run.run?.document?.report_resource?.original_filename ||
                     run.session_id}
                 </small>
+                {run.batch_id && <small><a href={href("extractions", "batches", run.batch_id)}>
+                  提取批次{run.batch_position == null ? "" : ` · 第 ${run.batch_position} 份`}
+                </a></small>}
               </td>
               <td>
                 <Badge tone={tone(run.status)}>{label(run.status)}</Badge>
@@ -105,9 +108,10 @@ export function ExtractionsPage({ reportId }: { reportId?: string }) {
       <PageHeader
         title="提取"
         actions={
-          <a className="button" href={href("extractions", "new")}>
-            创建提取
-          </a>
+          <>
+            <a className="button button-secondary" href={href("extractions", "batches")}>提取批次</a>
+            <a className="button" href={href("extractions", "new")}>创建提取</a>
+          </>
         }
       />
       <div className="toolbar cleanup-toolbar">
@@ -133,6 +137,7 @@ export function ExtractionsPage({ reportId }: { reportId?: string }) {
           <select value={status} onChange={(e) => { setStatus(e.target.value); setSelected([]); }}>
             <option value="">全部状态</option>
             {[
+              "waiting_for_window",
               "queued",
               "running",
               "cancelling",

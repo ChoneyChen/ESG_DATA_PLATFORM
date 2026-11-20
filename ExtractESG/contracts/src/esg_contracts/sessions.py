@@ -11,9 +11,11 @@ from .exports import DeliveryStatus
 RunStatus = Literal[
     "queued", "running", "completed", "partial", "failed", "cancelled", "interrupted"
 ]
+SessionStatus = RunStatus | Literal["cancelling", "waiting_for_window"]
 TERMINAL = {"completed", "partial", "failed", "cancelled", "interrupted"}
 PHASE_LABELS = {
     "queued": "等待执行",
+    "waiting_for_window": "等待进入批次窗口",
     "window_yielded": "已保存进度，等待继续",
     "preparing": "准备文档证据",
     "ocr": "识别报告页面",
@@ -102,6 +104,36 @@ class ReadingProgress(View):
     total: int = 0
     model_calls: int = 0
     fact_count: int = 0
+
+
+class ExtractionBatchRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    submission_key: str = Field(min_length=1, max_length=160)
+    name: str = Field(default="批量提取", min_length=1, max_length=120)
+    sessions: list[ExtractionPlanRequest] = Field(min_length=2, max_length=1000)
+
+
+class ExtractionBatchMember(View):
+    session_id: str
+    name: str
+    position: int
+    status: SessionStatus
+    admitted_at: str | None = None
+
+
+class ExtractionBatchSummary(View):
+    batch_id: str
+    name: str
+    created_at: str
+    window_size: int
+    active_count: int
+    waiting_count: int
+    finished_count: int
+    total_count: int
+
+
+class ExtractionBatch(ExtractionBatchSummary):
+    members: list[ExtractionBatchMember]
 
 
 class ModelProgress(View):
@@ -195,9 +227,12 @@ class SessionAction(View):
 class ExtractionSession(View):
     session_id: str
     name: str
-    status: RunStatus | Literal["cancelling"]
+    status: SessionStatus
     stage: Literal["preparing", "extracting"]
     request: ExtractionPlanRequest
+    batch_id: str | None = None
+    batch_position: int | None = None
+    admitted_at: str | None = None
     source_sha256: str | None = None
     ir_run_id: str | None = None
     processing_id: str | None = None

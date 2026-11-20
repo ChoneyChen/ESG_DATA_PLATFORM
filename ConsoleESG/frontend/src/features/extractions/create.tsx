@@ -4,6 +4,8 @@ import type {
   ClauseCatalog,
   ClauseGroup,
   CreateExtraction,
+  ExtractionBatch,
+  ExtractionBatchRequest,
   ExtractionSession,
   ExtractionBudget,
   Clause,
@@ -12,7 +14,7 @@ import type {
   ModelSelection,
 } from "../../shared/contracts";
 import { EXTRACTION_BUDGET_DEFAULTS, EXTRACTION_BUDGET_LIMITS } from "../../shared/contracts";
-import { write } from "../../shared/api";
+import { RequestError, write } from "../../shared/api";
 import { useResource, invalidate } from "../../shared/resource";
 import {
   PageHeader,
@@ -26,6 +28,7 @@ import {
 } from "../../shared/ui";
 import { href, navigate } from "../../app/routes";
 import { label, modelSelectionLabel } from "../../shared/format";
+import { extractionBatchesPath } from "./batches";
 type Preview = {
   targets: { digest: string; clauses: Record<string, Clause> };
   clause_count: number;
@@ -77,8 +80,10 @@ export function CreateExtractionPage({
     };
   }, []);
   const [submission] = useState(() => crypto.randomUUID());
-  const [previews, setPreviews] = useState<Record<string, Preview>>({}),
-    [created, setCreated] = useState<Record<string, string>>({}),
+  const submittedSessions = useRef<CreateExtraction[] | undefined>(undefined);
+  const [confirmedTargets, setConfirmedTargets] = useState<Preview>(),
+    [attempted, setAttempted] = useState(false),
+    [unconfirmed, setUnconfirmed] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState<Error>(),
     [step, setStep] = useState(1);
@@ -93,22 +98,23 @@ export function CreateExtractionPage({
             .toLowerCase()
             .includes(query.toLowerCase())),
     );
-  const body = (pdfId: string): CreateExtraction => ({
-    submission_key: submission + "-" + pdfId,
-    input: {
-      kind: "pdf",
-      asset_id: available.find((r) => r.pdf_id === pdfId)!.asset_id,
-    },
-    clause_keys: keys,
-    name:
-      selectedReports.length > 1
-        ? `${name} · ${available.find((r) => r.pdf_id === pdfId)?.company?.name || pdfId}`
-        : name,
-    budget,
-    ...(cloud ? { model_selection: modelSelection } : {}),
-    ...(documentModel !== "native" ? { document_model_selection: documentModel === "deepseek"
-      ? { provider: "deepseek", model: "deepseek-flash" } : { provider: "local" } } : {}),
-  });
+  const isBatch = selectedReports.length > 1;
+  const reportsById = new Map(available.map(report => [report.pdf_id, report]));
+  function body(pdfId: string): CreateExtraction {
+    const report = reportsById.get(pdfId);
+    if (!report?.asset_available) throw new Error("有报告已不可用，请返回重新选择。");
+    const reportName = report.title || report.original_filename || pdfId;
+    const suffix = isBatch ? ` · ${reportName.slice(0, 116)}` : "";
+    return {
+      input: { kind: "pdf", asset_id: report.asset_id },
+      clause_keys: keys,
+      name: name.trim().slice(0, 120 - suffix.length) + suffix,
+      budget,
+      ...(cloud ? { model_selection: modelSelection } : {}),
+      ...(documentModel !== "native" ? { document_model_selection: documentModel === "deepseek"
+        ? { provider: "deepseek", model: "deepseek-flash" } : { provider: "local" } } : {}),
+    };
+  }
   function toggle(list: string[], key: string, set: (v: string[]) => void) {
     set(list.includes(key) ? list.filter((x) => x !== key) : [...list, key]);
   }
@@ -135,14 +141,10 @@ export function CreateExtractionPage({
     setBusy(true);
     setError(undefined);
     try {
-      const next: Record<string, Preview> = {};
-      for (const id of selectedReports)
-        next[id] = await write(
-          "document",
-          "/api/report-sessions/preview",
-          body(id),
-        );
-      setPreviews(next);
+      const target = await write<Preview>(
+        "document", "/api/report-sessions/preview", body(selectedReports[0]),
+      );
+      setConfirmedTargets(target);
       setStep(2);
     } catch (e) {
       setError(e as Error);
@@ -151,30 +153,35 @@ export function CreateExtractionPage({
     }
   }
   async function submit() {
+    if (!confirmedTargets) return;
     setBusy(true);
     setError(undefined);
-    const next = { ...created };
+    setAttempted(true);
     try {
-      for (const id of selectedReports) {
-        if (next[id]) continue;
-        const p = previews[id];
-        const run = await write<ExtractionSession>(
-          "document",
-          "/api/report-sessions",
-          {
-            ...body(id),
-            expected_target_digest: p.targets.digest,
-            expected_engine_fingerprint: p.engine_fingerprint,
-          },
-        );
-        next[id] = run.session_id;
-        setCreated({ ...next });
+      const sessions = submittedSessions.current ?? selectedReports.map(id => ({
+        ...body(id),
+        expected_target_digest: confirmedTargets.targets.digest,
+        expected_engine_fingerprint: confirmedTargets.engine_fingerprint,
+      }));
+      submittedSessions.current = sessions;
+      let destination;
+      if (isBatch) {
+        const request: ExtractionBatchRequest = { submission_key: submission, name: name.trim(), sessions };
+        const batch = await write<ExtractionBatch>("document", extractionBatchesPath, request);
+        invalidate("document", extractionBatchesPath);
+        destination = href("extractions", "batches", batch.batch_id);
+      } else {
+        const run = await write<ExtractionSession>("document", "/api/report-sessions", {
+          ...sessions[0],
+          submission_key: submission,
+        });
+        destination = href("extractions", run.session_id);
       }
       invalidate("document", "/api/report-sessions");
-      if (selectedReports.length === 1 && alive.current)
-        navigate("/extractions/" + next[selectedReports[0]]);
-      else setStep(3);
+      invalidate("document", "/api/console/monitor");
+      if (alive.current) navigate(destination);
     } catch (e) {
+      setUnconfirmed(e instanceof RequestError && (e.status < 400 || e.status >= 500));
       setError(e as Error);
     } finally {
       setBusy(false);
@@ -189,7 +196,7 @@ export function CreateExtractionPage({
       <PageHeader
         title="创建提取"
         back={{ href: href("extractions"), label: "提取" }}
-        subtitle={`第 ${step} 步 · ${step === 1 ? "选择报告与条款" : step === 2 ? "核对目标" : "已提交"}`}
+        subtitle={`第 ${step} 步 · ${step === 1 ? "选择报告与条款" : "核对目标"}`}
       />
       <ReadError error={error} />
       {!reports.data || !catalog.data ? (
@@ -439,10 +446,10 @@ export function CreateExtractionPage({
             </div>
           </fieldset>
         </>
-      ) : step === 2 ? (
+      ) : (
         <section className="section">
           <h2>确认本次选择</h2>
-          <p>提取模型 · {modelSelectionLabel(Object.values(previews)[0]?.model_selection || modelSelection)}</p>
+          <p>提取模型 · {modelSelectionLabel(confirmedTargets?.model_selection || modelSelection)}</p>
           <p>文档定位 · {documentModel === "native" ? "原生文字定位" : documentModel === "deepseek" ? "DeepSeek Flash 视觉定位" : "本地 Qwen 视觉定位"}</p>
           <div className="metric-strip">
             <div>
@@ -470,40 +477,42 @@ export function CreateExtractionPage({
           <Notice>
             提交时冻结条款和模型选择。模型按页读取并填写原值。此预览未调用模型。
           </Notice>
-          {Object.entries(created).map(([id, run]) => (
-            <p key={id}>
-              已提交：
-              <a href={href("extractions", run)}>
-                {available.find((r) => r.pdf_id === id)?.original_filename}
-              </a>
-            </p>
-          ))}
+          {isBatch && <details open>
+            <summary>查看报告入队顺序</summary>
+            <p className="field-help">报告按此顺序进入批次窗口。有报告结束时，下一份自动补入。</p>
+            <ol>
+              {selectedReports.map(id => {
+                const report = reportsById.get(id);
+                return <li key={id}>{report?.title || report?.original_filename || id}</li>;
+              })}
+            </ol>
+          </details>}
+          {unconfirmed && <Notice>
+            服务尚未确认本次提交，可以用同一次提交重试。
+            {isBatch && <>也可以到<a href={href("extractions", "batches")}>提取批次</a>核对。</>}
+          </Notice>}
           <div className="form-actions">
             <button
               className="button-secondary"
-              disabled={busy || Object.keys(created).length > 0}
-              onClick={() => setStep(1)}
+              disabled={busy || unconfirmed}
+              onClick={() => {
+                setStep(1);
+                submittedSessions.current = undefined;
+                setAttempted(false);
+                setError(undefined);
+              }}
             >
               返回修改
             </button>
             <button disabled={busy} onClick={submit}>
               {busy
                 ? "提交中…"
-                : Object.keys(created).length
-                  ? "提交剩余报告"
+                : attempted
+                  ? "重试提交"
                   : "开始提取"}
             </button>
           </div>
         </section>
-      ) : (
-        <Empty
-          title={`已创建 ${Object.keys(created).length} 个独立任务`}
-          action={
-            <a className="button" href={href("extractions")}>
-              查看提取任务
-            </a>
-          }
-        />
       )}
     </>
   );

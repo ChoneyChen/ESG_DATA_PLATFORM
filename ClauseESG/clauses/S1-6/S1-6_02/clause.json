@@ -93,7 +93,7 @@
       "context_terms": [],
       "description": null,
       "label": "实际人群",
-      "reading_instruction": "填写表格脚注定义的实际纳入人群。总行保留其完整纳入范围。分项按适用年份填纳入人群，性别再填 gender。同一性别分项按期间有两种纳入范围时，各列都明确填写所属人群。只在所有期间适用时才在行上共用同一字段。",
+      "reading_instruction": "从表注抄录该行该年度的完整纳入人群限定。表注写 full-time contract employees 或 the total number of employees 时，逐字保留对应范围，不能缩写成 employees。按年有变化时每个值单独填写，不把一个年份的限定移给其他年份。总行与分项范围分别读取，女性、男性单独写入 gender。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e08bdd454e3e706159832cc88a3267a4dda49ebfc4c1e58f7786dfb65557a94f",
+  "clause_digest": "4e65b8cb8fc67f86c2658e659be43b22f57729f21c3f49acbd6e5d888286b1c3",
   "clause_key": "S1-6_02",
   "data_kind": "quantitative",
   "definition": "报告期末属于本主体的员工人头数。",

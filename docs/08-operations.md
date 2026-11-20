@@ -63,7 +63,7 @@ ConsoleESG/scripts/start.sh restart --no-browser
 
 workbench.py后台托管五服务，记录进程身份，只停止自己拥有的进程。关闭终端不停止服务。已有不兼容服务占用端口时明确返回，不按端口名称粗暴kill。start会离线安装本仓库包、构建两前端、检查现有数据目录；超时不等于后台进程消失，不重复提交任务。
 
-有活动任务时stop/restart会拒绝；先在Console按实际需要结束/取消任务，确认阅读和准备都已停止，再维护。文档整理不隐含启动、停止或恢复原批次。
+有活动任务或批次候补报告时 stop/restart 会拒绝。维护前在 Console 确认阅读、准备和批次状态。文档整理不隐含启动、停止或恢复原批次。
 
 单服务入口是`ConsoleESG/scripts/run_service.sh document|extraction|console|database|plat`。其document仍为Console组合应用；真正独立的文档程序入口还可使用esg-document CLI。桌面启动项由install_desktop_launcher.py安装，控制器与命令行共用。
 

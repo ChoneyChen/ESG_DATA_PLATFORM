@@ -51,13 +51,14 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 
 `EvidenceLocation` 的页下标为 0 基，界面显示加一。页级事实以记录内容产生事实 ID，原始页及印刷量值另外保留来源锚点。页级 excerpt 是模型转录，不代表逐字或逐格独立核验。来源使用 `DocumentReference.source_kind=pdf` 和原 PDF SHA-256，沿用交接字段 `ir_run_id=pdf-<sha256>` 表达稳定文档引用，页码属于原件。已有 Document IR 可传入有效修订以提供页提示。旧对象、旧引文和候选诊断仍可随既有封存读出。
 
-`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。模型省略关系时保存为 `uncertain`。若单条声明的目标判别字段已按该条款词典识别，且与固定轴明确冲突，关系保存为 `different`。原值和实际属性继续入库。覆盖范围和实际值分开保存。
+`ClauseMapping` 单独记录条款摘要、事实 ID 和 `match`、`different`、`uncertain`。模型省略关系时保存为 `uncertain`。如单条 `reading.vocabulary.matching_statement_terms` 明确识别已实施的做法，且原句满足该条读取语义，可补为 `match`。明确冲突的目标判别字段将关系记为 `different`。原值和实际属性继续入库。覆盖范围和实际值分开保存。
 
 ## 端口及HTTP分工
 
 | 连接 | 请求与响应 | 主要入口 |
 |---|---|---|
 | Console→编排18080 | ExtractionPlanRequest→ExtractionSession，预览、提交、读取、取消、续跑 | /api/report-sessions及子路径 |
+| Console→编排18080 | ExtractionBatchRequest→ExtractionBatch，原子提交有序报告，读取窗口与候补 | /api/report-extraction-batches及批次详情 |
 | 编排→条款/提取18180 | RunRequest冻结目标；CreateRun携带request、target_snapshot和submission_key | /api/targets/freeze、/api/runs |
 | 提取→文档18080 | PDF 引用、原生文字和原页图像；可选既有 IR 引用 | /api/report-assets/{asset_id}/reading-source、reading-pages、reading-pages/{page_index}/image；/api/evidence/{ir_run_id} |
 | 提取→模型 | instructions/context/schema/images/max_tokens/cancel_check → 页提示或转录及调用回执 | ModelPort，由任务选择的本地Qwen或DeepSeek适配器实现 |
@@ -91,6 +92,8 @@ export_id、内容摘要和接收回执标识同一交接；相同包重送返�
 队列worker行协议由`esg_contracts/worker.py`定义：标准前缀`ESG_PIPELINE_EVENT `后接含kind的JSON，消费者在native_dispatch及worker中解释进度/日志/结果。执行进程仍需继承运行时槽位；日志行不是可以随意伪造的业务完成状态。输入/输出、模型调用和最终事实合同各自独立。
 
 原生阅读让出窗口时为 `queued`，累积计数跟随同一 `NativeRun`，`execution_continues` 表示已保存的续读位置。编排沿用任务 ID 并发出 `window_yielded` 事件，记录本窗口调用数、历时、时间目标及派发时等待数。运行观察的 `position` 仅在排队态提供，为当下预计的等待顺位。
+
+批次提交使用 `submission_key` 和有序 `sessions`，每份保留自己的预算、提供者和冻结摘要。相同编号和内容返回同一批次。批次成员 `position` 是原始报告顺位，`admitted_at` 是最近一次入窗时间。`waiting_for_window` 是候补会话状态。批次的 `active_count`、`waiting_count` 和 `finished_count` 分别表示入窗中的报告、候补报告和终态报告。保留的历史成员继续可读，永久删除会话后不再计入列表。
 
 数据库内部桥为DatabaseBridge→capture_worker.mjs，长驻单连接、序列化JSON行：请求`{id, method, params}`，响应`{id, result}`或`{id, error:{code,message}}`。方法由capture_worker.mjs的显式分派表定义，SQL不向外部模块暴露；超时写入先查业务回执，不能自动重放。
 

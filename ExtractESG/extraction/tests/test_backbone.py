@@ -198,6 +198,71 @@ def test_reported_rate_multiplier_retains_printed_value_in_the_distinct_scope(do
     assert fact.identity.dimensions["rate_multiplier"].value == "per_200000_hours"
     assert mapping.match == "different"
 
+
+def test_declared_method_statement_resolves_uncertain_relation_without_using_dates(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get("E2-4_09")
+    document = documents.document("ir-example")
+    statement = "Furthermore, we have deployed an online monitoring system to analyze our total wastewater discharge."
+    fact, mapping = _fact(document, clause, 33, {"value": statement, "relation": "uncertain"}, True)
+    assert fact.value.statement_raw == statement
+    assert fact.identity.reporting_period.raw_text is None
+    assert mapping.match == "match"
+
+    for other in (
+        "We have not deployed an online monitoring system for wastewater.",
+        "If we deployed an online monitoring system for wastewater, we would reassess staffing.",
+        "Suppliers are screened for wastewater monitoring.",
+    ):
+        _, mapping = _fact(document, clause, 33, {"value": other, "relation": "uncertain"}, True)
+        assert mapping.match == "uncertain"
+    _, mapping = _fact(document, clause, 33, {"value": statement, "relation": "different"}, True)
+    assert mapping.match == "different"
+
+
+def test_annual_fields_select_the_applicable_printed_population_phrase(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get("S1-6_02")
+    document = documents.document("ir-example")
+    scope = "full-time contract employees in 2022 and 2023; the total number of employees in 2024"
+    for year, value, expected in (
+        ("2023", "12,827", "full-time contract employees in 2022 and 2023"),
+        ("2024", "10,597", "the total number of employees in 2024"),
+        ("2025", "2,000", scope),
+    ):
+        fact, _ = _fact(document, clause, 70, {
+            "value": value, "period": year, "unit": "person", "attributes": {"population": scope},
+        }, True)
+        assert fact.identity.dimensions["population"].raw_text == expected
+
+
+def test_numeric_reader_keeps_zero_and_skips_missing_value_messages(documents, repository):
+    from esg_extraction.pipeline.engine import _fact
+
+    clause = repository.get("S1-13_04")
+    document = documents.document("ir-example")
+    assert _fact(document, clause, 47, {
+        "value": "No data available for average training hours per person", "unit": "hours",
+    }, True) is None
+    fact, _ = _fact(document, clause, 71, {"value": "0", "unit": "hour"}, True)
+    assert fact.value.value_raw == "0"
+
+
+def test_local_model_accepts_padding_in_structural_keys_without_changing_source_text(tmp_path):
+    from esg_extraction.pipeline.adapters.local_model import LocalQwenModel
+
+    model = LocalQwenModel(tmp_path)
+    model.generate_structured = lambda **_: (
+        '{"items ": [{"value ": "33.00", "unit": "hour", "unit ": "hours",'
+        '"attributes ": {"population ": "  All employees  "}}]}', {},
+    )
+    result, _ = model.complete(instructions="", context={}, schema={}, max_tokens=64, cancel_check=lambda: False)
+    assert result == {"items": [{"value": "33.00", "unit": "hour",
+                                "attributes": {"population": "  All employees  "}}]}
+
+
 def test_no_cross_clause_or_cross_run_model_cache(documents,repository,tmp_path):
     model=Model();artifacts=FileArtifactPort(tmp_path/'out')
     c=quantitative(repository)

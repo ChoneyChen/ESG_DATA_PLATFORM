@@ -50,6 +50,7 @@
 | [ConsoleESG/frontend/src/app/workflow.test.tsx](../../ConsoleESG/frontend/src/app/workflow.test.tsx) | 测试/样例 |
 | [ConsoleESG/frontend/src/features/clauses/editor.tsx](../../ConsoleESG/frontend/src/features/clauses/editor.tsx) | 源码/配置；职责见模块设计 |
 | [ConsoleESG/frontend/src/features/clauses/pages.tsx](../../ConsoleESG/frontend/src/features/clauses/pages.tsx) | 源码/配置；职责见模块设计 |
+| [ConsoleESG/frontend/src/features/extractions/batches.tsx](../../ConsoleESG/frontend/src/features/extractions/batches.tsx) | 源码/配置；职责见模块设计 |
 | [ConsoleESG/frontend/src/features/extractions/create.tsx](../../ConsoleESG/frontend/src/features/extractions/create.tsx) | 源码/配置；职责见模块设计 |
 | [ConsoleESG/frontend/src/features/extractions/detail.tsx](../../ConsoleESG/frontend/src/features/extractions/detail.tsx) | 源码/配置；职责见模块设计 |
 | [ConsoleESG/frontend/src/features/extractions/list.tsx](../../ConsoleESG/frontend/src/features/extractions/list.tsx) | 源码/配置；职责见模块设计 |
@@ -355,6 +356,7 @@
 | [ExtractESG/pipeline/src/esg_pipeline/outcomes.py](../../ExtractESG/pipeline/src/esg_pipeline/outcomes.py) | Shared execution/result axes derived from durable stage artifacts. |
 | [ExtractESG/pipeline/src/esg_pipeline/plan_lifecycle.py](../../ExtractESG/pipeline/src/esg_pipeline/plan_lifecycle.py) | Durable parent lifecycle commands across the platform and extraction domain. |
 | [ExtractESG/pipeline/src/esg_pipeline/progress.py](../../ExtractESG/pipeline/src/esg_pipeline/progress.py) | Compatibility imports for the single shared workbench progress contract. |
+| [ExtractESG/pipeline/src/esg_pipeline/report_batches.py](../../ExtractESG/pipeline/src/esg_pipeline/report_batches.py) | Durable report admission in the same transaction as session transitions. |
 | [ExtractESG/pipeline/src/esg_pipeline/report_processing.py](../../ExtractESG/pipeline/src/esg_pipeline/report_processing.py) | Durable report identities and OCR → IR preparation above the single queue. |
 | [ExtractESG/pipeline/src/esg_pipeline/scheduler.py](../../ExtractESG/pipeline/src/esg_pipeline/scheduler.py) | 源码/配置；职责见模块设计 |
 | [ExtractESG/pipeline/src/esg_pipeline/secrets.py](../../ExtractESG/pipeline/src/esg_pipeline/secrets.py) | 源码/配置；职责见模块设计 |

@@ -15,6 +15,7 @@ from esg_contracts.sessions import (
 )
 from datetime import datetime, timezone
 from .report_processing import ProcessingActionRequest, STAGE_LABELS
+from .report_batches import ACTIVE_STATUSES, WAITING_FOR_WINDOW, ReportBatches
 from .context import dispatch_key
 
 
@@ -38,6 +39,7 @@ class ExtractionCoordinator:
             db.execute(
                 "CREATE TABLE IF NOT EXISTS clause_extraction_plans (id TEXT PRIMARY KEY, body TEXT NOT NULL)"
             )
+        self.batches = ReportBatches(store)
 
     def remote(self, method, path, payload=None):
         try:
@@ -80,14 +82,21 @@ class ExtractionCoordinator:
                 "INSERT INTO clause_extraction_plans VALUES(?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body",
                 (state["session_id"], json.dumps(state, ensure_ascii=False)),
             )
+            if state.get("batch_id") and (
+                state["status"] in TERMINAL or state["status"] == WAITING_FOR_WINDOW
+            ):
+                self.batches.refill(db, state["batch_id"], state["updated_at"])
 
-    def list(self, terminal_limit=None, archived=False):
+    def list(self, terminal_limit=None, archived=False, *, include_waiting=True):
         with self.store._connect() as db:
             rows = db.execute(
                 """SELECT json_set(json_remove(body,'$.target_snapshot'),
                     '$.clause_keys',json((SELECT json_group_array(key) FROM json_each(body,'$.target_snapshot.clauses'))),
                     '$.target_digest',json_extract(body,'$.target_snapshot.digest'))
-                    FROM clause_extraction_plans ORDER BY rowid DESC"""
+                    FROM clause_extraction_plans
+                    WHERE (? OR json_extract(body,'$.status')<>?)
+                    ORDER BY rowid DESC""",
+                (include_waiting, WAITING_FOR_WINDOW),
             ).fetchall()
         states = [json.loads(row[0]) for row in rows]
         states = [state for state in states if bool(state.get("archived_at")) == archived]
@@ -98,11 +107,20 @@ class ExtractionCoordinator:
         runs = self.run_statuses(states)
         return [self.detail(state,runs.get(state.get('run_id'))) for state in states]
 
+    def batch_waiting_count(self):
+        with self.store._connect() as db:
+            return db.execute(
+                "SELECT count(*) FROM clause_extraction_plans WHERE json_extract(body,'$.status')=?",
+                (WAITING_FOR_WINDOW,),
+            ).fetchone()[0]
+
     def run_statuses(self, states):
-        ids = list(dict.fromkeys(s['run_id'] for s in states if s.get('run_id')))
-        if not ids:
-            return {}
-        return {run['run_id']:run for run in self.remote('POST','/api/runs/status',{'run_ids':ids})['runs']}
+        ids = list(dict.fromkeys(s["run_id"] for s in states if s.get("run_id") and not s.get("resume_requested")))
+        return {
+            run["run_id"]: run
+            for offset in range(0, len(ids), 1000)
+            for run in self.remote("POST", "/api/runs/status", {"run_ids": ids[offset:offset + 1000]})["runs"]
+        }
 
     def archive_many(self, keys, archived=True):
         with self._lock:
@@ -159,11 +177,19 @@ class ExtractionCoordinator:
             return {"session_ids": [state["session_id"] for state in states], "purged": True}
 
     def preview(self, request):
+        return self._preview(request, engine=None, snapshots={})
+
+    def _preview(self, request, *, engine, snapshots):
         native = request.native()
-        snapshot = self.remote(
-            "POST", "/api/targets/freeze", native.model_dump(mode="json")
-        )
-        engine = self.remote("GET", "/api/engine")
+        selection = (tuple(request.clause_keys), request.selection,
+                     request.model_selection or ModelSelection(), request.document_model_selection)
+        if selection not in snapshots:
+            snapshots[selection] = self.remote(
+                "POST", "/api/targets/freeze", native.model_dump(mode="json")
+            )
+        snapshot = snapshots[selection]
+        if engine is None:
+            engine = self.remote("GET", "/api/engine")
         if not engine["ready"]:
             raise ExtractionServiceUnavailable("提取服务代码已变化，需要重启。")
         if (
@@ -220,8 +246,27 @@ class ExtractionCoordinator:
 
     def _create(self, request):
         preview = self.preview(request)
+        state = self._new_session(request, preview)
+        self.save(state)
+        return self.detail(state)
+
+    def create_batch(self, request):
+        with self._lock:
+            batch_id = self.batches.submitted(request)
+            if not batch_id:
+                engine = self.remote("GET", "/api/engine")
+                snapshots = {}
+                states = [
+                    self._new_session(member, self._preview(member, engine=engine, snapshots=snapshots))
+                    for member in request.sessions
+                ]
+                batch_id = self.batches.create(request, states)
+            return self.batches.get(batch_id)
+
+    @staticmethod
+    def _new_session(request, preview):
         key = "extract-plan-" + uuid4().hex
-        state = {
+        return {
             "session_id": key,
             "name": request.name,
             "status": "queued",
@@ -236,8 +281,6 @@ class ExtractionCoordinator:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "engine_fingerprint": preview["engine_fingerprint"],
         }
-        self.save(state)
-        return self.detail(state)
 
     def _observed_step(self, step):
         if not step.get("task_id"):
@@ -315,7 +358,7 @@ class ExtractionCoordinator:
             state["status"] = (
                 "cancelling" if self._active_preparation(prepared) else "cancelled"
             )
-        if state.get("run_id"):
+        if state.get("run_id") and not state.get("resume_requested"):
             try:
                 run = NativeRun.model_validate(
                     run_record if run_record is not None else self.remote("GET", f"/api/runs/{state['run_id']}")
@@ -329,7 +372,8 @@ class ExtractionCoordinator:
                     "cancelling"
                     if state.get("cancel_requested") and run.status not in TERMINAL
                     else "cancelled"
-                    if state.get("cancel_requested") and run.status == "interrupted"
+                    if state.get("cancel_requested")
+                    and (run.status == "interrupted" or state["status"] == "cancelled")
                     else run.status
                 )
                 state["progress"] = run.progress
@@ -339,7 +383,7 @@ class ExtractionCoordinator:
                 state["observation_error"] = str(exc)
         if "current_phase" not in state:
             state["current_phase"] = (
-                "queued" if state["status"] == "queued" else state["stage"]
+                state["status"] if state["status"] in {"queued", WAITING_FOR_WINDOW} else state["stage"]
             )
             preparation = state.get("preparation")
             if preparation and state["stage"] == "preparing":
@@ -375,7 +419,7 @@ class ExtractionCoordinator:
             else "partial" if state["status"] == "partial" else "not_evaluated"
         )
         state["available_actions"] = []
-        if state["status"] in {"queued", "running"}:
+        if state["status"] in {"queued", "running", WAITING_FOR_WINDOW}:
             state["available_actions"] = [
                 {
                     "action": "cancel",
@@ -394,10 +438,19 @@ class ExtractionCoordinator:
             state = self.get(key)
             if not state.get("run_id"):
                 raise ValueError("The extraction has not started")
-            self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
-            state.update(status="queued", queue_task_id=None, cancel_requested=False, error=None, execution_index=state.get("execution_index",0)+1)
+            if state.get("batch_id"):
+                if state.get("resume_requested"):
+                    return self.detail(state)
+                if not (self.detail(state).get("run") or {}).get("resumable"):
+                    raise ValueError("This extraction is not ready to resume")
+                state.update(status=WAITING_FOR_WINDOW, resume_requested=True, admitted_at=None)
+            else:
+                self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
+                state["status"] = "queued"
+            state.update(queue_task_id=None, cancel_requested=False, error=None,
+                         execution_index=state.get("execution_index",0)+1)
             self.save(state)
-            return self.detail(state)
+            return self.detail(self.get(key))
 
     def cancel(self, key):
         with self._lock:
@@ -405,6 +458,12 @@ class ExtractionCoordinator:
             current = self.detail(state)
             if current["status"] in TERMINAL:
                 raise ValueError("任务已经结束，不能再次取消。")
+            if state["status"] == WAITING_FOR_WINDOW:
+                state.update(cancel_requested=True, status="cancelled")
+                state.pop("resume_requested", None)
+                self.save(state)
+                return self.detail(state)
+            state.pop("resume_requested", None)
             state.update(cancel_requested=True, status="cancelling")
             self.save(state)
             self._cancel_children(state)
@@ -460,6 +519,10 @@ class ExtractionCoordinator:
             return
         state.pop("observation_error", None)
         request = ExtractionPlanRequest.model_validate(state["request"])
+        if state.get("resume_requested"):
+            run_record = self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
+            state.pop("resume_requested")
+            self.save(state)
         if not state["run_id"]:
             if state["ir_run_id"]:
                 self.store.pin_ir(state["session_id"], state["ir_run_id"])
@@ -535,7 +598,9 @@ class ExtractionCoordinator:
             while not self._stop.is_set():
                 with self.store._connect() as db:
                     rows = db.execute(
-                        "SELECT body FROM clause_extraction_plans WHERE json_extract(body,'$.status') IN ('queued','running','cancelling')"
+                        """SELECT body FROM clause_extraction_plans
+                           WHERE json_extract(body,'$.status') IN (?,?,?) ORDER BY rowid""",
+                        ACTIVE_STATUSES,
                     ).fetchall()
                 states = [json.loads(row[0]) for row in rows]
                 try:
@@ -545,8 +610,11 @@ class ExtractionCoordinator:
                     continue
                 for snapshot in states:
                     with self._lock:
-                        state = self.get(snapshot["session_id"])
-                        if state["status"] not in {"queued", "running", "cancelling"}:
+                        try:
+                            state = self.get(snapshot["session_id"])
+                        except KeyError:
+                            continue
+                        if state["status"] not in ACTIVE_STATUSES:
                             continue
                         try:
                             observed = runs.get(state.get("run_id")) if state.get("run_id") == snapshot.get("run_id") else None

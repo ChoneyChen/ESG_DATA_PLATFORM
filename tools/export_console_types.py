@@ -37,7 +37,10 @@ from esg_contracts.evidence import DocumentReference, EvidenceStructure, ObjectS
 from esg_data.periods import ReportedPeriod
 from esg_contracts.results import FactCollection, FactBundle, CandidateRejection, FactPage, ResultOverview, OrganizedPage
 from esg_contracts.operations import TaskObservation
-from esg_contracts.sessions import ExtractionPlanRequest, ExtractionSession, NativeRun
+from esg_contracts.sessions import (
+    ExtractionBatch, ExtractionBatchRequest, ExtractionBatchSummary,
+    ExtractionPlanRequest, ExtractionSession, NativeRun,
+)
 from esg_contracts.model_providers import ModelProviders, ModelSelection
 
 MODELS = {
@@ -62,6 +65,9 @@ MODELS = {
     "ReportFolderSummary": ReportFolderSummary,
     "ReportBatch": BatchManifest,
     "CreateExtraction": ExtractionPlanRequest,
+    "ExtractionBatchRequest": ExtractionBatchRequest,
+    "ExtractionBatchSummary": ExtractionBatchSummary,
+    "ExtractionBatch": ExtractionBatch,
     "ModelProviders": ModelProviders,
     "ModelSelection": ModelSelection,
     "ExtractionSession": ExtractionSession,

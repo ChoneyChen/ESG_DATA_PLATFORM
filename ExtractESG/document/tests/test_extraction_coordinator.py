@@ -1,12 +1,13 @@
-import sqlite3
 from types import SimpleNamespace
 import pytest
+from esg_pipeline.contracts import PipelineTaskType
 from esg_pipeline.extraction import ExtractionCoordinator,ExtractionServiceUnavailable
-from esg_contracts.sessions import ExtractionPlanRequest
+from esg_pipeline.store import PipelineQueueStore
+from esg_contracts.sessions import ExtractionBatchRequest, ExtractionPlanRequest
 
 @pytest.fixture
 def coordinator(tmp_path):
-    store=SimpleNamespace(_connect=lambda:sqlite3.connect(tmp_path/'state.db'))
+    store=PipelineQueueStore(tmp_path/'state.db')
     processing=SimpleNamespace(get=lambda key:{'processing_id':key,'status':'running','steps':{'ocr':{'status':'running','progress':{'current':2,'total':8,'unit':'pages'}}}})
     return ExtractionCoordinator(store,processing,lambda *a:None,lambda key:None,'http://127.0.0.1:18180')
 
@@ -150,3 +151,146 @@ def test_batch_observation_cannot_overwrite_a_confirmed_preparation_cancellation
     persisted=coordinator.get("plan")
     assert persisted["status"] == "cancelled" and persisted["cancel_requested"]
     assert not persisted.get("error")
+
+
+def test_report_batch_slides_on_terminal_reports_and_survives_restart(coordinator):
+    snapshot = {"clauses": {"TEST_01": {}}, "digest": "a" * 64}
+    calls = []
+    runs = {}
+    coordinator.processing.assets = SimpleNamespace(get=lambda key: {"sha256": "b" * 64})
+    coordinator.store.get = lambda key: SimpleNamespace(status=SimpleNamespace(value="queued"))
+    coordinator.queue = lambda run_id, *args, **kwargs: SimpleNamespace(task_id=run_id + "-task")
+
+    def remote(method, path, payload=None):
+        calls.append(path)
+        if path == "/api/engine":
+            return {"ready": True, "fingerprint": "c" * 64, "version": "test"}
+        if path == "/api/targets/freeze":
+            return snapshot
+        if path == "/api/runs":
+            run_id = payload["submission_key"] + "-run"
+            runs[run_id] = {"run_id": run_id, "status": "queued"}
+            return runs[run_id]
+        if path == "/api/runs/status":
+            return {"runs": [runs[key] for key in payload["run_ids"]]}
+        if path.endswith("/resume"):
+            run = runs[path.split("/")[3]]
+            run.update(status="queued", resumable=False)
+            return run
+        return runs[path.rsplit("/", 1)[-1]]
+
+    coordinator.remote = remote
+    request = ExtractionBatchRequest(submission_key="report-batch", sessions=[
+        ExtractionPlanRequest(input={"kind": "pdf", "asset_id": f"asset-{index}"},
+                              clause_keys=["TEST_01"], name=f"Report {index}")
+        for index in range(1, 14)
+    ])
+    batch = coordinator.create_batch(request)
+    ids = [member.session_id for member in batch.members]
+    assert [member.name for member in batch.members] == [f"Report {i}" for i in range(1, 14)]
+    assert (batch.window_size, batch.active_count, batch.waiting_count) == (10, 10, 3)
+    assert coordinator.create_batch(request) == batch
+    assert calls == ["/api/engine", "/api/targets/freeze"]
+    for session_id in ids:
+        coordinator.tick(coordinator.get(session_id))
+    assert len(runs) == 10
+    # Reading can yield repeatedly without freeing a report's place.
+    runs[ids[0] + "-run"]["execution_continues"] = True
+    coordinator.tick(coordinator.get(ids[0]))
+    assert coordinator.batches.get(batch.batch_id).waiting_count == 3
+    # A report cancelled before admission never creates a native run.
+    coordinator.cancel(ids[10])
+    assert coordinator.get(ids[10])["status"] == "cancelled"
+    assert coordinator.get(ids[10]).get("admitted_at") is None
+    runs[ids[0] + "-run"].update(status="completed", execution_continues=False)
+    coordinator.tick(coordinator.get(ids[0]))
+    after_first = coordinator.batches.get(batch.batch_id)
+    assert (after_first.active_count, after_first.waiting_count, after_first.finished_count) == (10, 1, 2)
+    assert after_first.members[11].admitted_at
+    assert after_first.members[12].status == "waiting_for_window"
+
+    restarted = ExtractionCoordinator(coordinator.store, coordinator.processing,
+                                      coordinator.queue, coordinator.cancel_task, coordinator.base_url)
+    restarted.remote = remote
+    assert restarted.batches.get(batch.batch_id) == after_first
+    assert restarted.batch_waiting_count() == 1
+    assert len(restarted.list(terminal_limit=0, include_waiting=False)) == 10
+    restarted.tick(restarted.get(ids[11]))
+    runs[ids[1] + "-run"].update(status="failed", resumable=True)
+    restarted.tick(restarted.get(ids[1]))
+    assert restarted.get(ids[12])["status"] == "queued"
+    assert restarted.resume(ids[1])["status"] == "waiting_for_window"
+    assert not any(path.endswith("/resume") for path in calls)
+    runs[ids[2] + "-run"].update(status="failed", resumable=True)
+    restarted.tick(restarted.get(ids[2]))
+    assert restarted.get(ids[1])["status"] == "queued"
+    restarted.tick(restarted.get(ids[1]))
+    assert any(path.endswith("/resume") for path in calls)
+    assert restarted.batches.get(batch.batch_id).active_count == 10
+
+
+def test_batch_submission_is_atomic_when_any_report_cannot_be_previewed(coordinator):
+    coordinator.remote = lambda method, path, payload=None: (
+        {"ready": True, "fingerprint": "c" * 64, "version": "test"} if path == "/api/engine"
+        else {"clauses": {"TEST_01": {}}, "digest": "a" * 64}
+    )
+    assets = {"valid": {"sha256": "b" * 64}}
+    coordinator.processing.assets = SimpleNamespace(get=assets.__getitem__)
+    request = ExtractionBatchRequest(submission_key="retry", sessions=[
+        ExtractionPlanRequest(input={"kind": "pdf", "asset_id": key}, clause_keys=["TEST_01"])
+        for key in ("valid", "missing")
+    ])
+    with pytest.raises(KeyError, match="missing"):
+        coordinator.create_batch(request)
+    assert coordinator.batches.list() == [] and coordinator.list() == []
+    assets["missing"] = {"sha256": "d" * 64}
+    batch = coordinator.create_batch(request)
+    assert len(batch.members) == 2
+    with pytest.raises(ValueError, match="内容已变化"):
+        coordinator.create_batch(request.model_copy(update={"sessions": request.sessions[::-1]}))
+
+
+def test_batch_shows_actual_queue_state_for_admitted_reports(coordinator):
+    coordinator.remote = lambda method, path, payload=None: (
+        {"ready": True, "fingerprint": "c" * 64, "version": "test"} if path == "/api/engine"
+        else {"clauses": {"TEST_01": {}}, "digest": "a" * 64}
+    )
+    coordinator.processing.assets = SimpleNamespace(get=lambda key: {"sha256": "b" * 64})
+    request = ExtractionBatchRequest(submission_key="queue-projection", sessions=[
+        ExtractionPlanRequest(input={"kind": "pdf", "asset_id": f"asset-{index}"},
+                              clause_keys=["TEST_01"])
+        for index in range(11)
+    ])
+    batch = coordinator.create_batch(request)
+    first = coordinator.get(batch.members[0].session_id)
+    task = coordinator.store.create(
+        task_id="reading", task_type=PipelineTaskType.TARGETED_EXTRACTION, operation="clause_extraction",
+        title=first["name"], payload={}, native_job_id="native-reading",
+    )
+    first.update(status="running", queue_task_id=task.task_id)
+    coordinator.save(first)
+    observed = coordinator.batches.get(batch.batch_id)
+    assert observed.members[0].status == "queued"
+    assert observed.active_count == 10 and observed.waiting_count == 1
+    assert coordinator.get(first["session_id"])["status"] == "running"
+
+    coordinator.store.update(task.task_id, status="running")
+    assert coordinator.batches.get(batch.batch_id).members[0].status == "running"
+    coordinator.store.update(task.task_id, status="queued", stage="window_yielded")
+    observed = coordinator.batches.get(batch.batch_id)
+    assert observed.members[0].status == "queued"
+    assert observed.members[0].admitted_at == batch.members[0].admitted_at
+    assert observed.active_count == 10 and observed.waiting_count == 1
+
+    coordinator.store.update(task.task_id, status="completed")
+    second = coordinator.get(batch.members[1].session_id)
+    next_task = coordinator.store.create(
+        task_id="next-reading", task_type=PipelineTaskType.TARGETED_EXTRACTION,
+        operation="clause_extraction", title=second["name"], payload={}, native_job_id="native-next-reading",
+    )
+    coordinator.store.update(next_task.task_id, status="running")
+    second.update(status="running", queue_task_id=next_task.task_id)
+    coordinator.save(second)
+    observed = coordinator.batches.get(batch.batch_id)
+    assert [member.position for member in observed.members if member.status == "running"] == [2]
+    assert observed.active_count == 10 and observed.waiting_count == 1

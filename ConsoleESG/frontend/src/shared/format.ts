@@ -5,6 +5,7 @@ export const labels: Record<string, string> = {
   document_ir: "文档证据",
   ocr: "页面识别",
   queued: "等待执行",
+  waiting_for_window: "等待入窗",
   running: "执行中",
   completed: "执行完成",
   reused: "已复用",

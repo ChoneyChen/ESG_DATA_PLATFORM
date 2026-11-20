@@ -74,7 +74,7 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 
 ## ExtractESG/pipeline与shared_runtime（RQ-08、09）
 
-`esg_pipeline/report_processing.py`生成准备计划。`extraction.py`冻结会话、调度阅读、取消子任务并续跑。`scheduler.py`管理实际派发及窗口交接，向阅读 worker 提供当前等待数。`native_dispatch.py`/`worker.py`分派实际进程。`store.py`持久化任务、等待顺位和事件，续读窗口在原任务内转回排队。`progress.py`/`outcomes.py`组合进度和终态。阅读窗口内如何安排调用归提取引擎，编排只负责何时派发。
+`esg_pipeline/report_processing.py`生成准备计划。`extraction.py`冻结会话、调度阅读、取消子任务并续跑。`report_batches.py`持久化批次顺序和报告席位，随会话状态变化补位。`scheduler.py`管理实际派发及阅读切片交接，向阅读 worker 提供当前等待数。`native_dispatch.py`/`worker.py`分派实际进程。`store.py`持久化任务、等待顺位和事件，续读切片在原任务内转回排队。`progress.py`/`outcomes.py`组合进度和终态。每个阅读切片的模型调用由提取引擎安排。
 
 `esg_runtime/execution_slot.py`拥有共享执行锁；`process.py`/`lifecycle.py`拥有进程生命周期；`model_calls.py`拥有统一调用信封；`release.py`拥有代码指纹/服务身份；`layout.py`只负责组合根路径；`power.py`限制任务期空闲休眠；`trash.py`提供通用生命周期工具。
 

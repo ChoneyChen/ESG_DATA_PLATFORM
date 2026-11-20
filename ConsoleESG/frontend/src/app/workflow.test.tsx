@@ -119,10 +119,33 @@ it("opens parent and child clause pages through real navigation without legacy c
   expect(screen.getByText("← 测试展示组")).toBeTruthy();
   expect(screen.queryByText("版本差异")).toBeNull();
 });
-it("previews targets before execution and retries only the unsubmitted report in a batch", async () => {
-  let failed = false;
-  const posted: string[] = [];
+it("submits the ordered reports atomically and retries the same batch after losing the response", async () => {
+  const ids = ["乙", "甲", ...Array.from({ length: 10 }, (_, index) => String(index + 3))];
+  const posted: unknown[] = [];
+  let firstFinished = false;
+  const batch = () => ({
+    batch_id: "batch-window",
+    name: "实测滑动窗口",
+    created_at: "2026-11-20T00:00:00Z",
+    window_size: 10,
+    active_count: 10,
+    waiting_count: firstFinished ? 1 : 2,
+    finished_count: firstFinished ? 1 : 0,
+    total_count: ids.length,
+    members: ids.map((id, index) => {
+      const admitted = index < (firstFinished ? 11 : 10);
+      return {
+        session_id: "run-" + id,
+        name: "报告 " + id,
+        position: index + 1,
+        status: index === 0 && firstFinished ? "completed" : admitted ? "queued" : "waiting_for_window",
+        admitted_at: admitted ? "2026-11-20T00:00:00Z" : null,
+      };
+    }),
+  });
   const fetch = mock((url, init) => {
+    if (url === "/document/api/report-resources")
+      return { reports: ids.map(resource) };
     if (url === "/document/api/report-sessions/preview")
       return {
         targets: { digest: "d".repeat(64), clauses: { TEST_01: {} } },
@@ -130,36 +153,47 @@ it("previews targets before execution and retries only the unsubmitted report in
         engine_fingerprint: "e".repeat(64),
         calls_model: false,
       };
-    if (url === "/document/api/report-sessions" && init.method === "POST") {
+    if (url === "/document/api/report-extraction-batches" && init.method === "POST") {
       const body = JSON.parse(init.body as string);
-      posted.push(body.input.asset_id);
-      expect(body.expected_target_digest).toBe("d".repeat(64));
-      expect(body.expected_engine_fingerprint).toBe("e".repeat(64));
-      if (body.input.asset_id === "asset-乙" && !failed) {
-        failed = true;
-        return new Error("temporary rejection");
+      posted.push(body);
+      expect(body.name).toBe("实测滑动窗口");
+      expect(body.sessions.map((member: { input: { asset_id: string } }) => member.input.asset_id))
+        .toEqual(ids.map(id => "asset-" + id));
+      for (const member of body.sessions) {
+        expect(member.expected_target_digest).toBe("d".repeat(64));
+        expect(member.expected_engine_fingerprint).toBe("e".repeat(64));
       }
-      return { session_id: "run-" + body.input.asset_id };
+      if (posted.length === 1) throw new Error("Lost the response");
+      return batch();
     }
+    if (url === "/document/api/report-extraction-batches/batch-window") return batch();
     return undefined;
   });
   await open("#/extractions/new");
-  fireEvent.click(await screen.findByText("报告 甲"));
-  fireEvent.click(screen.getByText("报告 乙"));
+  for (const id of ids) fireEvent.click(await screen.findByText("报告 " + id));
+  fireEvent.change(screen.getByLabelText("任务名称"), { target: { value: "实测滑动窗口" } });
   fireEvent.click(await screen.findByText("年度用量"));
   fireEvent.click(screen.getByText("核对提取目标"));
   await screen.findByText("确认本次选择");
-  expect(
-    fetch.mock.calls.filter(
-      ([url, init]) =>
-        url === "/document/api/report-sessions" && init?.method === "POST",
-    ),
-  ).toHaveLength(0);
+  expect(fetch.mock.calls.filter(([url]) => url === "/document/api/report-sessions/preview")).toHaveLength(1);
+  expect(posted).toHaveLength(0);
   fireEvent.click(screen.getByText("开始提取"));
-  await screen.findByText("temporary rejection");
-  fireEvent.click(screen.getByText("提交剩余报告"));
-  await screen.findByText("已创建 2 个独立任务");
-  expect(posted).toEqual(["asset-甲", "asset-乙", "asset-乙"]);
+  await screen.findByText(/服务尚未确认本次提交，可以用同一次提交重试/);
+  expect(screen.getByRole<HTMLButtonElement>("button", { name: "返回修改" }).disabled).toBe(true);
+  fireEvent.click(screen.getByText("重试提交"));
+  await screen.findByRole("heading", { name: "实测滑动窗口" });
+  expect(posted).toHaveLength(2);
+  expect(posted[0]).toEqual(posted[1]);
+  expect(fetch.mock.calls.filter(([url, init]) =>
+    url === "/document/api/report-sessions" && init?.method === "POST",
+  )).toHaveLength(0);
+  const eleventh = ids[10];
+  const memberRow = () => screen.getByRole("link", { name: "报告 " + eleventh }).closest("tr")!;
+  expect(within(memberRow()).getByText("等待入窗")).toBeTruthy();
+  firstFinished = true;
+  await act(async () => invalidate("document", "/api/report-extraction-batches/batch-window"));
+  await waitFor(() => expect(within(memberRow()).getByText("窗口内")).toBeTruthy());
+  expect(within(memberRow()).getByText("等待执行")).toBeTruthy();
 });
 it("saves the DeepSeek key separately and freezes only the selected provider and model", async () => {
   const selection = { provider: "deepseek", model: "deepseek-v4-pro" };

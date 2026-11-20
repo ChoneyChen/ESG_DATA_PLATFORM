@@ -57,6 +57,16 @@ def _vocab(reading, name: str) -> list[str]:
     return list((getattr(reading, "vocabulary", {}) or {}).get(name, []))
 
 
+def matches_reported_statement(clause, statement: str) -> bool:
+    """Recognize an affirmative disclosure using the clause's declared terms."""
+    if clause.data_kind != "qualitative" or not _match(
+        _vocab(clause.reading, "matching_statement_terms"), statement,
+    ):
+        return False
+    result = check_reading(clause, statement, None, None, None)
+    return result.ok and result.status is None
+
+
 def _rule_scope(
     rule, *, text: str, subject: str, scope_text: str, evidence_text: str, unit: str
 ) -> str:

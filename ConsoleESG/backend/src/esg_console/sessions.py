@@ -2,7 +2,9 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from urllib.parse import urlencode
 from esg_contracts.results import FactPage, ResultOverview, OrganizedPage
-from esg_contracts.sessions import ExtractionPlanRequest
+from esg_contracts.sessions import (
+    ExtractionBatch, ExtractionBatchRequest, ExtractionBatchSummary, ExtractionPlanRequest,
+)
 from .monitor import MonitorSnapshot, monitor_snapshot
 from .products import SessionProducts
 
@@ -25,7 +27,23 @@ def extraction_router(coordinator, require_ready=lambda: None,products=None):
 
     @router.get("/api/console/monitor", response_model=MonitorSnapshot)
     def monitor():
-        return monitor_snapshot(coordinator.list(terminal_limit=3),products)
+        return monitor_snapshot(
+            coordinator.list(terminal_limit=3, include_waiting=False), products,
+            batch_waiting_count=coordinator.batch_waiting_count(),
+        )
+
+    @router.post("/api/report-extraction-batches", status_code=202, response_model=ExtractionBatch)
+    def create_batch(request: ExtractionBatchRequest):
+        require_ready()
+        return call(coordinator.create_batch, request)
+
+    @router.get("/api/report-extraction-batches", response_model=list[ExtractionBatchSummary])
+    def batches():
+        return call(coordinator.batches.list)
+
+    @router.get("/api/report-extraction-batches/{key}", response_model=ExtractionBatch)
+    def batch(key: str):
+        return call(coordinator.batches.get, key)
 
     @router.get("/api/report-sessions/{key}/products",response_model=SessionProducts)
     def product_state(key: str):

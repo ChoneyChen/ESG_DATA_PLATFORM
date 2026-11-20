@@ -24,6 +24,16 @@ from esg_extraction.models.structured_template import (
 from esg_runtime.model_calls import ModelCapabilities, ModelCallRequest, prepare_call, finish_call, content_digest
 
 
+def _output_properties(pairs):
+    """The local model can insert padding inside JSON property names."""
+    result = {}
+    for key, value in pairs:
+        field = key.strip()
+        if field not in result or field == key:
+            result[field] = value
+    return result
+
+
 class LocalQwenModel(MlxVlmRuntime):
     provider_name = "local_qwen"
     accepts_images = True
@@ -41,7 +51,7 @@ class LocalQwenModel(MlxVlmRuntime):
     def complete(self, *, instructions, context, schema, max_tokens, cancel_check, images=()):
         execution_context = context.get("execution", {})
         context = {key: value for key, value in context.items() if key != "execution"}
-        return self.generate_structured(
+        raw, telemetry = self.generate_structured(
             context=context,
             instructions=instructions,
             template=schema,
@@ -51,6 +61,7 @@ class LocalQwenModel(MlxVlmRuntime):
             execution_context=execution_context,
             images=images,
         )
+        return json.loads(raw, object_pairs_hook=_output_properties), telemetry
 
     def _ensure_loaded(self) -> float:
         if self._model is None:

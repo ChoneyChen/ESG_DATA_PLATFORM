@@ -106,7 +106,9 @@ def snapshot():
 
 
 def active():
-    try:return get(18080,'/api/console/monitor')['active_count']
+    try:
+        monitor = get(18080, '/api/console/monitor')
+        return monitor['active_count'] + monitor.get('batch_waiting_count', 0)
     except (OSError,ValueError,KeyError):
         if listening(18080):raise RuntimeError('无法确认运行中的任务；服务未停止，请先恢复文档API。')
         return 0

@@ -38,13 +38,14 @@ class MonitorSnapshot(BaseModel):
     queued_count: int = 0
     running_count: int = 0
     waiting_count: int = 0
+    batch_waiting_count: int = 0
     runs: list[MonitorRun] = Field(default_factory=list)
 
 
 TERMINAL = {"completed", "partial", "failed", "cancelled", "interrupted"}
 
 
-def monitor_snapshot(sessions, products=None):
+def monitor_snapshot(sessions, products=None, *, batch_waiting_count=0):
     runs = []
     for state in sessions:
         native = state.get("run") or {}
@@ -68,7 +69,8 @@ def monitor_snapshot(sessions, products=None):
                 for step in (state.get("preparation") or {}).get("steps", [])],
             products=products.for_session(state) if products and (native.get('delivery') or {}).get('export_id') else None,
         ))
-    body = [run.model_dump(mode="json") for run in runs]
+    body = {"runs": [run.model_dump(mode="json") for run in runs],
+            "batch_waiting_count": batch_waiting_count}
     return MonitorSnapshot(
         revision=sha256(json.dumps(body, sort_keys=True).encode()).hexdigest(),
         observed_at=datetime.now(timezone.utc).isoformat(),
@@ -76,4 +78,5 @@ def monitor_snapshot(sessions, products=None):
         queued_count=sum(run.status == 'queued' for run in runs),
         running_count=sum(run.status == 'running' and run.current_phase != 'preparing' for run in runs),
         waiting_count=sum(run.status == 'running' and run.current_phase == 'preparing' for run in runs),
+        batch_waiting_count=batch_waiting_count,
     )

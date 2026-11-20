@@ -76,6 +76,7 @@ export function RunMonitor() {
     return () => window.removeEventListener("keydown", escape);
   }, [open]);
   const runs = monitor.data?.runs || [];
+  const batchWaiting = monitor.data?.batch_waiting_count || 0;
   const active = runs.filter(run => ["queued", "running", "cancelling"].includes(run.status));
   const recent = runs.filter(run => !active.includes(run));
   return (
@@ -97,6 +98,9 @@ export function RunMonitor() {
               {monitor.data && !monitor.error && (
                 <small>{monitor.data.running_count ?? 0} 个执行 · {monitor.data.waiting_count ?? 0} 个等待准备 · {monitor.data.queued_count ?? 0} 个排队</small>
               )}
+              {batchWaiting > 0 && !monitor.error && <small>
+                <a href={href("extractions", "batches")}>{batchWaiting} 份报告等待进入批次窗口</a>
+              </small>}
             </div>
             <div>
               <button
@@ -125,7 +129,7 @@ export function RunMonitor() {
             </div>
           ) : !runs.length ? (
             <p className="monitor-empty">
-              {monitor.loading ? "读取中…" : "当前没有提取任务"}
+              {monitor.loading ? "读取中…" : batchWaiting ? "当前还有报告候补" : "当前没有提取任务"}
             </p>
           ) : (
             <>

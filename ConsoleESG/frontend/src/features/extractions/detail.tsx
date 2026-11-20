@@ -34,6 +34,7 @@ import {
   OrganizedList,
 } from "./results";
 import { FactPages, ClauseResultPage } from "./result-pages";
+import { extractionBatchesPath } from "./batches";
 const candidateTypes: Record<string, string> = {
   formula: "化学式",
   identifier: "编号",
@@ -69,13 +70,14 @@ export function ExtractionPage({
       1800,
     ),
     run = session.data;
-  const active = !!run && !terminal.includes(run.status);
+  const waitingForWindow = run?.status === "waiting_for_window";
+  const active = !!run && !waitingForWindow && !terminal.includes(run.status);
   const results = useResource<FactPage>(
-    "document", run && child === "facts" && childId ? "/api/report-sessions/" + segment(sessionId) + "/facts?limit=1&fact_id=" + segment(childId) : null,
+    "document", run && !waitingForWindow && child === "facts" && childId ? "/api/report-sessions/" + segment(sessionId) + "/facts?limit=1&fact_id=" + segment(childId) : null,
     active ? 4000 : 0,
   );
   const overview = useResource<ResultOverview>(
-    "document", run ? "/api/report-sessions/" + segment(sessionId) + "/results" : null,
+    "document", run && !waitingForWindow ? "/api/report-sessions/" + segment(sessionId) + "/results" : null,
     active ? 4000 : 0,
   );
   useEffect(() => {
@@ -84,7 +86,7 @@ export function ExtractionPage({
   const reports = useResource<ReportList>("document", "/api/report-resources");
   const candidates = useResource<CandidateRejection[]>(
     "document",
-    run && !child && tabId === "candidates" ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null,
+    run && !waitingForWindow && !child && tabId === "candidates" ? "/api/report-sessions/" + segment(sessionId) + "/candidates" : null,
     active ? 4000 : 0,
   );
   const tab = [
@@ -126,6 +128,8 @@ export function ExtractionPage({
         {},
       );
       invalidate("document", "/api/report-sessions");
+      if (run?.batch_id) invalidate("document", extractionBatchesPath);
+      invalidate("document", "/api/console/monitor");
       setConfirmCancel(false);
     } catch (e) {
       setError(e as Error);
@@ -151,7 +155,7 @@ export function ExtractionPage({
                 : href("extractions", sessionId) + "?tab=facts"
               : child
                 ? href("extractions", sessionId)
-                : href("extractions"),
+                : run?.batch_id ? href("extractions", "batches", run.batch_id) : href("extractions"),
           label:
             child === "facts"
               ? returnClause
@@ -159,7 +163,7 @@ export function ExtractionPage({
                 : "原始事实"
               : child
                 ? "本次提取"
-                : "提取",
+                : run?.batch_id ? "提取批次" : "提取",
         }}
         subtitle={child === "tables" ? childId : undefined}
         actions={
@@ -167,7 +171,12 @@ export function ExtractionPage({
           run && (
             <>
               {run.available_actions?.some((a) => a.action === "resume") && <button onClick={async () => {
-                try { await write("document", "/api/report-sessions/" + segment(sessionId) + "/resume", {}); invalidate("document", "/api/report-sessions"); }
+                try {
+                  await write("document", "/api/report-sessions/" + segment(sessionId) + "/resume", {});
+                  invalidate("document", "/api/report-sessions");
+                  if (run.batch_id) invalidate("document", extractionBatchesPath);
+                  invalidate("document", "/api/console/monitor");
+                }
                 catch (e) { setError(e as Error); }
               }}>继续提取</button>}
               {run.available_actions?.some((a) => a.action === "cancel") && (
@@ -211,7 +220,9 @@ export function ExtractionPage({
                   )}
                   <small>{date(run.created_at)}</small>
                 </div>
-                <ProductStrip sessionId={sessionId} />
+                {waitingForWindow ? <Notice>
+                  {run.batch_position == null ? "这份报告" : `批次第 ${run.batch_position} 份报告`}正在候补。窗口有空位后会自动进入执行队列。
+                </Notice> : <ProductStrip sessionId={sessionId} />}
                 {run.observation === "unavailable" && (
                   <Notice tone="error">
                     {run.observation_error || "暂时无法确认执行状态。"}{" "}
@@ -258,6 +269,7 @@ export function ExtractionPage({
                     )}
                   </div>
                 )}
+                {!waitingForWindow && <>
                 <section className="progress-panel" aria-label="执行进度">
                   <div className="steps">
                     {run.preparation?.steps?.map((step) => (
@@ -515,6 +527,7 @@ export function ExtractionPage({
                     ))}
                   </section>
                 )}
+                </>}
               </>
             )}
             {child === "tables" && childId && (run.run ? <ClauseResultPage key={sessionId + ":" + childId} sessionId={sessionId} clauseKey={childId} active={active}/> : <Empty title="等待开始阅读"/>)}

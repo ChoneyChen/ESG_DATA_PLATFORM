@@ -79,7 +79,7 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 
 | 方法与路径 | 参数（含请求模型） | 返回模型 | 实现 |
 |---|---|---|---|
-| `GET /api/console/monitor` | `` | `MonitorSnapshot` | [monitor](../../ConsoleESG/backend/src/esg_console/sessions.py#L26) |
+| `GET /api/console/monitor` | `` | `MonitorSnapshot` | [monitor](../../ConsoleESG/backend/src/esg_console/sessions.py#L28) |
 | `GET /api/document-ir/documents` | `self` | `list[dict[str, object]]` | [self.list_document_ir_documents](../../ExtractESG/document/src/esg_document/api/document_archive.py#L546) |
 | `GET /api/document-ir/documents/{document_id}/revisions` | `self, document_id: str` | `list[dict[str, object]]` | [self.list_document_revisions](../../ExtractESG/document/src/esg_document/api/document_archive.py#L551) |
 | `GET /api/document-ir/jobs` | `self` | `list[DocumentIrJobState]` | [self.list_document_ir_jobs](../../ExtractESG/document/src/esg_document/api/document_archive.py#L410) |
@@ -137,14 +137,14 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/operations/tasks` | `` | `list[TaskObservation]` | [operation_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L1424) |
 | `GET /api/operations/tasks/{task_id}` | `task_id: str` | `TaskObservation` | [operation_task](../../ExtractESG/document/src/esg_document/api/main.py#L1429) |
 | `GET /api/pdf-library` | `` | `见实现` | [pdf_library](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L55) |
-| `GET /api/pipeline/clause-groups` | `` | `见实现` | [groups](../../ConsoleESG/backend/src/esg_console/sessions.py#L135) |
-| `GET /api/pipeline/clause-selections` | `` | `见实现` | [selections](../../ConsoleESG/backend/src/esg_console/sessions.py#L139) |
-| `GET /api/pipeline/clauses` | `` | `见实现` | [clauses](../../ConsoleESG/backend/src/esg_console/sessions.py#L110) |
-| `GET /api/pipeline/clauses/{key}` | `key: str` | `见实现` | [clause](../../ConsoleESG/backend/src/esg_console/sessions.py#L114) |
-| `GET /api/pipeline/clauses/{key}/organization` | `key: str` | `见实现` | [organization](../../ConsoleESG/backend/src/esg_console/sessions.py#L118) |
+| `GET /api/pipeline/clause-groups` | `` | `见实现` | [groups](../../ConsoleESG/backend/src/esg_console/sessions.py#L153) |
+| `GET /api/pipeline/clause-selections` | `` | `见实现` | [selections](../../ConsoleESG/backend/src/esg_console/sessions.py#L157) |
+| `GET /api/pipeline/clauses` | `` | `见实现` | [clauses](../../ConsoleESG/backend/src/esg_console/sessions.py#L128) |
+| `GET /api/pipeline/clauses/{key}` | `key: str` | `见实现` | [clause](../../ConsoleESG/backend/src/esg_console/sessions.py#L132) |
+| `GET /api/pipeline/clauses/{key}/organization` | `key: str` | `见实现` | [organization](../../ConsoleESG/backend/src/esg_console/sessions.py#L136) |
 | `GET /api/pipeline/events/stream` | `request: Request, after: int=Query(0, ge=0), task_id: str &#124; None=None, latest: bool=Query(False)` | `见实现` | [event_stream](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L51) |
 | `GET /api/pipeline/history` | `limit: int=Query(300, ge=1, le=1000)` | `见实现` | [history](../../ExtractESG/pipeline/src/esg_pipeline/execution_api.py#L19) |
-| `GET /api/pipeline/organization-contract` | `` | `见实现` | [organization_contract](../../ConsoleESG/backend/src/esg_console/sessions.py#L122) |
+| `GET /api/pipeline/organization-contract` | `` | `见实现` | [organization_contract](../../ConsoleESG/backend/src/esg_console/sessions.py#L140) |
 | `GET /api/pipeline/status` | `` | `见实现` | [current_pipeline_status](../../ExtractESG/document/src/esg_document/api/main.py#L1405) |
 | `GET /api/pipeline/tasks` | `limit: int=Query(300, ge=1, le=1000), include_archived: bool=False` | `list[PipelineTask]` | [list_pipeline_tasks](../../ExtractESG/document/src/esg_document/api/main.py#L378) |
 | `POST /api/pipeline/tasks/document-ir` | `request: DocumentIrPipelineTaskRequest=Body(...)` | `PipelineTask` | [queue_document_ir_task](../../ExtractESG/document/src/esg_document/api/main.py#L766) |
@@ -170,6 +170,9 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `GET /api/report-assets/{asset_id}/reading-pages/{page_index}/image` | `asset_id: str, page_index: int, thumbnail: bool=Query(False)` | `见实现` | [page_image](../../ExtractESG/document/src/esg_document/api/reading_pages.py#L40) |
 | `GET /api/report-assets/{asset_id}/reading-source` | `asset_id: str` | `DocumentReference` | [reading_source](../../ExtractESG/document/src/esg_document/api/reading_pages.py#L24) |
 | `POST /api/report-assets/{asset_id}/restore` | `见注册函数` | `见实现` | [action_endpoint(action)](../../ExtractESG/document/src/esg_document/api/main.py#L667) |
+| `GET /api/report-extraction-batches` | `` | `list[ExtractionBatchSummary]` | [batches](../../ConsoleESG/backend/src/esg_console/sessions.py#L40) |
+| `POST /api/report-extraction-batches` | `request: ExtractionBatchRequest` | `ExtractionBatch` | [create_batch](../../ConsoleESG/backend/src/esg_console/sessions.py#L35) |
+| `GET /api/report-extraction-batches/{key}` | `key: str` | `ExtractionBatch` | [batch](../../ConsoleESG/backend/src/esg_console/sessions.py#L44) |
 | `GET /api/report-library` | `` | `见实现` | [report_library](../../ExtractESG/document/src/esg_document/api/library_deletion.py#L59) |
 | `GET /api/report-processing/runs` | `include_archived: bool=False` | `见实现` | [runs](../../ExtractESG/document/src/esg_document/api/report_processing.py#L77) |
 | `POST /api/report-processing/runs` | `request: ProcessingRequest` | `见实现` | [create](../../ExtractESG/document/src/esg_document/api/report_processing.py#L84) |
@@ -191,22 +194,22 @@ Console静态服务的同源代理`/document`、`/extraction`、`/database`见[�
 | `POST /api/report-resources/uploads` | `http: Request, file: UploadFile=File(...), metadata: str=Form(...)` | `见实现` | [upload](../../ExtractESG/document/src/esg_document/api/report_resources.py#L103) |
 | `GET /api/report-resources/{pdf_id}` | `pdf_id: str` | `见实现` | [get](../../ExtractESG/document/src/esg_document/api/report_resources.py#L116) |
 | `PUT /api/report-resources/{pdf_id}` | `pdf_id: str, request: Update, http: Request` | `见实现` | [update](../../ExtractESG/document/src/esg_document/api/report_resources.py#L121) |
-| `GET /api/report-sessions` | `archived: bool=False` | `见实现` | [runs](../../ConsoleESG/backend/src/esg_console/sessions.py#L72) |
-| `POST /api/report-sessions` | `request: ExtractionPlanRequest` | `见实现` | [create](../../ConsoleESG/backend/src/esg_console/sessions.py#L67) |
-| `POST /api/report-sessions/archive` | `request: SessionSelection` | `见实现` | [archive_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L43) |
-| `POST /api/report-sessions/preview` | `request: ExtractionPlanRequest` | `见实现` | [preview](../../ConsoleESG/backend/src/esg_console/sessions.py#L62) |
-| `POST /api/report-sessions/purge` | `request: SessionSelection` | `见实现` | [purge_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L51) |
-| `POST /api/report-sessions/restore` | `request: SessionSelection` | `见实现` | [restore_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L47) |
-| `GET /api/report-sessions/{key}` | `key: str` | `见实现` | [run](../../ConsoleESG/backend/src/esg_console/sessions.py#L76) |
-| `POST /api/report-sessions/{key}/archive` | `key: str` | `见实现` | [archive](../../ConsoleESG/backend/src/esg_console/sessions.py#L35) |
-| `POST /api/report-sessions/{key}/cancel` | `key: str` | `见实现` | [cancel](../../ConsoleESG/backend/src/esg_console/sessions.py#L80) |
-| `GET /api/report-sessions/{key}/candidates` | `key: str` | `见实现` | [candidates](../../ConsoleESG/backend/src/esg_console/sessions.py#L55) |
-| `GET /api/report-sessions/{key}/facts` | `key: str, limit: int=50, cursor: str &#124; None=None, clause_key: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None, fact_id: str &#124; None=None` | `FactPage` | [facts](../../ConsoleESG/backend/src/esg_console/sessions.py#L99) |
-| `GET /api/report-sessions/{key}/organized/{clause_key}` | `key: str, clause_key: str, limit: int=50, cursor: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None` | `OrganizedPage` | [organized](../../ConsoleESG/backend/src/esg_console/sessions.py#L126) |
-| `GET /api/report-sessions/{key}/products` | `key: str` | `SessionProducts` | [product_state](../../ConsoleESG/backend/src/esg_console/sessions.py#L30) |
-| `POST /api/report-sessions/{key}/restore` | `key: str` | `见实现` | [restore](../../ConsoleESG/backend/src/esg_console/sessions.py#L39) |
-| `GET /api/report-sessions/{key}/results` | `key: str` | `ResultOverview` | [result_overview](../../ConsoleESG/backend/src/esg_console/sessions.py#L92) |
-| `POST /api/report-sessions/{key}/resume` | `key: str` | `见实现` | [resume](../../ConsoleESG/backend/src/esg_console/sessions.py#L84) |
+| `GET /api/report-sessions` | `archived: bool=False` | `见实现` | [runs](../../ConsoleESG/backend/src/esg_console/sessions.py#L90) |
+| `POST /api/report-sessions` | `request: ExtractionPlanRequest` | `见实现` | [create](../../ConsoleESG/backend/src/esg_console/sessions.py#L85) |
+| `POST /api/report-sessions/archive` | `request: SessionSelection` | `见实现` | [archive_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L61) |
+| `POST /api/report-sessions/preview` | `request: ExtractionPlanRequest` | `见实现` | [preview](../../ConsoleESG/backend/src/esg_console/sessions.py#L80) |
+| `POST /api/report-sessions/purge` | `request: SessionSelection` | `见实现` | [purge_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L69) |
+| `POST /api/report-sessions/restore` | `request: SessionSelection` | `见实现` | [restore_selected](../../ConsoleESG/backend/src/esg_console/sessions.py#L65) |
+| `GET /api/report-sessions/{key}` | `key: str` | `见实现` | [run](../../ConsoleESG/backend/src/esg_console/sessions.py#L94) |
+| `POST /api/report-sessions/{key}/archive` | `key: str` | `见实现` | [archive](../../ConsoleESG/backend/src/esg_console/sessions.py#L53) |
+| `POST /api/report-sessions/{key}/cancel` | `key: str` | `见实现` | [cancel](../../ConsoleESG/backend/src/esg_console/sessions.py#L98) |
+| `GET /api/report-sessions/{key}/candidates` | `key: str` | `见实现` | [candidates](../../ConsoleESG/backend/src/esg_console/sessions.py#L73) |
+| `GET /api/report-sessions/{key}/facts` | `key: str, limit: int=50, cursor: str &#124; None=None, clause_key: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None, fact_id: str &#124; None=None` | `FactPage` | [facts](../../ConsoleESG/backend/src/esg_console/sessions.py#L117) |
+| `GET /api/report-sessions/{key}/organized/{clause_key}` | `key: str, clause_key: str, limit: int=50, cursor: str &#124; None=None, period: str &#124; None=None, relation: str &#124; None=None, unit: str &#124; None=None, q: str &#124; None=None` | `OrganizedPage` | [organized](../../ConsoleESG/backend/src/esg_console/sessions.py#L144) |
+| `GET /api/report-sessions/{key}/products` | `key: str` | `SessionProducts` | [product_state](../../ConsoleESG/backend/src/esg_console/sessions.py#L48) |
+| `POST /api/report-sessions/{key}/restore` | `key: str` | `见实现` | [restore](../../ConsoleESG/backend/src/esg_console/sessions.py#L57) |
+| `GET /api/report-sessions/{key}/results` | `key: str` | `ResultOverview` | [result_overview](../../ConsoleESG/backend/src/esg_console/sessions.py#L110) |
+| `POST /api/report-sessions/{key}/resume` | `key: str` | `见实现` | [resume](../../ConsoleESG/backend/src/esg_console/sessions.py#L102) |
 | `GET /api/report-sources/{source_sha256}/file` | `source_sha256: str` | `FileResponse` | [get_report_source_file](../../ExtractESG/document/src/esg_document/api/main.py#L634) |
 | `GET /api/reports` | `` | `见实现` | [reports](../../ExtractESG/document/src/esg_document/api/report_processing.py#L47) |
 | `POST /api/reports` | `request: RegisterReportRequest` | `见实现` | [register](../../ExtractESG/document/src/esg_document/api/report_processing.py#L54) |

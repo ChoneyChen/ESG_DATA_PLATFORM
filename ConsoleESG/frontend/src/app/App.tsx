@@ -4,6 +4,7 @@ import { ReportsPage, ReportPage } from "../features/reports/pages";
 import { ExtractionsPage } from "../features/extractions/list";
 import { CreateExtractionPage } from "../features/extractions/create";
 import { ExtractionPage } from "../features/extractions/detail";
+import { ExtractionBatchPage, ExtractionBatchesPage } from "../features/extractions/batches";
 import { ClausesPage } from "../features/clauses/pages";
 import { RuntimePage } from "../features/runtime/pages";
 import { RunMonitor } from "../features/runtime/monitor";
@@ -44,6 +45,8 @@ export default function App() {
     );
   else if (route.valid && section === "extractions" && parts.length === 0)
     page = <ExtractionsPage reportId={params.get("report") || undefined} />;
+  else if (route.valid && section === "extractions" && parts[0] === "batches" && parts.length <= 2)
+    page = parts[1] ? <ExtractionBatchPage key={parts[1]} batchId={parts[1]}/> : <ExtractionBatchesPage/>;
   else if (
     route.valid &&
     section === "extractions" &&

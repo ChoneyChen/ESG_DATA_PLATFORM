@@ -143,7 +143,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "2a27466f292dbc37f242da6340a6e4f38e27f8a7adfbbaa3f81a7767e6136269",
+  "clause_digest": "d2570e07908f21a20623f72ee23c1eacbc7f3d39d84c644ed1fa53200046b4f9",
   "clause_key": "E2-4_09",
   "data_kind": "qualitative",
   "definition": "空气、水和土壤污染测量方法描述",
@@ -619,6 +619,9 @@
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
+      ],
+      "matching_statement_terms": [
+        "re:(?:^|[.!?]\\s+)(?:(?:furthermore|additionally|in addition),\\s+)?(?:we|the company|our (?:company|plant|facility))\\s+(?:(?:has|have)\\s+)?(?:deployed|installed|implemented|operates?|uses?)\\s+(?:(?:an?|the|our)\\s+)?(?:online|on-line|continuous)\\s+monitoring\\s+(?:system|equipment)\\b"
       ],
       "method_terms": [
         "监测",

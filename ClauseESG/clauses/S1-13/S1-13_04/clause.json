@@ -181,7 +181,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "e6c55484e9941bf9035bed57e2291dd8f35a664fdfe4f0c50f9503dc2e1de644",
+  "clause_digest": "65c1ff142eb5d5130c3f64fe4e85b9284e74579f73caf390b9409bd49f51578d",
   "clause_key": "S1-13_04",
   "data_kind": "quantitative",
   "definition": "报告期内员工人均培训小时数。",
@@ -227,10 +227,17 @@
       "required": true
     }
   ],
-  "exact_labels": [],
+  "exact_labels": [
+    "Average Training Hours per Employee",
+    "Avg. Hours Per Employee",
+    "Average Employee Training Hours",
+    "员工人均培训时长",
+    "员工人均培训小时"
+  ],
   "exclusions": [
     "标题、目录、空白、未披露状态不能作为带值事实；显式零与缺失分开。",
-    "商业道德、数据安全等专题培训不能当作全员人均培训；培训总时长不是人均时长。"
+    "商业道德、数据安全等专题培训不能当作全员人均培训；培训总时长不是人均时长。",
+    "Number of training courses, sessions or times 表示课程或场次数。不得将其填成时长，也不得给这些数字套用时长单位。"
   ],
   "group_id": "S1-13",
   "labels": {
