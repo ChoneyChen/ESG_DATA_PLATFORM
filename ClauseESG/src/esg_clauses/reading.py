@@ -75,6 +75,65 @@ def reported_combined_ghg_scope(clause, label: str | None) -> str | None:
     return None
 
 
+def reported_scope3_category(clause, label: str | None, unit: str | None) -> str | None:
+    """Recognize a whole-scope row from the clause's exact printed labels."""
+    terms = _vocab(clause.reading, "scope3_total_label")
+    if not label or not terms:
+        return None
+    name = normalize(label).replace("（", "(").replace("）", ")")
+    if unit:
+        name = name.removesuffix(f"({normalize(unit)})").rstrip()
+    return "total" if _match(terms, name) else None
+
+
+def reported_ghg_axes(clause, label, attributes):
+    """Use the printed scope and method independently for a method-specific target."""
+    reading = clause.reading
+    if not label or not _vocab(reading, "aggregate_ghg_label"):
+        return {}
+    combined = reported_combined_ghg_scope(clause, label)
+    scope_terms = {
+        "scope_1": _vocab(reading, "scope1"),
+        "scope_2": _vocab(reading, "confirmed_scope2_terms"),
+        "scope_3": _vocab(reading, "scope3"),
+    }
+    explicit_label = normalize(label)
+    attribute_raw = attributes.get("ghg_scope") or ""
+    axes = {}
+    # A specific label is more reliable than inferred attributes. An explicitly
+    # organization-wide total is not Scope 2 merely because a method is named.
+    label_codes = [code for code, terms in scope_terms.items() if _match(terms, explicit_label)]
+    if combined:
+        axes["ghg_scope"] = (label, combined)
+    elif len(label_codes) == 1:
+        axes["ghg_scope"] = (label, label_codes[0])
+    elif label_codes or _match(_vocab(reading, "aggregate_ghg_label"), explicit_label):
+        axes["ghg_scope"] = (label, "total")
+    elif len(codes := [code for code, terms in scope_terms.items() if _match(terms, attribute_raw)]) == 1:
+        axes["ghg_scope"] = (attribute_raw, codes[0])
+    method_terms = {code: _vocab(reading, terms) for code, terms in (
+        ("market_based", "market_method"), ("location_based", "location_method"),
+    )}
+    for raw in (explicit_label, attributes.get("measurement_method")):
+        if raw and len(codes := [code for code, terms in method_terms.items() if _match(terms, raw)]) == 1:
+            axes["measurement_method"] = (label if raw == explicit_label else raw, codes[0])
+            break
+    return axes
+
+
+def reported_label_conflict(clause, label, *, unit_dimension):
+    """Recognize only contradictions declared by a clause, keeping the disclosure."""
+    if not label:
+        return None
+    vocabulary = clause.reading.vocabulary
+    if unit_dimension == "volume" and _match(vocabulary.get("carrier_volume_terms"), normalize(label)):
+        return "The printed row is total exhaust volume, rather than a pollutant quantity"
+    if (_match(vocabulary.get("non_target_measure_terms"), normalize(label)) and
+            not _match(vocabulary.get("target_measure_terms"), normalize(label))):
+        return "The printed row names a different measurement from the target"
+    return None
+
+
 def matches_reported_statement(clause, statement: str) -> bool:
     """Recognize an affirmative disclosure using the clause's declared terms."""
     if clause.data_kind != "qualitative" or not _match(

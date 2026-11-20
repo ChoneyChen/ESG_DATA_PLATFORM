@@ -18,6 +18,13 @@ from esg_pipeline.contracts import (
     utc_now,
 )
 
+DISPATCHABLE_SQL = """status='queued' AND cancel_requested=0 AND NOT EXISTS (
+    SELECT 1 FROM extraction_provider_pauses pause
+    WHERE pause.batch_id=json_extract(payload_json,'$.batch_id')
+      AND pause.provider IN (json_extract(payload_json,'$.model_provider'),
+                             json_extract(payload_json,'$.document_model_provider'))
+)"""
+
 
 class PipelineQueueStore:
     """SQLite control-plane state; business artifacts stay in their own packages."""
@@ -78,6 +85,14 @@ class PipelineQueueStore:
                 );
                 CREATE INDEX IF NOT EXISTS idx_pipeline_events
                     ON pipeline_events(task_id, event_id);
+                CREATE TABLE IF NOT EXISTS extraction_provider_pauses (
+                    batch_id TEXT NOT NULL,
+                    provider TEXT NOT NULL,
+                    session_id TEXT NOT NULL,
+                    category TEXT NOT NULL,
+                    phase TEXT NOT NULL,
+                    PRIMARY KEY(batch_id, provider)
+                );
                 """
             )
             # Preserve pre-upgrade rows if historical callers queued duplicates;
@@ -279,7 +294,7 @@ class PipelineQueueStore:
         ).fetchone()
         prepare = last is not None and last["task_type"] == PipelineTaskType.TARGETED_EXTRACTION.value
         return connection.execute(
-            """
+            f"""
             WITH waiting AS (
                 SELECT *, ROW_NUMBER() OVER (
                     PARTITION BY (task_type = 'targeted_extraction')
@@ -288,7 +303,7 @@ class PipelineQueueStore:
                         position, task_id
                 ) AS turn
                 FROM pipeline_tasks
-                WHERE status='queued' AND cancel_requested=0
+                WHERE {DISPATCHABLE_SQL}
             )
             SELECT * FROM waiting
             ORDER BY
@@ -300,9 +315,16 @@ class PipelineQueueStore:
 
     def waiting_count(self) -> int:
         with self._connect() as connection:
-            return connection.execute(
-                "SELECT COUNT(*) FROM pipeline_tasks WHERE status='queued' AND cancel_requested=0"
-            ).fetchone()[0]
+            return connection.execute(f"SELECT count(*) FROM pipeline_tasks WHERE {DISPATCHABLE_SQL}").fetchone()[0]
+
+    def pause_batch_provider(self, task, detail):
+        batch, session = task.payload.get("batch_id"), task.payload.get("session_id")
+        if batch and session:
+            with self._connect() as connection:
+                connection.execute(
+                    "INSERT OR IGNORE INTO extraction_provider_pauses VALUES (?,?,?,?,?)",
+                    (batch, detail["provider"], session, detail["category"], detail["phase"]),
+                )
 
     def get(self, task_id: str, *, ranked: bool = False) -> PipelineTask:
         with self._connect() as connection:

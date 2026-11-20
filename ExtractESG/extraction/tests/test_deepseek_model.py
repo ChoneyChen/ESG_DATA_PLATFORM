@@ -8,7 +8,7 @@ import pytest
 
 from esg_extraction.models.errors import ModelCancelled, ModelRunFailure, ModelTimedOut
 from esg_extraction.models.structured_template import structured_prompt
-from esg_extraction.pipeline.adapters import deepseek_model
+from esg_extraction.pipeline.adapters import chat_completion_model, dashscope_model, deepseek_model
 
 
 FAKE_KEY = "test-only-authorization-value"
@@ -18,9 +18,9 @@ SCHEMA = {
 }
 
 
-def mock_deepseek(monkeypatch, handle):
+def mock_cloud(monkeypatch, handle):
     async_client = httpx.AsyncClient
-    monkeypatch.setattr(deepseek_model.httpx, 'AsyncClient', lambda **options: async_client(
+    monkeypatch.setattr(chat_completion_model.httpx, 'AsyncClient', lambda **options: async_client(
         transport=httpx.MockTransport(handle), **options,
     ))
 
@@ -53,7 +53,7 @@ def test_uses_official_api_and_preserves_bounded_input(monkeypatch, model_id):
         }
         return reply()
 
-    mock_deepseek(monkeypatch, handle)
+    mock_cloud(monkeypatch, handle)
     result, telemetry = complete(deepseek_model.DeepSeekModel(model_id, FAKE_KEY, max_tokens=64))
     assert result == {"matches": ["source-1"]}
     assert telemetry["provider"] == "deepseek" and telemetry["model_id"] == model_id
@@ -75,7 +75,7 @@ def test_flash_sends_pdf_page_as_inline_image(monkeypatch):
         }
         return reply()
 
-    mock_deepseek(monkeypatch, handle)
+    mock_cloud(monkeypatch, handle)
     _, telemetry = complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY),
                             images=(b"page",))
     assert telemetry["execution"]["request"]["input_modalities"] == ["text", "image"]
@@ -90,7 +90,7 @@ def test_http_failures_are_sanitized_without_fallback(monkeypatch, status, categ
         calls.append(request.method)
         return httpx.Response(status, headers={"Location": "https://example.invalid/"}, json={"error": FAKE_KEY})
 
-    mock_deepseek(monkeypatch, handle)
+    mock_cloud(monkeypatch, handle)
     with pytest.raises(ModelRunFailure) as exc:
         complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY))
     assert calls == ["POST"] and exc.value.category == category
@@ -106,7 +106,7 @@ def test_http_failures_are_sanitized_without_fallback(monkeypatch, status, categ
     ('{"matches":[]}', "length", "generation_incomplete"),
 ])
 def test_schema_validation_and_incomplete_generation(monkeypatch, content, reason, category):
-    mock_deepseek(monkeypatch, lambda _: reply(content, finish_reason=reason))
+    mock_cloud(monkeypatch, lambda _: reply(content, finish_reason=reason))
     with pytest.raises(ModelRunFailure) as exc:
         complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY))
     assert exc.value.category == category
@@ -128,10 +128,99 @@ def test_cancel_or_deadline_releases_in_flight_request(monkeypatch, cancel_in_fl
         finally:
             closed = True
 
-    mock_deepseek(monkeypatch, handle)
+    mock_cloud(monkeypatch, handle)
     with pytest.raises(ModelCancelled if cancel_in_flight else ModelTimedOut) as exc:
         complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY),
                  cancel_check=(lambda: started) if cancel_in_flight else None,
                  remaining=2 if cancel_in_flight else 0.2)
     assert started and closed
     assert exc.value.telemetry["execution"]["status"] == ("cancelled" if cancel_in_flight else "failed")
+
+
+def streamed_reply(*contents, finish_reason="stop"):
+    events = [{"choices": [{"delta": {"content": part}, "finish_reason": None}]} for part in contents]
+    events.extend([
+        {"choices": [{"delta": {}, "finish_reason": finish_reason}]},
+        {"choices": [], "usage": {"prompt_tokens": 36, "completion_tokens": 9}},
+    ])
+    lines = [f"data: {json.dumps(event)}\r\n\r\n" for event in events]
+    return httpx.Response(200, headers={"content-type": "text/event-stream"},
+                          content="".join([": ping\r\n\r\n", *lines, "data: [DONE]\r\n\r\n"]))
+
+
+def test_dashscope_stream_reads_text_deltas_and_final_usage(monkeypatch):
+    def handle(request):
+        assert str(request.url) == "https://cn-beijing.maas.qianwenaiapi.com/compatible-mode/v1/chat/completions"
+        assert request.headers["authorization"] == f"Bearer {FAKE_KEY}"
+        assert request.headers["accept"] == "text/event-stream"
+        assert FAKE_KEY.encode() not in request.content
+        payload = json.loads(request.content)
+        assert payload["model"] == "qwen3.8-omni-flash"
+        assert payload["stream"] is True and payload["stream_options"] == {"include_usage": True}
+        assert payload["modalities"] == ["text"] and "audio" not in payload
+        assert payload["reasoning_effort"] == "none" and "thinking" not in payload
+        assert payload["response_format"] == {"type": "json_object"}
+        content = payload["messages"][0]["content"]
+        assert content[0] == {"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,cGFnZQ=="}}
+        assert content[1]["type"] == "text" and "EVIDENCE=" in content[1]["text"]
+        return streamed_reply('{"matches":', '["source-1"]}')
+
+    mock_cloud(monkeypatch, handle)
+    result, telemetry = complete(dashscope_model.DashScopeModel("qwen3.8-omni-flash", FAKE_KEY), images=(b"page",))
+    assert result == {"matches": ["source-1"]}
+    assert telemetry["provider"] == "dashscope" and telemetry["execution"]["status"] == "succeeded"
+    assert telemetry["execution"]["input_tokens"] == 36 and telemetry["execution"]["output_tokens"] == 9
+    assert FAKE_KEY not in json.dumps(telemetry)
+
+
+def test_dashscope_distinguishes_quota_from_rate_limit_and_keeps_truncated_content(monkeypatch):
+    model = dashscope_model.DashScopeModel("qwen3.8-omni-flash", FAKE_KEY)
+    response = None
+    mock_cloud(monkeypatch, lambda _: response)
+    for code, category in [("insufficient_quota", "provider_balance"), ("limit_requests", "provider_rate_limit")]:
+        response = httpx.Response(429, json={"error": {"code": code, "message": FAKE_KEY}})
+        with pytest.raises(ModelRunFailure) as exc:
+            complete(model)
+        assert exc.value.category == category and FAKE_KEY not in str(exc.value)
+
+    response = streamed_reply('{"matches":["source-1"', finish_reason="length")
+    with pytest.raises(ModelRunFailure) as exc:
+        complete(model)
+    assert exc.value.category == "generation_incomplete"
+    assert exc.value.cleaned_output == '{"matches":["source-1"'
+
+
+@pytest.mark.parametrize("successful_retry", [True, False])
+def test_cloud_retries_only_once_on_short_retry_after(monkeypatch, successful_retry):
+    requests = []
+
+    def handle(request):
+        requests.append(request)
+        if len(requests) == 2 and successful_retry:
+            return reply()
+        return httpx.Response(429, headers={"Retry-After": "0"})
+
+    mock_cloud(monkeypatch, handle)
+    model = deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY)
+    if successful_retry:
+        result, telemetry = complete(model)
+        assert result == {"matches": ["source-1"]} and telemetry["http_attempts"] == 2
+    else:
+        with pytest.raises(ModelRunFailure) as exc:
+            complete(model)
+        assert exc.value.category == "provider_rate_limit"
+        assert exc.value.telemetry["http_attempts"] == 2
+    assert len(requests) == 2
+
+
+def test_cloud_rate_limit_backoff_is_cancellable(monkeypatch):
+    requests = []
+
+    def handle(request):
+        requests.append(request)
+        return httpx.Response(429, headers={"Retry-After": "2"})
+
+    mock_cloud(monkeypatch, handle)
+    with pytest.raises(ModelCancelled):
+        complete(deepseek_model.DeepSeekModel("deepseek-flash", FAKE_KEY), cancel_check=lambda: bool(requests))
+    assert len(requests) == 1

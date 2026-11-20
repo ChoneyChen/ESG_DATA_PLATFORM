@@ -14,11 +14,14 @@ app.router.on_startup.remove(document.start_current_pipeline)
 app.router.on_shutdown.remove(document.stop_current_pipeline)
 
 
-def queue_clause_run(run_id, name, timeout, *, session_id):
+def queue_clause_run(run_id, name, timeout, *, session_id, batch_id=None,
+                     model_provider=None, document_model_provider=None):
     return document._queue_task(
         task_type=PipelineTaskType.TARGETED_EXTRACTION, operation="clause_extraction",
         title=name, native_job_id=run_id,
-        payload={"run_id": run_id, "session_id":session_id, "_total_timeout_seconds": timeout}, deduplicate_native=True,
+        payload={"run_id": run_id, "session_id": session_id, "_total_timeout_seconds": timeout,
+                 "batch_id": batch_id, "model_provider": model_provider,
+                 "document_model_provider": document_model_provider}, deduplicate_native=True,
     )
 
 

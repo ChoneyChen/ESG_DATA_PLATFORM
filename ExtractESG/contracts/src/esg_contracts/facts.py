@@ -271,5 +271,5 @@ class RunRequest(FrozenModel):
         if bool(self.asset_id) == bool(self.ir_run_id):
             raise ValueError("Provide one PDF asset or one existing IR identity")
         if self.document_model_selection and self.document_model_selection.model == "deepseek-v4-pro":
-            raise ValueError("Document image reading requires DeepSeek Flash or local Qwen")
+            raise ValueError("Document image reading requires a vision model")
         return self

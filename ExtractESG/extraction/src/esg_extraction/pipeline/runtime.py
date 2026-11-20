@@ -52,14 +52,20 @@ def engine_digest():
 
 
 def model_for(selection, store):
-    if selection is not None and selection.provider == "deepseek":
-        from .adapters.deepseek_model import DeepSeekModel
-        from .adapters.model_credentials import DeepSeekCredentialStore
+    if selection is not None and selection.provider != "local":
+        from esg_contracts.model_providers import CLOUD_NAMES
+        from .adapters.model_credentials import ModelCredentialStore
 
-        key = DeepSeekCredentialStore(store).read()
+        key = ModelCredentialStore(store, selection.provider).read()
         if key is None:
-            raise ValueError("DeepSeek API key is not configured in the local workbench")
-        return DeepSeekModel(selection.model, key)
+            raise ValueError(f"{CLOUD_NAMES[selection.provider]} API key is not configured in the local workbench")
+        if selection.provider == "deepseek":
+            from .adapters.deepseek_model import DeepSeekModel
+
+            return DeepSeekModel(selection.model, key)
+        from .adapters.dashscope_model import DashScopeModel
+
+        return DashScopeModel(selection.model, key)
 
     from .adapters.local_model import LocalQwenModel
 
@@ -90,7 +96,7 @@ def execute(run_id, *, model=None, waiting_tasks=0):
     from esg_contracts.evidence import DocumentReference
     from .engine import ExtractionBackbone, PipelineCancelled, ExecutionYield, ENGINE_VERSION
     from .result_store import ResultStore
-    from .ports import DocumentUnavailable
+    from .ports import DocumentUnavailable, ProviderInterruption
 
     repo, store, artifacts, documents = resources()
     state = store.claim(run_id)
@@ -179,6 +185,16 @@ def execute(run_id, *, model=None, waiting_tasks=0):
     except DocumentUnavailable as exc:
         return store.update(run_id, status="interrupted", worker_pid=None, worker_started=None,
             error=str(exc), summary=(ResultStore(run_id, artifacts).status() or {}).get("summary"))
+    except ProviderInterruption as exc:
+        checkpoint = results.checkpoint()
+        summary = (results.status() or {}).get("summary") or {}
+        store.progress(run_id, current_call=None, progress=saved_reading_progress(
+            checkpoint, store.get(run_id).get("progress"), summary, exc.phase,
+        ))
+        return store.update(run_id, status="interrupted", worker_pid=None, worker_started=None,
+            error=str(exc), summary=summary or None, provider_interruption={
+                "provider": exc.provider, "category": exc.category, "phase": exc.phase,
+            })
     except PipelineCancelled:
         return store.update(run_id, status="cancelled")
     except Exception as exc:

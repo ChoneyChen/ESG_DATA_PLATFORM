@@ -58,15 +58,21 @@ export async function storeProjection(db,{summary,definitions,observations}) {
 export async function projectionStatus(db,{export_id,transform_version}) {
   if(!(await db.query('SELECT 1 FROM esg.capture_exports WHERE export_id=$1',[export_id])).rows.length)throw fault('not_found','Unknown capture');
   const projection=(await db.query(`SELECT summary,EXISTS(SELECT 1 FROM esg.capture_projection_archives a WHERE a.projection_id=p.projection_id) AS archived
-    FROM esg.capture_projections p WHERE export_id=$1 AND transform_version=$2`,[export_id,transform_version])).rows[0];
+    FROM esg.capture_projections p WHERE export_id=$1
+    ORDER BY (transform_version=$2) DESC,created_at DESC,projection_id DESC LIMIT 1`,[export_id,transform_version])).rows[0];
   if(projection)return {export_id,status:'completed',projection:projection.summary,error_code:null,retryable:false,archived:projection.archived};
-  const attempt=(await db.query('SELECT status,error_code,retryable FROM esg.capture_projection_attempts WHERE export_id=$1 AND transform_version=$2',[export_id,transform_version])).rows[0];
+  const attempt=(await db.query(`SELECT status,error_code,retryable FROM esg.capture_projection_attempts
+    WHERE export_id=$1 AND (transform_version=$2 OR error_code='projection_deleted')
+    ORDER BY (transform_version=$2) DESC,updated_at DESC LIMIT 1`,[export_id,transform_version])).rows[0];
   return {export_id,status:attempt?.status||'pending',projection:null,error_code:attempt?.error_code||null,retryable:attempt?.retryable??true};
 }
 
 export async function pendingProjections(db,{transform_version}) {
   return (await db.query(`SELECT e.export_id FROM esg.capture_exports e LEFT JOIN esg.capture_projection_attempts a
-    ON a.export_id=e.export_id AND a.transform_version=$1 WHERE a.export_id IS NULL OR (a.status='failed' AND a.retryable AND a.updated_at<CURRENT_TIMESTAMP-interval '30 seconds')
+    ON a.export_id=e.export_id AND a.transform_version=$1
+    WHERE (a.export_id IS NULL OR (a.status='failed' AND a.retryable AND a.updated_at<CURRENT_TIMESTAMP-interval '30 seconds'))
+    AND NOT EXISTS(SELECT 1 FROM esg.capture_projections p WHERE p.export_id=e.export_id)
+    AND NOT EXISTS(SELECT 1 FROM esg.capture_projection_attempts removed WHERE removed.export_id=e.export_id AND removed.error_code='projection_deleted')
     ORDER BY e.accepted_at,e.export_id LIMIT 10`,[transform_version])).rows;
 }
 

@@ -40,11 +40,12 @@ def test_no_path_crosses_the_evidence_http_interface(documents,repository,tmp_pa
         rejected=client.post('/api/runs',json={'request':{'ir_run_id':'ir-example','clause_keys':['E1-5_01'],'api_key':'never-echo-this-secret'}})
         assert rejected.status_code==422 and 'never-echo-this-secret' not in rejected.text
 
-def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, repository, tmp_path, monkeypatch):
+@pytest.mark.parametrize("provider,model_id", [("deepseek", "deepseek-v4-pro"), ("dashscope", "qwen3.8-omni-flash")])
+def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, repository, tmp_path, monkeypatch, provider, model_id):
     import stat
     from esg_extraction.pipeline import runtime
-    from esg_extraction.pipeline.adapters import deepseek_model
-    from esg_extraction.pipeline.adapters.model_credentials import DeepSeekCredentialStore
+    from esg_extraction.pipeline.adapters import dashscope_model, deepseek_model
+    from esg_extraction.pipeline.adapters.model_credentials import ModelCredentialStore
     from test_backbone import Model
 
     store = RunStore(tmp_path / "runs.db")
@@ -53,11 +54,13 @@ def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, re
     app = create_app(resources)
     operator = TestClient(app, client=("127.0.0.1", 50000), headers={"Origin": "http://127.0.0.1:18081"})
     public = TestClient(app, client=("192.0.2.1", 50000))
-    write_endpoint = "/api/model-providers/deepseek/credential"
+    write_endpoint = f"/api/model-providers/{provider}/credential"
     sample = "fixture-key-do-not-echo"
-    cloud = {"provider": "deepseek", "model": "deepseek-v4-pro"}
+    cloud = {"provider": provider, "model": model_id}
     raw = {"ir_run_id": "ir-example", "clause_keys": ["E1-5_01"]}
     request = {**raw, "model_selection": cloud}
+    if provider == "dashscope":
+        request["document_model_selection"] = cloud
 
     assert "model_selection" not in RunRequest.model_validate(raw).model_dump()
     assert operator.post("/api/runs", json={"request": request}).status_code == 409
@@ -71,12 +74,20 @@ def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, re
     assert response.headers["Cache-Control"] == "no-store"
     assert operator.get("/api/model-providers").json() == response.json()
     assert operator.get(write_endpoint).status_code == 405
-    credential = DeepSeekCredentialStore(store)
+    credential = ModelCredentialStore(store, provider)
     assert stat.S_IMODE(credential.path.stat().st_mode) == 0o600
     assert credential.read() == sample
+    other_provider = "dashscope" if provider == "deepseek" else "deepseek"
+    other_model = "qwen3.8-omni-flash" if provider == "deepseek" else "deepseek-flash"
+    assert not ModelCredentialStore(store, other_provider).configured()
+    assert operator.post("/api/runs/preview", json={**raw, "model_selection": {**cloud, "model": other_model}}).status_code == 422
+    unconfigured_document = {**request, "document_model_selection": {"provider": other_provider, "model": other_model}}
+    assert operator.post("/api/runs/preview", json=unconfigured_document).status_code == 409
 
     preview = operator.post("/api/runs/preview", json=request).json()
     assert preview["model_selection"] == cloud
+    if provider == "dashscope":
+        assert preview["document_model_selection"] == cloud
     created = operator.post("/api/runs", json={"request": request})
     assert created.status_code == 201 and sample not in created.text
     run = created.json()["run_id"]
@@ -86,14 +97,24 @@ def test_cloud_provider_is_frozen_and_its_credential_is_write_only(documents, re
 
     models = []
 
+    class VisionModel(Model):
+        def complete(self, **kwargs):
+            if "page_indices" in kwargs["context"] and "clauses" not in kwargs["context"]:
+                self.calls.append(kwargs)
+                return {"page_indices": kwargs["context"]["page_indices"]}, {}
+            return super().complete(**kwargs)
+
     def fake_model(model_id, key):
         assert model_id == cloud["model"] and key == sample
-        model = Model()
+        model = VisionModel()
         models.append(model)
         return model
 
     monkeypatch.setattr(runtime, "resources", resources)
-    monkeypatch.setattr(deepseek_model, "DeepSeekModel", fake_model)
+    if provider == "deepseek":
+        monkeypatch.setattr(deepseek_model, "DeepSeekModel", fake_model)
+    else:
+        monkeypatch.setattr(dashscope_model, "DashScopeModel", fake_model)
     for _ in range(10):
         result = runtime.execute(run)
         if result["status"] == "completed":

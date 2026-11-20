@@ -27,7 +27,7 @@ import {
   SelectionCheckbox,
 } from "../../shared/ui";
 import { href, navigate } from "../../app/routes";
-import { label, modelSelectionLabel } from "../../shared/format";
+import { label, modelProviderNames, modelSelectionLabel } from "../../shared/format";
 import { extractionBatchesPath } from "./batches";
 type Preview = {
   targets: { digest: string; clauses: Record<string, Clause> };
@@ -39,12 +39,18 @@ type Preview = {
 };
 type Selection = { selections: Record<string, string[]> };
 const modelProvidersPath = "/api/model-providers";
+const dashscopeModel = { provider: "dashscope", model: "qwen3.8-omni-flash" } as const;
+type CloudProvider = keyof typeof modelProviderNames;
+const isCloud = (provider?: string): provider is CloudProvider => provider === "deepseek" || provider === "dashscope";
+
 export function CreateExtractionPage({
   initialReport,
   initialFolder,
+  replacesSessionId,
 }: {
   initialReport?: string;
   initialFolder?: string;
+  replacesSessionId?: string;
 }) {
   const [reportFolder, setReportFolder] = useState(initialFolder || "");
   const reports = useResource<ReportList>("document", "/api/report-resources"),
@@ -65,13 +71,17 @@ export function CreateExtractionPage({
     [group, setGroup] = useState(""),
     [budget, setBudget] = useState<ExtractionBudget>(EXTRACTION_BUDGET_DEFAULTS),
     [modelSelection, setModelSelection] = useState<ModelSelection>({ provider: "local" }),
-    [documentModel, setDocumentModel] = useState<"native" | "local" | "deepseek">("native"),
+    [documentModel, setDocumentModel] = useState<"native" | "local" | CloudProvider>("native"),
     [advanced, setAdvanced] = useState(false);
-  const cloud = modelSelection.provider === "deepseek";
-  const usesCloud = cloud || documentModel === "deepseek";
-  const providers = useResource<ModelProviders>("extraction", usesCloud ? modelProvidersPath : null);
-  const deepseek = providers.data?.providers.find((provider) => provider.provider === "deepseek");
-  const credentialInput = useRef<HTMLInputElement>(null);
+  const mainProvider = modelSelection.provider;
+  const cloudProviders = [...new Set([mainProvider, documentModel].filter(isCloud))];
+  const providers = useResource<ModelProviders>("extraction", cloudProviders.length ? modelProvidersPath : null);
+  const statusFor = (name: CloudProvider) => providers.data?.providers.find(({ provider }) => provider === name);
+  const documentSelection: ModelSelection | undefined = documentModel === "native" ? undefined
+    : documentModel === "dashscope" ? dashscopeModel
+    : documentModel === "deepseek" ? { provider: "deepseek", model: "deepseek-flash" }
+    : { provider: "local" };
+  const credentialInputs = useRef<Partial<Record<CloudProvider, HTMLInputElement | null>>>({});
   const alive = useRef(true);
   useEffect(() => {
     alive.current = true;
@@ -99,6 +109,7 @@ export function CreateExtractionPage({
             .includes(query.toLowerCase())),
     );
   const isBatch = selectedReports.length > 1;
+  const linkedSource = initialReport && selectedReports.includes(initialReport) ? replacesSessionId : undefined;
   const reportsById = new Map(available.map(report => [report.pdf_id, report]));
   function body(pdfId: string): CreateExtraction {
     const report = reportsById.get(pdfId);
@@ -110,29 +121,29 @@ export function CreateExtractionPage({
       clause_keys: keys,
       name: name.trim().slice(0, 120 - suffix.length) + suffix,
       budget,
-      ...(cloud ? { model_selection: modelSelection } : {}),
-      ...(documentModel !== "native" ? { document_model_selection: documentModel === "deepseek"
-        ? { provider: "deepseek", model: "deepseek-flash" } : { provider: "local" } } : {}),
+      ...(replacesSessionId && pdfId === initialReport ? { replaces_session_id: replacesSessionId } : {}),
+      ...(isCloud(mainProvider) ? { model_selection: modelSelection } : {}),
+      ...(documentSelection ? { document_model_selection: documentSelection } : {}),
     };
   }
   function toggle(list: string[], key: string, set: (v: string[]) => void) {
     set(list.includes(key) ? list.filter((x) => x !== key) : [...list, key]);
   }
-  async function saveCredential() {
-    const input = credentialInput.current;
+  async function saveCredential(provider: CloudProvider) {
+    const input = credentialInputs.current[provider];
     const apiKey = input?.value.trim();
     if (!input || !apiKey) {
-      setError(new Error("请输入 DeepSeek API 密钥。"));
+      setError(new Error(`请输入 ${modelProviderNames[provider]} API 密钥。`));
       return;
     }
     input.value = "";
     setBusy(true);
     setError(undefined);
     try {
-      await write("extraction", `${modelProvidersPath}/deepseek/credential`, { api_key: apiKey }, "PUT");
+      await write("extraction", `${modelProvidersPath}/${provider}/credential`, { api_key: apiKey }, "PUT");
       invalidate("extraction", modelProvidersPath);
     } catch {
-      setError(new Error("DeepSeek 密钥保存失败，请检查本地提取服务后重试。"));
+      setError(new Error(`${modelProviderNames[provider]} 密钥保存失败，请检查本地提取服务后重试。`));
     } finally {
       setBusy(false);
     }
@@ -178,6 +189,7 @@ export function CreateExtractionPage({
         destination = href("extractions", run.session_id);
       }
       invalidate("document", "/api/report-sessions");
+      if (linkedSource) invalidate("document", extractionBatchesPath);
       invalidate("document", "/api/console/monitor");
       if (alive.current) navigate(destination);
     } catch (e) {
@@ -189,8 +201,9 @@ export function CreateExtractionPage({
   }
   const ready =
     !!selectedReports.length && !!keys.length && !!name.trim() && !busy &&
-    (!usesCloud || !!deepseek?.configured) &&
-    (!cloud || (!!modelSelection.model && !!deepseek?.models.includes(modelSelection.model)));
+    cloudProviders.every(provider => statusFor(provider)?.configured) &&
+    (!isCloud(mainProvider) || (!!modelSelection.model && !!statusFor(mainProvider)?.models.includes(modelSelection.model))) &&
+    (!isCloud(documentModel) || (!!documentSelection?.model && !!statusFor(documentModel)?.models.includes(documentSelection.model)));
   return (
     <>
       <PageHeader
@@ -198,6 +211,7 @@ export function CreateExtractionPage({
         back={{ href: href("extractions"), label: "提取" }}
         subtitle={`第 ${step} 步 · ${step === 1 ? "选择报告与条款" : "核对目标"}`}
       />
+      {linkedSource && <Notice>这次提取将关联<a href={href("extractions", linkedSource)}>原任务</a>，保留原任务的结果。</Notice>}
       <ReadError error={error} />
       {!reports.data || !catalog.data ? (
         <>
@@ -353,11 +367,12 @@ export function CreateExtractionPage({
                 <Field label="文档定位">
                   <select value={documentModel} onChange={(e) => {
                     const choice = e.target.value;
-                    setDocumentModel(choice === "deepseek" || choice === "local" ? choice : "native");
+                    setDocumentModel(isCloud(choice) || choice === "local" ? choice : "native");
                   }}>
                     <option value="native">原生文字定位</option>
                     <option value="local">本地 Qwen 视觉定位</option>
                     <option value="deepseek">DeepSeek Flash 视觉定位</option>
+                    <option value="dashscope">阿里云百炼 · qwen3.8-omni-flash 视觉定位</option>
                   </select>
                 </Field>
                 <Field label="模型提供者">
@@ -365,43 +380,47 @@ export function CreateExtractionPage({
                     value={modelSelection.provider}
                     onChange={(e) => {
                       setError(undefined);
-                      setModelSelection({ provider: e.target.value === "deepseek" ? "deepseek" : "local" });
+                      const provider = e.target.value;
+                      setModelSelection(provider === "dashscope" ? dashscopeModel
+                        : { provider: provider === "deepseek" ? "deepseek" : "local" });
                     }}
                   >
                     <option value="local">本地 Qwen</option>
                     <option value="deepseek">DeepSeek 云端 API</option>
+                    <option value="dashscope">阿里云百炼 · qwen3.8-omni-flash</option>
                   </select>
                 </Field>
-                {cloud && (
+                {mainProvider === "deepseek" && (
                   <Field label="DeepSeek 模型">
                     <select value={modelSelection.model || ""} onChange={(e) =>
-                      setModelSelection({ provider: "deepseek", model: deepseek?.models.find((model) => model === e.target.value) })}>
+                      setModelSelection({ provider: "deepseek", model: statusFor("deepseek")?.models.find((model) => model === e.target.value) })}>
                       <option value="">请选择模型</option>
-                      {deepseek?.models.map((model) => <option key={model} value={model}>
+                      {statusFor("deepseek")?.models.map((model) => <option key={model} value={model}>
                         {model}{model === "deepseek-v4-pro" ? "（纯文字）" : ""}
                       </option>)}
                     </select>
                   </Field>
                 )}
               </div>
-              {usesCloud && (
+              {!!cloudProviders.length && (
                 <>
-                  <Notice>选用 DeepSeek 的阶段会发送所需的页面图像或文字。PDF 页面在本机渲染。</Notice>
+                  <Notice>选用云端模型的阶段会向所选提供者发送所需的页面图像或文字。PDF 页面在本机渲染。</Notice>
                   <ReadError error={providers.error} retry={providers.reload} />
-                  {providers.loading && !deepseek && <Loading />}
-                  {deepseek && (
-                    <div className="toolbar">
-                      <Field label="DeepSeek API 密钥">
-                        <input ref={credentialInput} type="password" autoComplete="off" spellCheck={false} />
+                  {providers.loading && !providers.data && <Loading />}
+                  {cloudProviders.map(provider => {
+                    const status = statusFor(provider);
+                    return status && <div className="toolbar" key={provider}>
+                      <Field label={`${modelProviderNames[provider]} API 密钥`}>
+                        <input ref={(input) => { credentialInputs.current[provider] = input; }} type="password" autoComplete="off" spellCheck={false} />
                       </Field>
-                      <button type="button" className="button-secondary" onClick={saveCredential}>
-                        {deepseek.configured ? "更新密钥" : "保存密钥"}
+                      <button type="button" className="button-secondary" onClick={() => void saveCredential(provider)}>
+                        {status.configured ? "更新密钥" : "保存密钥"}
                       </button>
-                      <Badge tone={deepseek.configured ? "success" : "warning"}>
-                        {deepseek.configured ? "已配置" : "未配置"}
+                      <Badge tone={status.configured ? "success" : "warning"}>
+                        {status.configured ? "已配置" : "未配置"}
                       </Badge>
-                    </div>
-                  )}
+                    </div>;
+                  })}
                 </>
               )}
             </section>
@@ -450,7 +469,7 @@ export function CreateExtractionPage({
         <section className="section">
           <h2>确认本次选择</h2>
           <p>提取模型 · {modelSelectionLabel(confirmedTargets?.model_selection || modelSelection)}</p>
-          <p>文档定位 · {documentModel === "native" ? "原生文字定位" : documentModel === "deepseek" ? "DeepSeek Flash 视觉定位" : "本地 Qwen 视觉定位"}</p>
+          <p>文档定位 · {documentSelection ? `${modelSelectionLabel(documentSelection)} 视觉定位` : "原生文字定位"}</p>
           <div className="metric-strip">
             <div>
               <strong>{selectedReports.length}</strong>

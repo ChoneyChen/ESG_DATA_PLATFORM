@@ -1,4 +1,4 @@
-import type { ModelSelection } from "./contracts";
+import type { ExtractionSession_ProviderInterruptionDetail, ModelSelection } from "./contracts";
 
 export const labels: Record<string, string> = {
   targeted_extraction: "条款提取",
@@ -48,10 +48,20 @@ export const labels: Record<string, string> = {
   template: "模板",
   sample: "组织示例",
 };
+export const modelProviderNames = { deepseek: "DeepSeek", dashscope: "阿里云百炼" };
 export const modelSelectionLabel = (selection?: ModelSelection | null) =>
-  selection?.provider === "deepseek"
-    ? `DeepSeek · ${selection.model}`
+  selection?.provider && selection.provider !== "local"
+    ? `${modelProviderNames[selection.provider]} · ${selection.model}`
     : "本地 Qwen";
+const providerInterruptionReasons = {
+  provider_authentication: "鉴权失败",
+  provider_balance: "余额或额度不足",
+  provider_rate_limit: "请求限流",
+};
+export function providerInterruptionLabel(interruption: ExtractionSession_ProviderInterruptionDetail) {
+  const provider = modelProviderNames[interruption.provider as keyof typeof modelProviderNames] || interruption.provider;
+  return `${provider} · ${providerInterruptionReasons[interruption.category]}`;
+}
 export const label = (key: string | null | undefined) =>
   key ? labels[key] || key : "—";
 export const tone = (

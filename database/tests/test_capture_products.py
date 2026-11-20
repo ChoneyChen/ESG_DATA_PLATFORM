@@ -22,7 +22,7 @@ from esg_database.client import DatabaseBridge
 from esg_database.api import create_app
 from esg_database.ingestion import canonical
 from esg_database.projector import ProjectionWorker
-from esg_database.projection import TRANSFORM_VERSION
+from esg_database.projection import TRANSFORM_VERSION, compile_projection, project_export
 
 
 @pytest.fixture
@@ -163,7 +163,8 @@ def test_unknown_period_and_duplicate_physical_interpretations_remain_visible(sy
 def test_latest_report_and_explicit_restated_policy_are_versioned_and_do_not_overwrite(system):
     client, bridge = system
     _, old = receive(client, bridge, source="older", known=True, publication=2025, periods=("2023",), amount="100")
-    _, new = receive(client, bridge, source="newer", known=True, publication=2026, periods=("2023",), amount="110")
+    _, new = receive(client, bridge, source="newer", known=True, publication=2026,
+        periods=("01/01/2023-31/12/2023",), amount="110")
     ids = [old["projection_id"],new["projection_id"]]
     request, all_sources = preview(client, ids)
     frozen = publish(client, request, all_sources)
@@ -172,6 +173,7 @@ def test_latest_report_and_explicit_restated_policy_are_versioned_and_do_not_ove
     assert latest["selected"] == 1
     records = bridge.call("product_input", {"projection_ids":ids})["observations"]
     by_source = {row["source"]["document_id"]:row for row in records}
+    assert by_source["newer"]["period"]["start"] == "2023-01-01"
     assert next(row for row in latest["decisions"] if row["selected"])["observation_id"] == by_source["newer"]["observation_id"]
     request, previous = preview(client, ids, "prefer_explicit_restated")
     link = {"newer_observation_id":by_source["newer"]["observation_id"],"older_observation_id":by_source["older"]["observation_id"],"reason":"Reviewed synthetic correction"}
@@ -184,6 +186,60 @@ def test_latest_report_and_explicit_restated_policy_are_versioned_and_do_not_ove
     assert client.get("/v2/datasets/"+frozen["dataset_version_id"]+"/observations").json()["total"] == 2
     cycle = client.post("/v1/restatements", json={"newer_observation_id":link["older_observation_id"],"older_observation_id":link["newer_observation_id"],"reason":"must refuse cycle"})
     assert cycle.status_code == 409
+
+
+def test_projection_finds_its_scope_using_frozen_coordinates(system):
+    client, bridge = system
+    receipt, _ = receive(client, bridge, known=True, periods=("2023",))
+    payload = bridge.call("projection_input", {"export_id": receipt["export_id"]})
+    contract = payload["targets"][0]["contract"]
+    contract["output_scopes"] = [{"scope_id": "annual-location", "period": "annual", "method": "location_based"}]
+    contract["purposes"]["comparison"]["required_axes"].append("measurement_method")
+    identity = payload["facts"][0]["record"]["identity"]
+    identity["measurement_method"] = field("location_based").model_dump(mode="json")
+    mapping = payload["relations"][0]["mapping"]
+    mapping["scope_ids"] = []
+    observation, = compile_projection(payload)["observations"]
+    assert observation["comparison"]["eligible"]
+    assert not observation["mapping"]["scope_ids"]
+
+    identity["measurement_method"] = field("market_based").model_dump(mode="json")
+    mapping["scope_ids"] = ["annual-location"]
+    observation, = compile_projection(payload)["observations"]
+    assert observation["comparison"]["reasons"] == ["applicable_scope_unconfirmed"]
+
+
+def test_projection_upgrade_keeps_existing_snapshot(system, monkeypatch):
+    from esg_database import projection as compiler
+
+    client, bridge = system
+    export_id, data = archive()
+    assert client.post("/v1/ingestion/exports", content=data).status_code == 200
+    with monkeypatch.context() as patch:
+        patch.setattr(compiler, "TRANSFORM_VERSION", "capture-observation-1.1")
+        previous = project_export(bridge, export_id)
+    ProjectionWorker(bridge).tick()
+    path = f"/v1/ingestion/exports/{export_id}/projection"
+    assert client.get(path).json()["projection"] == previous
+    assert client.post(path).json()["projection"] == previous
+    assert client.get("/v1/projections").json()["total"] == 1
+
+
+def test_research_recovers_exact_split_magnitudes_keeps_captured_fields(system):
+    from esg_database.research import tables
+
+    client, bridge = system
+    _, projection = receive(client, bridge, known=True, periods=("2023",))
+    observations = bridge.call("product_input", {"projection_ids": [projection["projection_id"]]})["observations"]
+    observations[0]["value"].update(value_raw="more than 7.5 million", unit_raw="kilowatt hours (kWh)",
+        parse_status="unparsed", comparator="unknown", value_numeric=None)
+    result = tables(observations)
+    raw, = result["facts"]
+    analytical, = result["quantitative"]
+    assert (raw["value_raw"], raw["unit_raw"], raw["parse_status"]) == (
+        "more than 7.5 million", "kilowatt hours (kWh)", "unparsed")
+    assert (analytical["unit_id"], analytical["comparator"], analytical["value_lower"]) == (
+        "megajoule", "greater_than", "27000000")
 
 
 def test_public_snapshot_paginates_beyond_one_thousand_without_duplicate_or_loss(system):

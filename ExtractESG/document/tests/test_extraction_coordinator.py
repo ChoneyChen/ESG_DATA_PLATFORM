@@ -250,6 +250,114 @@ def test_batch_submission_is_atomic_when_any_report_cannot_be_previewed(coordina
         coordinator.create_batch(request.model_copy(update={"sessions": request.sessions[::-1]}))
 
 
+def test_provider_failure_holds_only_its_batch_and_resumes_from_original_session(coordinator):
+    coordinator.remote = lambda method, path, payload=None: (
+        {"ready": True, "fingerprint": "c" * 64, "version": "test"} if path == "/api/engine"
+        else {"clauses": {"TEST_01": {}}, "digest": "a" * 64}
+    )
+    coordinator.processing.assets = SimpleNamespace(get=lambda key: {"sha256": "b" * 64})
+    batch = coordinator.create_batch(ExtractionBatchRequest(submission_key="provider-pause", sessions=[
+        ExtractionPlanRequest(input={"kind": "pdf", "asset_id": f"asset-{index}"}, clause_keys=["TEST_01"],
+            model_selection={"provider": "deepseek", "model": "deepseek-flash"} if index < 11 else None)
+        for index in range(12)
+    ]))
+    owner, blocked = [coordinator.get(member.session_id) for member in batch.members[:2]]
+    owner.update(status="running", run_id="native-owner")
+    coordinator.save(owner)
+
+    def enqueue(key, batch_id, sid, provider):
+        return coordinator.store.create(task_id=key, task_type=PipelineTaskType.TARGETED_EXTRACTION,
+            operation="clause_extraction", title=key, native_job_id=key,
+            payload={"session_id": sid, "batch_id": batch_id, "model_provider": provider})
+
+    current = enqueue("active", batch.batch_id, owner["session_id"], "deepseek")
+    enqueue("waiting", batch.batch_id, blocked["session_id"], "deepseek")
+    other = enqueue("unrelated", "other-batch", "elsewhere", "deepseek")
+    assert coordinator.store.claim_next().task_id == current.task_id
+    from esg_pipeline.scheduler import PipelineScheduler, PipelineTaskHooks
+
+    result = {"run_id": "native-owner", "status": "interrupted", "resumable": True,
+              "provider_interruption": {"provider": "deepseek", "category": "provider_balance", "phase": "reading"}}
+    PipelineScheduler(coordinator.store, None, PipelineTaskHooks())._finish_native_state(current, result)
+    coordinator.tick(owner, result)
+    observed = coordinator.batches.get(batch.batch_id)
+    assert observed.submitted_count == 12
+    assert observed.provider_pauses[0].session_id == owner["session_id"]
+    assert observed.members[10].status == "waiting_for_window"
+    assert observed.members[11].status == "queued"
+    assert coordinator.store.claim_next().task_id == other.task_id
+    coordinator.store.update(other.task_id, status="completed")
+    assert coordinator.store.claim_next() is None
+
+    cleared = dict(result, status="queued", provider_interruption=None)
+    coordinator.remote = lambda method, path, payload=None: cleared if path.endswith("/resume") else result
+    coordinator.queue = lambda run_id, *args, **kwargs: enqueue("continued", batch.batch_id, owner["session_id"], "deepseek")
+    # A mixed-provider completion frees the report seat for the operator's resume.
+    free = coordinator.get(batch.members[11].session_id)
+    free["status"] = "completed"
+    coordinator.save(free)
+    coordinator.resume(owner["session_id"])
+    coordinator.tick(coordinator.get(owner["session_id"]))
+    assert coordinator.get(owner["session_id"])["run_id"] == "native-owner"
+    assert coordinator.batches.get(batch.batch_id).provider_pauses == []
+    assert coordinator.store.claim_next().task_id == "waiting"
+
+
+def test_new_attempt_links_same_report_without_replacing_previous_results(coordinator):
+    from copy import deepcopy
+
+    engine_fingerprint = "a" * 64
+    hashes = {"first": "b" * 64, "second": "c" * 64}
+    coordinator.processing.assets = SimpleNamespace(get=lambda key: {"sha256": hashes[key]})
+
+    def remote(method, path, payload=None):
+        if path == "/api/engine":
+            return {"ready": True, "fingerprint": engine_fingerprint, "version": "test"}
+        if path == "/api/targets/freeze":
+            assert "replaces_session_id" not in payload
+            return {"clauses": {"TEST_01": {}}, "digest": engine_fingerprint}
+        assert path == "/api/runs/original-run"
+        return {"run_id": "original-run", "status": "completed", "progress": {"fact_count": 5}}
+
+    coordinator.remote = remote
+    first = ExtractionPlanRequest(input={"kind": "pdf", "asset_id": "first"}, clause_keys=["TEST_01"])
+    second = first.model_copy(update={"input": first.input.model_copy(update={"asset_id": "second"})})
+    original_batch = coordinator.create_batch(ExtractionBatchRequest(submission_key="original", sessions=[first, second]))
+    source_id = original_batch.members[0].session_id
+    source = coordinator.get(source_id)
+    source.update(status="completed", run_id="original-run")
+    coordinator.save(source)
+    preserved = deepcopy(coordinator.get(source_id))
+
+    engine_fingerprint = "d" * 64
+    request = first.model_copy(update={"replaces_session_id": source_id, "submission_key": "retry"})
+    attempt = coordinator.create(request)
+    assert attempt["engine_fingerprint"] == engine_fingerprint
+    assert attempt["request"]["replaces_session_id"] == source_id
+    assert coordinator.create(request)["session_id"] == attempt["session_id"]
+    parallel = coordinator.create_batch(ExtractionBatchRequest(submission_key="followup", sessions=[
+        request.model_copy(update={"submission_key": None}), second,
+    ]))
+    assert parallel.members[0].replaces_session_id == source_id
+    assert parallel.members[1].replaces_session_id is None
+    with pytest.raises(ValueError, match="同一份报告"):
+        coordinator.create(second.model_copy(update={"replaces_session_id": source_id}))
+    with pytest.raises(ValueError, match="找不到"):
+        coordinator.create(first.model_copy(update={"replaces_session_id": "missing"}))
+
+    restarted = ExtractionCoordinator(coordinator.store, coordinator.processing,
+                                      coordinator.queue, coordinator.cancel_task, coordinator.base_url)
+    restarted.remote = remote
+    restored = restarted.batches.get(original_batch.batch_id)
+    linked = [attempt["session_id"], parallel.members[0].session_id]
+    assert restored.submitted_count == restored.total_count == 2
+    assert restored.members[0].replacement_session_ids == linked
+    assert restarted.get(source_id) == preserved
+    detail = restarted.detail(restarted.get(source_id))
+    assert detail["replacement_session_ids"] == linked
+    assert detail["progress"]["fact_count"] == 5
+
+
 def test_batch_shows_actual_queue_state_for_admitted_reports(coordinator):
     coordinator.remote = lambda method, path, payload=None: (
         {"ready": True, "fingerprint": "c" * 64, "version": "test"} if path == "/api/engine"

@@ -11,9 +11,9 @@ from esg_clauses.repository import ClauseRepository, ClauseRepositoryError
 from esg_contracts.facts import RunRequest
 from esg_data.organization import OrganizationSpec, OrganizedDataset
 from esg_runtime.local_operator import install_loopback_marker, operator_headers
-from esg_contracts.model_providers import ModelProviders, ModelSelection
+from esg_contracts.model_providers import CLOUD_NAMES, CloudModelProvider, ModelProviders, ModelSelection
 from .runtime import resources, engine_digest, input_document, saved_reading_progress
-from .adapters.model_credentials import DeepSeekCredentialStore, MAX_KEY_LENGTH
+from .adapters.model_credentials import ModelCredentialStore, configured_providers, MAX_KEY_LENGTH
 from .engine import ENGINE_VERSION
 from .result_store import ResultStore
 from esg_contracts.sessions import NativeRun
@@ -61,7 +61,7 @@ class PurgeRuns(BaseModel):
     run_ids: list[str] = Field(min_length=1, max_length=1000)
 
 
-class SaveDeepSeekCredential(BaseModel):
+class SaveModelCredential(BaseModel):
     model_config = ConfigDict(extra="forbid")
     api_key: SecretStr = Field(min_length=1, max_length=MAX_KEY_LENGTH)
 
@@ -87,8 +87,8 @@ def create_app(resource_factory=resources):
     async def invalid_request(request, exc):
         from fastapi.responses import JSONResponse
 
-        if request.url.path == "/api/model-providers/deepseek/credential":
-            return JSONResponse(status_code=422, content={"detail": "Invalid DeepSeek API key format"})
+        if request.url.path.startswith("/api/model-providers/") and request.url.path.endswith("/credential"):
+            return JSONResponse(status_code=422, content={"detail": "Invalid model credential request"})
         return JSONResponse(
             status_code=422,
             content={
@@ -132,21 +132,21 @@ def create_app(resource_factory=resources):
 
     def provider_status(store):
         try:
-            return DeepSeekCredentialStore(store).providers()
+            return configured_providers(store)
         except OSError:
             raise HTTPException(503, "The model credential store is unavailable") from None
 
     def require_model_setup(request, store):
         selection = request.model_selection or ModelSelection()
-        if selection.provider == "deepseek" or (
-            request.document_model_selection and request.document_model_selection.provider == "deepseek"
-        ):
+        chosen = (selection, request.document_model_selection)
+        cloud = dict.fromkeys(model.provider for model in chosen if model and model.provider in CLOUD_NAMES)
+        for provider in cloud:
             try:
-                configured = DeepSeekCredentialStore(store).configured()
+                configured = ModelCredentialStore(store, provider).configured()
             except OSError:
                 raise HTTPException(503, "The model credential store is unavailable") from None
             if not configured:
-                raise HTTPException(409, "DeepSeek API key is not configured in the local workbench")
+                raise HTTPException(409, f"{CLOUD_NAMES[provider]} API key is not configured in the local workbench")
         return selection
 
     @app.get("/api/model-providers")
@@ -154,16 +154,17 @@ def create_app(resource_factory=resources):
         response.headers["Cache-Control"] = "no-store"
         return provider_status(resource_factory()[1])
 
-    @app.put("/api/model-providers/deepseek/credential")
-    def save_deepseek_credential(payload: SaveDeepSeekCredential, http: Request, response: Response) -> ModelProviders:
+    @app.put("/api/model-providers/{provider}/credential")
+    def save_model_credential(provider: CloudModelProvider, payload: SaveModelCredential,
+                              http: Request, response: Response) -> ModelProviders:
         if operator_headers(http.headers.get("Authorization")) is None:
             raise HTTPException(403, "Model credentials can only be configured by a local operator")
-        credentials = DeepSeekCredentialStore(resource_factory()[1])
+        store = resource_factory()[1]
         try:
-            credentials.write(payload.api_key.get_secret_value().strip())
-            result = credentials.providers()
+            ModelCredentialStore(store, provider).write(payload.api_key.get_secret_value().strip())
+            result = configured_providers(store)
         except ValueError:
-            raise HTTPException(422, "Invalid DeepSeek API key format") from None
+            raise HTTPException(422, "Invalid API key format") from None
         except OSError:
             raise HTTPException(503, "The model credential store is unavailable") from None
         response.headers["Cache-Control"] = "no-store"
@@ -411,7 +412,8 @@ def create_app(resource_factory=resources):
             checkpoint, state.get("progress"), state.get("summary") or {}, "queued",
         ))
         return store.update(run_id, status="queued", worker_pid=None, worker_started=None,
-            cancel_requested=False, execution_continues=False, error=None, finished_at=None)
+            cancel_requested=False, execution_continues=False, error=None, finished_at=None,
+            provider_interruption=None)
 
     @app.post("/api/runs/{run_id}/execution-terminal")
     def execution_terminal(run_id: str, request: ExecutionTerminal) -> NativeRun:

@@ -70,6 +70,7 @@ class RunStatistics:
                 "target_facts": len(self.relations["match"]),
                 "other_facts": len(self.relations["different"]),
                 "unresolved_facts": len(self.relations["uncertain"]),
+                "clause_relationships": {relation: members.total() for relation, members in self.relations.items()},
                 "rejected_candidates": rejected_count,
                 "periods": dict(self.periods),
             },

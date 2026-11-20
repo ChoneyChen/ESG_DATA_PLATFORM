@@ -30,3 +30,16 @@ def test_english_dates_keep_actual_boundaries_and_short_periods_are_not_annual()
     assert short.kind=='range' and short.start.isoformat()=='2024-01-01' and short.end.isoformat()=='2024-03-31'
     annual=parse_period('January 1, 2024 to December 31, 2024')
     assert annual.kind=='annual' and annual.year==2024
+
+
+@pytest.mark.parametrize("literal", ["01/01/2023-31/12/2023", "01/01/2023–12/31/2023"])
+def test_explicit_slash_dates_keep_bounds_without_assuming_month_day_order(literal):
+    from esg_data.periods import period_payload
+
+    period = parse_period(literal)
+    assert (period.kind, period.year) == ("annual", 2023)
+    payload = period_payload(period)
+    assert payload["raw"] == literal
+    assert (payload["start"], payload["end"]) == ("2023-01-01", "2023-12-31")
+    assert normalize_period(payload) == period
+    assert parse_period("01/02/2023–02/04/2023").kind == "unknown"

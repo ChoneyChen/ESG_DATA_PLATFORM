@@ -313,6 +313,8 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/__init__.py) | One extraction backbone, independent clause goals, two produced data kinds. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/__init__.py) | Local implementations of pipeline ports; storage locations stay here. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/artifacts.py) | Artifacts are a producer-owned store addressed by run and artifact IDs. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/chat_completion_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/chat_completion_model.py) | Shared OpenAI-compatible transport, receipts and output validation. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/dashscope_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/dashscope_model.py) | DashScope text and page image input with streamed text output. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/deepseek_model.py) | DeepSeek transport for text and Flash page images. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/document.py) | Read original PDF pages and optional IR metadata over the document API. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/adapters/local_model.py) | Local general-purpose Qwen VLM; no NuExtract-specific template tokens. |
@@ -322,6 +324,7 @@
 | [ExtractESG/extraction/src/esg_extraction/pipeline/engine.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/engine.py) | Read and transcribe original PDF pages into the two existing fact types. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/exporting.py) | Immutable, self-contained export. Views and filesystem layout are not APIs. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/organization.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/organization.py) | Project clause-owned result layouts over referenced source facts. |
+| [ExtractESG/extraction/src/esg_extraction/pipeline/page_reading.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/page_reading.py) | Compact native-text hints for reading printed rows and their notes. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/ports.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py) | Backbone dependencies are value interfaces; implementations own I/O. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/result_store.py) | Producer-owned facts with a lightweight index; only changed records are written. |
 | [ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py](../../ExtractESG/extraction/src/esg_extraction/pipeline/runtime.py) | Composition root: filesystem, HTTP and model paths stop here. |

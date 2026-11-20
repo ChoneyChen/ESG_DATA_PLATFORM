@@ -470,6 +470,59 @@ def test_current_extraction_worker_result_is_consumed_by_real_scheduler(tmp_path
         scheduler.stop()
 
 
+@pytest.mark.parametrize("stopping,observed_status", [(False, None), (True, None), (False, "completed")])
+def test_scheduler_honors_provider_interruption_in_worker_result(tmp_path, stopping, observed_status):
+    from esg_contracts.worker import encode_event
+
+    interruption = {"provider": "dashscope", "category": "provider_balance", "phase": "reading"}
+
+    class Hooks(PipelineTaskHooks):
+        def command(self, task, secrets):
+            result = {"run_id": task.native_job_id, "status": "completed"}
+            if task.task_id == "owner":
+                result.update(status="interrupted", error="Provider quota exhausted", provider_interruption=interruption)
+            return WorkerCommand(
+                [sys.executable, "-c", "import sys; print(sys.argv[1], flush=True)", encode_event("result", payload=result)],
+                tmp_path,
+                {},
+            )
+
+        def event(self, task, event):
+            if stopping and event.get("kind") == "result":
+                scheduler._stop.set()
+
+        def probe(self, task):
+            if observed_status and task.task_id == "owner":
+                return {"run_id": task.native_job_id, "status": observed_status}
+            return None
+
+    store = PipelineQueueStore(tmp_path / "queue.sqlite3")
+    for task_id in ("owner", "following"):
+        store.create(
+            task_id=task_id,
+            task_type=PipelineTaskType.TARGETED_EXTRACTION,
+            operation="clause_extraction",
+            title=task_id,
+            native_job_id=f"native-{task_id}",
+            payload={"batch_id": "same-batch", "session_id": f"session-{task_id}", "model_provider": "dashscope"},
+        )
+    scheduler = PipelineScheduler(store, RuntimeSecretVault(), Hooks(), poll_interval_seconds=0.02)
+    scheduler.slot_path = tmp_path / "scheduler.lock"
+    scheduler.start()
+    try:
+        task = _wait_for_status(store, "owner", {PipelineTaskStatus.COMPLETED, PipelineTaskStatus.INTERRUPTED})
+        if observed_status:
+            assert task.status.value == observed_status
+            _wait_for_status(store, "following", {PipelineTaskStatus.COMPLETED})
+        else:
+            assert task.status == PipelineTaskStatus.INTERRUPTED
+            assert task.error == "Provider quota exhausted"
+            assert store.waiting_count() == 0
+            assert store.get("following").status == PipelineTaskStatus.QUEUED
+    finally:
+        scheduler.stop()
+
+
 def test_extraction_worker_cannot_bypass_the_shared_model_slot(monkeypatch):
     from esg_extraction.pipeline import worker
     monkeypatch.setattr(sys, 'argv', ['esg-extraction', 'extract-test'])

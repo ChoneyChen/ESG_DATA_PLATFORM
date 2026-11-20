@@ -404,6 +404,211 @@ def test_explicit_disclosure_survives_a_window_and_coexists_with_values(document
     }]
 
 
+def test_annual_repair_reads_only_missing_printed_cells(documents, repository, tmp_path, monkeypatch):
+    from esg_extraction.pipeline import engine
+
+    clause = repository.get("E1-6_07")
+    documents.pages = lambda asset: [PDFPageText(page_index=0, text=(
+        "Key Performance Indicators Boundary 2024 2025 GRI CSRD SASB NSF ISSB\n"
+        "Scope 1 GHG\nEmissions\n(Metric Tons CO2eq)\nGlobal\n(Operational\nControl)\n"
+        "16,593 22,386 305-1 E1-6 11.2.1 S2 29\n"
+        "Scope 2 GHG Market-based 919,451 753,843 305-2 E1-6"
+    ))]
+    monkeypatch.setattr(engine, "WINDOW_MAX_CALLS", 1)
+
+    class LeadingYearModel(Model):
+        def complete(self, **kwargs):
+            self.calls.append(kwargs)
+            context = kwargs["context"]
+            assert context["table_year_headers"] == [["2024", "2025"]]
+            if len(self.calls) == 1:
+                assert "missing_period_rows" not in context
+                measurements = [{"value": "22,386", "period": "2025"}]
+            else:
+                assert context["missing_period_rows"] == [{
+                    "clause_key": clause.clause_key, "label": "Scope 1 GHG Emissions",
+                    "periods": ["2024"], "printed_cells": {"2024": "16,593"},
+                }]
+                measurements = [{"value": "16,593", "period": "2024"}, {"value": "1", "period": "2025"}]
+            return {"items": [{"clause_key": clause.clause_key, "relation": "match", "unit": "tCO2e",
+                               "label": "Scope 1 GHG Emissions", "measurements": measurements}]}, {}
+
+    model = LeadingYearModel()
+    result = run_backbone(documents, model, FileArtifactPort(tmp_path / "out"), "leading-year",
+        RunRequest(ir_run_id="ir-example", clause_keys=[clause.clause_key]), {clause.clause_key: clause})
+    assert len(model.calls) == 2
+    assert {fact["value"]["value_raw"] for fact in result["facts"]} == {"16,593", "22,386"}
+    assert result["coverage"][0]["inspected_objects"] == 1
+
+
+def test_dense_annual_page_splits_only_its_wide_reading_group():
+    from esg_extraction.pipeline.engine import _reading_groups
+
+    wide = [f"key-{index}" for index in range(26)]
+    readings = [[0, wide], [1, wide[:23]], [2, wide], [3, wide]]
+    values = "\n".join(str(1000 + index) for index in range(114))
+    annual = "Performance metrics 2022 2023 2024\n" + values
+    page_text = {0: annual, 1: annual, 2: values, 3: "Environmental chapter 2022 2023 2024"}
+    assert list(_reading_groups(readings, page_text, 6144)) == [[0, wide[:13]], [0, wide[13:]], *readings[1:]]
+    assert list(_reading_groups(readings, page_text, 8192)) == readings
+
+
+def test_clause_declared_annual_row_can_repair_an_empty_initial_answer(documents, repository, tmp_path):
+    clause = repository.get("E1-6_11")
+    documents.pages = lambda asset: [PDFPageText(page_index=0, text=(
+        "Key Performance Indicators Boundary 2024 2025 GRI\n"
+        "Scope 3 GHG\nEmissions\n(Metric Tons CO2eq)\n"
+        "Supply Chain 4,401,699 3,981,422 305-3\n"
+        "Scope 3 GHG Emissions Intensity 13 9"
+    ))]
+
+    class OmittedRowModel(Model):
+        def complete(self, **kwargs):
+            self.calls.append(kwargs)
+            expected = [{"clause_key": clause.clause_key, "label": "Scope 3 GHG Emissions",
+                         "periods": ["2024", "2025"],
+                         "printed_cells": {"2024": "4,401,699", "2025": "3,981,422"}}]
+            assert kwargs["context"]["annual_rows"] == expected
+            if len(self.calls) == 1:
+                return {"items": []}, {}
+            assert kwargs["context"]["missing_period_rows"] == expected
+            return {"items": [{"clause_key": clause.clause_key, "relation": "match", "unit": "tCO2e",
+                               "label": "Scope 3 GHG Emissions", "measurements": [
+                                   {"value": "4,401,699", "period": "2024"},
+                                   {"value": "3,981,422", "period": "2025"},
+                               ]}]}, {}
+
+    model = OmittedRowModel()
+    result = run_backbone(documents, model, FileArtifactPort(tmp_path / "out"), "literal-row",
+        RunRequest(ir_run_id="ir-example", clause_keys=[clause.clause_key]), {clause.clause_key: clause})
+    assert len(model.calls) == 2
+    assert {fact["value"]["value_raw"] for fact in result["facts"]} == {"4,401,699", "3,981,422"}
+
+    narrative = "Scope 3 emissions, Scope 3 categories and other indirect GHG emissions are discussed here."
+    candidate_pages = [PDFPageText(page_index=0, text=narrative),
+                       PDFPageText(page_index=1, text=narrative),
+                       documents.pages("unused")[0].model_copy(update={"page_index": 2})]
+    selected, _ = page_plan(candidate_pages, {clause.clause_key: clause}, 2)
+    assert selected[0][0] == 2
+
+
+@pytest.mark.parametrize("label,method,category,expected_method,expected_category", [
+    ("Scope 3 GHG Emissions (Metric Tons CO2eq)", "operational_control", None, None, "total"),
+    ("Gross Scope 3 GHG Emissions", "Supplier-specific emission factors", None,
+     "Supplier-specific emission factors", "total"),
+    ("Scope 3 GHG Emissions – Business travel", "Distance-based method", "Business travel",
+     "Distance-based method", "Business travel"),
+    ("Scope 3 GHG Emissions Intensity", None, None, None, None),
+])
+def test_scope3_keeps_the_printed_boundary_and_recognizes_only_the_whole_scope_row(
+    documents, repository, label, method, category, expected_method, expected_category,
+):
+    from esg_extraction.pipeline.engine import _fact
+
+    attributes = {"reporting_boundary": "Supply Chain", "measurement_method": method,
+                  "scope3_category": category}
+    fact, _ = _fact(documents.document("ir-example"), repository.get("E1-6_11"), 83, {
+        "label": label, "value": "4,401,699", "period": "2024", "unit": "Metric Tons CO2eq",
+        "relation": "match", "attributes": attributes,
+    }, True)
+    assert fact.value.value_raw == "4,401,699"
+    assert fact.value.unit_raw == "Metric Tons CO2eq"
+    assert fact.identity.reporting_boundary.raw_text == "Supply Chain"
+    assert fact.identity.measurement_method.value == expected_method
+    dimension = fact.identity.dimensions.get("scope3_category")
+    assert (dimension.value if dimension else None) == expected_category
+    if expected_category == "total":
+        assert dimension.raw_text == label
+
+
+@pytest.mark.parametrize("key,label,value,unit,page,relation", [
+    ("E1-5_01", "Energy Intensity", "171", "MWh/MW", 20, "different"),
+    ("E2-4_02", "Exhaust emissions", "5,733,805.45", "10,000 m³", 125, "different"),
+    ("E2-4_02", "Particulates", "176.63", "ton", 125, "match"),
+    ("E2-4_03", "Wastewater Discharge (Tons)", "21,430,620", "Tons", 32, "different"),
+    ("E2-4_03", "Chemical Oxygen Demand (COD)", "965,436", "Tons", 32, "match"),
+    ("E2-5_02", "Total amount of hazardous waste generated", "2,132.52", "tons", 23, "different"),
+    ("E2-5_02", "JA Solar Operation-wide GHG Emissions (Scope 1 + Scope 2)", "1,879,379", "tCO₂e", 14, "different"),
+    ("E1-6_10", "total emission", "35,561,622", "tonnes of CO2e", 85, "different"),
+    ("E1-6_10", "Indirect GHG emissions (market-based)", "35,454,451", "tCO2e", 84, "uncertain"),
+    ("E1-6_10", "Indirect greenhouse gas emissions (Scope 2)", "3,220,788", "tCO2e", 70, "uncertain"),
+    ("E1-6_10", "Scope 2 GHG Market-based", "919,451", "Metric Tons CO2eq", 84, "match"),
+])
+def test_confirmed_relationships_preserve_raw_disclosures(documents, repository, key, label, value, unit, page, relation):
+    from esg_extraction.pipeline.engine import _fact
+
+    fact, mapping = _fact(documents.document("ir-example"), repository.get(key), page - 1, {
+        "label": label, "value": value, "unit": unit, "relation": "match",
+        "attributes": {"ghg_scope": "scope_2", "measurement_method": "market_based"},
+    }, True)
+    assert fact.value.value_raw == value
+    assert mapping.match == relation
+    if label == "Scope 2 GHG Market-based":
+        assert fact.identity.dimensions["ghg_scope"].value == "scope_2"
+        assert fact.identity.measurement_method.value == "market_based"
+    if label == "total emission":
+        assert fact.identity.dimensions["ghg_scope"].value == "total"
+
+
+def test_numbered_absence_requires_its_row_and_period_and_slash_follows_printed_legend():
+    from esg_extraction.pipeline.engine import _disclosure, _related_disclosure_notes
+
+    body = ("Environmental Performance 2024 2023 2022\n"
+            "Share of renewable energy sources Note 5 1.52% 1.24% N/A\n"
+            "Total energy consumption (MWh) 20,464,638 17,540,379 11,561,961")
+    notes_page = "(5) Not disclosed in 2022\n(6) Reduction in air pollutants emissions"
+    pages = {146: body, 148: notes_page}
+    candidate = {"label": "Share of renewable energy sources", "period": "2022", "value": "N/A",
+                 "disclosure": {"state": "not_disclosed", "statement_raw": "Not disclosed in 2022"}}
+    observation = _disclosure(candidate, 146, True, body, _related_disclosure_notes(pages, 146))
+    assert observation and observation.page_index == 148 and observation.period_raw == "2022"
+    assert _disclosure(candidate, 148, True, notes_page) is None
+    assert _disclosure({**candidate, "label": "Total energy consumption"}, 146, True, body,
+                      _related_disclosure_notes(pages, 146)) is None
+    assert _disclosure({**candidate, "period": "2024"}, 146, True, body,
+                      _related_disclosure_notes(pages, 146)) is None
+
+    slash = {"label": "Chemical Oxygen Demand (COD)", "period": "2019", "value": "/"}
+    local = 'Chemical Oxygen Demand (COD) (Tons)\n330,036 /\nNote: 2. “/” indicates no statistical summarization'
+    assert _disclosure(slash, 31, True, local).state == "not_available"
+    assert _disclosure(slash, 31, True, local.split("\nNote:")[0]) is None
+
+
+def test_legend_repair_fills_only_missing_marked_columns(documents, repository, tmp_path):
+    key = "E2-4_03"
+    clause = repository.get(key)
+    label = "Chemical Oxygen Demand (COD)"
+    legend = "“/” indicates no statistical summarization"
+    documents.pages = lambda asset: [PDFPageText(page_index=0, text=(
+        f"Pollutant Type 2020 2019\r\n{label} (Tons)\r\n330,036\r\n/\r\n2021\r\n0\r\nNote: {legend}"
+    ))]
+
+    class MarkerModel(Model):
+        def complete(self, **kwargs):
+            self.calls.append(kwargs)
+            if len(self.calls) == 1:
+                cells = [{"value": "330,036", "period": "2020", "relation": "match"}]
+            else:
+                rows = kwargs["context"]["missing_period_rows"]
+                assert rows == [{"clause_key": key, "label": label, "periods": ["2019", "2021"],
+                                 "printed_cells": {}, "slash_legend": legend}]
+                cells = [{"value": "/", "period": "2019", "relation": "match"},
+                         {"value": "0", "period": "2021", "relation": "match"},
+                         {"value": "123", "period": "2021", "relation": "match"}]
+            return {"items": [{"clause_key": key, "label": label, "unit": "Tons",
+                               "measurements": cells}]}, {}
+
+    model = MarkerModel()
+    result = run_backbone(documents, model, FileArtifactPort(tmp_path / "out"), "marked-year",
+        RunRequest(ir_run_id="ir-example", clause_keys=[key]), {key: clause})
+    assert len(model.calls) == 2
+    assert {fact["value"]["value_raw"] for fact in result["facts"]} == {"0", "330,036"}
+    assert result["coverage"][0]["disclosure_observations"] == [{
+        "state": "not_available", "statement_raw": legend, "page_index": 0,
+        "period_raw": "2019", "source_row_label": label,
+    }]
+
+
 def test_missing_declaration_requires_printed_words():
     from esg_extraction.pipeline.engine import _disclosure
 
@@ -416,6 +621,15 @@ def test_missing_declaration_requires_printed_words():
     assert report("Indonesia", "Indonesia not disclosed in 2023") is None
     assert report("Data not disclosed in 2023", "").state == "not_disclosed"
     assert report("Not disclosed in 2023", "Indonesia N/A\nNote 3: NOT DISCLOSED IN\n2023.").state == "not_disclosed"
+
+
+def test_model_status_code_alone_does_not_create_a_value_or_disclosure(documents, repository):
+    from esg_extraction.pipeline.engine import _disclosure, _fact
+
+    clause = repository.get("E3-4_01")
+    item = {"value": "not_disclosed", "label": "Total water consumption", "period": "2025"}
+    assert _fact(documents.document("ir-example"), clause, 42, item, True) is None
+    assert _disclosure(item, 42, True, "Total water consumption") is None
 
 
 def test_local_model_accepts_padding_in_structural_keys_without_changing_source_text(tmp_path):
@@ -458,6 +672,28 @@ def test_truncated_local_qualitative_read_keeps_the_completed_item(documents, re
     assert result["coverage"][0]["state"] == "failed"
     call = artifacts.read("truncated", "diagnostics/calls/1.json")
     assert call["recoverable_items"] == 1 and call["telemetry"]["completion_chars"] > len(statement)
+
+
+def test_truncated_multiple_targets_keep_completed_rows_at_call_limit(documents, repository, tmp_path):
+    from esg_extraction.models.errors import ModelRunFailure
+
+    clause = quantitative(repository)
+    other = clause.model_copy(update={"clause_key": "TEST_02"}).seal()
+    clauses = {c.clause_key: c for c in (clause, other)}
+
+    class TruncatedPage(Model):
+        def complete(self, **kwargs):
+            self.calls.append(kwargs)
+            item = json.dumps({"clause_key": clause.clause_key, "value": "12", "unit": "MWh"})
+            raise ModelRunFailure("Token limit", category="generation_incomplete",
+                                  cleaned_output=f'{{"items":[{item},{{"clause_key":"TEST_02"')
+
+    model = TruncatedPage()
+    result = run_backbone(documents, model, FileArtifactPort(tmp_path / "result"), "last-call",
+        RunRequest(ir_run_id="ir-example", clause_keys=list(clauses), budget=PipelineBudget(max_model_calls=1)), clauses)
+    assert len(model.calls) == 1
+    assert [fact["value"]["value_raw"] for fact in result["facts"]] == ["12"]
+    assert {item["state"] for item in result["coverage"]} == {"failed"}
 
 
 def test_no_cross_clause_or_cross_run_model_cache(documents,repository,tmp_path):

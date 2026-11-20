@@ -152,9 +152,12 @@ def prepare(env):
 
 
 def stop_owned(state):
-    for record in reversed(list(state.get('services',{}).values())):
+    for name, record in reversed(list(state.get('services',{}).items())):
         if record.get('owned') and belongs(record):
-            try:os.killpg(record['pid'],signal.SIGTERM)
+            # The Python database service closes its Node adapter over stdin.
+            # Signalling both at once can interrupt the adapter's checkpoint.
+            terminate = os.kill if name == 'database' else os.killpg
+            try:terminate(record['pid'],signal.SIGTERM)
             except ProcessLookupError:pass
             # Let the document scheduler checkpoint/stop before its extraction API exits.
             for _ in range(30):
@@ -194,11 +197,15 @@ def supervise():
             state['error']=str(exc);save(state)
         finally:
             stop_owned(state)
-            for process in children.values():
+            for name,process in children.items():
+                if name == 'database':
+                    # Keep the supervisor lease until PGlite finishes closing.
+                    process.wait()
+                    continue
                 try:process.wait(timeout=15)
                 except subprocess.TimeoutExpired:
                     # This process group belongs to this exact supervisor; never kill by port/name.
-                    if belongs(state['services'][next(key for key,value in children.items() if value is process)]):
+                    if belongs(state['services'][name]):
                         os.killpg(process.pid,signal.SIGKILL)
             state['stopped_at']=datetime.now(timezone.utc).isoformat();save(state)
 

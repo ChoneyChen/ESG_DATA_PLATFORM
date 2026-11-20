@@ -1111,7 +1111,7 @@
       "title": "范围3价值链分解结构"
     },
     {
-      "clause_digest": "74542fa08ea01481f41329688e882054c65877249bfc5e40820eac910c4f2de8",
+      "clause_digest": "a24fe1ca8a0455a6ff1f62f61176e13f727d667e58f4dbb71dbafd9b125b4e40",
       "clause_key": "E1-6_07",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1131,7 +1131,7 @@
       "title": "受监管排放交易体系覆盖的范围1排放比例"
     },
     {
-      "clause_digest": "152505b8392c26558a049149df2d10b3e2616d6320f315d62c9c08f5aee2644a",
+      "clause_digest": "073d17438363f28a1064a55fe7f3d65c2b039298f87c8e429bde15878932b22b",
       "clause_key": "E1-6_09",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1141,7 +1141,7 @@
       "title": "范围2地点法排放 Scope 2 location-based"
     },
     {
-      "clause_digest": "95d8de8a45d7ee4c24b87b7fea7c54a1c5da12f767d25fe09b6162ae42358e77",
+      "clause_digest": "550061fc66e190a89f6acd51223e5df46d7e876385644d1bf2917597d3aca18a",
       "clause_key": "E1-6_10",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -1151,7 +1151,7 @@
       "title": "范围2市场法排放 Scope 2 market-based"
     },
     {
-      "clause_digest": "422b96453371f1c6c842c084fa8cd401a092369e38bbca199c933342aca29323",
+      "clause_digest": "62837fd3dbdcfa38e6589931140eaa61084b1f38a0693cb4bfe51d1af3cefb3b",
       "clause_key": "E1-6_11",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2641,7 +2641,7 @@
       "title": "空气、水和土壤污染披露维度结构"
     },
     {
-      "clause_digest": "87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b",
+      "clause_digest": "cc364f82bcb6e2d05c7d1401461ac294f0b3e8bd2fa4c59335b2a3ba3137a969",
       "clause_key": "E2-4_02",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2651,7 +2651,7 @@
       "title": "向空气排放污染物 Pollutants emitted to air"
     },
     {
-      "clause_digest": "79633a7fce89294affb98c633b54e5a1724dc54f7afa5cf5907666a6d7122753",
+      "clause_digest": "1bb2c9f52f660cb59ae7108b8fbdefdbba91b6fb27609bb03570d31b1d300474",
       "clause_key": "E2-4_03",
       "data_kind": "quantitative",
       "entry_kind": "value",
@@ -2711,7 +2711,7 @@
       "title": "空气、水和土壤污染随时间变化描述"
     },
     {
-      "clause_digest": "47f098050da655e0f395ee7b6e2a660c7bf309b44364a6a9fc0011fe8715383d",
+      "clause_digest": "2eca05d6e50be5a7161bef620b9f681c4747d4728e720ad7e8d58fb0b982f579",
       "clause_key": "E2-4_09",
       "data_kind": "qualitative",
       "entry_kind": "value",
@@ -2841,7 +2841,7 @@
       "title": "关注物质按危害类别分解的披露结构"
     },
     {
-      "clause_digest": "b598972e3b4c09dc8ede370f8937e5027248f1ed93cf5423cc21c6b4001220ab",
+      "clause_digest": "5165a5bf7ca87882a5b6c0b4334a30d14ecbf79ed29f6eefaaa59f00e2ead7a8",
       "clause_key": "E2-5_02",
       "data_kind": "quantitative",
       "entry_kind": "value",

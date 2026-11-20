@@ -5,16 +5,18 @@ from pathlib import Path
 import stat
 from tempfile import NamedTemporaryFile
 
-from esg_contracts.model_providers import DEEPSEEK_MODELS, ModelProviders, ModelProviderStatus
+from esg_contracts.model_providers import CLOUD_MODELS, CloudModelProvider, ModelProviders, ModelProviderStatus
 
 
 MAX_KEY_LENGTH = 512
 
 
-class DeepSeekCredentialStore:
-    def __init__(self, run_store):
+class ModelCredentialStore:
+    def __init__(self, run_store, provider: CloudModelProvider):
+        if provider not in CLOUD_MODELS:
+            raise ValueError("Unknown cloud model provider")
         self.directory = run_store.path.parent / "model-credentials"
-        self.path = self.directory / "deepseek"
+        self.path = self.directory / provider
 
     @staticmethod
     def _private(metadata, check_type, permissions):
@@ -52,7 +54,7 @@ class DeepSeekCredentialStore:
 
     def write(self, value):
         if not _valid_key(value):
-            raise ValueError("Invalid DeepSeek API key format")
+            raise ValueError("Invalid API key format")
         self.directory.mkdir(mode=0o700, exist_ok=True)
         self._private(self.directory.lstat(), stat.S_ISDIR, 0o700)
         temporary = None
@@ -67,11 +69,13 @@ class DeepSeekCredentialStore:
             if temporary is not None:
                 temporary.unlink(missing_ok=True)
 
-    def providers(self):
-        return ModelProviders(providers=[
-            ModelProviderStatus(provider="local", configured=True, models=[]),
-            ModelProviderStatus(provider="deepseek", configured=self.configured(), models=list(DEEPSEEK_MODELS)),
-        ])
+
+def configured_providers(run_store):
+    return ModelProviders(providers=[
+        ModelProviderStatus(provider="local", configured=True, models=[]),
+        *(ModelProviderStatus(provider=provider, configured=ModelCredentialStore(run_store, provider).configured(),
+                              models=list(models)) for provider, models in CLOUD_MODELS.items()),
+    ])
 
 
 def _valid_key(value):

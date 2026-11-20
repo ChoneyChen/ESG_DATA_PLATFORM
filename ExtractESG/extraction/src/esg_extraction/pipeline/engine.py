@@ -3,11 +3,13 @@
 import json
 import re
 import time
-import unicodedata
 from collections import defaultdict
 from hashlib import sha256
 
-from esg_clauses.reading import matches_reported_statement, reported_combined_ghg_scope
+from esg_clauses.reading import (
+    matches_reported_statement, reported_combined_ghg_scope, reported_ghg_axes, reported_label_conflict,
+    reported_scope3_category,
+)
 from esg_clauses.scope import VALUE_ROLE_CODES
 from esg_clauses.search import compile_search_plan
 from esg_contracts.data_kinds.qualitative import QualitativeStructure
@@ -19,34 +21,42 @@ from esg_contracts.facts import (
 )
 from esg_contracts.results import FactBundle
 from esg_data.hashing import digest
-from esg_data.literals import has_reported_approximation, parse_printed_measure
+from esg_data.literals import has_reported_approximation, parse_number, parse_printed_measure
 from esg_data.normalize import fold
 from esg_data.periods import YEAR, parse_period, period_payload
 from esg_data.quantities import standard_unit
 from esg_data.text_search import lexical_score
+from esg_data.units import unit_dimension
 from esg_extraction.models.errors import ModelCancelled, ModelRunFailure
 from esg_extraction.models.structured_template import output_properties
 
-from .ports import DocumentUnavailable
+from .page_reading import (
+    ANNUAL_HEADER, EMPTY_PRINTED, NOTE_MARKER, annual_headers, applicable_numbered_note, declared_annual_rows,
+    missing_annual_periods, numbered_notes, quote_key,
+)
+from .ports import DocumentUnavailable, ProviderInterruption
 from .statistics import RunStatistics
 
 
-ENGINE_VERSION = "page-reader-3.11"
+ENGINE_VERSION = "page-reader-3.12"
 PAGE_INSTRUCTIONS = """Fill each requested clause independently from the current PDF page. Read the first image when present. Use its text to check spelling and digits. Copy the applicable printed label, period and attributes. Observe which rows and years a footnote covers. Copy the named entity, boundary, method and qualifiers when stated. Omit unknown fields."""
-MEASUREMENT_INSTRUCTIONS = """Read totals and relevant breakdowns in every printed column, including the first data column. For a table row or chart series, put label, unit, attributes and relation on the item once; measurements lists every printed period's value or explicit missing disclosure, with overrides only when fields change. Use the preceding_page header only for a visible continuation. Copy the complete printed quantity including qualifiers such as about, ~, ≥, and both range endpoints. Copy unit, multiplier, chemistry and denominator. Keep printed zeros. Skip unexplained blanks, dashes and N/A. A counted Not Disclosed group still has a value. Return explicit numeric roles with code and printed raw_text. A year alone is not a baseline. A target or limit is different when actual results are requested."""
+MEASUREMENT_INSTRUCTIONS = """Read totals and relevant breakdowns across all printed columns, in print order. table_year_headers lists possible native headings; use the heading actually attached to each row, including earlier and first columns. If annual_rows is present, check those explicit source rows in the current image as well. For a row or series, use the printed row label and put unit, attributes and relation on the item once. measurements lists each printed period's value or explicit missing disclosure. Use overrides only where they apply. Use the preceding_page header only for a visible continuation. Copy the complete printed quantity including about, ~, ≥, range endpoints, multiplier, chemistry and denominator. Keep printed zeros. Skip unexplained blanks, dashes, slash and N/A. A counted Not Disclosed group still has a value. Return explicit numeric roles with code and printed raw_text. A year alone is not a baseline. A target or limit is different when actual results are requested."""
 ASSERTION_INSTRUCTIONS = """Use the relevant complete sentence or bullet as value. If stated, copy short phrases for structure.topic (subject matter), structure.subject (actor or object) and structure.action (what happens). Leave the remaining fields out."""
-RELATION_INSTRUCTIONS = """Return compact JSON with items; omit unrelated items and duplicates. Use match, different for a distinct stated meaning or basis, or uncertain, and give a short printed basis in relation_reason for different or uncertain. Scope_ids apply only to matching scopes. For explicit absence write disclosure.state and verbatim disclosure.statement_raw, with the affected label and period. If a table cell carries a note, follow the printed note to the affected period in that row. disclosure_text contains candidate quotes; use them only where applicable. If you find no disclosure, omit the item instead of commenting on the page."""
+RELATION_INSTRUCTIONS = """Return compact JSON with items; omit unrelated items and duplicates. Use match, different for a distinct stated meaning or basis, or uncertain, and give a short printed basis in relation_reason for different or uncertain. Scope_ids apply only to matching scopes. For explicit absence write disclosure.state and verbatim disclosure.statement_raw, with the printed row label and affected period. A numbered note in disclosure_text or referenced_disclosure_notes applies only to the row that visibly cites its number and that row's missing period. A slash or other marker with a printed explanation applies to the marked cell. A notes-only page does not disclose an absence across unrelated metrics. If you find no disclosure, omit the item."""
+MISSING_PERIOD_INSTRUCTIONS = """Read only the listed missing_period_rows on this original page. Find the printed row and copy each requested column, including its period, unit and actual qualifiers. Check the native printed_cells hints against the original page. Where slash_legend is specified, read the requested years directly from the image: copy printed numbers (including zero), report '/' only in a cell marked by that legend, and omit blanks. Return the supplied printed label for the row and only the requested periods."""
 LOCATE_INSTRUCTIONS = """The images are numbered PDF pages in the same order as page_indices. Identify all pages likely to have relevant disclosures for any requested topic, including tables and graphs and their continuation. Return a JSON object with page_indices. This highlights pages for detailed reading; do not extract values."""
 LOCATE_SCHEMA = {"type": "object", "required": ["page_indices"], "properties": {
     "page_indices": {"type": "array", "items": {"type": "integer"}}}}
-EMPTY_CELL = re.compile(r"(?:[-–—－]+|n[/\.]?a|none|null|无)[.。]?", re.I)
+EMPTY_CELL = EMPTY_PRINTED
+SLASH_LEGEND = re.compile(r"[“”\"'「」][/／][“”\"'「」]\s*(?:indicates?|means?|表示)\s*[^\r\n]+", re.I)
+SLASH_CELLS = re.compile(r"(?:^|[ \t]{2,])[/／](?=[ \t]*\r?$|[ \t]{2,})", re.M)
 ABSENCE_TEXT = {
     "not_disclosed": re.compile(
         r"(?:\bnot\s+(?:disclosed|reported)\b|\bno\s+data\s+(?:reported|disclosed)\b|未披露|未报告)(?:\s+(?:for|in)\b.+)?[.。]?", re.I,
     ),
     "not_applicable": re.compile(r"(?:\bnot\s+applicable\b|\binapplicable\b|不适用)[.。]?", re.I),
     "not_available": re.compile(
-        r"(?:\bnot\s+(?:available|collected)\b|\bno\s+data(?:\s+available)?\b|无数据|未收集)(?:\s+(?:for|in)\b.+)?[.。]?", re.I,
+        r"(?:\bnot\s+(?:available|collected)\b|\bno\s+(?:data(?:\s+available)?|statistical\s+summari[sz]ation)\b|无数据|無數據|未(?:收集|统计|統計|汇总|彙總))(?:\s+(?:for|in)\b.+)?[.。]?", re.I,
     ),
 }
 PAGE_COMMENT = re.compile(r"^\s*(?:on\s+)?(?:this|the)\s+(?:page|report|document|table)\b", re.I)
@@ -56,12 +66,15 @@ ENERGY_UNITS = {"megajoule", "tonne-coal-equivalent"}
 CARBON_UNITS = {"tonne-co2", "tonne-co2e"}
 WINDOW_MAX_CALLS = 10
 PAGE_SHORTLIST = 8
+DENSE_READ_MIN_TARGETS = 25
+DENSE_READ_MIN_NUMERIC_LINES = 96
+DENSE_READ_MAX_OUTPUT_TOKENS = 6144
 MEASUREMENT_LINE = re.compile(r"^[ \t]*[-−<>≈]?\d[\d,. ]*(?:%|[ \t]*[A-Za-z]{1,4})?[ \t\r]*$", re.M)
 TABLE_NUMBER = re.compile(r"(?<![\w.,])[-−<>≈]?\d[\d,]*(?:\.\d+)?%?(?![\w.,])")
-YEAR_COLUMNS = re.compile(r"(?<![\d.,])(?:19|20)\d{2}(?:[ \t]+(?:19|20)\d{2})+(?![\d.,])")
+YEAR_COLUMNS = ANNUAL_HEADER
 YEAR_LIST = r"(?:19|20|21)\d{2}"
 YEAR_QUALIFIER = re.compile(rf"\s+in\s+({YEAR_LIST}(?:(?:\s*,\s*|\s+and\s+){YEAR_LIST})*)[.。]?$", re.I)
-PROVIDER_STOP = {"provider_authentication", "provider_balance", "request_config"}
+PROVIDER_INTERRUPTION = {"provider_authentication", "provider_balance", "provider_rate_limit"}
 
 
 class PipelineCancelled(RuntimeError):
@@ -153,6 +166,13 @@ def page_plan(pages, clauses, page_limit, hint_pages=()):
     intents = {key: compile_search_plan(clause)["page"] for key, clause in clauses.items()}
     scores = {key: {index: _page_score(text, intent) for index, text in by_index.items()}
               for key, intent in intents.items()}
+    literal_targets = {key: clause for key, clause in clauses.items() if clause.reading.vocabulary.get("annual_read_labels")}
+    if literal_targets:
+        for index, text in by_index.items():
+            headings = annual_headers(text)
+            if len(headings) == 1:
+                for matched in declared_annual_rows(text, headings[0], literal_targets):
+                    scores[matched["clause_key"]][index] += 8
     clause_hits = {index: sum(bool(scored[index]) for scored in scores.values()) for index in by_index}
     rank = {index: sum(scored[index] for scored in scores.values()) + 2 * (index in table_pages)
             for index in by_index}
@@ -180,6 +200,19 @@ def page_plan(pages, clauses, page_limit, hint_pages=()):
             jobs[index].append(key)
     ordered = sorted(jobs, key=lambda index: (index not in hint_pages, index not in table_pages, -rank[index], index))
     return [[index, jobs[index]] for index in ordered], limited
+
+
+def _reading_groups(jobs, page_text, max_output_tokens):
+    """Split exceptionally dense annual tables before a predictable output cut-off."""
+    for index, keys in jobs:
+        text = page_text[index]
+        if (max_output_tokens <= DENSE_READ_MAX_OUTPUT_TOKENS and len(keys) >= DENSE_READ_MIN_TARGETS
+                and YEAR_COLUMNS.search(text) and len(MEASUREMENT_LINE.findall(text)) >= DENSE_READ_MIN_NUMERIC_LINES):
+            middle = len(keys) // 2
+            yield [index, keys[:middle]]
+            yield [index, keys[middle:]]
+        else:
+            yield [index, keys]
 
 
 def _reading_fields(clause):
@@ -217,24 +250,69 @@ def _absence_state(raw):
     return next((state for state, pattern in ABSENCE_TEXT.items() if pattern.fullmatch(raw)), None)
 
 
-def _quotation_text(text):
-    normalized = fold(unicodedata.normalize("NFKC", text))
-    return "".join(character for character in normalized if character.isalnum())
-
-
 def _disclosure_text(text):
     return [line.strip() for line in text.splitlines()
             if any(pattern.search(line) for pattern in ABSENCE_TEXT.values())][:8]
 
 
-def _disclosure(item, page_index, quantitative, page_text):
+def _slash_legend(page_text):
+    return next((match[0] for match in SLASH_LEGEND.finditer(page_text)
+                 if ABSENCE_TEXT["not_available"].search(match[0])), None)
+
+
+def _missing_slash_rows(items, page_text, quantitative_keys):
+    """Ask vision to associate printed markers with rows and year columns."""
+    legend = _slash_legend(page_text)
+    if not legend or not SLASH_CELLS.search(page_text):
+        return []
+    years = list(dict.fromkeys(re.findall(YEAR, page_text)))
+    page_key = quote_key(page_text)
+    seen = defaultdict(dict)
+    for item in items:
+        if not isinstance(item, dict) or item.get("clause_key") not in quantitative_keys:
+            continue
+        label = _text(item, "label")
+        if not label or not (key := quote_key(label)) or key not in page_key:
+            continue
+        series = item.get("measurements")
+        for cell in series if isinstance(series, list) else [item]:
+            if (isinstance(cell, dict) and cell.get("relation", item.get("relation")) == "match"
+                    and (period := _text(cell, "period")) in years):
+                seen[(item["clause_key"], label)][period] = _text(cell, "value")
+    rows = []
+    for (key, label), observed in seen.items():
+        periods = [year for year in years if year not in observed]
+        if periods and any(value and parse_number(value) is not None for value in observed.values()):
+            rows.append({"clause_key": key, "label": label, "periods": periods,
+                         "printed_cells": {}, "slash_legend": legend})
+    return rows
+
+
+def _related_disclosure_notes(page_text, index):
+    current = page_text[index]
+    cited = set(NOTE_MARKER.findall(current))
+    notes = [(number, note, index) for number, note in numbered_notes(current) if _disclosure_text(note)]
+    if cited:
+        for other_index in range(index + 1, index + 4):
+            notes.extend(
+                (number, note, other_index) for number, note in numbered_notes(page_text.get(other_index, ""))
+                if number in cited and _disclosure_text(note)
+            )
+    return notes
+
+
+def _disclosure(item, page_index, quantitative, page_text, referenced_notes=()):
     raw = _text(item, "value")
+    if quantitative and raw and raw.casefold() in ABSENCE_TEXT:
+        raw = None  # Model status codes are not printed disclosures.
     raw_state = _absence_state(raw) if quantitative and raw else None
     if raw and not raw_state and not EMPTY_CELL.fullmatch(raw):
         return None
     details = item.get("disclosure")
     stated = _text(details, "statement_raw") if isinstance(details, dict) else None
     state = _text(details, "state") if isinstance(details, dict) else None
+    if raw in {"/", "／"} and (legend := _slash_legend(page_text)):
+        stated, state = legend, "not_available"
     if not stated and raw_state:
         stated = raw
         state = raw_state
@@ -245,12 +323,63 @@ def _disclosure(item, page_index, quantitative, page_text):
         state = observed_state
     elif not ABSENCE_TEXT[state].search(stated):
         return None
-    if page_text and any(character.isalpha() for character in page_text):
-        quotation = _quotation_text(stated)
-        if not quotation or quotation not in _quotation_text(page_text):
+    label, period = _text(item, "label"), _text(item, "period")
+    quotation = quote_key(stated)
+    notes = referenced_notes or [(number, note, page_index) for number, note in numbered_notes(page_text)]
+    matching_notes = [(number, note, source_page) for number, note, source_page in notes
+                      if quotation and quotation in quote_key(note)]
+    if matching_notes:
+        applicable = [source_page for number, note, source_page in matching_notes
+                      if applicable_numbered_note(label, period, page_text, note, number)]
+        if len(applicable) != 1:
             return None
+        page_index = applicable[0]
+    elif page_text and any(character.isalpha() for character in page_text):
+        if not quotation or quotation not in quote_key(page_text):
+            return None
+    if raw in {"/", "／"} and (not label or not period or quote_key(label) not in quote_key(page_text)):
+        return None
     return DisclosureObservation(state=state, statement_raw=stated, page_index=page_index,
-        period_raw=_text(item, "period"), source_row_label=_text(item, "label"))
+        period_raw=period, source_row_label=label)
+
+
+def _period_repair_items(items, missing, page_text):
+    """Use the supplemental reading only for its requested printed cells."""
+    wanted = defaultdict(list)
+    for row in missing:
+        wanted[(row["clause_key"], quote_key(row["label"]))].append(row)
+    page_literals = {parse_number(match[0]) for match in TABLE_NUMBER.finditer(page_text)} if any(
+        row.get("slash_legend") for row in missing) else set()
+    page_literals.discard(None)
+    for item in items:
+        if not isinstance(item, dict) or not isinstance(item.get("label"), str):
+            continue
+        rows = wanted.get((item.get("clause_key"), quote_key(item["label"])))
+        if not rows:
+            continue
+        columns = item.get("measurements")
+        columns = columns if isinstance(columns, list) else [item]
+        readings = []
+        for cell in columns:
+            if not isinstance(cell, dict):
+                continue
+            period, value = _text(cell, "period"), _text(cell, "value")
+            if not period or not value:
+                continue
+            for row in rows:
+                if period not in row["periods"]:
+                    continue
+                if row.get("slash_legend"):
+                    if value not in {"/", "／"} and parse_number(value) not in page_literals:
+                        continue
+                else:
+                    expected = parse_number(row["printed_cells"][period])
+                    if expected is None or parse_number(value) != expected:
+                        break
+                readings.append(cell)
+                break
+        if readings:
+            yield {**item, "label": rows[0]["label"], "measurements": readings}
 
 
 def _annual_attribute(text, period):
@@ -299,10 +428,16 @@ def _completed_items(prefix):
         tail = tail[1:].lstrip()
 
 
-def _unit_scope_difference(printed_unit, canonical_unit):
+def _unit_scope_difference(printed_unit, canonical_unit, target_dimension=None):
+    actual_dimension = unit_dimension(printed_unit)
+    rate_for_quantity = (actual_dimension and actual_dimension.endswith("intensity")
+                         and target_dimension in {"energy", "mass", "volume", "ghg-emissions"})
     actual = standard_unit(printed_unit)
     expected = standard_unit(canonical_unit)
     if not actual or not expected:
+        if rate_for_quantity:
+            return ScopeDifference(axis="unit_dimension", reported=actual_dimension,
+                                   expected=target_dimension, raw_text=printed_unit)
         return None
     numerator, _, denominator = expected[0].partition("/")
     actual_numerator = actual[0].split("/", 1)[0]
@@ -310,7 +445,7 @@ def _unit_scope_difference(printed_unit, canonical_unit):
     non_energy = CARBON_UNITS | {"cubic-metre"}
     incompatible_media = ((numerator in non_energy and actual_numerator in ENERGY_UNITS)
         or (actual_numerator in non_energy and numerator in ENERGY_UNITS))
-    if not percent_for_quantity and not incompatible_media:
+    if not (percent_for_quantity or incompatible_media or rate_for_quantity):
         return None
     return ScopeDifference(axis="unit_dimension", reported=actual[0], expected=expected[0], raw_text=printed_unit)
 
@@ -318,7 +453,7 @@ def _unit_scope_difference(printed_unit, canonical_unit):
 def _fact(document, clause, page_index, item, visual, page_text=""):
     raw = _text(item, "value")
     quantitative = clause.data_kind == "quantitative"
-    if not raw or (quantitative and (EMPTY_CELL.fullmatch(raw) or _absence_state(raw))):
+    if not raw or (quantitative and (EMPTY_CELL.fullmatch(raw) or _absence_state(raw) or raw.casefold() in ABSENCE_TEXT)):
         return None
     unit = _text(item, "unit")
     label = _text(item, "label")
@@ -354,6 +489,20 @@ def _fact(document, clause, page_index, item, visual, page_text=""):
     if combined_scope:
         dimensions["ghg_scope"] = field(label, combined_scope)
         recognized["ghg_scope"] = combined_scope
+    if "scope3_category" not in dimensions and (category := reported_scope3_category(clause, label, unit)):
+        dimensions["scope3_category"] = field(label, category)
+        recognized["scope3_category"] = category
+    method_specific = "aggregate_ghg_label" in clause.reading.vocabulary
+    if method_specific:
+        # Do not use target codes printed by the model as measurements of the source.
+        dimensions.pop("ghg_scope", None)
+        axes.pop("measurement_method", None)
+        for name in ("ghg_scope", "measurement_method"):
+            recognized.pop(name, None)
+        relevant = {name: _text(attributes, name) for name in ("ghg_scope", "measurement_method")} if isinstance(attributes, dict) else {}
+        for name, (words, code) in reported_ghg_axes(clause, label, relevant).items():
+            (axes if name == "measurement_method" else dimensions)[name] = field(words, code)
+            recognized[name] = code
     value_role = item.get("value_role")
     if quantitative and isinstance(value_role, dict):
         code, wording = _text(value_role, "code"), _text(value_role, "raw_text")
@@ -396,12 +545,18 @@ def _fact(document, clause, page_index, item, visual, page_text=""):
                    for name in clause.purposes.target_scope.discriminating_axes
                    if name in recognized and name in expected and recognized[name] != expected[name]
                    and (name, recognized[name], expected[name]) != ("value_role", "restated", "actual")]
-    if quantitative and (unit_difference := _unit_scope_difference(printed_unit, clause.value.canonical_unit)):
+    if quantitative and (unit_difference := _unit_scope_difference(printed_unit, clause.value.canonical_unit, clause.dimension)):
         differences.append(unit_difference)
+    label_conflict = reported_label_conflict(clause, label if quantitative else raw,
+                                              unit_dimension=unit_dimension(printed_unit) if quantitative else None)
     if differences:
         relation = "different"
         details = ", ".join(f"{change.axis}={change.reported} (target {change.expected})" for change in differences)
         reason = f"Reported scope differs: {details}" + (f". {reason}" if reason else "")
+    elif label_conflict:
+        relation, reason = "different", label_conflict
+    elif method_specific and relation == "match" and not {"ghg_scope", "measurement_method"} <= recognized.keys():
+        relation, reason = "uncertain", "The row does not independently identify both emission scope and calculation method"
     elif relation in (None, "uncertain") and matches_reported_statement(clause, raw):
         relation = "match"
         reason = "The reported assertion states a practice described by the clause"
@@ -483,6 +638,14 @@ class ExtractionBackbone:
                          errors=errors, inspected=inspected, hint_pages=sorted(hint_pages))
             self.results.checkpoint(state)
 
+        def pause_provider(exc, model, phase, **resume_position):
+            category = getattr(exc, "category", None)
+            if category in PROVIDER_INTERRUPTION:
+                self.results.flush()
+                checkpoint(**resume_position)
+                provider = getattr(model, "provider_name", "unknown")
+                raise ProviderInterruption(provider, category, str(exc)[:240], phase) from exc
+
         def call(model, indices, instructions, values, schema, phase, images):
             nonlocal calls
             if cancel_check():
@@ -535,29 +698,31 @@ class ExtractionBackbone:
                             raise ValueError("Document locator did not return page indices")
                         hint_pages.update(index for index in answer["page_indices"] if index in group)
                     except (ModelRunFailure, ValueError) as exc:
+                        pause_provider(exc, self.document_model, "locating_pages", located=offset)
                         state.setdefault("location_warnings", []).append(str(exc)[:240])
-                        if getattr(exc, "category", None) in PROVIDER_STOP:
+                        if getattr(exc, "category", None) == "request_config":
                             break
                     checkpoint(located=offset + len(group))
                     if remaining() > 0 and window_used():
                         yield_window()
             jobs, limited = page_plan(catalog, clauses, budget.max_objects_per_clause, hint_pages)
-            checkpoint(jobs=jobs, limited=limited, position=0)
+            groups = list(_reading_groups(jobs, page_text, budget.max_output_tokens))
+            checkpoint(jobs=groups, limited=limited, position=0)
         jobs = state["jobs"]
         cards = {key: _reading_card(clause) for key, clause in clauses.items()}
         position = state["position"]
         stop_provider = False
         visual = getattr(self.model, "accepts_images", False)
 
-        def record_disclosure(key, row, index):
-            disclosure = _disclosure(row, index, clauses[key].data_kind == "quantitative", page_text[index])
+        def record_disclosure(key, row, index, notes):
+            disclosure = _disclosure(row, index, clauses[key].data_kind == "quantitative", page_text[index], notes)
             if disclosure is not None:
                 observations = state.setdefault("disclosure_observations", {}).setdefault(key, [])
                 body = disclosure.model_dump(mode="json", exclude_none=True)
                 if body not in observations:
                     observations.append(body)
 
-        def record_rows(items, keys, index):
+        def record_rows(items, keys, index, notes):
             for item in items:
                 if not isinstance(item, dict):
                     continue
@@ -566,7 +731,7 @@ class ExtractionBackbone:
                     continue
                 series = item.get("measurements")
                 if isinstance(series, list):
-                    record_disclosure(key, item, index)
+                    record_disclosure(key, item, index, notes)
                     base = {name: value for name, value in item.items() if name not in {"value", "disclosure"}}
                     columns = series
                 else:
@@ -581,7 +746,7 @@ class ExtractionBackbone:
                     override = column.get("attributes")
                     if isinstance(shared, dict) and isinstance(override, dict):
                         row["attributes"] = {**shared, **override}
-                    record_disclosure(key, row, index)
+                    record_disclosure(key, row, index, notes)
                     output = _fact(document, clauses[key], index, row, visual, page_text[index])
                     if not output:
                         continue
@@ -595,6 +760,7 @@ class ExtractionBackbone:
                 raise PipelineCancelled()
             index, keys = jobs[position]
             failure = None
+            notes = _related_disclosure_notes(page_text, index)
             try:
                 image = (self.documents.image(asset, index),) if visual else ()
                 if not image and not page_text[index].strip():
@@ -605,22 +771,63 @@ class ExtractionBackbone:
                 context = {"page_index": index, "page_text": page_text[index][:12000], "clauses": page_cards}
                 if disclosure_text := _disclosure_text(page_text[index]):
                     context["disclosure_text"] = disclosure_text
+                if external_notes := [{"note": number, "text": note, "pdf_page_index": other_index}
+                                      for number, note, other_index in notes if other_index != index]:
+                    context["referenced_disclosure_notes"] = external_notes
                 header = _preceding_header(page_text, index) if "quantitative" in kinds else None
+                year_headers = annual_headers(page_text[index]) if "quantitative" in kinds else []
                 if header:
                     context["preceding_page"] = {"page_index": index - 1, "column_header": header}
+                    year_headers = annual_headers(header)
                     if visual:
                         try:
                             image += (self.documents.image(asset, index - 1, thumbnail=True),)
                         except DocumentUnavailable:
                             pass  # The active page and the saved header are already available.
-                answer = call(self.model, [index], _reading_instructions(kinds), context, _schema(page_cards, kinds), "reading", image)
-                if not isinstance(answer.get("items"), list):
-                    raise ValueError("Extraction model did not return an items array")
-                record_rows(answer["items"], keys, index)
+                if year_headers:
+                    context["table_year_headers"] = year_headers
+                literal_rows = declared_annual_rows(page_text[index], year_headers[0],
+                    {key: clauses[key] for key in keys if page_cards[key]["data_kind"] == "quantitative"}) if len(year_headers) == 1 else []
+                if literal_rows:
+                    context["annual_rows"] = literal_rows
+                missing = state.get("missing_period_rows", [])
+                if not missing:
+                    answer = call(self.model, [index], _reading_instructions(kinds), context, _schema(page_cards, kinds), "reading", image)
+                    if not isinstance(answer.get("items"), list):
+                        raise ValueError("Extraction model did not return an items array")
+                    record_rows(answer["items"], keys, index, notes)
+                    if calls < budget.max_model_calls and remaining() > 0:
+                        quantitative_keys = {key for key, card in page_cards.items() if card["data_kind"] == "quantitative"}
+                        if len(year_headers) == 1:
+                            missing = missing_annual_periods(answer["items"], page_text[index], year_headers[0], quantitative_keys, literal_rows)
+                        if visual:
+                            missing += _missing_slash_rows(answer["items"], page_text[index], quantitative_keys)
+                        missing = missing[:16]
+                if missing:
+                    # Persist both completed work and this narrow read before a window yield or provider stop.
+                    self.results.flush()
+                    checkpoint(position=position, missing_period_rows=missing)
+                    if window_used():
+                        break
+                    repair_cards = {row["clause_key"]: page_cards[row["clause_key"]] for row in missing}
+                    repair_context = {**context, "clauses": repair_cards, "missing_period_rows": missing}
+                    try:
+                        repair = call(self.model, [index], MISSING_PERIOD_INSTRUCTIONS, repair_context,
+                                      _schema(repair_cards, {"quantitative"}), "reading_missing_periods", image)
+                        if isinstance(repair.get("items"), list):
+                            record_rows(_period_repair_items(repair["items"], missing, page_text[index]), repair_cards, index, notes)
+                    except (ModelRunFailure, ValueError) as exc:
+                        pause_provider(exc, self.model, "reading_missing_periods", position=position)
+                        if getattr(exc, "category", None) == "generation_incomplete":
+                            partial = _completed_items(getattr(exc, "cleaned_output", ""))
+                            record_rows(_period_repair_items(partial, missing, page_text[index]), repair_cards, index, notes)
+                        state.setdefault("period_read_warnings", []).append(f"PDF page {index + 1}: {str(exc)[:220]}")
+                    state.pop("missing_period_rows", None)
             except (ModelRunFailure, ValueError, KeyError, TypeError) as exc:
+                pause_provider(exc, self.model, "reading", position=position)
                 category = getattr(exc, "category", "invalid_model_output")
-                stop_provider = category in PROVIDER_STOP
-                if len(keys) > 1 and category in {
+                stop_provider = category == "request_config"
+                if len(keys) > 1 and calls < budget.max_model_calls and remaining() > 0 and category in {
                     "generation_incomplete", "invalid_model_output", "input_budget"}:
                     split = len(keys) // 2
                     jobs[position:position + 1] = [[index, keys[:split]], [index, keys[split:]]]
@@ -629,7 +836,7 @@ class ExtractionBackbone:
                         break
                     continue
                 if category == "generation_incomplete":
-                    record_rows(_completed_items(getattr(exc, "cleaned_output", "")), keys, index)
+                    record_rows(_completed_items(getattr(exc, "cleaned_output", "")), keys, index, notes)
                     self.results.flush()
                 failure = str(exc)[:300]
             if failure:

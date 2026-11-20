@@ -21,6 +21,7 @@ GHG_UNIT = (
 )
 ENERGY_UNIT = (
     r"(?:TWh|GWh|MWh|kWh|Wh|TJ|GJ|MJ|kJ|J|MMBtu|MBtu|Btu|tce|toe|"
+    r"(?:tera|giga|mega|kilo)?(?:joules?|watt[\s-]*hours?)|"
     r"太瓦时|吉瓦时|兆瓦时|千瓦时|瓦时|"
     r"太焦|吉焦|兆焦|千焦|焦耳|吨标准煤|吨油当量)"
 )
@@ -101,6 +102,22 @@ _EXACT_UNIT_IDS = {
     "gj": "gigajoule",
     "tj": "terajoule",
     "tce": "tonne-coal-equivalent",
+    "watthour": "watt-hour",
+    "watthours": "watt-hour",
+    "kilowatthour": "kilowatt-hour",
+    "kilowatthours": "kilowatt-hour",
+    "megawatthour": "megawatt-hour",
+    "megawatthours": "megawatt-hour",
+    "gigawatthour": "gigawatt-hour",
+    "gigawatthours": "gigawatt-hour",
+    "terawatthour": "terawatt-hour",
+    "terawatthours": "terawatt-hour",
+    "megajoule": "megajoule",
+    "megajoules": "megajoule",
+    "gigajoule": "gigajoule",
+    "gigajoules": "gigajoule",
+    "terajoule": "terajoule",
+    "terajoules": "terajoule",
     "瓦时": "watt-hour",
     "千瓦时": "kilowatt-hour",
     "兆瓦时": "megawatt-hour",

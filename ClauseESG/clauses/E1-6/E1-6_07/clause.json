@@ -146,7 +146,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "74542fa08ea01481f41329688e882054c65877249bfc5e40820eac910c4f2de8",
+  "clause_digest": "a24fe1ca8a0455a6ff1f62f61176e13f727d667e58f4dbb71dbafd9b125b4e40",
   "clause_key": "E1-6_07",
   "data_kind": "quantitative",
   "definition": "范围1温室气体排放总量",
@@ -764,6 +764,37 @@
     ],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
+      "annual_read_exclusions": [
+        "intensity",
+        "reduction",
+        "target",
+        "avoided",
+        "offset",
+        "排放强度",
+        "减排",
+        "目标",
+        "避免量",
+        "抵消",
+        "Scope 2",
+        "Scope 3",
+        "and 2",
+        "combined",
+        "范围2",
+        "范围二",
+        "范围3",
+        "范围三",
+        "合计范围"
+      ],
+      "annual_read_labels": [
+        "Scope 1 GHG Emissions",
+        "Scope 1 Greenhouse Gas Emissions",
+        "Gross Scope 1 GHG Emissions",
+        "Direct greenhouse gas emissions (Scope 1)",
+        "Direct GHG emissions (Scope 1)",
+        "范围1温室气体排放",
+        "范围一温室气体排放",
+        "直接温室气体排放（范围1）"
+      ],
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
       ],

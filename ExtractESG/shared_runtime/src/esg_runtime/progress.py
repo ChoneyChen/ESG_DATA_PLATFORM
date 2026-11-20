@@ -12,6 +12,7 @@ from pydantic import BaseModel, Field, model_validator
 STAGE_LABELS = {
     "retrieving": "检索条款证据",
     "reading": "读取 PDF 原页",
+    "reading_missing_periods": "补读原表遗漏期间",
     "locating_pages": "视觉定位报告页",
     "enriching": "补读可选属性",
     "extracting": "绑定条款事实",
@@ -384,7 +385,7 @@ def progress_from_event(task: Any, event: dict[str, Any]) -> BusinessProgress:
         current = sum(s.get("status") in {"done", "completed"} for s in stages)
         unit = "steps"
     elif task.task_type.value == "targeted_extraction":
-        if stage in {"reading", "window_yielded", "finished"} and event.get("progress_total"):
+        if stage in {"reading", "reading_missing_periods", "window_yielded", "finished"} and event.get("progress_total"):
             current = int(event.get("progress_current") or 0)
             total = int(event["progress_total"])
             unit = "objects"

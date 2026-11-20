@@ -191,7 +191,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "b598972e3b4c09dc8ede370f8937e5027248f1ed93cf5423cc21c6b4001220ab",
+  "clause_digest": "5165a5bf7ca87882a5b6c0b4334a30d14ecbf79ed29f6eefaaa59f00e2ead7a8",
   "clause_key": "E2-5_02",
   "data_kind": "quantitative",
   "definition": "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
@@ -764,7 +764,9 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。"
+      "Total amount of substances of concern that are generated or used during production or that are procured。生产生成使用或采购的关注物质量。以物质或危害类别、关注/高度关注分类、生成/使用/采购或离开设施流向、期间与设施范围区分。分类不是同义词，重叠输入不能盲目求和；总量与明细不可重复计数。",
+      "危险废物或固废总产生量、运输量、处置量只说明废物管理，不能代替生产、使用或采购的关注物质数量。只有直接说明关注物质类别与物质量的记录才能标 match。",
+      "按 CO₂ 当量计的温室气体排放是排放指标，不能代替某种关注物质的生成、使用或采购量。"
     ],
     "operator": "numeric_label",
     "rules": [
@@ -856,6 +858,10 @@
       "intensity": [
         "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
       ],
+      "non_target_measure_terms": [
+        "re:\\b(?:hazardous\\s+waste|waste\\s+generated|solid\\s+waste)\\b|危险废物|危险废弃物|固体废物",
+        "re:\\b(?:ghg|greenhouse\\s+gas)\\s+emissions?\\b|温室气体排放|溫室氣體排放"
+      ],
       "other_member": [
         "其他",
         "其它",
@@ -871,6 +877,9 @@
       ],
       "substance": [
         "re:(?:关注物质|高度关注|高关注|svhc|substances?\\s+of\\s+(?:very\\s+high\\s+)?concern|有毒有害物质|有害物质|危险化学品|hazardous\\s+substance)"
+      ],
+      "target_measure_terms": [
+        "re:\\bsubstances?\\s+of\\s+concern\\b|关注物质|關注物質"
       ],
       "waste": [
         "re:(?:废物|废弃物|固废|垃圾|waste)"

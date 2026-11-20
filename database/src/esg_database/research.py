@@ -8,6 +8,7 @@ import json
 from zipfile import ZipFile, ZIP_DEFLATED
 from esg_contracts.facts import ClauseCoverage
 from esg_data.hashing import digest
+from esg_data.literals import parse_printed_measure
 from esg_data.quantities import standard_unit
 from .products_contracts import Observation, ObservationPage, ObservationSource
 from .projection import period_facet
@@ -53,7 +54,7 @@ def contract():
         "authority":"Referenced immutable source facts; these tables are deterministic projections.",
         "period_policy":"all_reported", "aggregation_performed":False,
         "facts":"Printed values and statements with their original structured fields. quantitative and qualitative join by observation_id.",
-        "quantitative":"One row per quantitative observation. Value role and comparator are independent. Decimal fields in this table use unit_id after exact scaling. Unknown roles, units, and unparsed quantities remain available in facts.",
+        "quantitative":"One row per quantitative observation. Value role and comparator are independent. Exact literal parsing may recover a previously unparsed measurement without changing facts. Decimal fields in this table use unit_id after exact scaling.",
         "qualitative":"One row per qualitative observation. Topic, subject and action are the components captured during reading and may be absent.",
         "coverage":"Internal projection exports include frozen clause coverage without a period filter, plus explicitly reported disclosure markers matching the filters. Dataset exports include only markers with a selected observation from the same single-source projection, clause and period. Page indexes are zero-based. Coverage state and explicit disclosure state describe separate observations.",
         "properties":"One scalar leaf per RFC6901 value_path. Empty containers retain explicit type.",
@@ -65,26 +66,32 @@ def contract():
 def quantitative_row(observation):
     value = observation.value
     role = observation.identity.value_role
+    parse_status, comparator, unit_raw = value.parse_status, value.comparator, value.unit_raw
+    raw_values = {key: getattr(value, key) for key in ("value_numeric", "value_lower", "value_upper")}
+    if parse_status == "unparsed":
+        parsed, unit_raw = parse_printed_measure(value.value_raw, unit_raw)
+        if parsed:
+            parse_status, comparator = "parsed", parsed["comparator"]
+            raw_values = {"value_numeric": parsed["value"], "value_lower": parsed["lower"], "value_upper": parsed["upper"]}
     row = {
         "observation_id": observation.observation_id,
         "value_role": role.value if isinstance(role.value, str) else None,
         "value_role_raw": role.raw_text,
         "value_role_state": role.state,
-        "parse_status": value.parse_status,
-        "comparator": value.comparator,
+        "parse_status": parse_status,
+        "comparator": comparator,
     }
-    unit = standard_unit(value.unit_raw)
+    unit = standard_unit(unit_raw)
     if unit:
         row["unit_id"], multiplier = unit
         row["unit_multiplier"] = format(multiplier, "f")
-    if value.parse_status != "parsed":
+    if parse_status != "parsed":
         row["normalization_status"] = "value_unparsed"
     elif not unit:
-        row["normalization_status"] = "unit_unrecognized" if value.unit_raw else "unit_unavailable"
+        row["normalization_status"] = "unit_unrecognized" if unit_raw else "unit_unavailable"
     else:
         row["normalization_status"] = "normalized"
-        for key in ("value_numeric", "value_lower", "value_upper"):
-            reported = getattr(value, key)
+        for key, reported in raw_values.items():
             if reported is not None:
                 number = Decimal(reported)
                 with localcontext() as context:

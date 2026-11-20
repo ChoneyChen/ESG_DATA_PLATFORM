@@ -8,6 +8,16 @@ class DocumentUnavailable(RuntimeError):
     """The document service could not supply the PDF source."""
 
 
+class ProviderInterruption(RuntimeError):
+    """The current page can be retried after the selected provider recovers."""
+
+    def __init__(self, provider: str, category: str, message: str, phase: str):
+        super().__init__(message)
+        self.provider = provider
+        self.category = category
+        self.phase = phase
+
+
 class DocumentPort(Protocol):
     def pdf(self, asset_id: str) -> DocumentReference: ...
     def document(self, ir_run_id: str) -> DocumentReference: ...

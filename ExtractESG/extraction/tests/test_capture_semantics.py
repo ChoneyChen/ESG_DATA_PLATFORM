@@ -40,6 +40,9 @@ def test_printed_scale_is_part_of_unit(unit, family, scale):
 
 @pytest.mark.parametrize("raw,unit,expected_unit,comparator,point,lower,upper", [
     ("66 million kWh", "kWh", "million kWh", "exact", "66", None, None),
+    ("318 million", "liters", "million liters", "exact", "318", None, None),
+    ("more than 7.5 million", "kilowatt hours (kWh)", "million kilowatt hours (kWh)", "greater_than", "7.5", "7.5", None),
+    ("169 million", "million liters", "million liters", "exact", "169", None, None),
     ("between 1.2 and 2.35 MW", None, "MW", "range", None, "1.2", "2.35"),
     ("5% to 10%", None, "%", "range", None, "5", "10"),
     ("more than 17,000 people", None, "people", "greater_than", "17000", "17000", None),
@@ -58,6 +61,7 @@ def test_parse_complete_printed_expressions(raw, unit, expected_unit, comparator
         Decimal(field) if field is not None else None for field in (point, lower, upper)
     )
     assert parse_printed_measure("2 projects reused 111,800 tonnes")[0] is None
+    assert parse_printed_measure("318 million", "thousand tons")[0] is None
 
 
 @pytest.mark.parametrize("unit,expected,multiplier", [
@@ -69,6 +73,8 @@ def test_parse_complete_printed_expressions(raw, unit, expected_unit, comparator
     ("million liters", "cubic-metre", "1000"),
     ("kWh", "megajoule", "3.6"),
     ("GJ", "megajoule", "1000"),
+    ("Gigajoules (GJ)", "megajoule", "1000"),
+    ("million kilowatt hours (kWh)", "megajoule", "3600000"),
     ("tCO₂e", "tonne-co2e", "1"),
     ("Thousand metric tons CO2-eq", "tonne-co2e", "1000"),
     ("tCO₂", "tonne-co2", "1"),
@@ -89,6 +95,7 @@ def test_standard_unit_scales_only_identified_units(unit, expected, multiplier):
     assert standard_unit("tCO₂e / revenue") is None
     assert standard_unit("MT CO₂e/MW") is None
     assert standard_unit("metric tons (kg)") is None
+    assert standard_unit("10,000 tons") is None
 
 
 def test_parenthesized_scale_is_not_a_source_measurement():

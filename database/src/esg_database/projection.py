@@ -1,12 +1,13 @@
 """Deterministic organization of admitted facts, never another extraction or model call."""
 from collections import Counter, defaultdict
+from datetime import date
 from esg_contracts.facts import SourceFact
 from esg_data.hashing import digest
 from esg_data.periods import normalize_period, period_label, ReportedPeriod
 from .products_contracts import Observation, ObservationSource, ComparisonStatus, ProjectionSummary, ProductDefinition
 from esg_reports.contract import ReportResource
 
-TRANSFORM_VERSION = "capture-observation-1.1"
+TRANSFORM_VERSION = "capture-observation-1.2"
 
 
 def period_facet(period):
@@ -18,6 +19,10 @@ def period_coordinate(period):
     body = period.model_dump(mode="json", exclude_none=True)
     if period.kind in {"annual", "quarter", "instant"} and period.year:
         body.pop("raw", None)
+    if (period.kind == "annual" and period.year and
+        (period.start, period.end) == (date(period.year, 1, 1), date(period.year, 12, 31))):
+        body.pop("start")
+        body.pop("end")
     return body
 
 
@@ -27,6 +32,47 @@ def _reported(fact, axis):
 
 def _known(field):
     return field is not None and field.state in {"stated", "inherited"}
+
+
+_SCOPE_FIELDS = {
+    "entity": "entity_aggregation_role",
+    "aggregation": "aggregation_role",
+    "value_role": "value_role",
+    "method": "measurement_method",
+}
+
+
+def _has_applicable_scope(fact, period, contract, mapping):
+    declared = set(mapping.get("scope_ids", []))
+    scopes = contract.get("output_scopes")
+    if not scopes:
+        return bool(declared)
+    # A named scope may accompany sparse attributes. Without a named scope, each
+    # of its coordinates must be independently stated by the report.
+    for scope in scopes:
+        expected = {name: scope.get(name) for name in (*_SCOPE_FIELDS, "period", "qualifier")}
+        expected.update(scope.get("axes", {}))
+        applicable = True
+        for name, target in expected.items():
+            if target is None:
+                continue
+            if name == "period":
+                actual = period.kind if period.kind != "unknown" else None
+            elif name == "qualifier" and target in {"approx", "at_least", "at_most", "range"}:
+                actual = fact.value.comparator if fact.value.kind == "quantitative" and fact.value.parse_status == "parsed" else None
+            else:
+                field = _reported(fact, _SCOPE_FIELDS.get(name, name))
+                actual = field.value if _known(field) else None
+            if actual is None and scope.get("scope_id") in declared:
+                continue
+            if name == "value_role" and target == "actual" and actual == "restated":
+                continue
+            if actual != target:
+                applicable = False
+                break
+        if applicable:
+            return True
+    return False
 
 
 def _occurrence(fact, document):
@@ -91,7 +137,7 @@ def compile_projection(payload):
                 policy = contract["purposes"]["comparison"]
                 for axis in policy.get("required_axes", []):
                     if not _known(_reported(fact, axis)): reasons.append("identity_unconfirmed:" + axis)
-                if policy.get("require_complete_scopes", True) and not link.get("mapping", {}).get("scope_ids"):
+                if policy.get("require_complete_scopes", True) and not _has_applicable_scope(fact, period, contract, link.get("mapping") or {}):
                     reasons.append("applicable_scope_unconfirmed")
             else:
                 reasons.append("no_frozen_target")

@@ -23,6 +23,16 @@ def test_stop_never_touches_a_reused_or_pid_replaced_service(monkeypatch,tmp_pat
     assert stopped==[11]
 
 
+def test_database_service_closes_its_child_gracefully(monkeypatch, tmp_path):
+    m = controller(monkeypatch, tmp_path)
+    stopped = []
+    monkeypatch.setattr(m, 'belongs', lambda record: not stopped)
+    monkeypatch.setattr(m.os, 'kill', lambda pid, signal: stopped.append(pid))
+    monkeypatch.setattr(m.os, 'killpg', lambda *_: pytest.fail('Database subprocess must close on EOF'))
+    m.stop_owned({'services': {'database': {'pid': 11, 'owned': True}}})
+    assert stopped == [11]
+
+
 def test_stop_refuses_an_active_extraction(monkeypatch,tmp_path):
     m=controller(monkeypatch,tmp_path)
     monkeypatch.setattr(m,'load',lambda:{'supervisor':{'pid':1,'identity':'same'}})

@@ -18,7 +18,7 @@
 | 模型信封 | model-call-1.0 | [model_calls.py](../ExtractESG/shared_runtime/src/esg_runtime/model_calls.py) |
 | 观测/投影/产品 | capture-observation-1.0 / capture-projection-1.0 / capture-dataset-version-1.0 | [产品DTO](../database/src/esg_database/products_contracts.py) |
 
-观测DTO版本与转换算法版本是两个概念；当前`TRANSFORM_VERSION=capture-observation-1.1`定义在projection.py。IR为document-ir-v0.12，OCR/IR封装分别是ocr-package-v1/document-ir-package-v1；内部物理模型在document模块。
+观测DTO版本与转换算法版本分开。当前 `TRANSFORM_VERSION=capture-observation-1.2` 定义在 projection.py，已完成投影按其原版本读取。IR 为 document-ir-v0.12，OCR/IR 封装分别是 ocr-package-v1 和 document-ir-package-v1，内部物理模型在 document 模块。
 
 ## 单条合同
 
@@ -63,7 +63,7 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 | Console→编排18080 | ExtractionBatchRequest→ExtractionBatch，原子提交有序报告，读取窗口与候补 | /api/report-extraction-batches及批次详情 |
 | 编排→条款/提取18180 | RunRequest冻结目标；CreateRun携带request、target_snapshot和submission_key | /api/targets/freeze、/api/runs |
 | 提取→文档18080 | PDF 引用、原生文字和原页图像；可选既有 IR 引用 | /api/report-assets/{asset_id}/reading-source、reading-pages、reading-pages/{page_index}/image；/api/evidence/{ir_run_id} |
-| 提取→模型 | instructions/context/schema/images/max_tokens/cancel_check → 页提示或转录及调用回执 | ModelPort，由任务选择的本地Qwen或DeepSeek适配器实现 |
+| 提取→模型 | instructions/context/schema/images/max_tokens/cancel_check → 页提示或转录及调用回执 | ModelPort，由任务选择本地 Qwen、DeepSeek 或阿里云百炼 |
 | 提取→数据库18280 | 封存ZIP字节→IngestionReceipt | POST /v1/ingestion/exports |
 | Console→数据库 | 接收/投影状态、预览、成员分页、显式发布/撤下 | /v1/ingestion、/v1/projections、/v1/datasets |
 | Plat→数据库 | 有效发布的产品、观测、定义、来源、精确导出 | /v2/datasets及子路径 |
@@ -71,7 +71,7 @@ SourceFact 包含原值、事实和来源标识、可选实际身份及页位置
 
 DocumentPort、ModelPort、ArtifactPort、ResultPort的实际签名见[ports.py](../ExtractESG/extraction/src/esg_extraction/pipeline/ports.py)。部署HTTP和同进程适配都保持这些值接口，不以绝对服务器路径代替引用。
 
-提取请求的`model_selection`只含`provider`和`model`。旧请求缺字段时沿用本地Qwen，`deepseek`需显式指定`deepseek-flash`或`deepseek-v4-pro`。另有可选 `document_model_selection`，可选择本地 Qwen 或 DeepSeek Flash 为弱文字页定位。DeepSeek V4 Pro 仅接受文字。预览返回模型选择，任务冻结两阶段配置，续跑沿用原选择。`GET /api/model-providers`提供只读状态及模型清单，`PUT /api/model-providers/deepseek/credential`单独写入密钥，仅返回同一状态。密钥不进入会话、检查点、调用回执或导出。
+提取请求的 `model_selection` 只含 `provider` 和 `model`。默认本地 Qwen。`deepseek` 选择 `deepseek-flash` 或仅支持文字的 `deepseek-v4-pro`，`dashscope` 选择 `qwen3.8-omni-flash`。可选 `document_model_selection` 使用支持图像的模型辅助弱文字页定位。预览返回模型选择，任务冻结两阶段配置，续跑沿用原选择。`GET /api/model-providers` 提供配置状态和模型清单。操作员专用的 `PUT /api/model-providers/{provider}/credential` 写入对应云端密钥并仅返回状态。密钥与会话、检查点、调用记录和导出分开存放。
 
 ## 封存交接与幂等
 
@@ -96,6 +96,10 @@ export_id、内容摘要和接收回执标识同一交接；相同包重送返�
 原生阅读让出窗口时为 `queued`，累积计数跟随同一 `NativeRun`，`execution_continues` 表示已保存的续读位置。编排沿用任务 ID 并发出 `window_yielded` 事件，记录本窗口调用数、历时、时间目标及派发时等待数。运行观察的 `position` 仅在排队态提供，为当下预计的等待顺位。
 
 批次提交使用 `submission_key` 和有序 `sessions`，每份保留自己的预算、提供者和冻结摘要。相同编号和内容返回同一批次。批次成员 `position` 是原始报告顺位，`admitted_at` 是最近一次入窗时间。`waiting_for_window` 是候补会话状态。批次的 `active_count`、`waiting_count` 和 `finished_count` 分别表示入窗中的报告、候补报告和终态报告。保留的历史成员继续可读，永久删除会话后不再计入列表。
+
+新批次保留 `submitted_count`，`total_count` 表示现存会话数。原生运行用 `provider_interruption` 返回提供者、阶段和鉴权、余额或限流类别。批次的 `provider_pauses` 只影响使用该提供者的成员。操作者通过对应中断任务的续跑入口恢复冻结运行及同批派发。`assessment.clause_relationships` 按原值与条款关系计数，`source_facts` 按唯一原值计数。
+
+显式重提可在请求填 `replaces_session_id`，原任务和新任务必须对应同一份报告。新会话照常冻结输入、条款及引擎版本，保留原会话、结果和原批次计数。会话详情和批次成员通过 `replacement_session_ids` 回查已保留的重提会话。原地续跑沿用同一会话 ID。
 
 数据库内部桥为DatabaseBridge→capture_worker.mjs，长驻单连接、序列化JSON行：请求`{id, method, params}`，响应`{id, result}`或`{id, error:{code,message}}`。方法由capture_worker.mjs的显式分派表定义，SQL不向外部模块暴露；超时写入先查业务回执，不能自动重放。
 

@@ -18,7 +18,7 @@ pnpm --dir database install --frozen-lockfile
 
 install_local.sh离线、无第三方依赖下载地安装本仓库SDK/应用，并调用install_worker.py更新所配置MLX及Paddle环境中的本仓库包。它不安装模型权重或替换第三方模型依赖。worker实际运行安装包，不拼接兄弟源码路径。
 
-DeepSeek密钥由操作者在Console创建提取页单独写入。后端在当前运行数据根的提取控制目录内以私有权限保存，CLI worker从同一数据根读取。读取状态仅返回已配置与否，保存密钥不会发起云端调用。文档定位与主提取独立选用本机或官方 DeepSeek。独立 OCR 保持本地。普通新任务直接读取原 PDF，不生成 OCR/IR 中间包。
+DeepSeek 和阿里云百炼密钥由操作者在 Console 创建提取页通过对应专用表单写入。后端按提供者在当前运行数据根的提取控制目录私有保存，CLI worker 使用同一数据根。状态查询和保存返回配置状态。百炼使用北京地域的 OpenAI 兼容端点 `https://cn-beijing.maas.qianwenaiapi.com/compatible-mode/v1`，密钥须对应地域。文档定位与主提取可独立选择提供者，独立 OCR 保持本地。普通提取直接阅读原 PDF。
 
 OCR/IR准备版本从实际导入模块计算，不要求部署根保有源码目录。ESG_PROJECT_ROOT及ESG_DATA_ROOT分别指定组合部署根和数据根，条款根单独配置。隔离验证使用独立控制库、报告库和任务目录，同时沿用本机共享模型执行锁。
 
@@ -31,6 +31,7 @@ OCR/IR准备版本从实际导入模块计算，不要求部署根保有源码�
 | ESG_CLAUSE_ROOT | 独立条款资产根；默认ClauseESG/clauses |
 | ESG_DOCUMENT_PYTHON | 控制Python |
 | ESG_MODEL_PYTHON | MLX提取API/worker Python |
+| ESG_EXECUTION_SLOT_PATH | 本机模型进程的共享独占锁，默认位于控制库目录。并存的工作台与隔离验证部署使用同一绝对路径 |
 | QWEN_VLM_MODEL_PATH | 本地提取权重目录，默认用户Desktop/model/Qwen3.5-9B-4bit |
 | LOCAL_PADDLEOCR_RUNTIME_PYTHON | 本地OCR环境 |
 | ESG_DOCUMENT_BACKEND_URL | 文档API，默认http://127.0.0.1:18080 |
@@ -64,6 +65,8 @@ ConsoleESG/scripts/start.sh restart --no-browser
 workbench.py后台托管五服务，记录进程身份，只停止自己拥有的进程。关闭终端不停止服务。已有不兼容服务占用端口时明确返回，不按端口名称粗暴kill。start会离线安装本仓库包、构建两前端、检查现有数据目录；超时不等于后台进程消失，不重复提交任务。
 
 有活动任务或批次候补报告时 stop/restart 会拒绝。维护前在 Console 确认阅读、准备和批次状态。文档整理不隐含启动、停止或恢复原批次。
+
+工作台停止数据库时只通知受托管的 Python 服务，Node 通过 RPC 输入结束完成数据库关闭。重启等待整个旧服务退出，避免新进程在相同数据目录仍在写入时打开它。监听端口关闭后，数据库可能还在完成关闭。
 
 单服务入口是`ConsoleESG/scripts/run_service.sh document|extraction|console|database|plat`。其document仍为Console组合应用；真正独立的文档程序入口还可使用esg-document CLI。桌面启动项由install_desktop_launcher.py安装，控制器与命令行共用。
 

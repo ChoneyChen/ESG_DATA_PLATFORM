@@ -24,6 +24,7 @@ PHASE_LABELS = {
     "running": "正在执行",
     "retrieving": "检索条款证据",
     "reading": "阅读条款证据",
+    "reading_missing_periods": "补读原表遗漏期间",
     "locating_pages": "视觉定位相关页",
     "enriching": "补读上下文",
     "extracting": "绑定并保存原值",
@@ -60,6 +61,7 @@ class ExtractionPlanRequest(BaseModel):
     clause_keys: list[str] = Field(default_factory=list)
     selection: str | None = None
     submission_key: str | None = Field(default=None, min_length=1, max_length=160)
+    replaces_session_id: str | None = Field(default=None, min_length=1, max_length=160)
     name: str = Field(default="条款提取", min_length=1, max_length=120)
     budget: PipelineBudget = Field(default_factory=PipelineBudget)
     model_selection: ModelSelection | None = None
@@ -78,7 +80,7 @@ class ExtractionPlanRequest(BaseModel):
     @model_serializer(mode="wrap")
     def preserve_legacy_shape(self, serializer):
         body = serializer(self)
-        for key in ("model_selection", "document_model_selection"):
+        for key in ("model_selection", "document_model_selection", "replaces_session_id"):
             if getattr(self, key) is None:
                 body.pop(key, None)
         return body
@@ -119,6 +121,18 @@ class ExtractionBatchMember(View):
     position: int
     status: SessionStatus
     admitted_at: str | None = None
+    replaces_session_id: str | None = None
+    replacement_session_ids: list[str] = Field(default_factory=list)
+
+
+class ProviderInterruptionDetail(View):
+    provider: str
+    category: Literal["provider_authentication", "provider_balance", "provider_rate_limit"]
+    phase: str
+
+
+class BatchProviderPause(ProviderInterruptionDetail):
+    session_id: str
 
 
 class ExtractionBatchSummary(View):
@@ -130,6 +144,8 @@ class ExtractionBatchSummary(View):
     waiting_count: int
     finished_count: int
     total_count: int
+    submitted_count: int | None = None
+    provider_pauses: list[BatchProviderPause] = Field(default_factory=list)
 
 
 class ExtractionBatch(ExtractionBatchSummary):
@@ -169,6 +185,7 @@ class NativeRun(View):
     cancel_requested: bool = False
     summary: RunSummary | None = None
     error: str | None = None
+    provider_interruption: ProviderInterruptionDetail | None = None
     delivery: DeliveryStatus | None = None
     export_download_url: str | None = None
     artifacts_url: str | None = None
@@ -230,6 +247,7 @@ class ExtractionSession(View):
     status: SessionStatus
     stage: Literal["preparing", "extracting"]
     request: ExtractionPlanRequest
+    replacement_session_ids: list[str] = Field(default_factory=list)
     batch_id: str | None = None
     batch_position: int | None = None
     admitted_at: str | None = None

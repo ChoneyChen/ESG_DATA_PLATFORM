@@ -121,6 +121,7 @@ it("opens parent and child clause pages through real navigation without legacy c
 });
 it("submits the ordered reports atomically and retries the same batch after losing the response", async () => {
   const ids = ["乙", "甲", ...Array.from({ length: 10 }, (_, index) => String(index + 3))];
+  const replaces = "original-session";
   const posted: unknown[] = [];
   let firstFinished = false;
   const batch = () => ({
@@ -140,6 +141,7 @@ it("submits the ordered reports atomically and retries the same batch after losi
         position: index + 1,
         status: index === 0 && firstFinished ? "completed" : admitted ? "queued" : "waiting_for_window",
         admitted_at: admitted ? "2026-11-20T00:00:00Z" : null,
+        replaces_session_id: index === 0 ? replaces : null,
       };
     }),
   });
@@ -159,6 +161,8 @@ it("submits the ordered reports atomically and retries the same batch after losi
       expect(body.name).toBe("实测滑动窗口");
       expect(body.sessions.map((member: { input: { asset_id: string } }) => member.input.asset_id))
         .toEqual(ids.map(id => "asset-" + id));
+      expect(body.sessions.map((member: { replaces_session_id?: string }) => member.replaces_session_id))
+        .toEqual([replaces, ...ids.slice(1).map(() => undefined)]);
       for (const member of body.sessions) {
         expect(member.expected_target_digest).toBe("d".repeat(64));
         expect(member.expected_engine_fingerprint).toBe("e".repeat(64));
@@ -169,8 +173,9 @@ it("submits the ordered reports atomically and retries the same batch after losi
     if (url === "/document/api/report-extraction-batches/batch-window") return batch();
     return undefined;
   });
-  await open("#/extractions/new");
-  for (const id of ids) fireEvent.click(await screen.findByText("报告 " + id));
+  await open(`#/extractions/new?report=${encodeURIComponent(ids[0])}&replaces=${replaces}`);
+  expect((await screen.findByRole("link", { name: "原任务" })).getAttribute("href")).toBe(`#/extractions/${replaces}`);
+  for (const id of ids.slice(1)) fireEvent.click(await screen.findByText("报告 " + id));
   fireEvent.change(screen.getByLabelText("任务名称"), { target: { value: "实测滑动窗口" } });
   fireEvent.click(await screen.findByText("年度用量"));
   fireEvent.click(screen.getByText("核对提取目标"));
@@ -182,6 +187,7 @@ it("submits the ordered reports atomically and retries the same batch after losi
   expect(screen.getByRole<HTMLButtonElement>("button", { name: "返回修改" }).disabled).toBe(true);
   fireEvent.click(screen.getByText("重试提交"));
   await screen.findByRole("heading", { name: "实测滑动窗口" });
+  expect(screen.getByRole("link", { name: "原任务" }).getAttribute("href")).toBe(`#/extractions/${replaces}`);
   expect(posted).toHaveLength(2);
   expect(posted[0]).toEqual(posted[1]);
   expect(fetch.mock.calls.filter(([url, init]) =>
@@ -195,18 +201,23 @@ it("submits the ordered reports atomically and retries the same batch after losi
   await waitFor(() => expect(within(memberRow()).getByText("窗口内")).toBeTruthy());
   expect(within(memberRow()).getByText("等待执行")).toBeTruthy();
 });
-it("saves the DeepSeek key separately and freezes only the selected provider and model", async () => {
-  const selection = { provider: "deepseek", model: "deepseek-v4-pro" };
+it.each([
+  { provider: "deepseek", model: "deepseek-v4-pro", title: "DeepSeek" },
+  { provider: "dashscope", model: "qwen3.8-omni-flash", title: "阿里云百炼" },
+])("saves the $provider key separately and freezes the model choices", async ({provider, model, title}) => {
+  const selection = { provider, model };
+  const documentSelection = provider === "dashscope" ? selection : undefined;
   const value = "fixture-secret-value";
   let configured = false;
   const providerStatus = () => ({ providers: [
     { provider: "local", configured: true, models: [] },
-    { provider: "deepseek", configured, models: ["deepseek-flash", "deepseek-v4-pro"] },
+    { provider: "deepseek", configured: provider === "deepseek" && configured, models: ["deepseek-flash", "deepseek-v4-pro"] },
+    { provider: "dashscope", configured: provider === "dashscope" && configured, models: ["qwen3.8-omni-flash"] },
   ] });
   const submissions: Record<string, unknown>[] = [];
   const fetch = mock((url, init) => {
     if (url === "/extraction/api/model-providers") return providerStatus();
-    if (url === "/extraction/api/model-providers/deepseek/credential") {
+    if (url === `/extraction/api/model-providers/${provider}/credential`) {
       expect(init.method).toBe("PUT");
       expect(JSON.parse(init.body as string)).toEqual({ api_key: value });
       configured = true;
@@ -220,6 +231,7 @@ it("saves the DeepSeek key separately and freezes only the selected provider and
         engine_fingerprint: "e".repeat(64),
         calls_model: false,
         model_selection: selection,
+        document_model_selection: documentSelection,
       };
     }
     if (url === "/document/api/report-sessions" && init.method === "POST") {
@@ -230,21 +242,25 @@ it("saves the DeepSeek key separately and freezes only the selected provider and
   await open("#/extractions/new");
   fireEvent.click(await screen.findByText("报告 甲"));
   fireEvent.click(await screen.findByText("年度用量"));
-  fireEvent.change(screen.getByLabelText("模型提供者"), { target: { value: "deepseek" } });
+  fireEvent.change(screen.getByLabelText("模型提供者"), { target: { value: provider } });
+  if (documentSelection) fireEvent.change(screen.getByLabelText("文档定位"), { target: { value: provider } });
   await screen.findByText("未配置");
-  fireEvent.change(screen.getByLabelText("DeepSeek 模型"), { target: { value: selection.model } });
+  if (provider === "deepseek") {
+    fireEvent.change(screen.getByLabelText("DeepSeek 模型"), { target: { value: selection.model } });
+  }
   const preview = screen.getByRole<HTMLButtonElement>("button", { name: "核对提取目标" });
   expect(preview.disabled).toBe(true);
-  const credential = screen.getByLabelText<HTMLInputElement>("DeepSeek API 密钥");
+  const credential = screen.getByLabelText<HTMLInputElement>(`${title} API 密钥`);
   fireEvent.change(credential, { target: { value } });
   fireEvent.click(screen.getByRole("button", { name: "保存密钥" }));
   await screen.findByText("已配置");
   expect(credential.value).toBe("");
   fireEvent.click(preview);
-  await screen.findByText("提取模型 · DeepSeek · deepseek-v4-pro");
+  await screen.findByText(`提取模型 · ${title} · ${model}`);
   fireEvent.click(screen.getByRole("button", { name: "开始提取" }));
   await waitFor(() => expect(submissions).toHaveLength(2));
   expect(submissions.map((entry) => entry.model_selection)).toEqual([selection, selection]);
+  expect(submissions.map((entry) => entry.document_model_selection)).toEqual([documentSelection, documentSelection]);
   expect(JSON.stringify(submissions)).not.toContain(value);
   expect(fetch.mock.calls.filter(([, init]) => String(init?.body || "").includes(value))).toHaveLength(1);
 });

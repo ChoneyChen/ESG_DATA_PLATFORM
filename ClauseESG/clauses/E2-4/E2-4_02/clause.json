@@ -320,7 +320,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "87cd88d08e046352d93002b28a68f67c046a6c939e379e9fb667bc31e2bef34b",
+  "clause_digest": "cc364f82bcb6e2d05c7d1401461ac294f0b3e8bd2fa4c59335b2a3ba3137a969",
   "clause_key": "E2-4_02",
   "data_kind": "quantitative",
   "definition": "按污染物划分的空气排放量",
@@ -870,7 +870,8 @@
       "化学需氧量 COD、氨氮 NH3-N、总氮 TN、总磷 TP 是水体污染物，不能选为本条空气排放。温室气体、浓度、固废数量、限额和削减量也不属于本条。",
       "对每个选中的行，pollutant 轴应引用该行原始标签的可见 source_id，保留原词或本条局部识别码；不能从另一行借用证据。单位与期间由实际表头/单元格决定。",
       "介质由本行与其直接物理父标题判断；没有更近的分组标题时，可用本物理表标题作为局部证据。Exhaust gas、exhaust gases表示废气介质。空气/废气段落中的Ammonia、Fluoride不能借同表Water或Effluents行归入水；水体排放同样不能归入空气。短行名且介质不明确时保留原值和未决关系，不能用条款目标补齐。",
-      "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。"
+      "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。",
+      "废气、尾气或烟气总排放体积（如万立方米、m³）是载体总量，不是指定污染物排放量；标 different。保留同一表内独立印刷的污染物排放量。"
     ],
     "operator": "pollutant",
     "rules": [
@@ -1006,6 +1007,10 @@
       ],
       "ambiguous_medium_pollutant": [
         "re:(?:\\bammonia\\b(?!\\s*(?:nitrogen|[-–]?n)\\b)|氨气|氨氣|氟化物|\\bfluorides?\\b|重金属|重金屬|\\bheavy\\s+metals?\\b|汞|铅|鉛|砷|镉|鎘|铬|鉻|镍|鎳|\\b(?:mercury|lead|arsenic|cadmium|chromium|nickel)\\b)"
+      ],
+      "carrier_volume_terms": [
+        "re:^\\s*(?:(?:total|combined|overall)\\s+)?(?:(?:waste|exhaust|flue)\\s+gas(?:es)?|exhaust)(?:\\s+(?:emissions?|discharges?|amount|volumes?|generated|generation))*\\s*(?:\\(|（|$)",
+        "re:^\\s*(?:工业)?废气(?:排放|产生|排出)?(?:总量|量|体积)?(?:\\s|[（(]|$)"
       ],
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|減排|節約|節省|減少量|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"

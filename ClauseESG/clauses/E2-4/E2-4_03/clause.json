@@ -314,7 +314,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "79633a7fce89294affb98c633b54e5a1724dc54f7afa5cf5907666a6d7122753",
+  "clause_digest": "1bb2c9f52f660cb59ae7108b8fbdefdbba91b6fb27609bb03570d31b1d300474",
   "clause_key": "E2-4_03",
   "data_kind": "quantitative",
   "definition": "按污染物划分的水体排放量",
@@ -865,7 +865,9 @@
       "氮氧化物 NOx、二氧化硫 SO2、颗粒物 PM、挥发性有机物 VOCs 是此类报告中常见的空气排放行，不能当作水体排放。不要选择固废量、用水量或污染物浓度替代排放量。若报告明确披露同种物质的其他介质，按实际介质证据处理并保留不确定性。",
       "为每个选中的行引用自身原始行标签，读取 pollutant 维度和实际单位/期间；不能因缺少主体或边界而丢弃已报告原值，也不能编造这些身份。",
       "介质由本行与其直接物理父标题判断。空气/废气段落中的Ammonia、Fluoride不能借同表Water或Effluents行归入水；水体排放同样不能归入空气。短行名且介质不明确时保留原值和未决关系，不能用条款目标补齐。",
-      "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。"
+      "Reduced、reduction、saved、avoided等明确削减或避免量与实际排放量分开。保留各实际排放原值，不把削减效果或未来目标标为实际排放。角色、期间或主体缺失时保持未知。",
+      "污染物定量行应读取各印刷年份，并同时输出表格明确标注的缺失单元格。若 /、N/A 或破折号被该表图例或脚注解释为未统计、未汇总或不可用，按原表污染物行及年份填写 disclosure 和图例原文。其余同一行的实值照常填写。",
+      "废水、污水或出水的排放总量与具体水污染物排放量分别记录。即使总量的单位是吨，或表头写 Pollutant Type，仍按废水总量的独立行义记录为不同口径。"
     ],
     "operator": "pollutant",
     "rules": [
@@ -1004,6 +1006,9 @@
       ],
       "intensity": [
         "re:(?:强度|密度|intensity|每(?:万元|百万元|亿元|单位|吨|人|平方)|单位(?:营收|产值|产品|面积|收入|增加值)|万元(?:工业)?(?:增加值|产值|营收|收入)|per\\s+(?:unit|revenue|million|employee|tonne|m2|square))"
+      ],
+      "non_target_measure_terms": [
+        "re:^\\s*(?:(?:total|overall|aggregate)\\s+)?(?:(?:waste\\s*water|effluents?)\\s*(?:discharge(?:d|s)?(?:\\s+(?:amount|mass|volume|quantity))?|(?:amount|mass|volume|quantity))(?:\\s+total)?|(?:total\\s+)?(?:discharge|amount|mass|volume|quantity)\\s+of\\s+(?:waste\\s*water|effluents?)|(?:废水|廢水|污水)(?:排放(?:总量|總量|量)?|总量|總量|量))\\s*(?:[（(][^）)]*[）)])?\\s*$"
       ],
       "other_member": [
         "其他",

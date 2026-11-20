@@ -5,6 +5,7 @@ from uuid import uuid4
 import requests
 from esg_contracts.model_providers import ModelSelection
 from esg_contracts.sessions import (
+    ExtractionInput,
     ExtractionPlanRequest,
     ExtractionSession,
     NativeRun,
@@ -75,15 +76,17 @@ class ExtractionCoordinator:
             raise KeyError(key)
         return json.loads(row[0])
 
-    def save(self, state):
+    def save(self, state, *, release_provider=False):
         state["updated_at"] = datetime.now(timezone.utc).isoformat()
         with self.store._connect() as db:
             db.execute(
                 "INSERT INTO clause_extraction_plans VALUES(?,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body",
                 (state["session_id"], json.dumps(state, ensure_ascii=False)),
             )
+            if release_provider and state.get("batch_id"):
+                self.batches.release_provider(db, state["batch_id"], state["session_id"])
             if state.get("batch_id") and (
-                state["status"] in TERMINAL or state["status"] == WAITING_FOR_WINDOW
+                state["status"] in TERMINAL or state["status"] == WAITING_FOR_WINDOW or release_provider
             ):
                 self.batches.refill(db, state["batch_id"], state["updated_at"])
 
@@ -105,7 +108,10 @@ class ExtractionCoordinator:
             recent = [state for state in states if state["status"] in TERMINAL][:terminal_limit]
             states = [*active, *recent]
         runs = self.run_statuses(states)
-        return [self.detail(state,runs.get(state.get('run_id'))) for state in states]
+        with self.store._connect() as db:
+            replacements = self.batches.replacements(db, [state["session_id"] for state in states])
+        return [self.detail(state, runs.get(state.get("run_id")),
+                            replacement_ids=replacements.get(state["session_id"], [])) for state in states]
 
     def batch_waiting_count(self):
         with self.store._connect() as db:
@@ -174,6 +180,10 @@ class ExtractionCoordinator:
                     db.execute("DELETE FROM pipeline_tasks WHERE task_id=?", (task_id,))
                 for state in states:
                     db.execute("DELETE FROM clause_extraction_plans WHERE id=?", (state["session_id"],))
+                for state in states:
+                    batch_id = state.get("batch_id")
+                    if batch_id and self.batches.release_provider(db, batch_id, state["session_id"]):
+                        self.batches.refill(db, batch_id, datetime.now(timezone.utc).isoformat())
             return {"session_ids": [state["session_id"] for state in states], "purged": True}
 
     def preview(self, request):
@@ -211,13 +221,17 @@ class ExtractionCoordinator:
             if request.input.kind == "pdf"
             else None
         )
+        source_sha256 = asset["sha256"] if asset else None
         if request.input.kind == "document_ir":
-            self.remote("POST", "/api/runs/preview", native.model_dump(mode="json"))
+            ir_preview = self.remote("POST", "/api/runs/preview", native.model_dump(mode="json"))
+            source_sha256 = (ir_preview.get("document") or {}).get("source_sha256")
+        if request.replaces_session_id:
+            self._validate_replacement(request, source_sha256)
         return {
             "targets": snapshot,
             "clause_count": len(snapshot["clauses"]),
             "output_count": len(snapshot["clauses"]),
-            "source_sha256": asset["sha256"] if asset else None,
+            "source_sha256": source_sha256,
             "calls_model": False,
             "budget": request.budget.model_dump(),
             "model_selection": (request.model_selection or ModelSelection()).model_dump(mode="json"),
@@ -225,6 +239,20 @@ class ExtractionCoordinator:
             "engine_fingerprint": engine["fingerprint"],
             "engine_version": engine["version"],
         }
+
+    def _validate_replacement(self, request, source_sha256):
+        try:
+            previous = self.get(request.replaces_session_id)
+        except KeyError:
+            raise ValueError("找不到本次重提对应的原任务。") from None
+        if ExtractionInput.model_validate(previous["request"]["input"]) == request.input:
+            return
+        previous_sha256 = previous.get("source_sha256")
+        if not previous_sha256 and previous.get("run_id") and source_sha256:
+            run = self.remote("GET", f"/api/runs/{previous['run_id']}")
+            previous_sha256 = (run.get("document") or {}).get("source_sha256")
+        if not source_sha256 or source_sha256 != previous_sha256:
+            raise ValueError("重提必须使用原任务对应的同一份报告。")
 
     def create(self, request):
         # One local coordinator process owns plan submission; retries cannot dispatch twice.
@@ -314,8 +342,13 @@ class ExtractionCoordinator:
             if step.get("status") in {"queued", "running", "cancelling"}
         ]
 
-    def detail(self, state, run_record=None):
+    def detail(self, state, run_record=None, *, replacement_ids=None):
         state = {**state}
+        if replacement_ids is None:
+            session_id = state["session_id"]
+            with self.store._connect() as db:
+                replacement_ids = self.batches.replacements(db, [session_id]).get(session_id, [])
+        state["replacement_session_ids"] = replacement_ids
         snapshot = state.pop("target_snapshot", {})
         if snapshot:
             state["clause_keys"] = list(snapshot["clauses"])
@@ -441,7 +474,8 @@ class ExtractionCoordinator:
             if state.get("batch_id"):
                 if state.get("resume_requested"):
                     return self.detail(state)
-                if not (self.detail(state).get("run") or {}).get("resumable"):
+                run = self.detail(state).get("run") or {}
+                if not run.get("resumable"):
                     raise ValueError("This extraction is not ready to resume")
                 state.update(status=WAITING_FOR_WINDOW, resume_requested=True, admitted_at=None)
             else:
@@ -519,10 +553,23 @@ class ExtractionCoordinator:
             return
         state.pop("observation_error", None)
         request = ExtractionPlanRequest.model_validate(state["request"])
+        providers = tuple(selection.provider for selection in
+                          (request.model_selection, request.document_model_selection) if selection)
+        batch_id = state.get("batch_id")
+        resuming = state["session_id"] if state.get("resume_requested") else None
+        if (batch_id and (not run_record or run_record["status"] not in TERMINAL)
+                and self.batches.provider_paused(batch_id, providers, resuming_session=resuming)):
+            return
         if state.get("resume_requested"):
-            run_record = self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
+            try:
+                run_record = self.remote("POST", f"/api/runs/{state['run_id']}/resume", {})
+            except ValueError as exc:
+                state.pop("resume_requested")
+                state.update(status="interrupted", error=str(exc))
+                self.save(state)
+                return
             state.pop("resume_requested")
-            self.save(state)
+            self.save(state, release_provider=True)
         if not state["run_id"]:
             if state["ir_run_id"]:
                 self.store.pin_ir(state["session_id"], state["ir_run_id"])
@@ -556,9 +603,11 @@ class ExtractionCoordinator:
                 state['execution_index'] = state.get('execution_index',0)+1
             token = dispatch_key.set(f"{state['session_id']}:extract:{state.get('execution_index',0)}")
             try:
-                task = self.queue(
-                    state["run_id"], request.name, request.budget.timeout_seconds, session_id=state["session_id"]
-                )
+                batch_context = {"batch_id": batch_id,
+                                 "model_provider": request.model_selection.provider if request.model_selection else None,
+                                 "document_model_provider": request.document_model_selection.provider if request.document_model_selection else None} if batch_id else {}
+                task = self.queue(state["run_id"], request.name, request.budget.timeout_seconds,
+                                  session_id=state["session_id"], **batch_context)
             finally:
                 dispatch_key.reset(token)
             state["queue_task_id"] = task.task_id

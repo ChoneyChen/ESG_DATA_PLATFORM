@@ -135,7 +135,7 @@ def parse_printed_measure(text: str | None, unit_raw: str | None = None) -> tupl
     """Parse a complete printed expression and separate a unit printed with it."""
     if not text:
         return None, unit_raw
-    from .quantities import standard_unit
+    from .quantities import EXPLICIT_SCALE, PRINTED_MAGNITUDE, printed_magnitude, standard_unit
     from .units import is_unit_expression
 
     raw = text.strip()
@@ -150,6 +150,22 @@ def parse_printed_measure(text: str | None, unit_raw: str | None = None) -> tupl
             return literal, unit_raw or percentages[-1][1]
     for boundary in _UNIT_BOUNDARY.finditer(raw):
         amount, unit = raw[:boundary.start()].rstrip(), raw[boundary.start():].strip()
+        # Visual extraction may split the printed multiplier from its unit.
+        if unit_raw and (magnitude := PRINTED_MAGNITUDE.fullmatch(unit)):
+            printed = unicodedata.normalize("NFKC", unit_raw).strip()
+            printed_scale = None
+            if scale := EXPLICIT_SCALE.match(printed):
+                printed_scale = Decimal(scale[1].replace(",", ""))
+            elif scale := PRINTED_MAGNITUDE.match(printed):
+                printed_scale = printed_magnitude(scale)
+            if printed_scale is not None:
+                # The unit may already contain the same multiplier, but two printed
+                # multipliers that disagree cannot establish the quantity.
+                if printed_magnitude(magnitude) != printed_scale:
+                    continue
+                unit = unit_raw.strip()
+            else:
+                unit = f"{unit} {unit_raw.strip()}"
         if not (is_unit_expression(unit) or standard_unit(unit)):
             continue
         literal = _parse_measure_literal(amount)

@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { ExtractionBatch, ExtractionBatchSummary } from "../../shared/contracts";
 import { href } from "../../app/routes";
 import { segment } from "../../shared/api";
-import { date, label, tone } from "../../shared/format";
+import { date, label, providerInterruptionLabel, tone } from "../../shared/format";
 import { useResource } from "../../shared/resource";
 import { Badge, Empty, Field, Loading, PageHeader, ReadError } from "../../shared/ui";
 
@@ -21,7 +21,9 @@ export function ExtractionBatchesPage() {
           <tbody>
             {batches.data.map(batch => (
               <tr key={batch.batch_id}>
-                <td><a className="row-title" href={href("extractions", "batches", batch.batch_id)}>{batch.name}</a></td>
+                <td><a className="row-title" href={href("extractions", "batches", batch.batch_id)}>{batch.name}</a>
+                  {batch.provider_pauses?.length ? <Badge tone="warning">等待模型提供者恢复</Badge> : null}
+                </td>
                 <td>{batch.active_count} / {batch.window_size}</td>
                 <td>{batch.waiting_count}</td>
                 <td>{batch.finished_count} / {batch.total_count}</td>
@@ -63,8 +65,16 @@ export function ExtractionBatchPage({ batchId }: { batchId: string }) {
           <div><strong>{batch.finished_count} / {batch.total_count}</strong><span>份报告已结束</span></div>
           <div><strong>{batch.active_count} / {batch.window_size}</strong><span>窗口内报告 / 容量</span></div>
           <div><strong>{batch.waiting_count}</strong><span>份报告候补</span></div>
+          {batch.submitted_count != null && batch.submitted_count !== batch.total_count &&
+            <div><strong>{batch.submitted_count}</strong><span>份原提交报告</span></div>}
         </div>
         <p className="field-help">窗口内的报告按执行队列轮转。每有一份报告结束，候补报告按批次顺序补入。</p>
+        {batch.provider_pauses?.map(pause => (
+          <p key={pause.provider} role="status">
+            <Badge tone="warning">{providerInterruptionLabel(pause)}</Badge>{" "}
+            <a href={href("extractions", pause.session_id)}>查看中断任务并继续</a>
+          </p>
+        ))}
       </section>
       <section className="section">
         <div className="section-heading">
@@ -82,7 +92,15 @@ export function ExtractionBatchPage({ batchId }: { batchId: string }) {
             <tbody>
               {members.map(member => <tr key={member.session_id}>
                 <td>{member.position}</td>
-                <td><a className="row-title" href={href("extractions", member.session_id)}>{member.name}</a></td>
+                <td>
+                  <a className="row-title" href={href("extractions", member.session_id)}>{member.name}</a>
+                  {(member.replaces_session_id || !!member.replacement_session_ids?.length) && <div className="toolbar">
+                    {member.replaces_session_id && <a href={href("extractions", member.replaces_session_id)}>原任务</a>}
+                    {member.replacement_session_ids?.map((attempt, index) => (
+                      <a key={attempt} href={href("extractions", attempt)}>第 {index + 1} 次重提</a>
+                    ))}
+                  </div>}
+                </td>
                 <td>{membershipLabel[membership(member)]}</td>
                 <td><Badge tone={tone(member.status)}>{label(member.status)}</Badge></td>
                 <td>{date(member.admitted_at)}</td>

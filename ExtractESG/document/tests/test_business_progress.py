@@ -46,7 +46,7 @@ def production_extraction_stage_codes():
 def test_all_actual_extraction_producer_stages_have_explicit_business_labels(tmp_path):
     from esg_runtime.progress import STAGE_LABELS
     codes = production_extraction_stage_codes()
-    assert codes == {"locating_pages", "reading"}
+    assert codes == {"locating_pages", "reading", "reading_missing_periods"}
     missing = codes - set(STAGE_LABELS)
     assert not missing, f'Actual production stages lack Chinese labels: {sorted(missing)}'
     store = PipelineQueueStore(tmp_path/'queue.db')
@@ -56,7 +56,7 @@ def test_all_actual_extraction_producer_stages_have_explicit_business_labels(tmp
             'progress_current':7,'progress_total':7,'detail':{'generation_tokens':1000}})
         assert progress.stage_code == code and progress.label == STAGE_LABELS[code]
         assert any('\u4e00' <= char <= '\u9fff' for char in progress.label)
-        if code == "reading":
+        if code in {"reading", "reading_missing_periods"}:
             assert (progress.unit, progress.current, progress.total) == ("objects", 7, 7)
             assert progress.determinate and progress.percent == 100
         else:

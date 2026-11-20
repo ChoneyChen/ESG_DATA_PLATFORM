@@ -176,16 +176,22 @@ _STANDARD_ALIASES = tuple(
         (r"kwp", "watt-peak", "1000"),
         (r"mwp", "watt-peak", "1000000"),
         (r"gwp", "watt-peak", "1000000000"),
-        (r"kj|千焦", "megajoule", "0.001"),
-        (r"j|焦耳", "megajoule", "0.000001"),
-        (r"pj|拍焦", "megajoule", "1000000000"),
+        (r"kj|kilojoules?|千焦", "megajoule", "0.001"),
+        (r"j|joules?|焦耳", "megajoule", "0.000001"),
+        (r"pj|petajoules?|拍焦", "megajoule", "1000000000"),
     )
 )
 _UNCHANGED_UNITS = {"cny", "usd", "eur", "gbp", "jpy", "hkd", "percent"}
-_PRINTED_MAGNITUDE = re.compile(
+PRINTED_MAGNITUDE = re.compile(
     r"^(?P<coefficient>[1-9]\d{0,2})?\s*(?P<word>ten\s*thousand|hundred|thousands?|"
     r"millions?|billions?|十亿|[亿億]|千万|千萬|百万|百萬|十万|十萬|[万萬]|千)\s*", re.I
 )
+EXPLICIT_SCALE = re.compile(r"^(10{3,9}|(?:1|10|100)(?:[,，]000)+)\s*(?=[A-Za-z一-鿿])")
+
+
+def printed_magnitude(match: re.Match) -> Decimal:
+    word = re.sub(r"\s+", "", fold(match["word"])).rstrip("s")
+    return Decimal(match["coefficient"] or 1) * _SCALE_WORDS[word]
 
 
 def standard_unit(raw: str | None) -> tuple[str, Decimal] | None:
@@ -219,18 +225,16 @@ def standard_unit(raw: str | None) -> tuple[str, Decimal] | None:
             return first if first == second else None
 
     body = printed
-    explicit_scale = re.match(r"^(10{3,9}|(?:1|10|100)(?:[,，]000)+)\s*(?=[A-Za-z一-鿿])", body)
+    explicit_scale = EXPLICIT_SCALE.match(body)
     multiplier = Decimal(explicit_scale[1].replace(",", "")) if explicit_scale else Decimal(1)
     body = body[explicit_scale.end():] if explicit_scale else body
     currency_with_scale = re.fullmatch(r"([A-Za-z]{3})\s*(10{3,9}|(?:1|10|100)(?:,000)+)", body)
     if currency_with_scale and (currency := canonical_unit_id(currency_with_scale[1])) in _UNCHANGED_UNITS:
         return currency, multiplier * Decimal(currency_with_scale[2].replace(",", ""))
-    if word_scale := _PRINTED_MAGNITUDE.match(body):
+    if word_scale := PRINTED_MAGNITUDE.match(body):
         base = standard_unit(body[word_scale.end():])
         if base:
-            word = re.sub(r"\s+", "", fold(word_scale["word"])).rstrip("s")
-            coefficient = Decimal(word_scale["coefficient"] or 1)
-            return base[0], base[1] * multiplier * coefficient * _SCALE_WORDS[word]
+            return base[0], base[1] * multiplier * printed_magnitude(word_scale)
     if body == "mWh":
         return "megajoule", Decimal("0.0000036") * multiplier
     if body == "mW":

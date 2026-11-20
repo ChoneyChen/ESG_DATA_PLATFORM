@@ -1120,6 +1120,21 @@
           "title": "Capture Result",
           "type": "string"
         },
+        "clause_relationships": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clause Relationships"
+        },
         "comparison_status": {
           "default": "not_evaluated",
           "enum": [

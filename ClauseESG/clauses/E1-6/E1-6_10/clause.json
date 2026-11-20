@@ -160,18 +160,6 @@
       "source": "identity",
       "vocabulary": []
     },
-    "scope_2_method": {
-      "context_levels": [
-        "local",
-        "report"
-      ],
-      "context_terms": [],
-      "description": null,
-      "label": "范围2核算方法",
-      "reading_instruction": null,
-      "source": "dimension",
-      "vocabulary": []
-    },
     "source_row_topic": {
       "context_levels": [
         "local",
@@ -252,7 +240,7 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "95d8de8a45d7ee4c24b87b7fea7c54a1c5da12f767d25fe09b6162ae42358e77",
+  "clause_digest": "550061fc66e190a89f6acd51223e5df46d7e876385644d1bf2917597d3aca18a",
   "clause_key": "E1-6_10",
   "data_kind": "quantitative",
   "definition": "基于市场法的范围2温室气体排放总量",
@@ -483,20 +471,6 @@
       },
       {
         "binding": {
-          "attribute": null,
-          "key": "scope_2_method",
-          "source": "dimension"
-        },
-        "description": null,
-        "extensions": {},
-        "key": "observed_scope_2_method",
-        "label": "范围2核算方法",
-        "required_for_confirmation": false,
-        "role": "reported_dimension",
-        "type_hint": "text"
-      },
-      {
-        "binding": {
           "attribute": "ghg_scope",
           "key": "fixed_axes",
           "source": "target"
@@ -671,7 +645,7 @@
         "reporting_entity",
         "reporting_period",
         "observed_ghg_scope",
-        "observed_scope_2_method",
+        "measurement_method",
         "source_label",
         "raw_value",
         "unit_raw",
@@ -697,7 +671,7 @@
       "reporting_period",
       "reporting_boundary",
       "observed_ghg_scope",
-      "observed_scope_2_method"
+      "measurement_method"
     ],
     "schema_version": "clause-organization-1.1",
     "title": "范围2市场法排放 Scope 2 market-based"
@@ -746,7 +720,7 @@
         "reporting_entity",
         "entity_aggregation_role",
         "ghg_scope",
-        "scope_2_method"
+        "measurement_method"
       ]
     },
     "enrichment": {
@@ -757,7 +731,6 @@
         "measurement_method",
         "entity_aggregation_role",
         "ghg_scope",
-        "scope_2_method",
         "source_row_topic"
       ],
       "missing_action": "annotate"
@@ -779,7 +752,8 @@
     "instructions": [
       "基于市场法的范围2温室气体排放总量",
       "Direct emissions / Indirect emissions 等简短行名只有在实际 CO2 当量单位、温室气体表头或适用脚注明确支持时才按对应范围读取；保留全部披露期间。单有直接/间接排放字样不证明其为温室气体排放。",
-      "间接温室气体原值可以保留，地点法/市场法只从适用的实际方法说明识别；未声明方法时保持未知，不能用本条目标或另一行的方法补齐。"
+      "间接温室气体原值可以保留，地点法/市场法只从适用的实际方法说明识别；未声明方法时保持未知，不能用本条目标或另一行的方法补齐。",
+      "市场法和地点法只是计算方法，不能证明排放范围。组织边界总排放即使标注市场法也属于不同口径。仅当本行标签或该行适用的父标题明确为范围2，且方法明确匹配时才标 match；方法不明的范围2保持 uncertain。"
     ],
     "operator": "ghg_scope",
     "rules": [
@@ -893,6 +867,41 @@
     ],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
+      "aggregate_ghg_label": [
+        "re:^(?:total|overall|aggregate)\\s+(?:organization(?:al)?\\s+|group\\s+)?(?:(?:ghg|greenhouse\\s+gas|carbon)\\s+)?emissions?\\b",
+        "re:(?:全组织|组织边界内|全口径|合并)\\s*(?:温室气体|碳)?排放总量|^(?:温室气体|碳)排放总量"
+      ],
+      "annual_read_exclusions": [
+        "intensity",
+        "reduction",
+        "target",
+        "avoided",
+        "offset",
+        "排放强度",
+        "减排",
+        "目标",
+        "避免量",
+        "抵消",
+        "location-based",
+        "geographical basis",
+        "scope 1",
+        "scope 3",
+        "地点法",
+        "位置法",
+        "范围1",
+        "范围3"
+      ],
+      "annual_read_labels": [
+        "Scope 2 GHG Market-based",
+        "Scope 2 GHG Emissions - market-based",
+        "Scope 2 GHG Emissions (market-based)",
+        "Scope 2 market-based GHG emissions",
+        "Market-based Scope 2 GHG emissions",
+        "Gross market-based Scope 2 GHG emissions",
+        "基于市场法的范围2温室气体排放",
+        "范围2市场法温室气体排放",
+        "范围2温室气体排放（市场法）"
+      ],
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|\\b(?:reduc\\w*|decreas\\w*|increas\\w*|changes?|sav(?:e|ed|ing|ings)|avoid\\w*|displac\\w*|offset\\w*|targets?|baseline)\\b|目标|基准)"
       ],
@@ -901,6 +910,9 @@
       ],
       "component_prefix": [
         "re:^\\s*(?:[-–—•·▪●]|其中|of\\s+which|including|\\(?[a-h]\\)|[ⅰ-ⅹ])"
+      ],
+      "confirmed_scope2_terms": [
+        "re:(?:\\bscope\\s*(?:2|ii)\\b|范围\\s*[二2](?!\\d)|范畴\\s*[二2](?!\\d)|能源间接|\\benergy\\s+indirect\\b)"
       ],
       "consolidation_boundary": [
         "re:(?:运营范围|运营边界|财务控制|operational\\s+control|operational\\s+boundary|financial\\s+control)"

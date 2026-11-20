@@ -25,6 +25,7 @@ import {
   tone,
   text,
   modelSelectionLabel,
+  providerInterruptionLabel,
 } from "../../shared/format";
 import { href, navigate } from "../../app/routes";
 import { ProductStrip } from "../publication/data";
@@ -116,6 +117,7 @@ export function ExtractionPage({
     run?.progress?.fact_count ?? 0,
     overview.data?.summary?.source_facts ?? 0,
   );
+  const relationships = overview.data?.summary?.assessment?.clause_relationships;
   const modelCalls = Math.max(
     run?.run?.summary?.model_calls ?? 0,
     run?.progress?.model_calls ?? 0,
@@ -193,7 +195,7 @@ export function ExtractionPage({
                 className="button button-secondary"
                 href={
                   href("extractions", "new") +
-                  (report ? "?report=" + segment(report.pdf_id) : "")
+                  (report ? "?" + new URLSearchParams({ report: report.pdf_id, replaces: sessionId }).toString() : "")
                 }
               >
                 再次选择提取
@@ -222,6 +224,12 @@ export function ExtractionPage({
                   )}
                   <small>{date(run.created_at)}</small>
                 </div>
+                {(run.request.replaces_session_id || !!run.replacement_session_ids?.length) && <div className="toolbar">
+                  {run.request.replaces_session_id && <a href={href("extractions", run.request.replaces_session_id)}>查看原任务</a>}
+                  {run.replacement_session_ids?.map((attempt, index) => (
+                    <a key={attempt} href={href("extractions", attempt)}>查看第 {index + 1} 次重提</a>
+                  ))}
+                </div>}
                 {waitingForWindow ? <Notice>
                   {run.batch_position == null ? "这份报告" : `批次第 ${run.batch_position} 份报告`}正在候补。窗口有空位后会自动进入执行队列。
                 </Notice> : <ProductStrip sessionId={sessionId} />}
@@ -233,7 +241,9 @@ export function ExtractionPage({
                     </button>
                   </Notice>
                 )}
-                {run.error && <Notice tone="error">{run.error}</Notice>}
+                {run.run?.provider_interruption ? <Notice>
+                  {providerInterruptionLabel(run.run.provider_interruption)}。已保存提取进度，可在提供者恢复后继续。
+                </Notice> : run.error && <Notice tone="error">{run.error}</Notice>}
                 {run.run?.delivery && (
                   <div className="toolbar">
                     <Badge
@@ -304,7 +314,7 @@ export function ExtractionPage({
                         {run.current_phase === "window_yielded"
                           ? "进度已保存 · 等待续读"
                           : run.progress?.total
-                          ? `${run.progress.current || 0} / ${run.progress.total} 个目标`
+                          ? `已处理 ${run.progress.current || 0} / ${run.progress.total} 组页面读取`
                           : "等待开始阅读"}
                       </small>
                     </div>
@@ -326,6 +336,10 @@ export function ExtractionPage({
                       <strong>{factCount}</strong>
                       <span>原始事实</span>
                     </div>
+                    {relationships && <div>
+                      <strong>{Object.values(relationships).reduce((total, count) => total + count, 0)}</strong>
+                      <span>条款关系</span>
+                    </div>}
                     <div>
                       <strong>{modelCalls}</strong>
                       <span>模型调用</span>
@@ -425,8 +439,11 @@ export function ExtractionPage({
                                 </td>
                                 <td>
                                   <Badge tone={tone(c.state)}>
-                                    {label(c.state)}
+                                    {c.state === "covered" ? "有匹配" : label(c.state)}
                                   </Badge>
+                                  {c.required_scopes?.length ? <small>
+                                    {c.required_scopes.filter(scope => c.covered_scopes?.includes(scope)).length} / {c.required_scopes.length} 个要求范围已关联
+                                  </small> : null}
                                 </td>
                                 <td>
                                   {c.inspected_objects || 0} /{" "}

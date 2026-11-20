@@ -11,6 +11,8 @@ from .literals import arabic_years
 YEAR = r"(?<!\d)((?:19|20|21)\d{2})(?!\d)"
 MONTHS = {name.casefold(): number for number in range(1, 13) for name in (month_name[number], month_abbr[number])}
 MONTH_PATTERN = "|".join(sorted(MONTHS, key=len, reverse=True))
+_SLASH_DATE = re.compile(r"(?<![\d/])(\d{1,2})\s*/\s*(\d{1,2})\s*/\s*((?:19|20|21)\d{2})(?![\d/])")
+_YEAR_FIRST_DATE = re.compile(r"((?:19|20|21)\d{2})\s*[-/年.]\s*(\d{1,2})\s*[-/月.]\s*(\d{1,2})\s*日?")
 _LEADING_PERIOD = re.compile(
     r"\s*(?:in\s+(?:19|20|21)\d{2}|(?:19|20|21)\d{2}\s*年|"
     r"during\s+(?:the\s+)?reporting\s+period|本[报報]告期|本年度|[报報]告期[内內])\s*[,，:：]", re.I)
@@ -57,6 +59,21 @@ def parse_period(raw: str | None) -> ReportedPeriod | None:
             return ReportedPeriod(kind="fiscal_year",raw=raw)
         return None
     positions = []
+    # An unambiguous day or month in a reported interval determines the shared
+    # slash-date order. Both orders are evaluated without borrowing a locale.
+    slash_dates = list(_SLASH_DATE.finditer(text))
+    if slash_dates:
+        interpretations = set()
+        for month_first in (False, True):
+            try:
+                readings = tuple(date(int(m[3]), int(m[1 if month_first else 2]), int(m[2 if month_first else 1]))
+                    for m in slash_dates)
+            except ValueError:
+                continue
+            interpretations.add(readings)
+        if len(interpretations) != 1:
+            return ReportedPeriod(kind="unknown", raw=raw)
+        positions.extend((m.start(), d) for m, d in zip(slash_dates, interpretations.pop()))
     # A shared trailing year applies to both printed dates. Keep raw unchanged
     # while supplying the omitted year to the start date for typed binding.
     short_ranges = [
@@ -70,7 +87,10 @@ def parse_period(raw: str | None) -> ReportedPeriod | None:
                 positions.append((match.start(), date(int(year), MONTHS[(a if month_first else b).casefold()], int(b if month_first else a))))
             except ValueError:
                 return ReportedPeriod(kind="unknown", raw=raw)
-    for match in re.finditer(r"((?:19|20|21)\d{2})\s*[-/年.]\s*(\d{1,2})\s*[-/月.]\s*(\d{1,2})\s*日?", text):
+    for match in _YEAR_FIRST_DATE.finditer(text):
+        # A hyphen joining two day-first dates can look like YYYY-DD/MM.
+        if any(m.start() < match.end() and match.start() < m.end() for m in slash_dates):
+            continue
         try:
             positions.append((match.start(), date(*(int(x) for x in match.groups()))))
         except ValueError:
@@ -132,7 +152,7 @@ def normalize_period(value) -> ReportedPeriod | None:
 
 def period_payload(period: ReportedPeriod):
     # Annual strings are the frozen shorthand; richer periods are explicit.
-    if period.kind == "annual" and period.year is not None:
+    if period.kind == "annual" and period.year is not None and period.start is None and period.end is None:
         return str(period.year)
     return period.model_dump(mode="json", exclude_none=True)
 

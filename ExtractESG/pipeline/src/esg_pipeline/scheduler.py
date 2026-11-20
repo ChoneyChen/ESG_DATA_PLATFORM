@@ -20,6 +20,9 @@ from esg_pipeline.progress import progress_from_event, classify_error
 from esg_contracts.worker import EVENT_PREFIX
 
 
+NATIVE_FAILURE_STATUSES = {"interrupted", "cancelled", "failed"}
+
+
 def worker_output_lines(process, path: Path, offset: int):
     """Drain the durable log after exit, including writes racing with EOF."""
     with path.open(encoding="utf-8", errors="replace") as output:
@@ -363,6 +366,12 @@ class PipelineScheduler:
             self._requeue_window(latest, result, result=result)
             return
         if self._stop.is_set() and not latest.cancel_requested:
+            native_snapshot = self.hooks.probe(latest)
+            if (
+                latest.task_type.value == "targeted_extraction"
+                and self._restore_result(latest, native_snapshot)
+            ):
+                return
             self.store.update(
                 task.task_id,
                 status=PipelineTaskStatus.INTERRUPTED,
@@ -377,9 +386,7 @@ class PipelineScheduler:
                 "warning",
                 "Worker process group stopped with the backend",
             )
-            self.store.record_outcome(
-                task.task_id, self.hooks.probe(self.store.get(task.task_id))
-            )
+            self.store.record_outcome(task.task_id, native_snapshot)
             self.hooks.interrupted(self.store.get(task.task_id))
             return
         if timed_out:
@@ -414,15 +421,23 @@ class PipelineScheduler:
             if latest.task_type.value == "targeted_extraction"
             else None
         )
-        if native_snapshot and native_snapshot.get("status") in {
-            "interrupted",
-            "cancelled",
-            "failed",
-        }:
+        observed_status = (native_snapshot or {}).get("status")
+        if observed_status in NATIVE_FAILURE_STATUSES:
             self._finish_native_state(latest, native_snapshot)
             return
         if self._saved_window(latest, native_snapshot):
             self._requeue_window(latest, native_snapshot, result=result)
+            return
+        if (
+            latest.task_type.value == "targeted_extraction"
+            and result
+            and result.get("status") in NATIVE_FAILURE_STATUSES
+        ):
+            # A stopped worker reports its terminal outcome even when the API probe is unavailable.
+            if observed_status in {"completed", "partial"}:
+                self._finish_native_state(latest, native_snapshot)
+            else:
+                self._finish_native_state(latest, result, result=result)
             return
         if return_code != 0:
             error = str(
@@ -645,6 +660,8 @@ class PipelineScheduler:
     ) -> None:
         status = PipelineTaskStatus(snapshot["status"])
         error = snapshot.get("error")
+        if status == PipelineTaskStatus.INTERRUPTED and snapshot.get("provider_interruption"):
+            self.store.pause_batch_provider(task, snapshot["provider_interruption"])
         progress = progress_from_event(
             task,
             {

@@ -38,12 +38,15 @@ class ResultAssessment(FrozenModel):
     unresolved_facts: int = 0
     rejected_candidates: int = 0
     periods: dict[str, int] | None = None
+    clause_relationships: dict[str, int] | None = None
 
     @model_serializer(mode="wrap")
     def preserve_frozen_shape(self, serializer):
         body = serializer(self)
         if self.periods is None:
             body.pop("periods", None)
+        if self.clause_relationships is None:
+            body.pop("clause_relationships", None)
         return body
 
 

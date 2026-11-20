@@ -33,7 +33,7 @@
       ],
       "description": null,
       "label": "主体范围类型",
-      "reading_instruction": "只按明确的集团、子公司、业务分部、场址等文字识别主体类型，未知保留为空。",
+      "reading_instruction": "只按明确的集团、子公司、业务分部或场址识别主体层级。Supply Chain、供应链、价值链属于统计边界，主体层级无明示时留空。",
       "source": "identity",
       "vocabulary": []
     },
@@ -57,8 +57,9 @@
       "context_terms": [],
       "description": null,
       "label": "测量方法",
-      "reading_instruction": "只读取实际适用于该数值的方法说明和脚注；不能从条款规定反推实际采用的方法。",
+      "reading_instruction": "只填写本行或明确引用说明适用的排放量计算方法，例如供应商数据、活动数据和排放因子。运营控制和财务控制只描述组织合并边界。若没有适用的计算方法说明，留空，不借用其他范围行或统计边界。",
       "source": "identity",
+      "value_pattern": "(?is)(?!(?:global[\\s_-]+)?\\(?\\s*(?:(?:operational|financial)[\\s_-]+control|operational[\\s_-]+boundary|运营控制法?|營運控制法?|运营边界|營運邊界|财务控制法?|財務控制法?)(?:[\\s_-]+(?:approach|boundary))?\\s*\\)?\\s*$).+",
       "vocabulary": []
     },
     "reporting_boundary": {
@@ -121,7 +122,7 @@
       "context_terms": [],
       "description": null,
       "label": "范围3类别",
-      "reading_instruction": null,
+      "reading_instruction": "整项范围3排放的独立行填写总量（total），报告明确列名的范围3类别填写实际类别原文。保留总额和重大类别的区别。",
       "source": "dimension",
       "vocabulary": []
     },
@@ -157,10 +158,10 @@
     }
   },
   "blocking_reasons": [],
-  "clause_digest": "422b96453371f1c6c842c084fa8cd401a092369e38bbca199c933342aca29323",
+  "clause_digest": "62837fd3dbdcfa38e6589931140eaa61084b1f38a0693cb4bfe51d1af3cefb3b",
   "clause_key": "E1-6_11",
   "data_kind": "quantitative",
-  "definition": "按重大类别划分的范围3温室气体排放总量",
+  "definition": "范围3温室气体排放总量，含报告明确列出的范围3总额。报告按重大类别披露时，保留类别原值并区分总额与分项。",
   "distinguish_from": [
     "范围1与范围2合计",
     "碳信用或抵消量",
@@ -719,7 +720,8 @@
   "reading": {
     "allow_regulatory_limit": false,
     "instructions": [
-      "按重大类别划分的范围3温室气体排放总量"
+      "优先提取报告明示的范围3温室气体排放总额。表格中直接写 Scope 3 GHG Emissions、Scope 3 Emissions 或范围3温室气体排放的数值行已经明示范围3，不需要另有 Total 字样或同页类别明细。读出该行全部印刷年份。",
+      "同一报告披露的重大类别明细按类别保留。总额与明细用途不同，不求和，不把某一类别、本年削减量或排放强度当作范围3总额。"
     ],
     "operator": "ghg_scope",
     "rules": [
@@ -846,6 +848,36 @@
     ],
     "schema_version": "clause-reading-1.1",
     "vocabulary": {
+      "annual_read_exclusions": [
+        "intensity",
+        "reduction",
+        "target",
+        "avoided",
+        "category",
+        "categories",
+        "purchased goods",
+        "business travel",
+        "employee commuting",
+        "排放强度",
+        "减排",
+        "目标",
+        "避免量",
+        "类别",
+        "差旅",
+        "通勤"
+      ],
+      "annual_read_labels": [
+        "Scope 3 GHG Emissions",
+        "Scope 3 Greenhouse Gas Emissions",
+        "Scope 3 emissions",
+        "Gross Scope 3 GHG emissions",
+        "Indirect greenhouse gas emissions (Scope 3)",
+        "Other indirect emissions (Scope 3)",
+        "范围3温室气体排放",
+        "范围三温室气体排放",
+        "范围3排放",
+        "范围三排放"
+      ],
       "change": [
         "re:(?:减少量|下降|降低|增加量|增长|变化|同比|节约|节省|节能量|减排|避免|抵消|抵銷|reduction|decrease|increase|change|saved|savings|avoided|offset|target|目标|基准|baseline)"
       ],
@@ -899,6 +931,11 @@
       ],
       "scope3_named": [
         "re:(?:纸张|差旅|通勤|废弃物|废物|运输|租赁|paper|travel|commut|(?<![a-z])waste|transport|leased)"
+      ],
+      "scope3_total_label": [
+        "re:^(?:(?:gross|total)\\s+)?scope\\s*3\\s+(?:(?:ghg|greenhouse\\s+gas)\\s+)?emissions?$",
+        "re:^(?:(?:total\\s+)?(?:other\\s+)?indirect(?:\\s+(?:ghg|greenhouse\\s+gas))?\\s+emissions?\\s*\\(scope\\s*3\\)|\\(scope\\s*3\\)\\s*(?:other\\s+)?indirect(?:\\s+(?:ghg|greenhouse\\s+gas))?\\s+emissions?)$",
+        "re:^(?:范围|范畴)\\s*[3三]\\s*(?:温室气体|其他间接)?排放(?:总额|总量|量)?$"
       ],
       "subject_generic": [
         "re:^(?:total|totals|sum|overall|合计|合計|总计|總計|小计|小計|总量|總量|全部)[\\s:：]*(?:\\d{1,2}|[¹²³])?$",

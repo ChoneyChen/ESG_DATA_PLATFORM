@@ -64,13 +64,14 @@ SDK不导入OCR、提取器、模型或数据库。条款根通过`ESG_CLAUSE_RO
 |---|---|
 | `api.py` | 条款/目标冻结/原生运行/结果/导出HTTP |
 | `engine.py` | 合并同页目标，按原页读取定量和定性原值及可选属性；统一保存关系、覆盖和进度 |
+| `page_reading.py` | 从原页文字提取年度表头、明确漏读列提示、脚注编号和适用单元格 |
 | `statistics.py`、`result_store.py` | 增量计数、结果索引、检查点和分页 |
 | `organization.py` | 依冻结条款生成行表/分组/矩阵，不聚合出新测量 |
 | `exporting.py`、`delivery.py` | 自包含交接包与交付outbox，接收回执和重试 |
 | `ports.py`、`adapters/` | Document/Model/Artifact/Result端口及具体I/O |
 | `state.py`、`runtime.py`、`worker.py` | 原生运行持久化、错误/续跑、执行槽及worker入口 |
 | `../models/` | 本地Qwen能力、MLX执行、共用结构化提示及失败类别 |
-| `adapters/deepseek_model.py`、`adapters/model_credentials.py` | DeepSeek模型调用适配及仅供本机执行器读取的密钥配置 |
+| `adapters/chat_completion_model.py`、`deepseek_model.py`、`dashscope_model.py`、`model_credentials.py` | 共用云端请求、取消、分类和用量，分别适配提供者输出。密钥仅本机操作员配置及执行器读取 |
 
 ## ExtractESG/pipeline与shared_runtime（RQ-08、09）
 

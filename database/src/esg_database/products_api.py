@@ -48,8 +48,11 @@ def product_router(bridge, release, projector):
     @router.post("/v1/ingestion/exports/{export_id}/projection", response_model=ProjectionStatus)
     def retry_projection(export_id: str, http: Request):
         operator(http)
-        if not bridge.call("ingestion_health", {}).get("products_ready"):
+        current = ProjectionStatus.model_validate(status(export_id))
+        if current.status == "schema_unavailable":
             raise HTTPException(503, "Install the product schema explicitly")
+        if current.status == "completed" or current.error_code == "projection_deleted":
+            return current
         projector.project(export_id)
         return status(export_id)
 

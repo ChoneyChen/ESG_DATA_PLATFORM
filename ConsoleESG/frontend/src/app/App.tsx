@@ -77,6 +77,7 @@ export default function App() {
         key={location.hash}
         initialReport={params.get("report") || undefined}
         initialFolder={params.get("folder") || undefined}
+        replacesSessionId={params.get("replaces") || undefined}
       />
     );
   else if (
